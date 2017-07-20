@@ -4,7 +4,7 @@ var gulp = require('gulp'),
         concat = require("gulp-concat"),
         jshint = require('gulp-jshint');
 
-gulp.task('finalize', function () {
+gulp.task('build-js', function () {
   gulp.src([
     './node_modules/jquery/dist/jquery.js',
     './node_modules/foundation-sites/dist/js/foundation.js',
@@ -19,5 +19,5 @@ gulp.task('finalize', function () {
           //.pipe(jshint.reporter('.sphp/js/logs/lint.log'))
           .pipe(uglify())
           .pipe(concat('all.js'))
-          .pipe(gulp.dest('sphp/js/dist'));
+          .pipe(gulp.dest('js'));
 });
