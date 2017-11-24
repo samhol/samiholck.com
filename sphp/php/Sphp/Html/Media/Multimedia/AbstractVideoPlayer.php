@@ -10,13 +10,12 @@ namespace Sphp\Html\Media\Multimedia;
 use Sphp\Html\AbstractComponent;
 use Sphp\Html\Media\SizeableTrait;
 use Sphp\Html\Media\LazyMediaSourceTrait;
-use Sphp\Stdlib\URL;
+use Sphp\Stdlib\Networks\URL;
 
 /**
  * Implements an abstract iframe based Video component
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2014-12-01
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
@@ -77,7 +76,7 @@ abstract class AbstractVideoPlayer extends AbstractComponent implements VideoPla
    * Sets the URL of the video service/player
    * 
    * @param  string|URL $url the URL of the video service/player
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   protected function setUrl($url) {
     $this->url = ($url instanceof URL) ? $url : new URL($url);
@@ -89,7 +88,7 @@ abstract class AbstractVideoPlayer extends AbstractComponent implements VideoPla
    * Sets the id of the viewed video stream
    * 
    * @param  string $videoId the id of the embedded video
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setVideoId($videoId) {
     $this->videoId = $videoId;
@@ -100,19 +99,19 @@ abstract class AbstractVideoPlayer extends AbstractComponent implements VideoPla
 
   public function allowFullScreen(bool $allow = true) {
     $this->attrs()
-            ->set('webkitallowfullscreen', $allow)
-            ->set('mozallowfullscreen', $allow)
+            //->set('webkitallowfullscreen', $allow)
+            //->set('mozallowfullscreen', $allow)
             ->set('allowfullscreen', $allow);
     return $this;
   }
 
   public function autoplay(bool $autoplay = true) {
-    $this->url->setParam('autoplay', (int) $autoplay);
+    $this->url->getQuery()->offsetSet('autoplay', (int) $autoplay);
     return $this;
   }
 
   public function loop(bool $loop = true) {
-    $this->url->setParam('loop', (int) $loop);
+    $this->url->getQuery()->offsetSet('loop', (int) $loop);
     return $this;
   }
 
@@ -122,11 +121,11 @@ abstract class AbstractVideoPlayer extends AbstractComponent implements VideoPla
    * These parameters are passed to the player as `url` query parameters
    * 
    * @param  string $name the name of the parameter to unset
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function unsetParam($name) {
-    $this->url->getPath();
-    $this->url->unsetParam($name);
+    //$this->url->getPath();
+    $this->url->getQuery()->offsetUnset($name);
     return $this;
   }
 
@@ -137,15 +136,15 @@ abstract class AbstractVideoPlayer extends AbstractComponent implements VideoPla
    * 
    * @param  string $name the name of the parameter
    * @param  scalar $value the value of the parameter
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setParam(string $name, $value) {
-    $this->url->setParam($name, $value);
+    $this->url->getQuery()->offsetSet($name, $value);
     return $this;
   }
 
   public function contentToString(): string {
-    return '<p>Your browser does not support iframes.</p>';
+    return '';
   }
 
 }

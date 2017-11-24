@@ -7,7 +7,7 @@
 
 namespace Sphp\Html\Media;
 
-use Sphp\Html\Attributes\AttributeManager;
+use Sphp\Html\Attributes\HtmlAttributeManager;
 
 /**
  * Trait implements the {@link SizeableInterface} interface for a {@link \Sphp\Html\ComponentInterface}
@@ -21,9 +21,9 @@ trait SizeableTrait {
   /**
    * Returns the attribute manager attached to the component
    * 
-   * @return AttributeManager the attribute manager
+   * @return HtmlAttributeManager the attribute manager
    */
-  abstract public function attrs();
+  abstract public function attrs(): HtmlAttributeManager;
 
   /**
    * Checks if the component has width defined
@@ -42,14 +42,14 @@ trait SizeableTrait {
    * @return int width of the component
    */
   public function getWidth(): int {
-    return (int) $this->attrs()->get('width');
+    return (int) $this->attrs()->getValue('width');
   }
 
   /**
    * Sets the width of the component (in pixels)
    * 
    * @param  int $width the width of the component (in pixels))
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setWidth(int $width) {
     $this->attrs()->set('width', $width);
@@ -59,7 +59,7 @@ trait SizeableTrait {
   /**
    * Unsets the width of the component
    * 
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function unsetWidth() {
     $this->attrs()->remove('width');
@@ -74,7 +74,7 @@ trait SizeableTrait {
    * @return int height of the component or `false` if not set
    */
   public function getHeight(): int {
-    return (int) $this->attrs()->get('height');
+    return (int) $this->attrs()->getValue('height');
   }
   /**
    * Checks if the component has height defined
@@ -89,7 +89,7 @@ trait SizeableTrait {
    * Sets the height of the component (in pixels)
    * 
    * @param  int $height the height of the component (in pixels)
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setHeight(int $height) {
     $this->attrs()->set('height', $height);
@@ -99,7 +99,7 @@ trait SizeableTrait {
   /**
    * Unsets the height of the component
    * 
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function unsetHeight() {
     $this->attrs()->remove('height');

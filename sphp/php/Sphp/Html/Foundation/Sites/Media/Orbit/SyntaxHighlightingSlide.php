@@ -7,8 +7,8 @@
 
 namespace Sphp\Html\Foundation\Sites\Media\Orbit;
 
-use Sphp\Html\Apps\SyntaxHighlighterInterface;
-use Sphp\Html\Apps\SyntaxHighlighter;
+use Sphp\Html\Apps\Syntaxhighlighting\SyntaxHighlighterInterface;
+use Sphp\Html\Apps\Syntaxhighlighting\SyntaxHighlighter;
 use Sphp\Html\AbstractComponent;
 use Sphp\Html\Headings\H2;
 
@@ -16,7 +16,6 @@ use Sphp\Html\Headings\H2;
  * Implements a syntax highlighting slide for Orbit
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2016-06-01
  * @link    http://qbnz.com/highlighter/ GeSHi - Generic Syntax Highlighter
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @license http://www.gnu.org/licenses/gpl-2.0.html GPLv2 for GeSHi - Generic Syntax Highlighter
@@ -24,16 +23,15 @@ use Sphp\Html\Headings\H2;
  */
 class SyntaxHighlightingSlide extends AbstractComponent implements SlideInterface, SyntaxHighlighterInterface {
 
-  use \Sphp\Html\Apps\SyntaxhighlighterContainerTrait,
+  use \Sphp\Html\Apps\Syntaxhighlighting\SyntaxhighlighterContainerTrait,
       ActivationTrait;
 
   /**
-   *
    * @var H2
    */
   private $title;
+
   /**
-   *
    * @var SyntaxHighlighterInterface 
    */
   private $hl;
@@ -45,7 +43,7 @@ class SyntaxHighlightingSlide extends AbstractComponent implements SlideInterfac
    */
   public function __construct(SyntaxHighlighterInterface $hl = null) {
     parent::__construct("li");
-    $this->cssClasses()->lock(['orbit-slide', 'sphp-shl']);
+    $this->cssClasses()->protect(['orbit-slide', 'sphp-shl']);
     if ($hl === null) {
       $hl = new SyntaxHighlighter();
     }
@@ -53,9 +51,10 @@ class SyntaxHighlightingSlide extends AbstractComponent implements SlideInterfac
     $this->title = new H2();
     $this->setHeading("code");
   }
+
   /**
    * 
-   * @param type $content
+   * @param  mixed $content
    * @return \Sphp\Html\Foundation\Sites\Media\Orbit\SyntaxHighlightingSlide
    */
   public function setHeading($content) {

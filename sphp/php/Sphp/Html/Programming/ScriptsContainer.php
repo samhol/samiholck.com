@@ -16,7 +16,6 @@ use Sphp\Html\Container;
  * Implements a JavaScript component container
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2016-04-27
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
@@ -35,7 +34,7 @@ class ScriptsContainer implements IteratorAggregate, ContentInterface, Traversab
   /**
    * Constructs a new instance
    * 
-   * @param ScriptInterface|ScriptInterface[] $scripts script components
+   * @param Script|Script[] $scripts script components
    */
   public function __construct($scripts = null) {
     $this->container = new Container();
@@ -47,12 +46,12 @@ class ScriptsContainer implements IteratorAggregate, ContentInterface, Traversab
   }
 
   /**
-   * appends a {@link ScriptInterface} component to the container
+   * appends a script component to the container
    * 
-   * @param  ScriptInterface $script
-   * @return self for a fluent interface
+   * @param  Script $script
+   * @return $this for a fluent interface
    */
-  public function append(ScriptInterface $script) {
+  public function append(Script $script) {
     if ($script instanceof ScriptSrc) {
       $this->container->offsetSet($script->getSrc(), $script);
     } else {
@@ -66,7 +65,7 @@ class ScriptsContainer implements IteratorAggregate, ContentInterface, Traversab
    * 
    * @param  string $src the file path of the script file
    * @param  boolean $async true for asynchronous execution, false otherwise
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @link   http://www.w3schools.com/tags/att_script_src.asp src attribute
    * @link   http://www.w3schools.com/tags/att_script_async.asp async attribute
    */
@@ -79,7 +78,7 @@ class ScriptsContainer implements IteratorAggregate, ContentInterface, Traversab
    * Appends an {@link ScriptCode} containing script commands
    * 
    * @param  string $code script commands
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function appendCode($code) {
     $this->append(new ScriptCode($code));

@@ -11,12 +11,11 @@ namespace Sphp\Html\Foundation\Sites\Core;
  * Defines Screen Sizes and types and implements static screen size parsing functions
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2015-01-29
- * @link    http://foundation.zurb.com/ Foundation 6
+ * @link    http://foundation.zurb.com/ Foundation
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
-class Screen {
+abstract class Screen {
 
   /**
    * Foundation screen size names
@@ -37,7 +36,7 @@ class Screen {
    * 
    * @return string[] all supported screen type names
    */
-  public static function allTypes() {
+  public static function allTypes(): array {
     return array_merge(static::$sizes, static::$otherTypes);
   }
 
@@ -47,7 +46,7 @@ class Screen {
    * @param  string $size screen type name
    * @return boolean true if the given size exists
    */
-  public static function typeExists($size): bool {
+  public static function typeExists(string $size): bool {
     return in_array($size, static::allTypes());
   }
 
@@ -56,7 +55,7 @@ class Screen {
    * 
    * @return string[] all screen size names
    */
-  public static function sizes() {
+  public static function sizes(): array {
     return static::$sizes;
   }
 
@@ -66,7 +65,7 @@ class Screen {
    * @param  string $size screen size name
    * @return boolean true if the given size exists
    */
-  public static function sizeExists($size): bool {
+  public static function sizeExists(string $size): bool {
     return in_array($size, static::sizes());
   }
 
@@ -76,7 +75,7 @@ class Screen {
    * @param  string $currentSize
    * @return string|boolean next larger screen size or false if none present
    */
-  public static function getNextSize($currentSize) {
+  public static function getNextSize(string $currentSize) {
     $next = false;
     $sizes = static::sizes();
     $key = array_search($currentSize, $sizes);
@@ -92,7 +91,7 @@ class Screen {
    * @param  string $currentSize
    * @return string|boolean previous smaller screen size or false if none present
    */
-  public static function getPreviousSize($currentSize) {
+  public static function getPreviousSize(string $currentSize) {
     $previous = false;
     $sizes = static::sizes();
     $key = array_search($currentSize, $sizes);
@@ -106,7 +105,7 @@ class Screen {
    * 
    * @return string[]
    */
-  public static function orientation() {
+  public static function orientation(): array {
     return ['portrait', 'landscape'];
   }
 

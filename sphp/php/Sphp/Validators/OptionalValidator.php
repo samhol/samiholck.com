@@ -11,7 +11,6 @@ namespace Sphp\Validators;
  * Abstract superclass for an optional validator
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2015-05-08
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
@@ -25,6 +24,7 @@ class OptionalValidator extends ValidatorChain {
   private $allowEmptyValues = true;
 
   /**
+   * Constructs a new instance
    * 
    * @param boolean $allowEmptyValues
    */
@@ -37,7 +37,7 @@ class OptionalValidator extends ValidatorChain {
    * Sets/unsets validation for empty values
    *
    * @param  boolean $allow true if all values are validated and false if not
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function allowEmptyValues(bool $allow = true) {
     $this->allowEmptyValues = $allow;

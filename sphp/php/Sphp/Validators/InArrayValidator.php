@@ -15,21 +15,17 @@ use Sphp\Stdlib\Arrays;
  *  Validates the length of the given string
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2017-03-14
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
 class InArrayValidator extends AbstractValidator {
 
   /**
-   * maximum length of the valid string
-   *
-   * @var mixed[]
+   * @var array
    */
   private $haystack;
 
   /**
-   *
    * @var boolean 
    */
   private $strict;
@@ -37,7 +33,7 @@ class InArrayValidator extends AbstractValidator {
   /**
    * Constructs a new validator
    *
-   * @param mixed[] $haystack the haystack
+   * @param array $haystack the haystack
    */
   public function __construct(array $haystack = []) {
     parent::__construct();
@@ -45,16 +41,10 @@ class InArrayValidator extends AbstractValidator {
     $this->setHaystack($haystack);
   }
 
-  /**
-   * {@inheritdoc}
-   */
   public function __destruct() {
     unset($this->haystack);
   }
 
-  /**
-   * {@inheritdoc}
-   */
   public function __clone() {
     $this->haystack = Arrays::copy($this->haystack);
   }
@@ -66,8 +56,8 @@ class InArrayValidator extends AbstractValidator {
   /**
    * Sets the range of the valid string length
    *
-   * @param mixed[] $haystack the haystack
-   * @return self for a fluent interface
+   * @param  array $haystack the haystack
+   * @return $this for a fluent interface
    */
   public function setHaystack(array $haystack) {
     $this->haystack = $haystack;
@@ -83,9 +73,13 @@ class InArrayValidator extends AbstractValidator {
   }
 
   /**
+   * Sets the comparison type
    * 
-   * @param  boolean $strict
-   * @return self for a fluent interface
+   * * **Strict** `===` comparison 
+   * * **Non strict** `==` comparison
+   * 
+   * @param  boolean $strict true for strict false otherwise
+   * @return $this for a fluent interface
    */
   public function setStrict(bool $strict) {
     $this->strict = $strict;

@@ -17,7 +17,6 @@ use Sphp\Html\Foundation\Sites\Buttons\CloseButton;
  * Modal dialogs, or pop-up windows, are handy for prototyping and production.
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2014-03-25
  * @link    http://foundation.zurb.com/ Foundation 
  * @link    http://foundation.zurb.com/sites/docs/reveal.html Founfation Reveal
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
@@ -48,8 +47,8 @@ class Popup extends Div {
    */
   public function __construct($content = null) {
     parent::__construct($content);
-    $this->identify('id', 'modal_');
-    $this->cssClasses()->lock('reveal');
+    $this->identify();
+    $this->cssClasses()->protect('reveal');
     $this->attrs()->demand('data-reveal');
     $this->closeButton = new CloseButton();
     $this->layoutManager = new PopupLayoutManager($this);
@@ -71,7 +70,7 @@ class Popup extends Div {
   /**
    * Returns the Modal reveal controller
    * 
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setCloseButton(CloseButton $btn) {
     $this->closeButton = $btn;
@@ -91,9 +90,9 @@ class Popup extends Div {
    * **Note:** Default on `'small'` screens is 100% (`'full'`) width.
    * 
    * @param  string $size the size of the component
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
-  public function setSize($size) {
+  public function setSize(string $size = null) {
     $this->layout()->setSize($size);
     return $this;
   }
@@ -101,7 +100,7 @@ class Popup extends Div {
   /**
    * Resets the size settings of the component
    *
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function resetSize() {
     $this->layout()->unsetSizing();
@@ -134,10 +133,10 @@ class Popup extends Div {
    * string or to an array of strings. So also an object of any class
    * that implements magic method `__toString()` is allowed.
    *
-   * @param  mixed $content the controller component
-   * @return Controller a controller component pointing to this Modal
+   * @param  ComponentInterface $content the controller component
+   * @return ComponentInterface a controller component pointing to this Modal
    */
-  public function createController(ComponentInterface $content) {
+  public function createController(ComponentInterface $content): ComponentInterface {
     $content->setAttr('data-open', $this->identify());
     return $content;
   }

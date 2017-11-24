@@ -13,10 +13,7 @@ use Sphp\Stdlib\Arrays;
 /**
  * Implements a container for HTML components and other textual content
  *
- * {@inheritdoc}
- *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2014-11-09
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
@@ -68,6 +65,11 @@ class Container implements IteratorAggregate, ContainerInterface, ContentParserI
   }
 
   public function append($content) {
+    if (is_array($content)) {
+      foreach ($content as $cont) {
+        $this->append($cont);
+      }
+    }
     $this->components[] = $content;
     return $this;
   }
@@ -99,7 +101,7 @@ class Container implements IteratorAggregate, ContainerInterface, ContentParserI
    * @return boolean true on success or false on failure
    */
   public function offsetExists($offset): bool {
-    return array_key_exists($offset, $this->components);
+    return isset($this->components[$offset]) || array_key_exists($offset, $this->components);
   }
 
   /**
@@ -121,7 +123,7 @@ class Container implements IteratorAggregate, ContainerInterface, ContentParserI
    *
    * @param  mixed $offset the offset to assign the value to
    * @param  mixed $value the value to set
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function offsetSet($offset, $value) {
     if (is_null($offset)) {
@@ -136,7 +138,7 @@ class Container implements IteratorAggregate, ContainerInterface, ContentParserI
    * Unsets an offset
    *
    * @param  mixed $offset offset to unset
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function offsetUnset($offset) {
     if ($this->offsetExists($offset)) {
@@ -153,7 +155,7 @@ class Container implements IteratorAggregate, ContainerInterface, ContentParserI
    * Replaces the content of the component
    *
    * @param  mixed $content new tag content
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function replaceContent($content) {
     return $this->clear()->append($content);
@@ -165,10 +167,10 @@ class Container implements IteratorAggregate, ContainerInterface, ContentParserI
   }
 
   public function getHtml(): string {
-    return Arrays::implode($this->components);
+    return implode('', $this->components);
   }
 
-  public function exists($value) {
+  public function exists($value): bool {
     $result = false;
     foreach ($this->components as $component) {
       if ($component === $value || (($component instanceof ContainerInterface)) && $component->exists($value)) {

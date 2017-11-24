@@ -7,13 +7,12 @@
 
 namespace Sphp\Validators;
 
-use Sphp\I18n\Messages\TranslatableList;
+use Sphp\I18n\Collections\TranslatableCollection;
 
 /**
  * The base interface for all validators
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2012-10-16
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
@@ -30,7 +29,7 @@ interface ValidatorInterface {
   /**
    * Returns error messages
    *
-   * @return TranslatableList error messages
+   * @return TranslatableCollection error messages
    */
-  public function getErrors(): TranslatableList;
+  public function getErrors(): TranslatableCollection;
 }

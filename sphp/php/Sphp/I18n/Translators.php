@@ -11,26 +11,16 @@ use Sphp\Exceptions\InvalidArgumentException;
 use Sphp\I18n\Gettext\Translator;
 
 /**
- * Implements a natural language translator
- *
- * The underlying technology used in translation is PHP's gettext extension.
- *
- * **Links:**
- *
- * * {@link http://www.gnu.org/software/gettext/manual/}
- * * {@link http://www.gnu.org/software/gettext/manual/html_node/index.html}
- * * {@link http://php.net/manual/en/book.gettext.php}
- * * {@link http://php.net/manual/en/function.setlocale.php}
+ * Implements a natural language translator library
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2015-05-12
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
 class Translators {
 
   /**
-   * @var self
+   * @var Translators
    */
   private static $instance;
 
@@ -44,17 +34,24 @@ class Translators {
    */
   private $default;
 
+  /**
+   * Constructs a new instance
+   * 
+   * @param TranslatorInterface $default
+   */
   public function __construct(TranslatorInterface $default = null) {
-    if ($default === null) {
-      $this->setDefault(new Translator);
+    if($default === null) {
+      $default = new Translator();
     }
+    $this->setDefault($default);
   }
 
   /**
+   * Returns a singleton instance of the translator library
    * 
-   * @return self singelton instance
+   * @return self singleton instance of the translator library
    */
-  public static function instance():Translators {
+  public static function instance(): Translators {
     if (self::$instance === null) {
       self::$instance = new static();
     }
@@ -62,17 +59,19 @@ class Translators {
   }
 
   /**
+   * Returns the default translator instance
    * 
-   * @return TranslatorInterface
+   * @return TranslatorInterface the default translator instance
    */
   public function getDefault(): TranslatorInterface {
     return $this->default;
   }
 
   /**
+   * Sets the default translator instance
    * 
-   * @param  TranslatorInterface $default
-   * @return $this
+   * @param  TranslatorInterface $default the default translator instance
+   * @return $this for a fluent interface
    */
   public function setDefault(TranslatorInterface $default) {
     $this->default = $default;
@@ -80,20 +79,23 @@ class Translators {
   }
 
   /**
-   * Stores the given instances as a named translator
+   * Stores the translator with given name to the library
    *
-   * 
-   * @param string $name the name specified
-   * @param TranslatorInterface $translator
+   * @param  string $name the name specified
+   * @param  TranslatorInterface $translator the translator to store
+   * @return $this for a fluent interface
    */
   public function store(string $name, TranslatorInterface $translator) {
     $this->translators[$name] = $translator;
+    return $this;
   }
 
   /**
+   * Returns the named translator instance from library
    * 
-   * @param  string $name
-   * @return TranslatorInterface
+   * **NOTE:** 
+   * @param  string|null $name the name of the translator
+   * @return TranslatorInterface stored instance
    * @throws InvalidArgumentException
    */
   public function get(string $name = null): TranslatorInterface {
@@ -103,14 +105,14 @@ class Translators {
     if (!array_key_exists($name, $this->translators)) {
       throw new InvalidArgumentException;
     }
-
     return $this->translators[$name];
   }
 
   /**
+   * Checks whether a name exists
    * 
-   * @param  string $name
-   * @return bool
+   * @param  string $name the name to search
+   * @return bool true if a translator name exists, false otherwise
    */
   public function contains(string $name): bool {
     return array_key_exists($name, $this->translators);

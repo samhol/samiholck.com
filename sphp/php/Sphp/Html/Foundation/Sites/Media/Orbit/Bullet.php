@@ -14,9 +14,8 @@ use Sphp\Html\Span;
  * Implements a bullet for Orbit
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2016-06-01
  * @link    http://foundation.zurb.com/ Foundation
- * @link    http://foundation.zurb.com/sites/docs/orbit.html Orbit
+ * @link    http://foundation.zurb.com/sites/docs/orbit.html Foundation Orbit
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
@@ -52,7 +51,7 @@ class Bullet extends AbstractComponent {
   public function __construct($slideNo, $slideText = null, $currentSlideText = 'Current Slide') {
     $this->number = $slideNo;
     parent::__construct('button');
-    $this->attrs()->lock('data-slide', $slideNo);
+    $this->attrs()->protect('data-slide', $slideNo);
     $this->createSpans($slideText, $currentSlideText);
   }
 
@@ -60,23 +59,23 @@ class Bullet extends AbstractComponent {
    * 
    * @param string $slideText
    * @param type $currentSlideText
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   private function createSpans($slideText, $currentSlideText) {
     if ($slideText === null) {
       $slideText = "Slide " . ($this->number + 1) . ". details";
     }
     $this->srDescriptor = new Span($slideText);
-    $this->srDescriptor->cssClasses()->lock('show-for-sr');
+    $this->srDescriptor->cssClasses()->protect('show-for-sr');
     $this->currentDescriptor = new Span($currentSlideText);
-    $this->currentDescriptor->cssClasses()->lock('show-for-sr');
+    $this->currentDescriptor->cssClasses()->protect('show-for-sr');
     return $this;
   }
 
   /**
    * 
    * @param  string $description
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setSlideDescription($description) {
     $this->srDescriptor->replaceContent($description);
@@ -86,7 +85,7 @@ class Bullet extends AbstractComponent {
   /**
    * 
    * @param  string $description
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setCurrentSlideDescription(string $description) {
     $this->currentDescriptor->replaceContent($description);

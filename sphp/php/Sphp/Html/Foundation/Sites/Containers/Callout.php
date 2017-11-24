@@ -11,7 +11,6 @@ namespace Sphp\Html\Foundation\Sites\Containers;
  * Implements a callout component
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2016-03-02
  * @link    http://foundation.zurb.com/ Foundation
  * @link    http://foundation.zurb.com/sites/docs/callout.html Foundation Callout
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
@@ -31,7 +30,7 @@ class Callout extends ClosableContainer implements CalloutInterface {
    */
   public function __construct($content = null) {
     parent::__construct($content);
-    $this->cssClasses()->lock('callout');
+    $this->cssClasses()->protect('callout');
     $this->layoutManager = new CalloutLayoutManager($this);
   }
 
@@ -52,10 +51,10 @@ class Callout extends ClosableContainer implements CalloutInterface {
    * * `'disabled'` for disabled buttons
    * 
    * @param  string|null $style one of the CSS class names defining button styles
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @link   http://foundation.zurb.com/docs/components/buttons.html#button-colors Button Sizing
    */
-  public function setColor($style = null) {
+  public function setColor(string $style = null) {
     $this->layout()->setColor($style);
     return $this;
   }

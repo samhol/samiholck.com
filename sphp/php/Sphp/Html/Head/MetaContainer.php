@@ -1,35 +1,32 @@
 <?php
 
 /**
- * MetaTagContainer.php (UTF-8)
+ * MetaContainer.php (UTF-8)
  * Copyright (c) 2013 Sami Holck <sami.holck@gmail.com>
  */
 
 namespace Sphp\Html\Head;
 
 use Sphp\Html\ContentInterface;
-use IteratorAggregate;
-use Sphp\Html\Container;
+use Iterator;
+use Sphp\Stdlib\Arrays;
 use Sphp\Html\TraversableInterface;
-use Sphp\Html\NonVisualContentInterface;
+use Sphp\Html\NonVisualContent;
 
 /**
- * Class is a container for a {@link MetaInterface} component group
+ * Container for metadata components
  *
- *  The &lt;meta&gt; tag provides metadata about the HTML document. Metadata will not be displayed on the page,
- *  but will be machine parsable. Meta elements are typically used to specify page description, keywords, author
+ *  The &lt;meta&gt; tag provides meta data about the HTML document. Metadata will not be displayed on the page,
+ *  but will be machine parable. Meta elements are typically used to specify page description, keywords, author
  *  of the document, last modified, and other metadata. The metadata can be used by browsers (how to display
  *  content or reload page), search engines (keywords), or other web services.
  *
- * {@inheritdoc}
- *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2013-02-03
  * @link    http://www.w3schools.com/tags/tag_meta.asp w3schools HTML API
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
-class MetaContainer implements ContentInterface, IteratorAggregate, TraversableInterface, NonVisualContentInterface {
+class MetaContainer implements ContentInterface, Iterator, TraversableInterface, NonVisualContent {
 
   use \Sphp\Html\ContentTrait,
       \Sphp\Html\TraversableTrait;
@@ -37,16 +34,9 @@ class MetaContainer implements ContentInterface, IteratorAggregate, TraversableI
   /**
    * the inner container for the {@link MetaInterface} components
    *
-   * @var Container
+   * @var MetaData[]
    */
-  private $metaTags;
-
-  /**
-   * Constructs a new instance
-   */
-  public function __construct() {
-    $this->metaTags = new Container();
-  }
+  private $metaData = [];
 
   /**
    * Destroys the instance
@@ -55,7 +45,7 @@ class MetaContainer implements ContentInterface, IteratorAggregate, TraversableI
    * to a particular object, or in any order during the shutdown sequence.
    */
   public function __destruct() {
-    unset($this->metaTags);
+    unset($this->metaData);
   }
 
   /**
@@ -66,41 +56,79 @@ class MetaContainer implements ContentInterface, IteratorAggregate, TraversableI
    * @link http://www.php.net/manual/en/language.oop5.cloning.php#object.clone PHP Object Cloning
    */
   public function __clone() {
-    $this->metaTags = clone $this->metaTags;
+    $this->metaData = Arrays::copy($this->metaData);
   }
 
   /**
    * Adds a meta data object to the container
    *
-   * @param  MetaInterface $content meta information to add
-   * @return self for a fluent interface
+   * @param  MetaData $content meta information to add
+   * @return $this for a fluent interface
    */
-  public function addMeta(MetaInterface $content) {
-    $key = [];
+  public function addMeta(MetaData $content) {
     if ($content->attrExists('charset')) {
-      $key[] = 'charset';
-    } if ($content->hasNamedContent()) {
-      $key[] = "name-" . $content->getName();
-    } if ($content->hasHttpEquivContent()) {
-      $key[] = "http-equiv-" . $content->getHttpEquiv();
-    } if ($content->hasPropertyContent()) {
-      $key[] = "property-" . $content->getProperty();
+      $this->metaData['charset'] = $content;
+    } else if ($content->hasNamedContent()) {
+      $this->metaData['name'][$content->getName()] = $content;
+    } else if ($content->hasHttpEquivContent()) {
+      $this->metaData['http-equiv'][$content->getHttpEquiv()] = $content;
+    } else if ($content->hasPropertyContent()) {
+      $this->metaData['property'][$content->getProperty()] = $content;
     }
-    $k = implode("-", $key);
-    $this->metaTags[$k] = $content;
     return $this;
   }
 
   public function getHtml(): string {
-    return $this->metaTags->getHtml();
-  }
-
-  public function getIterator() {
-    return $this->metaTags->getIterator();
+    return implode('', Arrays::flatten($this->metaData));
   }
 
   public function count(): int {
-    $this->metaTags->count();
+    $this->metaData->count();
+  }
+
+  /**
+   * Returns the current element
+   * 
+   * @return mixed the current element
+   */
+  public function current() {
+    return current($this->metaData);
+  }
+
+  /**
+   * Advance the internal pointer of the collection
+   * 
+   * @return void
+   */
+  public function next() {
+    next($this->metaData);
+  }
+
+  /**
+   * Return the key of the current element
+   * 
+   * @return mixed the key of the current element
+   */
+  public function key() {
+    return key($this->metaData);
+  }
+
+  /**
+   * Rewinds the Iterator to the first element
+   * 
+   * @return void
+   */
+  public function rewind() {
+    reset($this->metaData);
+  }
+
+  /**
+   * Checks if current iterator position is valid
+   * 
+   * @return boolean current iterator position is valid
+   */
+  public function valid(): bool {
+    return false !== current($this->metaData);
   }
 
 }

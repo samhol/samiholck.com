@@ -15,7 +15,6 @@ use Traversable;
  * Defines a general purpose collection
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2013-05-24
  * @link    http://www.php.net/manual/en/arrayobject.php The ArrayObject class
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
@@ -27,7 +26,7 @@ interface CollectionInterface extends Arrayable, ArrayAccess, Countable, Travers
    *
    * @postcondition contains($value) === true
    * @param  mixed $value element
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function append($value);
 
@@ -39,7 +38,7 @@ interface CollectionInterface extends Arrayable, ArrayAccess, Countable, Travers
    *
    * @postcondition contains($value) === true
    * @param  mixed $value the value being prepended
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function prepend($value);
 
@@ -48,13 +47,13 @@ interface CollectionInterface extends Arrayable, ArrayAccess, Countable, Travers
    *
    * @return boolean true if the collection is empty, false otherwise
    */
-  public function isEmpty();
+  public function isEmpty():bool;
 
   /**
    * Clears the contents
    *
    * @postcondition isEmpty() === true
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function clear();
 
@@ -71,7 +70,7 @@ interface CollectionInterface extends Arrayable, ArrayAccess, Countable, Travers
    *
    * @postcondition contains($value) === false
    * @param  mixed $value the value to remove
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function remove($value);
 }

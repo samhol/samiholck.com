@@ -8,12 +8,12 @@
 namespace Sphp\I18n;
 
 use Sphp\Config\Locale;
-
+use Sphp\Validators\StringFormatValidator;
+use Sphp\Exceptions\InvalidArgumentException;
 /**
  * Abstract implementation for natural language translator
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2016-05-12
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
@@ -38,26 +38,46 @@ abstract class AbstractTranslator implements TranslatorInterface {
     return $this;
   }
 
-  public function vsprintf(string $message, $args = null, bool $translateArgs = false): string {
-    $m = $this->get($message);
-    if ($args !== null) {
-      if ($translateArgs) {
-        $args = $this->get($args);
+  public function translateArray(array $messages): array {
+    $output = [];
+    foreach ($messages as $index => $value) {
+      if (is_array($value)) {
+        $value = $this->translateArray($value);
+      } else if (is_string($value)) {
+        $value = $this->get($value);
       }
-      $m = vsprintf($m, is_array($args) ? $args : [$args]);
+      $output[$index] = $value;
     }
-    return $m;
+    return $output;
   }
 
-  public function vsprintfPlural(string $msgid1, string $msgid2, int $n, $args = null, bool $translateArgs = false): string {
-    $m = $this->getPlural($msgid1, $msgid2, $n);
-    if ($args !== null) {
+  public function vsprintf(string $message, array $args = null, bool $translateArgs = false): string {
+    return $this->format($this->get($message), $args, $translateArgs);
+  }
+
+  public function vsprintfPlural(string $msgid1, string $msgid2, int $n, array $args = null, bool $translateArgs = false): string {
+    return $this->format($this->getPlural($msgid1, $msgid2, $n), $args, $translateArgs);
+  }
+
+  /**
+   * 
+   * @param  string $message
+   * @param  array $args
+   * @param  bool $translateArgs
+   * @return string
+   * @throws \InvalidArgumentException if invalid number of arguments is presented
+   */
+  protected function format(string $message, array $args = null, bool $translateArgs = false): string {
+    if (!empty($args)) {
+      if (!StringFormatValidator::validate($message, $args)) {
+        throw new InvalidArgumentException('Invalid number of arguments presented');
+      }
       if ($translateArgs) {
         $args = $this->get($args);
       }
-      $m = vsprintf($m, is_array($args) ? $args : [$args]);
+      $message = vsprintf($message, $args);
     }
-    return $m;
+    return $message;
   }
 
   /**

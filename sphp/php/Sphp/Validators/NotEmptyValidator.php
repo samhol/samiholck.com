@@ -8,7 +8,6 @@
 namespace Sphp\Validators;
 
 use Sphp\Stdlib\Strings;
-use Sphp\I18n\MessageTemplate;
 
 /**
  * Validates that the field has a non empty value
@@ -30,7 +29,6 @@ use Sphp\I18n\MessageTemplate;
  * * "\\x0B" (ASCII 11 (0x0B)), a vertical tab.
  * 
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2012-10-14
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
@@ -41,22 +39,20 @@ class NotEmptyValidator extends AbstractValidator {
   /**
    * Constructs a new validator
    *
+   * @param string $message
    */
-  public function __construct($type = 'scalar', $message = "Value is required and not empty") {
-    parent::__construct('Please insert a value');
+  public function __construct(string $message = "Value is empty") {
+    parent::__construct($message);
   }
 
-  /**
-   * {@inheritdoc}
-   */
   public function isValid($value): bool {
     $this->setValue($value);
     $valid = true;
     if ($value === null) {
       $valid = false;
-    } else if (is_array($value) && count($value) === 0) {
+    } else if (is_array($value) && empty($value)) {
       $valid = false;
-    } else if (Strings::isEmpty($value)) {
+    } else if ($value === '') {
       $valid = false;
     }
     if (!$valid) {

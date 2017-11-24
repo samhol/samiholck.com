@@ -9,7 +9,6 @@ namespace Sphp\Html\Apps;
 
 use Sphp\Html\AbstractContainerComponent;
 use Sphp\Html\Div;
-use Sphp\Stdlib\Strings;
 use Sphp\Stdlib\Arrays;
 use Sphp\Images\Images as ImageUtils;
 use Sphp\Html\Navigation\Hyperlink;
@@ -22,12 +21,9 @@ use Sphp\Html\Lists\Li;
 use Sphp\Html\Media\Img;
 
 /**
- * A photoalbum application
- *
- * {@inheritdoc}
+ * A photo album application
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2011-03-06
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
@@ -59,7 +55,7 @@ class PhotoAlbum extends AbstractContainerComponent {
             ->build()
             ->setHeading($albumName)
             ->identify();
-    $this->cssClasses()->lock("sphp-photoAlbum reveal-modal full");
+    $this->cssClasses()->protect("sphp-photoAlbum reveal-modal full");
     $this->attrs()->demand("data-reveal");
     //->appendScriptPath("sph/js/vendor/jquery.js")
     //->appendScriptPath("sph/js/vendor/jquery.unveil.min.js")
@@ -73,7 +69,7 @@ class PhotoAlbum extends AbstractContainerComponent {
   /**
    * Builds the application
    *
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   private function build() {
     $this->getInnerContainer()
@@ -120,7 +116,7 @@ class PhotoAlbum extends AbstractContainerComponent {
    * Sets the paths of the viewed files an folders in thephoto album
    *
    * @param string|string[] $albumPaths the paths to the files/folders presented in this album
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setAlbumPaths($albumPaths) {
     if (!is_array($albumPaths)) {
@@ -164,7 +160,7 @@ class PhotoAlbum extends AbstractContainerComponent {
    * Sets the heading content
    *
    * @param  mixed $headingText the heading content
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setHeading($headingText) {
     $this->getHead()->replaceContent($headingText);
@@ -261,7 +257,7 @@ class PhotoAlbum extends AbstractContainerComponent {
       );
       $table->tbody()->append(array(
           new Th("File size:"),
-          Strings::generateFilesizeString($info["size_B"])));
+          \Sphp\Stdlib\Filesystem::generateFilesizeString($info["size_B"])));
       $table->tbody()->append(array(
           new Th("Modified:", 1, 1, "row"),
           $info["modified"]->format("d.m.Y k\l\o H:i.s")));

@@ -13,9 +13,8 @@ use Sphp\Html\AbstractComponent;
  * Implements a single accordion component
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2016-04-11
- * @link    http://foundation.zurb.com/ Foundation 6
- * @link    http://foundation.zurb.com/sites/docs/accordion.html Foundation 6 Accordion
+ * @link    http://foundation.zurb.com/ Foundation
+ * @link    http://foundation.zurb.com/sites/docs/accordion.html Foundation Accordion
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
@@ -37,9 +36,9 @@ class AbstractSingleAccordion extends AbstractComponent {
       $pane = new Pane();
     }
     parent::__construct('ul');
-    $this->cssClasses()->lock("accordion");
+    $this->cssClasses()->protect("accordion");
     $this->attrs()
-            ->lock("data-allow-all-closed", "true")
+            ->protect("data-allow-all-closed", "true")
             ->demand("data-accordion");
     $this->pane = $pane;
   }
@@ -57,7 +56,7 @@ class AbstractSingleAccordion extends AbstractComponent {
    * Sets the title of the pane
    *
    * @param  mixed|mixed[] $title the title of the pane
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setPaneTitle($title) {
     $this->getPane()->setPaneTitle($title);
@@ -68,7 +67,7 @@ class AbstractSingleAccordion extends AbstractComponent {
    * Sets the visibility of the pane after initialization
    *
    * @param  boolean $visibility true if the pane is visible, false otherwise
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function contentVisible($visibility = true) {
     $this->getPane()->contentVisible($visibility);

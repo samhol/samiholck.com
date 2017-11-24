@@ -9,6 +9,7 @@ namespace Sphp\Html\Foundation\Sites\Adapters;
 
 use Sphp\Html\Adapters\AbstractComponentAdapter;
 use Sphp\Html\ComponentInterface;
+use Sphp\Html\ContainerComponentInterface;
 
 /**
  * Implements a Foundation Equalizer.
@@ -16,7 +17,7 @@ use Sphp\Html\ComponentInterface;
  * Equalizer makes it dead simple to gives multiple items equal height.
  * 
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2017-04-28
+ * @link    http://foundation.zurb.com/ Foundation
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
@@ -28,27 +29,29 @@ class Equalizer extends AbstractComponentAdapter {
    * @param ComponentInterface $equalizer
    * @param string|null $name
    */
-  public function __construct(ComponentInterface $equalizer, $name = null) {
+  public function __construct(ComponentInterface $equalizer, string $name = null) {
     parent::__construct($equalizer);
+    $attr = $this->attrs()->setIdentifier('data-equalizer');
     if ($name === null) {
-      $name = "eq_" . \Sphp\Stdlib\Strings::random();
+      $attr->identify();
+    } else {
+      $attr->set($name);
     }
-    $this->getComponent()->attrs()->lock('data-equalizer', $name);
   }
 
   /**
    * 
    * @return string
    */
-  public function getEqualizerName() {
-    return $this->getComponent()->attrs()->get('data-equalizer');
+  public function getEqualizerName(): string {
+    return $this->getComponent()->attrs()->getValue('data-equalizer');
   }
 
   /**
    * Sets/Unsets the Equalizer to match each row's items in height 
    * 
    * @param  string $screenSize
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function equalizeOn(string $screenSize) {
     if ($screenSize != 'all') {
@@ -63,7 +66,7 @@ class Equalizer extends AbstractComponentAdapter {
    * Sets/Unsets the Equalizer to match each row's items in height 
    * 
    * @param  boolean $flag
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function equalizeByRow(bool $flag = true) {
     if ($flag) {
@@ -75,25 +78,44 @@ class Equalizer extends AbstractComponentAdapter {
   }
 
   /**
-   * Adds an observer
+   * Adds an equalizer observer
    * 
    * @param  ComponentInterface $observer
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
+   * @throws \Sphp\Exceptions\InvalidArgumentException
    */
   public function addObserver(ComponentInterface $observer) {
+    if ($observer->attrExists('data-equalizer-watch') && $observer->attrs()->getValue('data-equalizer-watch') !== $this->getEqualizerName()) {
+      throw new \Sphp\Exceptions\InvalidArgumentException('');
+    }
     $observer->setAttr('data-equalizer-watch', $this->getEqualizerName());
     return $this;
   }
 
   /**
-   * Removes an observer
+   * Removes an equalizer observer
    * 
    * @param  ComponentInterface $observer
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function removeObserver(ComponentInterface $observer) {
     $observer->attrs()->remove('data-equalizer-watch');
     return $this;
+  }
+
+  /**
+   * 
+   * @param  ContainerComponentInterface $cont
+   * @return Equalizer
+   */
+  public static function equalizeContainer(ContainerComponentInterface $cont): Equalizer {
+    $equalizer = new static($cont);
+    foreach ($cont as $component) {
+      if ($component instanceof ComponentInterface) {
+        $equalizer->addObserver($component);
+      }
+    }
+    return $equalizer;
   }
 
 }

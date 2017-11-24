@@ -11,7 +11,6 @@ namespace Sphp\Http;
  * The Logger class is responsible for printing the uncaught exceptions as an HTML element
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2012-10-05
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
@@ -49,7 +48,7 @@ class HttpCode {
 
   /**
    * 
-   * @return string
+   * @return int
    */
   public function getCode() {
     return $this->code;

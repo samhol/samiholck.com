@@ -9,7 +9,7 @@ namespace Sphp\Html\Tables;
 
 use Sphp\Html\AbstractContainerComponent;
 use Sphp\Html\TraversableInterface;
-use Sphp\Html\Attributes\AttributeManager;
+use Sphp\Html\Attributes\HtmlAttributeManager;
 use Sphp\Html\ContainerInterface;
 
 /**
@@ -18,11 +18,7 @@ use Sphp\Html\ContainerInterface;
  *  This component represents a row of {@link CellInterface}
  *  components in a {@link Table}.
  *
- * {@inheritdoc}
- *
- *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2012-10-03
  * @link    http://www.w3schools.com/tags/tag_tr.asp w3schools API
  * @link    http://dev.w3.org/html5/spec/Overview.html#the-tr-element W3C API
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
@@ -40,10 +36,10 @@ abstract class AbstractRow extends AbstractContainerComponent implements \Iterat
    *  mixed `$cells` can be of any type that converts to a PHP string or to a 
    *  PHP string[].
    *
-   * @param  AttributeManager|null $attrManager the attribute manager of the component
+   * @param  HtmlAttributeManager|null $attrManager the attribute manager of the component
    * @param  ContainerInterface|null $contentContainer the inner content container of the component
    */
-  public function __construct(AttributeManager $attrManager = null, ContainerInterface $contentContainer = null) {
+  public function __construct(HtmlAttributeManager $attrManager = null, ContainerInterface $contentContainer = null) {
     parent::__construct('tr', $attrManager, $contentContainer);
   }
 
@@ -51,7 +47,7 @@ abstract class AbstractRow extends AbstractContainerComponent implements \Iterat
    * Appends a cell component to the row
    *
    * @param  CellInterface $cell new cell object
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function append(CellInterface $cell) {
     $this->getInnerContainer()->append($cell);
@@ -71,7 +67,7 @@ abstract class AbstractRow extends AbstractContainerComponent implements \Iterat
    * @link  http://www.w3schools.com/tags/att_th_scope.asp scope attribute
    * @link  http://www.w3schools.com/tags/att_th_colspan.asp colspan attribute
    * @link  http://www.w3schools.com/tags/att_th_rowspan.asp rowspan attribute
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function appendTh($content, string $scope = null, int $colspan = 1, int $rowspan = 1) {
     $this->append(new Th($content, $scope, $colspan, $rowspan));
@@ -82,7 +78,7 @@ abstract class AbstractRow extends AbstractContainerComponent implements \Iterat
    * Creates and appends {@link CellInterface} components to the row
    *
    * @param  mixed|mixed[] $cells cells of the table row
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function appendThs($cells) {
     foreach ($this->parseNewCells($cells, Th::class) as $th) {
@@ -101,7 +97,7 @@ abstract class AbstractRow extends AbstractContainerComponent implements \Iterat
    * @param int $rowspan the value of the rowspan attribute
    * @link  http://www.w3schools.com/tags/att_td_colspan.asp colspan attribute
    * @link  http://www.w3schools.com/tags/att_td_rowspan.asp rowspan attribute
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function appendTd($content, int $colspan = 1, int $rowspan = 1) {
     $this->append(new Td($content, $colspan, $rowspan));
@@ -112,7 +108,7 @@ abstract class AbstractRow extends AbstractContainerComponent implements \Iterat
    * Creates and appends {@link CellInterface} components to the row
    *
    * @param  mixed|mixed[] $cells cells of the table row
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function appendTds($cells) {
     foreach ($this->parseNewCells($cells, Td::class) as $td) {
@@ -125,7 +121,7 @@ abstract class AbstractRow extends AbstractContainerComponent implements \Iterat
    * Prepends a cell component to the row
    *
    * @param  CellInterface $cell new cell object
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function prepend(CellInterface $cell) {
     $this->getInnerContainer()->prepend($cell);

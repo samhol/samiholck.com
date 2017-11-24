@@ -7,13 +7,12 @@
 
 namespace Sphp\Html\Forms\Inputs;
 
-use Sphp\Html\Attributes\AttributeManager;
+use Sphp\Html\Attributes\HtmlAttributeManager;
 
 /**
  * A trait implementation of the {@link ValidableInputInterface} 
  * 
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2014-09-26
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
@@ -22,19 +21,20 @@ trait ValidableInputTrait {
   /**
    * Returns the attribute manager attached to the component
    * 
-   * @return AttributeManager the attribute manager
+   * @return HtmlAttributeManager the attribute manager
    */
-  abstract public function attrs();
+  abstract public function attrs(): HtmlAttributeManager;
 
   /**
    * Sets whether the input must have a value or not before form submission
    * 
    * @param  boolean $required true if the input must have a value before form 
    *         submission, otherwise false
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setRequired(bool $required = true) {
-    return $this->setAttr('required', $required);
+    $this->attrs()->setBoolean('required', $required);
+    return $this;
   }
 
   /**
@@ -48,3 +48,4 @@ trait ValidableInputTrait {
   }
 
 }
+

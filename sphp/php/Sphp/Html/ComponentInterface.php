@@ -7,88 +7,34 @@
 
 namespace Sphp\Html;
 
-use Sphp\Html\Attributes\AttributeManager;
-use Sphp\Html\Attributes\MultiValueAttribute;
+use Sphp\Html\Attributes\HtmlAttributeManager;
 use Sphp\Html\Attributes\PropertyAttribute;
-use Sphp\Exceptions\RuntimeException;
+use Sphp\Html\Attributes\Exceptions\ImmutableAttributeException;
 
 /**
  * Defines the basic functionality of any HTML component
  *
  * This models an actual HTML component and supports HTML attribute manipulation.
  *
- * {@inheritdoc}
- *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2011-09-12
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
-interface ComponentInterface extends IdentifiableInterface, ContentInterface {
+interface ComponentInterface extends IdentifiableComponent, CssClassifiedComponent {
 
   /**
    * Returns the attribute manager attached to the component
    * 
-   * @return AttributeManager the attribute manager
+   * @return HtmlAttributeManager the attribute manager
    */
-  public function attrs();
-
-  /**
-   * Returns the class attribute object
-   * 
-   * @return MultiValueAttribute the class attribute object
-   */
-  public function cssClasses();
+  public function attrs(): HtmlAttributeManager;
 
   /**
    * Returns the attribute object containing inline styles
    * 
    * @return PropertyAttribute the attribute object containing inline styles
    */
-  public function inlineStyles();
-
-  /**
-   * Adds the specified CSS class names
-   *
-   * **Important:** Parameter <var>$cssClasses</var> restrictions and rules
-   * 
-   * 1. A string parameter can contain multiple space separated CSS class names
-   * 2. An array parameter can contain only one CSS class name per value
-   * 3. Duplicate CSS class names are not stored
-   *
-   * @param  string|string[] $cssClasses CSS class names to add
-   * @return self for a fluent interface
-   * @link   http://www.w3schools.com/tags/att_global_class.asp CSS class attribute
-   */
-  public function addCssClass($cssClasses);
-
-  /**
-   * Removes given CSS class names
-   *
-   * **Important:** Parameter <var>$cssClasses</var> restrictions and rules
-   *
-   * 1. A string parameter can contain multiple comma separated CSS class names
-   * 2. An array parameter can contain only one CSS class name per value
-   *
-   * @param  string|string[] $cssClasses CSS class names to remove
-   * @return self for a fluent interface
-   * @link   http://www.w3schools.com/tags/att_global_class.asp class attribute
-   */
-  public function removeCssClass($cssClasses);
-
-  /**
-   * Determines whether the given CSS class names are stored into the manager
-   *
-   * **Important:** Parameter <var>$cssClasses</var> restrictions and rules
-   * 
-   * 1. A string parameter can contain multiple comma separated CSS class names
-   * 2. An array parameter can contain only one CSS class name per value
-   *
-   * @param  string|string[] $cssClasses CSS class names to search for
-   * @return self for a fluent interface
-   * @link   http://www.w3schools.com/tags/att_global_class.asp class attribute
-   */
-  public function hasCssClass($cssClasses): bool;
+  public function inlineStyles(): PropertyAttribute;
 
   /**
    * Sets an attribute name value pair
@@ -108,9 +54,9 @@ interface ComponentInterface extends IdentifiableInterface, ContentInterface {
    *
    * @param  string $name the name of the attribute
    * @param  mixed $value the value of the attribute
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @throws \Sphp\Exceptions\InvalidArgumentException if the attribute name or value is invalid
-   * @throws \Sphp\Exceptions\RuntimeException if the attribute value is unmodifiable
+   * @throws ImmutableAttributeException if the attribute value is unmodifiable
    */
   public function setAttr(string $name, $value = null);
 
@@ -118,7 +64,8 @@ interface ComponentInterface extends IdentifiableInterface, ContentInterface {
    * Removes given attribute if it is not locked
    *
    * @param  string $attrName the name of the attribute
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
+   * @throws ImmutableAttributeException if the attribute value is unmodifiable
    */
   public function removeAttr(string $attrName);
 
@@ -126,7 +73,7 @@ interface ComponentInterface extends IdentifiableInterface, ContentInterface {
    * Returns the value of a given attribute name or an empty string if attribute is not set
    *
    * @param  string $attrName the name of the attribute
-   * @return string attribute's value
+   * @return string the value of the attribute
    */
   public function getAttr(string $attrName);
 
@@ -134,7 +81,10 @@ interface ComponentInterface extends IdentifiableInterface, ContentInterface {
    * Checks if an attribute exists
    *
    * @param  string $attrName the name of the attribute
-   * @return boolean (atribute exists)
+   * @return boolean (attribute exists)
    */
   public function attrExists(string $attrName): bool;
 }
+
+
+

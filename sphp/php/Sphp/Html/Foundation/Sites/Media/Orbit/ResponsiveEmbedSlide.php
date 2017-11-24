@@ -15,7 +15,6 @@ use Sphp\Html\Foundation\Sites\Media\ResponsiveEmbed;
  * Implements a Responsive Embed slide for a Orbit component
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2016-06-01
  * @link    http://foundation.zurb.com/ Foundation
  * @link    http://foundation.zurb.com/sites/docs/orbit.html Orbit
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
@@ -39,7 +38,7 @@ class ResponsiveEmbedSlide extends AbstractComponent implements SlideInterface, 
    */
   public function __construct(ResponsiveEmbedInterface $embed = null) {
     parent::__construct('li');
-    $this->cssClasses()->lock('orbit-slide');
+    $this->cssClasses()->protect('orbit-slide');
     if (!($embed instanceof ResponsiveEmbed)) {
       $embed = new ResponsiveEmbed($embed);
     }

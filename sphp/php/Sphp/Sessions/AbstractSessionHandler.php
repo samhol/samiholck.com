@@ -13,7 +13,6 @@ use SessionHandlerInterface;
  * Class handles a PHP session
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2014-09-01
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
@@ -42,7 +41,7 @@ abstract class AbstractSessionHandler implements SessionHandlerInterface {
    *
    * @return boolean true on success, false on failure
    */
-  public function startSession() {
+  public function startSession(): bool {
     if (session_status() !== PHP_SESSION_ACTIVE && !headers_sent()) {
       session_start();
       //$this->setLocales();
@@ -75,9 +74,9 @@ abstract class AbstractSessionHandler implements SessionHandlerInterface {
    *
    * @param  int $maxlifetime the number of seconds after which session data
    *         will be seen as garbage
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
-  public function setMaxlifetime($maxlifetime) {
+  public function setMaxlifetime(int $maxlifetime) {
     $this->maxlifetime = $maxlifetime;
     ini_set('session.gc_maxlifetime', $maxlifetime);
     return $this;
@@ -90,7 +89,7 @@ abstract class AbstractSessionHandler implements SessionHandlerInterface {
    * @return int the number of seconds after which session data will be seen 
    * as garbage
    */
-  public function getMaxlifetime() {
+  public function getMaxlifetime(): int {
     return $this->maxlifetime;
   }
 
@@ -99,7 +98,7 @@ abstract class AbstractSessionHandler implements SessionHandlerInterface {
    *
    * @param  int $category
    * @param  string $locale
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @link   http://php.net/manual/en/function.setlocale.php
    */
   public function setLocale($category, $locale) {
@@ -116,7 +115,7 @@ abstract class AbstractSessionHandler implements SessionHandlerInterface {
    *
    * @return boolean true on success, false on failure
    */
-  public function close() {
+  public function close(): bool {
     $this->gc($this->maxlifetime);
     return true;
   }

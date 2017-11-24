@@ -7,15 +7,14 @@
 
 namespace Sphp\Html;
 
-use Sphp\Html\Attributes\AttributeManager;
-use Sphp\Html\Attributes\MultiValueAttribute as MultiValueAttribute;
-use Sphp\Html\Attributes\PropertyAttribute as PropertyAttribute;
+use Sphp\Html\Attributes\HtmlAttributeManager;
+use Sphp\Html\Attributes\ClassAttribute;
+use Sphp\Html\Attributes\PropertyAttribute;
 
 /**
  * Trait implements functionality of the {@link ComponentInterface} and {@link IdentifiableInterface}
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2014-09-06
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
@@ -26,16 +25,16 @@ trait IdentifiableComponentTrait {
   /**
    * Returns the attribute manager attached to the component
    *
-   * @return AttributeManager the attribute manager
+   * @return HtmlAttributeManager the attribute manager
    */
-  abstract public function attrs();
+  abstract public function attrs(): HtmlAttributeManager;
 
   /**
    * Returns the class attribute object
    *
-   * @return MultiValueAttribute the class attribute object
+   * @return ClassAttribute the class attribute object
    */
-  public function cssClasses() {
+  public function cssClasses(): ClassAttribute {
     return $this->attrs()->classes();
   }
 
@@ -44,7 +43,7 @@ trait IdentifiableComponentTrait {
    *
    * @return PropertyAttribute the attribute object containing inline styles
    */
-  public function inlineStyles() {
+  public function inlineStyles(): PropertyAttribute {
     return $this->attrs()->styles();
   }
 
@@ -58,11 +57,11 @@ trait IdentifiableComponentTrait {
    * 3. Duplicate CSS class names are not stored
    *
    * @param  string|string[] $cssClasses CSS class names to add
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @link   http://www.w3schools.com/tags/att_global_class.asp CSS class attribute
    */
-  public function addCssClass($cssClasses) {
-    $this->cssClasses()->add($cssClasses);
+  public function addCssClass(...$cssClasses) {
+    $this->cssClasses()->add(func_get_args());
     return $this;
   }
 
@@ -75,11 +74,11 @@ trait IdentifiableComponentTrait {
    * 2. An array parameter can contain only one CSS class name per value
    *
    * @param  string|string[] $cssClasses CSS class names to remove
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @link   http://www.w3schools.com/tags/att_global_class.asp class attribute
    */
-  public function removeCssClass($cssClasses) {
-    $this->cssClasses()->remove($cssClasses);
+  public function removeCssClass(...$cssClasses) {
+    $this->cssClasses()->remove(func_get_args());
     return $this;
   }
 
@@ -95,25 +94,8 @@ trait IdentifiableComponentTrait {
    * @return boolean true if the given CSS class names exists
    * @link   http://www.w3schools.com/tags/att_global_class.asp class attribute
    */
-  public function hasCssClass($cssClasses): bool {
-    return $this->cssClasses()->contains($cssClasses);
-  }
-
-  /**
-   * Sets multiple attribute name value pairs
-   *
-   * For each `$attr => $value` pairs the method calls the {@link self::setAttr()} method
-   *
-   * @param  mixed[] $attrs an array of attribute name value pairs
-   * @return self for a fluent interface
-   * @throws InvalidAttributeException if any of the attributes is invalid
-   * @throws UnmodifiableAttributeException if the value of the attribute is already locked
-   */
-  public function setAttrs(array $attrs = []) {
-    foreach ($attrs as $name => $value) {
-      $this->attrs()->set($name, $value);
-    }
-    return $this;
+  public function hasCssClass(...$cssClasses): bool {
+    return $this->cssClasses()->contains(func_get_args());
   }
 
   /**
@@ -132,11 +114,11 @@ trait IdentifiableComponentTrait {
    * 4. boolean `false`: attribute is removed if present
    * 5. otherwise the attribute value the string conversion value
    *
-   * @param    string $name the name of the attribute
-   * @param    mixed $value the value of the attribute
-   * @return   self for PHP Method Chaining
-   * @throws   InvalidAttributeException if the attribute name or value is invalid
-   * @throws   UnmodifiableAttributeException if the attribute value is unmodifiable
+   * @param  string $name the name of the attribute
+   * @param  mixed $value the value of the attribute
+   * @return $this for a fluent interface
+   * @throws InvalidAttributeException if the attribute name or value is invalid
+   * @throws UnmodifiableAttributeException if the attribute value is unmodifiable
    */
   public function setAttr(string $name, $value = null) {
     $this->attrs()->set($name, $value);
@@ -147,7 +129,7 @@ trait IdentifiableComponentTrait {
    * Removes the given attribute if it is not required
    *
    * @param  string $name the name of the attribute
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function removeAttr(string $name) {
     $this->attrs()->remove($name);
@@ -166,7 +148,7 @@ trait IdentifiableComponentTrait {
    * @return mixed the value of the attribute
    */
   public function getAttr(string $name) {
-    return $this->attrs()->get($name);
+    return $this->attrs()->getValue($name);
   }
 
   /**
@@ -186,25 +168,22 @@ trait IdentifiableComponentTrait {
    *
    * HTML id attribute is unique to every HTML-element. Therefore given id is checked for its uniqueness.
    * 
-   * @param  string $identityName the name of the identity attribute
-   * @param  string $prefix optional prefix of the identity value
    * @param  int $length the length of the identity value
-   * @return self for a fluent interface
+   * @return string 
    * @link   http://www.w3schools.com/tags/att_global_id.asp default id attribute
    */
-  public function identify(string $identityName = 'id', string $prefix = 'id_', int $length = 16): string {
-    return $this->attrs()->identify($identityName, $prefix, $length);
+  public function identify(int $length = 16): string {
+    return $this->attrs()->identify($length);
   }
 
   /**
    * Checks whether the identifying attribute is set or not
    *
-   * @param  string $identityName optional name of the identifying attribute
    * @return boolean true if the identity is set, otherwise false
    * @link   http://www.w3schools.com/tags/att_global_id.asp default id attribute
    */
-  public function hasId(string $identityName = 'id'): bool {
-    return $this->attrs()->hasId($identityName);
+  public function hasId(): bool {
+    return $this->attrs()->hasId();
   }
 
 }

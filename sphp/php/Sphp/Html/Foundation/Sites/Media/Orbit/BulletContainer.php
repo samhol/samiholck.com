@@ -10,12 +10,11 @@ namespace Sphp\Html\Foundation\Sites\Media\Orbit;
 use Sphp\Html\AbstractContainerComponent;
 
 /**
- * Implements a bullet container for Orbit
+ * Implements a bullet container for Foundation Orbit
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2016-06-01
  * @link    http://foundation.zurb.com/ Foundation
- * @link    http://foundation.zurb.com/docs/components/orbit.html Orbit slider
+ * @link    http://foundation.zurb.com/docs/components/orbit.html Foundation Orbit slider
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
@@ -32,14 +31,14 @@ class BulletContainer extends AbstractContainerComponent {
     for ($i = 0; $i < $count; $i++) {
       $this->set($i);
     }
-    $this->cssClasses()->lock('orbit-bullets');
+    $this->cssClasses()->protect('orbit-bullets');
   }
 
   /**
    * Sets a bullet pointing to a Orbit component
    *
    * @param  int|Bullet $bullet
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function set($bullet) {
     if (!($bullet instanceof Bullet)) {
@@ -67,7 +66,7 @@ class BulletContainer extends AbstractContainerComponent {
    * Sets the bullet of given index active
    *
    * @param  int $bulletNo
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setActive($bulletNo) {
     foreach ($this->getInnerContainer() as $no => $bullet) {

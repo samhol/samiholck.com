@@ -6,12 +6,10 @@
  */
 
 namespace Sphp\Validators;
-use Sphp\I18n\Messages\Message;
 /**
  * Description of GreaterThanValidator
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2017-03-28
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
@@ -48,16 +46,13 @@ class SmallerThanValidator extends AbstractLimitValidator {
    * Sets the maximum value
    * 
    * @param  float $max the maximum value
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setMax($max) {
     $this->max = $max;
     return $this;
   }
 
-  /**
-   * {@inheritdoc}
-   */
   public function isValid($value): bool {
     $this->setValue($value);
     if ($this->isInclusive()) {

@@ -16,7 +16,6 @@ use Sphp\Html\AbstractComponent;
  * Toggler, Reveal, Off-canvas, and other plugins that have open and close behaviors.
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2016-04-11
  * @link    http://foundation.zurb.com/ Foundation 6
  * @link    http://foundation.zurb.com/sites/docs/close-button.html Foundation 6 Close Button
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
@@ -32,9 +31,9 @@ class CloseButton extends AbstractComponent {
   public function __construct($text = 'close') {
     parent::__construct('button');
     $this->attrs()
-            ->lock('type', 'button')
+            ->protect('type', 'button')
             ->demand('data-close');
-    $this->cssClasses()->lock('close-button');
+    $this->cssClasses()->protect('close-button');
     $this->setAccessibilityTextText($text);
   }
 
@@ -42,7 +41,7 @@ class CloseButton extends AbstractComponent {
    * Sets the screen reader-only text
    * 
    * @param  string $text the screen reader-only text
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @link   https://www.w3.org/TR/WCAG20-TECHS/ARIA14.html aria-label
    */
   public function setAccessibilityTextText($text) {

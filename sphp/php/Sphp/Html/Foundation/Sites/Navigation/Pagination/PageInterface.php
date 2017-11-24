@@ -15,7 +15,6 @@ use Sphp\Html\Lists\LiInterface;
  * Defines a page button for a Pagination component
  * 
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2014-12-01
  * @link    http://foundation.zurb.com/ Foundation
  * @link    http://foundation.zurb.com/docs/components/pagination.html Foundation Pagination
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
@@ -27,7 +26,7 @@ interface PageInterface extends ComponentInterface, HyperlinkInterface, LiInterf
    * Sets the content of the component
    * 
    * @param  mixed $content the content of the component
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setContent($content);
 
@@ -35,16 +34,16 @@ interface PageInterface extends ComponentInterface, HyperlinkInterface, LiInterf
    * Sets or unsets the hyperlink component as active
    * 
    * @param  boolean $active true for activation and false for deactivation
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
-  public function setCurrent($active = true);
+  public function setCurrent(bool $active = true);
 
   /**
    * Checks whether the hyperlink component is set as active or not
    * 
    * @return boolean true if the hyperlink component is set as active, otherwise false
    */
-  public function isCurrent();
+  public function isCurrent(): bool ;
   
   /**
    * Disables the pagination component
@@ -52,14 +51,14 @@ interface PageInterface extends ComponentInterface, HyperlinkInterface, LiInterf
    * A disabled pagination component is unusable and un-clickable. 
    *
    * @param  boolean $disabled true if the component is disabled, otherwise false
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
-  public function disable($disabled = true);
+  public function disable(bool $disabled = true);
 
   /**
    * Checks whether the pagination component is enabled or not
    * 
    * @param  boolean true if the component is enabled, otherwise false
    */
-  public function isEnabled();
+  public function isEnabled(): bool;
 }

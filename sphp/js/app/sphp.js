@@ -189,6 +189,15 @@ if (!window.console.log) {
     }
     return this;
   };
+  /**
+   * 
+   * @returns {sphpL#115.sphp}
+   */
+  sphp.initBackToTopButtons = function () {
+    console.log("sphp.initBackToTopButtons()");
+    $('[data-sphp-back-to-top-button]').backToTopController();
+    return this;
+  };
 
   /**
    * Initializes all sph functionality
@@ -201,24 +210,27 @@ if (!window.console.log) {
   sphp.initialize = function () {
     sphp.enableConsole(true);
     console.log("sphp.initialize()");
-    sphp.initClipboard();
-    var $ajaxLoaders = $("[data-sphp-ajax-url]");
+    sphp.initClipboard().initBackToTopButtons();
+    //var $ajaxLoaders = $("[data-sphp-ajax-url]");
     console.log("loaded");
 
     $(document).foundation();
     console.log("jQuery " + $.fn.jquery + " loaded...");
     console.log("Foundation " + Foundation.version + " loaded...");
     console.log("AnyTime " + AnyTime.version + " loaded...");
-    $ajaxLoaders.sphpAjaxLoader();
-    $ajaxLoaders.on("sphp-ajax-loader-finished", function () {
-      console.log("SPHP Ajax loader finished loaded...");
-      $(this).foundation();
-      $(this).find(".sphp-viewport-size-viewer").viewportSizeViewer();
-    });
+    //$ajaxLoaders.sphpAjaxLoader();
+    $("[data-sphp-ajax-append]").sphpAjaxAppend();
+    $("[data-sphp-ajax-prepend]").sphpAjaxPrepend();
+
+    /*$ajaxLoaders.on("sphp-ajax-loader-finished", function () {
+     console.log("SPHP Ajax loader finished loaded...");
+     $(this).foundation();
+     //$(this).find(".sphp-viewport-size-viewer").viewportSizeViewer();
+     });*/
     $(".sphp-viewport-size-viewer").viewportSizeViewer();
 
     $("[data-sphp-qtip]").qtips();
-    $('.sphp-back-to-top-button').backToTopBtn();
+    // $('.sphp-back-to-top-button').backToTopBtn();
     $("input[data-anytime]").dateTimeInput();
     $("[data-ion-rangeslider]").initIonRangeSlider();
     $("[data-sphp-ion-slider]").ionRangeSlider({});

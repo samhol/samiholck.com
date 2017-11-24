@@ -15,10 +15,7 @@ use Traversable;
 /**
  * Implements a container for HTML components and other textual content
  *
- * {@inheritdoc}
- *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2014-11-09
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
@@ -104,7 +101,7 @@ abstract class AbstractContainer implements IteratorAggregate, ContainerInterfac
    * @return boolean true on success or false on failure
    */
   public function offsetExists($offset): bool {
-    return array_key_exists($offset, $this->components);
+    return isset($this->components[$offset]) || array_key_exists($offset, $this->components);
   }
 
   /**
@@ -126,7 +123,7 @@ abstract class AbstractContainer implements IteratorAggregate, ContainerInterfac
    *
    * @param  mixed $offset the offset to assign the value to
    * @param  mixed $value the value to set
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function offsetSet($offset, $value) {
     if (is_null($offset)) {
@@ -141,7 +138,7 @@ abstract class AbstractContainer implements IteratorAggregate, ContainerInterfac
    * Unsets an offset
    *
    * @param  mixed $offset offset to unset
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function offsetUnset($offset) {
     if ($this->offsetExists($offset)) {
@@ -158,7 +155,7 @@ abstract class AbstractContainer implements IteratorAggregate, ContainerInterfac
    * Replaces the content of the component
    *
    * @param  mixed $content new tag content
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function replaceContent($content) {
     return $this->clear()->append($content);

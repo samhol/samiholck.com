@@ -8,12 +8,12 @@
 namespace Sphp\Html\Apps\Manual;
 
 use ReflectionClass;
+use Sphp\Html\Navigation\Hyperlink;
 
 /**
  * Hyperlink object generator pointing to an existing API documentation about a class
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2014-11-29
  * @link    http://www.apigen.org/ ApiGen
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
@@ -30,17 +30,23 @@ abstract class AbstractClassLinker extends AbstractLinker implements ClassLinker
   /**
    * Constructs a new instance
    *
-   * @param string|\object $class class name or object
-   * @param string $root the base url pointing to the documentation
+   * @param string $class class name or object
+   * @param string $root the base URL pointing to the documentation
    * @param string|null $defaultTarget the default target used in the generated links or `null` for none
    * @link  http://www.w3schools.com/tags/att_a_target.asp target attribute
    * @link  http://www.w3schools.com/tags/att_global_class.asp CSS class attribute
    */
-  public function __construct($class, ApiUrlGeneratorInterface $pathParser, $defaultTarget = null, $defaultCssClasses = null) {
+  public function __construct(string $class, ApiUrlGeneratorInterface $pathParser, string $defaultTarget = null, $defaultCssClasses = null) {
     parent::__construct($pathParser, $defaultTarget, $defaultCssClasses);
     $this->ref = new ReflectionClass($class);
   }
 
+  /**
+   * Destroys the instance
+   *
+   * The destructor method will be called as soon as there are no other references
+   * to a particular object, or in any order during the shutdown sequence.
+   */
   public function __destruct() {
     unset($this->ref);
     parent::__destruct();
@@ -55,28 +61,30 @@ abstract class AbstractClassLinker extends AbstractLinker implements ClassLinker
     return $this->getLink()->getHtml();
   }
 
-  public function hyperlink($url = null, $content = null, $title = null) {
+  public function hyperlink(string $url = null, string $content = null, string $title = null): Hyperlink {
     return parent::hyperlink($url, str_replace("\\", "\\<wbr>", $content), $title);
   }
 
-  public function getLink($name = null) {
+  public function getLink(string $name = null, string $title = null): Hyperlink {
     if ($name === null) {
       $name = $this->ref->getShortName();
     }
     $longName = $this->ref->getName();
-    if ($this->ref->isInterface()) {
-      $title = "Interface $longName";
-    } else if ($this->ref->isTrait()) {
-      $title = "Trait $longName";
-    } else if ($this->ref->isAbstract()) {
-      $title = "Abstract class $longName";
-    } else {
-      $title = "Class $longName";
+    if ($title === null) {
+      if ($this->ref->isInterface()) {
+        $title = "Interface $longName";
+      } else if ($this->ref->isTrait()) {
+        $title = "Trait $longName";
+      } else if ($this->ref->isAbstract()) {
+        $title = "Abstract class $longName";
+      } else {
+        $title = "Class $longName";
+      }
     }
     return $this->hyperlink($this->urls()->getClassUrl($longName), $name, $title);
   }
 
-  public function methodLink($method, $full = true) {
+  public function methodLink(string $method, bool $full = true): Hyperlink {
     $this->ref->getMethod($method);
     $reflectedMethod = $this->ref->getMethod($method);
     if ($full) {
@@ -98,13 +106,13 @@ abstract class AbstractClassLinker extends AbstractLinker implements ClassLinker
     return $this->hyperlink($this->urls()->getClassMethodUrl($fullClassName, $method), $text, $title);
   }
 
-  public function constantLink($constName) {
+  public function constantLink(string $constName): Hyperlink {
     $name = $this->ref->getShortName() . "::$constName";
     $title = $this->ref->getName() . "::$constName constant";
     return $this->hyperlink($this->urls()->getClassConstantUrl($this->ref->getName(), $constName), $name, $title);
   }
 
-  public function namespaceLink($full = true) {
+  public function namespaceLink(bool $full = true): Hyperlink {
     $fullName = $this->ref->getNamespaceName();
     if (!$full) {
       $namespaceArray = explode('\\', $fullName);

@@ -11,20 +11,20 @@ use Sphp\Html\AbstractComponent;
 use Sphp\Html\Forms\Inputs\InputInterface;
 use Sphp\Html\Forms\Label;
 use Sphp\Html\Span;
-use Sphp\Html\Sections\Paragraph;
+use Sphp\Html\Content\Paragraph;
 use ReflectionClass;
 use BadMethodCallException;
-use Sphp\Html\Foundation\Sites\Grids\ColumnLayoutManager;
+use Sphp\Html\Foundation\Sites\Grids\XY\ColumnLayoutManager;
 use Sphp\Html\Forms\Inputs\TextInput;
 use Sphp\Html\Forms\Inputs\Textarea;
 use Sphp\Html\Forms\Inputs\Menus\Select;
 use Sphp\Html\Forms\Inputs\EmailInput;
+use Sphp\Html\Forms\Inputs\Input;
 
 /**
  * Implements framework based component to create  multi-device layouts
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2014-03-02
  * @link    http://foundation.zurb.com/ Foundation
  * @link    http://foundation.zurb.com/docs/components/grid.html Foundation grid
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
@@ -79,7 +79,7 @@ class InputColumn extends AbstractComponent implements InputColumnInterface {
     $this->label = new Label();
     $this->input = $input;
     $this->errorField = new Span();
-    $this->errorField->cssClasses()->lock('form-error');
+    $this->errorField->cssClasses()->protect('form-error');
     $this->reflector = new ReflectionClass($this->input);
     $this->label->offsetSet('labelText', '');
     $this->label->offsetSet('input', $this->input);
@@ -88,7 +88,7 @@ class InputColumn extends AbstractComponent implements InputColumnInterface {
 
   /**
    * 
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setErrorField($errorMessage) {
     $this->errorField->replaceContent($errorMessage);
@@ -141,7 +141,7 @@ class InputColumn extends AbstractComponent implements InputColumnInterface {
    * Sets the visible contents of the input label
    * 
    * @param  mixed $label the contents of the label 
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setLabel($label) {
     $this->label->offsetSet('labelText', $label);
@@ -152,11 +152,11 @@ class InputColumn extends AbstractComponent implements InputColumnInterface {
    * Sets the visible contents of the helper label
    * 
    * @param  mixed $text the contents of the helper
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setHelperText($text) {
     $this->helper = new Paragraph($text);
-    $this->helper->cssClasses()->lock('help-text');
+    $this->helper->cssClasses()->protect('help-text');
     return $this;
   }
 
@@ -173,7 +173,7 @@ class InputColumn extends AbstractComponent implements InputColumnInterface {
     return $this->input->getName();
   }
 
-  public function setName($name) {
+  public function setName(string $name) {
     $this->input->setName($name);
     return $this;
   }
@@ -251,6 +251,34 @@ class InputColumn extends AbstractComponent implements InputColumnInterface {
   public static function textarea($name, $content = null, $rows = 4, array $layout = ['small-12']) {
     $input = new Textarea($name, $content, $rows);
     return new self($input, $layout);
+  }
+
+  /**
+   * Creates a HTML object
+   *
+   * @param  string $inputType input type
+   * @param  array $arguments 
+   * @return TagInterface the corresponding component
+   * @throws BadMethodCallException
+   */
+  public static function __callStatic(string $inputType, array $arguments): TagInterface {
+    try {
+      $input = \Sphp\Html\Forms\Inputs\Input::__callStatic($arguments);
+    } catch (\Exception $ex) {
+      
+    }
+    if (!isset(static::$tags[$name])) {
+      throw new BadMethodCallException("Method $name does not exist");
+    }
+    if (is_string(static::$tags[$name])) {
+      static::$tags[$name] = new ReflectionClass(static::$tags[$name]);
+    }
+    $reflectionClass = static::$tags[$name];
+    if ($reflectionClass->getName() == EmptyTag::class || $reflectionClass->getName() == ContainerTag::class) {
+      array_unshift($arguments, $name);
+    }
+    $instance = static::$tags[$name]->newInstanceArgs($arguments);
+    return $instance;
   }
 
 }

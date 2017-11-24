@@ -7,30 +7,27 @@
 
 namespace Sphp\Html\Foundation\Sites\Buttons;
 
-use Sphp\Html\Forms\Inputs\IdentifiableInputInterface;
+use Sphp\Html\Forms\Inputs\IdentifiableInput;
 use Sphp\Html\Foundation\Sites\Buttons\ButtonInterface;
-use Sphp\Html\ContentInterface;
-use Sphp\Html\ContentTrait;
 use Sphp\Html\Forms\Label;
 use Sphp\Html\Forms\Inputs\FileInput;
 
 /**
- * Implements &lt;input type="submit"&gt; tag as a Foundation Button
+ * Implements &lt;input type="file"&gt; tag as a Foundation Button
  * 
  * A submit button is used to send form data to a server.
  * The data is sent to the page specified in the form's action attribute.
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2016-04-11
  * @link    http://foundation.zurb.com/ Foundation 6
  * @link    http://www.w3schools.com/tags/tag_input.asp w3schools API
  * @link    http://www.w3.org/html/wg/drafts/html/master/forms.html#the-input-element W3C API
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
-class FileUploadButton implements ContentInterface, IdentifiableInputInterface, ButtonInterface {
+class FileUploadButton implements IdentifiableInput, ButtonInterface {
 
-  use ContentTrait,
+  use \Sphp\Html\ContentTrait,
       \Sphp\Html\Foundation\Sites\Buttons\ButtonTrait;
 
   /**
@@ -47,14 +44,14 @@ class FileUploadButton implements ContentInterface, IdentifiableInputInterface, 
    * Constructs a new instance
    *
    * @param  string|null $name the value of name attribute
-   * @param  string|null $buttonText the value of value attribute
+   * @param  string $buttonText the value of value attribute
    * @link   http://www.w3schools.com/tags/att_input_name.asp name attribute
    */
-  public function __construct($name = null, $buttonText = 'Upload File') {
+  public function __construct(string $name = null, string $buttonText = 'Upload File') {
     $this->fileInput = new FileInput($name);
-    $this->fileInput->cssClasses()->lock('show-for-sr');
+    $this->fileInput->cssClasses()->protect('show-for-sr', 'fileInput');
     $this->label = new Label($buttonText, $this->fileInput);
-    $this->label->cssClasses()->lock('button');
+    $this->label->cssClasses()->protect('button');
   }
 
   public function getHtml(): string {
@@ -95,17 +92,17 @@ class FileUploadButton implements ContentInterface, IdentifiableInputInterface, 
     return $this->fileInput->isNamed();
   }
 
-  public function setName($name) {
+  public function setName(string $name) {
     $this->fileInput->setName($name);
     return $this;
   }
 
-  public function hasId(string $identityName = 'id'): bool {
-    return $this->fileInput->hasId($identityName);
+  public function hasId(): bool {
+    return $this->fileInput->hasId();
   }
 
-  public function identify(string $identityName = 'id', string $prefix = 'id', int $length = 16): string {
-    return  $this->fileInput->identify($identityName, $prefix, $length);
+  public function identify(int $length = 16): string {
+    return $this->fileInput->identify($length);
   }
 
 }

@@ -16,7 +16,6 @@ use InvalidArgumentException;
  * Implements jQuery range slider with skin support
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2014-10-11
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
@@ -34,7 +33,7 @@ abstract class AbstractSlider extends AbstractInputTag implements SliderInterfac
    * @param  mixed $value the initial submit value 
    * @throws InvalidArgumentException if the $value is not between the range
    */
-  public function __construct($name, int $start = 0, int $end = 100, int $step = 1, $value = null) {
+  public function __construct(string $name = null, int $start = 0, int $end = 100, int $step = 1, $value = null) {
     parent::__construct('text', $name);
     if ($value === null) {
       $value = $start;
@@ -54,7 +53,7 @@ abstract class AbstractSlider extends AbstractInputTag implements SliderInterfac
    * Sets the length of the slider step
    *
    * @param  int $step the length of the slider step
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @throws InvalidArgumentException if the step value is below zero
    */
   public function setStepLength(int $step = 1) {
@@ -74,7 +73,7 @@ abstract class AbstractSlider extends AbstractInputTag implements SliderInterfac
    *
    * @param  int $min the start point
    * @param  int $max the end point
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setRange(int $min, int $max) {
     $this->setMin($min)->setMax($max);
@@ -86,7 +85,7 @@ abstract class AbstractSlider extends AbstractInputTag implements SliderInterfac
    *
    * @param  int $start the start point
    * @param  int $end the end point
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setMin(int $start) {
     $this->attrs()->set('data-min', $start);
@@ -97,7 +96,7 @@ abstract class AbstractSlider extends AbstractInputTag implements SliderInterfac
    * Sets the range of the values on the slider
    *
    * @param  int $end the end point
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setMax(int $end) {
     $this->attrs()->set('data-max', $end);
@@ -108,7 +107,7 @@ abstract class AbstractSlider extends AbstractInputTag implements SliderInterfac
    * Sets the unit of the slider value
    * 
    * @param  boolean $grid the unit of the value
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function useGrid(bool $grid = true) {
     $this->attrs()->set('data-grid', $grid ? 'true' : 'false');
@@ -119,7 +118,7 @@ abstract class AbstractSlider extends AbstractInputTag implements SliderInterfac
    * Sets the number of grid units
    * 
    * @param  int $num the number of grid units
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setNumberOfGridUnits(int $num = 4) {
     $this->attrs()->set('data-grid-num', $num);
@@ -130,7 +129,7 @@ abstract class AbstractSlider extends AbstractInputTag implements SliderInterfac
    * Sets the prefix for values
    * 
    * @param  string $prefix the prefix for values
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setPrefix($prefix) {
     $this->attrs()->set('data-prefix', $prefix);
@@ -141,7 +140,7 @@ abstract class AbstractSlider extends AbstractInputTag implements SliderInterfac
    * Sets the postfix for values
    * 
    * @param  string $postfix the postfix for values
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setPostfix($postfix) {
     $this->attrs()->set('data-postfix', $postfix);
@@ -149,11 +148,11 @@ abstract class AbstractSlider extends AbstractInputTag implements SliderInterfac
   }
 
   public function getMax(): int {
-    return (int) $this->attrs()->get('data-max');
+    return (int) $this->attrs()->getValue('data-max');
   }
 
   public function getMin(): int {
-    return (int) $this->attrs()->get('data-min');
+    return (int) $this->attrs()->getValue('data-min');
   }
 
 }

@@ -11,7 +11,6 @@ namespace Sphp\Html\Icons;
  * Description of HyperlinkIcon
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2017-05-02
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
@@ -21,10 +20,11 @@ class HyperlinkIcon extends AbstractHyperlinkIcon {
   use \Sphp\Html\Navigation\HyperlinkTrait;
 
   /**
+   * Constructs a new instance
    * 
    * @param string $iconName
    */
-  public function __construct($url, $iconName, $target = null) {
+  public function __construct(string $url, $iconName, string $target = null) {
     if (!$iconName instanceof AbstractIcon) {
       $iconName = new Icon($iconName);
     }
@@ -33,11 +33,14 @@ class HyperlinkIcon extends AbstractHyperlinkIcon {
 
   /**
    * 
-   * @param string $icon
+   * @param  string $url
+   * @param  string $icon
+   * @param  string $target
+   * @return HyperlinkIcon
    */
-  public static function fontAwesome($url, $icon, $target = null) {
-    $iconComponent = Icon::fontAwesome($icon);
-    return static::get($url, $iconComponent, $target);
+  public static function fontAwesome(string $url, string $icon, string $target = null) {
+    $iconComponent = Icons::fontAwesome($icon);
+    return new static($url, $iconComponent, $target);
   }
 
   /**
@@ -48,9 +51,9 @@ class HyperlinkIcon extends AbstractHyperlinkIcon {
    * @param  string|null $target optional target frame of the hyperlink
    * @return self the hyperlink icon generated
    */
-  public static function foundation($href, $icon, $target = null) {
-    $iconComponent = Icon::foundation($icon);
-    return static::get($href, $iconComponent, $target);
+  public static function foundation(string $href, string $icon, string $target = null) {
+    $iconComponent = Icons::foundation($icon);
+    return new static($href, $iconComponent, $target);
   }
 
   /**

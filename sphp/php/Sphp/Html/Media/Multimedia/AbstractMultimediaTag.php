@@ -8,14 +8,13 @@
 namespace Sphp\Html\Media\Multimedia;
 
 use Sphp\Html\AbstractComponent;
-use Sphp\Html\Attributes\AttributeManager;
+use Sphp\Html\Attributes\HtmlAttributeManager;
 use Sphp\Html\Container;
 
 /**
  * Implements an abstract HTML multimedia tag
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2014-11-20
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
@@ -24,13 +23,11 @@ abstract class AbstractMultimediaTag extends AbstractComponent implements \Itera
   use \Sphp\Html\TraversableTrait;
 
   /**
-   *
    * @var Container
    */
   private $sources;
 
   /**
-   *
    * @var Container
    */
   private $tracks;
@@ -38,11 +35,11 @@ abstract class AbstractMultimediaTag extends AbstractComponent implements \Itera
   /**
    * Constructs a new instance
    *
-   * @param  string $tagname the name of the tag
-   * @param  AttributeManager|null $attrManager optional attribute manager to use in the component
+   * @param string $tagname the name of the tag
+   * @param HtmlAttributeManager|null $attrManager optional attribute manager to use in the component
    * @param mixed $sources optional sources
    */
-  public function __construct(string $tagname, AttributeManager $attrManager = null, $sources = null) {
+  public function __construct(string $tagname, HtmlAttributeManager $attrManager = null, $sources = null) {
     parent::__construct($tagname, $attrManager);
     $this->sources = new Container();
     $this->tracks = new Container();
@@ -69,7 +66,7 @@ abstract class AbstractMultimediaTag extends AbstractComponent implements \Itera
             . $this->getTagName() . "&gt; tag!</p>";
   }
 
-  public function addMediaSrc(MultimediaSourceInterface $src) {
+  public function addMediaSrc(MultimediaSource $src) {
     if ($src instanceof Source) {
       $this->sources->append($src);
     }

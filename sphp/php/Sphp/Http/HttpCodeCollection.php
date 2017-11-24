@@ -16,7 +16,6 @@ use Iterator;
  * Implements a HTTP code object collection
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2012-10-05
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
@@ -47,10 +46,7 @@ class HttpCodeCollection implements Iterator {
    * @return string
    * @throws \Sphp\Exceptions\InvalidArgumentException
    */
-  public function getCode($code = null) {
-    if ($code === null) {
-      $code = $this->currentCode();
-    }
+  public function getCode(int $code) {
     if (!array_key_exists($code, self::$errors)) {
       throw new InvalidArgumentException("HTTP code '$code' has no message stored");
     }
@@ -64,10 +60,7 @@ class HttpCodeCollection implements Iterator {
    * @return string
    * @throws \Sphp\Exceptions\InvalidArgumentException
    */
-  public function getMessage($code = null) {
-    if ($code === null) {
-      $code = $this->currentCode();
-    }
+  public function getMessage(int $code) {
     if (!array_key_exists($code, self::$errors)) {
       throw new InvalidArgumentException("HTTP code '$code' has no message stored");
     }
@@ -138,7 +131,7 @@ class HttpCodeCollection implements Iterator {
    * 
    * @return boolean current iterator position is valid
    */
-  public function valid() {
+  public function valid(): bool {
     return false !== current($this->codes);
   }
 }

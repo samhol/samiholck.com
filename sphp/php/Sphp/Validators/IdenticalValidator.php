@@ -7,15 +7,12 @@
 
 namespace Sphp\Validators;
 
-use Sphp\Stdlib\Arrays;
-
 /**
  * Validates string length
  *
  *  Validates the length of the given string
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2017-03-14
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
@@ -48,11 +45,6 @@ class IdenticalValidator extends AbstractValidator {
     parent::__destruct();
   }
 
-  public function __clone() {
-    $this->token = Arrays::copy($this->token);
-    parent::__clone();
-  }
-
   public function getToken() {
     return $this->token;
   }
@@ -61,23 +53,23 @@ class IdenticalValidator extends AbstractValidator {
    * Sets the range of the valid string length
    *
    * @param mixed[] $token the haystack
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setToken($token) {
     $this->token = $token;
     return $this;
   }
 
-  public function isStrict() {
+  public function isStrict(): bool {
     return $this->strict;
   }
 
   /**
    * 
    * @param  boolean $strict
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
-  public function setStrict($strict) {
+  public function setStrict(bool $strict) {
     $this->strict = $strict;
     return $this;
   }
@@ -93,7 +85,6 @@ class IdenticalValidator extends AbstractValidator {
     } else if (!is_object($value) && !is_object($token)) {
       $valid = $value == $token;
     }
-
     if (!$valid) {
       $this->error(self::INVALID);
     }

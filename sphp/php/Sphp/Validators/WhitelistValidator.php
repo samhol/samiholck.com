@@ -11,7 +11,6 @@ namespace Sphp\Validators;
  * Description of VhitelistValidator
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2017-03-18
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
@@ -20,7 +19,6 @@ class WhitelistValidator extends AbstractValidator {
   const ILLEGAL_KEY = '_illegal_key_';
 
   /**
-   *
    * @var array
    */
   private $whitelist = [];
@@ -36,7 +34,7 @@ class WhitelistValidator extends AbstractValidator {
     $this->setWhitelist($whitelist);
   }
 
-  public function getWhitelist() {
+  public function getWhitelist(): array {
     return $this->whitelist;
   }
 
@@ -56,6 +54,7 @@ class WhitelistValidator extends AbstractValidator {
         return false;
       }
     }
+    return true;
   }
 
 }

@@ -7,23 +7,20 @@
 
 namespace Sphp\Validators;
 
-use Sphp\I18n\Messages\TopicList;
-use Sphp\Stdlib\Datastructures\Collection;
+use Sphp\I18n\Collections\TranslatableCollection;
 use Sphp\Stdlib\Arrays;
 
 /**
  * Validates given form data
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2013-10-14
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
 class FormValidator extends AbstractValidator implements \Countable, \IteratorAggregate {
 
   /**
-   *
-   * @var TopicList 
+   * @var TranslatableCollection 
    */
   private $inputErrors;
 
@@ -41,17 +38,17 @@ class FormValidator extends AbstractValidator implements \Countable, \IteratorAg
     parent::__construct('The form has errors');
     $this->setMessageTemplate(self::INVALID, 'The form has errors');
     $this->validators = [];
-    $this->inputErrors = new TopicList();
+    $this->inputErrors = new TranslatableCollection();
   }
 
-  public function getInputErrors(): TopicList {
+  public function getInputErrors(): TranslatableCollection {
     return $this->inputErrors;
   }
 
   /**
    * Resets the validator to for revalidation
    * 
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function reset() {
     foreach ($this->validators as $validator) {
@@ -65,6 +62,11 @@ class FormValidator extends AbstractValidator implements \Countable, \IteratorAg
   public function isValid($value): bool {
     $this->reset();
     $valid = true;
+    if (!is_array($value)) {
+      //echo 'Invalid type given. String, integer or float expected';
+      $this->error(self::INVALID);
+      return false;
+    }
     foreach ($this->validators as $inputName => $validator) {
       if (!$validator->isValid(Arrays::getValue($value, $inputName))) {
         $valid = false;
@@ -88,12 +90,11 @@ class FormValidator extends AbstractValidator implements \Countable, \IteratorAg
   }
 
   /**
-   * Create a new iterator to iterate through the {@link ValidatorInterface}
-   * objects in aggregate
+   * Create a new iterator to iterate through the validators
    *
-   * @return Collection iterator
+   * @return Traversable iterator
    */
-  public function getIterator() {
+  public function getIterator(): \Traversable {
     return $this->validators;
   }
 
@@ -103,8 +104,8 @@ class FormValidator extends AbstractValidator implements \Countable, \IteratorAg
    * @param  string $inputName the name of the validable input
    * @return boolean true if the input name has validators attached to it, false if not
    */
-  public function exists($inputName) {
-    return array_key_exists($inputName, $this->validators);
+  public function exists(string $inputName) {
+    return isset($this->validators[$inputName]);
   }
 
   /**
@@ -113,7 +114,7 @@ class FormValidator extends AbstractValidator implements \Countable, \IteratorAg
    * @param  string $inputName the name of the validable input
    * @return ValidatorInterface|null the validator object or null
    */
-  public function get($inputName) {
+  public function get(string $inputName) {
     if ($this->exists($inputName)) {
       return $this->validators[$inputName];
     }
@@ -125,9 +126,9 @@ class FormValidator extends AbstractValidator implements \Countable, \IteratorAg
    * 
    * @param  string $inputName the name of the validable input
    * @param  ValidatorInterface $validator the validator object
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
-  public function set($inputName, ValidatorInterface $validator) {
+  public function set(string $inputName, ValidatorInterface $validator) {
     $this->validators[$inputName] = $validator;
     return $this;
   }

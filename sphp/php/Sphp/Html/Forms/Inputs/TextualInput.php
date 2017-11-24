@@ -10,10 +10,7 @@ namespace Sphp\Html\Forms\Inputs;
 /**
  * Implements an HTML &lt;input type="text|password|email|tel| ...))"&gt; tag
  *
- * {@inheritdoc}
- *
  * @author Sami Holck <sami.holck@gmail.com>
- * @since   2011-09-26
  * @link    http://www.w3schools.com/tags/tag_input.asp w3schools HTML
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
@@ -53,7 +50,7 @@ class TextualInput extends InputTag implements TextualInputInterface {
   }
 
   public function getMaxlength() {
-    return $this->attrs()->get('maxlength');
+    return $this->attrs()->getValue('maxlength');
   }
 
   public function setMaxlength(int $maxlength) {
@@ -61,7 +58,7 @@ class TextualInput extends InputTag implements TextualInputInterface {
     return $this;
   }
 
-  public function setPlaceholder($placeholder) {
+  public function setPlaceholder(string $placeholder = null) {
     $this->attrs()->set('placeholder', $placeholder);
     return $this;
   }
@@ -72,3 +69,4 @@ class TextualInput extends InputTag implements TextualInputInterface {
   }
 
 }
+

@@ -7,7 +7,7 @@
 
 namespace Sphp\Html\Navigation;
 
-use Sphp\Html\Attributes\AttributeManager;
+use Sphp\Html\Attributes\HtmlAttributeManager;
 use Sphp\Stdlib\Strings;
 
 /**
@@ -22,7 +22,6 @@ use Sphp\Stdlib\Strings;
  * the `href` attribute is not present.
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2014-11-24
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
@@ -31,9 +30,9 @@ trait HyperlinkTrait {
   /**
    * Returns the attribute manager attached to the component
    *
-   * @return AttributeManager the attribute manager
+   * @return HtmlAttributeManager the attribute manager
    */
-  abstract public function attrs();
+  abstract public function attrs(): HtmlAttributeManager;
 
   /**
    * Sets the value of the href attribute (The URL of the link)
@@ -70,7 +69,7 @@ trait HyperlinkTrait {
    * @link http://www.w3schools.com/tags/att_a_href.asp href attribute
    */
   public function getHref() {
-    return $this->attrs()->get('href');
+    return $this->attrs()->getValue('href');
   }
 
   /**
@@ -106,14 +105,14 @@ trait HyperlinkTrait {
    * @link  http://www.w3schools.com/tags/att_a_target.asp target attribute
    */
   public function getTarget() {
-    return $this->attrs()->get('target');
+    return $this->attrs()->getValue('target');
   }
 
   /**
    * Sets the value of the title attribute
    *
    * @param  string|null $title the value of the title attribute
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @link   http://www.w3schools.com/tags/att_global_title.asp title attribute
    */
   public function setTitle($title) {

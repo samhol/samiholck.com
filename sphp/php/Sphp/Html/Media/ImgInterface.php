@@ -25,16 +25,13 @@ namespace Sphp\Html\Media;
  *
  * The alt attribute specifies an alternate text for an image, if the image cannot be displayed.
  *
- * {@inheritdoc}
- *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2011-02-15
  * @link    http://www.w3schools.com/tags/tag_img.asp w3schools API
  * @link    http://www.w3.org/html/wg/drafts/html/master/embedded-content.html#the-img-element W3C API
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
-interface ImgInterface extends MediaSourceInterface, SizeableInterface, LazyMediaInterface {
+interface ImgInterface extends MediaSource, SizeableMedia, LazyMedia {
 
   /**
    * Sets the alt attribute (an alternate text for an image).
@@ -52,7 +49,7 @@ interface ImgInterface extends MediaSourceInterface, SizeableInterface, LazyMedi
    *    (in this case you don't need to define "alt attribute at all")
    *
    * @param  string $alt the alternate text for an image
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @link   http://www.w3schools.com/tags/att_img_alt.asp alt attribute
    */
   public function setAlt(string $alt);

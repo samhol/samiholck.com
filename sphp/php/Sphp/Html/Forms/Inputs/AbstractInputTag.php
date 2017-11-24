@@ -18,12 +18,11 @@ use Sphp\Html\EmptyTag;
  * that allow users to input data. 
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2011-08-17
  * @link    http://www.w3schools.com/tags/tag_input.asp w3schools HTML
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
-abstract class AbstractInputTag extends EmptyTag implements IdentifiableInputInterface {
+abstract class AbstractInputTag extends EmptyTag implements IdentifiableInput {
 
   use InputTagTrait;
 
@@ -37,9 +36,9 @@ abstract class AbstractInputTag extends EmptyTag implements IdentifiableInputInt
    * @link   http://www.w3schools.com/tags/att_input_name.asp name attribute
    * @link   http://www.w3schools.com/tags/att_input_value.asp value attribute
    */
-  public function __construct($type, $name = null, $value = null) {
+  public function __construct(string $type, string $name = null, $value = null) {
     parent::__construct('input');
-    $this->attrs()->lock('type', $type);
+    $this->attrs()->protect('type', $type);
     if ($name !== null) {
       $this->setName($name);
     }

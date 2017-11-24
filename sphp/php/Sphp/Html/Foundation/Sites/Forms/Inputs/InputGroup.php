@@ -8,59 +8,55 @@
 namespace Sphp\Html\Foundation\Sites\Forms\Inputs;
 
 use Sphp\Html\AbstractComponent;
-use Sphp\Html\Forms\Inputs\IdentifiableInputInterface;
+use Sphp\Html\Forms\Inputs\IdentifiableInput;
 use Sphp\Stdlib\Strings;
 
 /**
- * Class InputGroup
+ * Implements a Foundation Framework based input group
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2016-09-21
- * @version 1.0.0
+ * @link    http://foundation.zurb.com/ Foundation
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
-class InputGroup extends AbstractComponent implements IdentifiableInputInterface {
+class InputGroup extends AbstractComponent implements IdentifiableInput {
 
   use \Sphp\Html\Forms\Inputs\InputWrapperTrait;
 
   /**
-   *
    * @var string|null
    */
   private $prefix;
 
   /**
-   *
    * @var string|null
    */
   private $suffix;
 
   /**
-   *
-   * @var IdentifiableInputInterface 
+   * @var IdentifiableInput 
    */
   private $input;
 
   /**
    * 
-   * @param IdentifiableInputInterface $input
+   * @param IdentifiableInput $input
    * @param string|null $prefix the content of the prefix
    * @param string|null $suffix the content of the suffix
    */
-  public function __construct(IdentifiableInputInterface $input, $prefix = null, $suffix = null) {
+  public function __construct(IdentifiableInput $input, $prefix = null, $suffix = null) {
     parent::__construct('div');
-    $this->cssClasses()->lock("input-group");
+    $this->cssClasses()->protect("input-group");
     $this->prefix = $prefix;
     $this->input = $input;
     $this->suffix = $suffix;
-    $this->input->cssClasses()->lock("input-group-field");
+    $this->input->cssClasses()->protect("input-group-field");
   }
 
   /**
    * 
    * 
-   * @return IdentifiableInputInterface
+   * @return IdentifiableInput
    */
   public function getInput() {
     return $this->input;
@@ -72,7 +68,7 @@ class InputGroup extends AbstractComponent implements IdentifiableInputInterface
    * `null` value hides the prefix
    * 
    * @param  string|null $prefix the content of the prefix
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setPrefix($prefix = null) {
     $this->prefix = $prefix;
@@ -85,7 +81,7 @@ class InputGroup extends AbstractComponent implements IdentifiableInputInterface
    * `null` value hides the suffix
    * 
    * @param  string|null $suffix the content of the suffix
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setSuffix($suffix = null) {
     $this->suffix = $suffix;
@@ -101,6 +97,10 @@ class InputGroup extends AbstractComponent implements IdentifiableInputInterface
       }
     };
     return $a($this->prefix) . $this->input->getHtml() . $a($this->suffix);
+  }
+
+  public function getSubmitValue() {
+    
   }
 
 }

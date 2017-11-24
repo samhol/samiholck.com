@@ -8,13 +8,12 @@
 namespace Sphp\Validators;
 
 use Countable;
-use Sphp\I18n\Messages\TranslatableList;
+use Sphp\I18n\Collections\TranslatableCollection;
 
 /**
  * A validator container for validating a value against multiple validators
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2012-10-14
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
@@ -34,8 +33,7 @@ class ValidatorChain implements ValidatorInterface, Countable {
   private $validators;
 
   /**
-   *
-   * @var MessageList
+   * @var TranslatableCollection
    */
   private $errors;
 
@@ -44,7 +42,7 @@ class ValidatorChain implements ValidatorInterface, Countable {
    */
   public function __construct() {
     $this->validators = [];
-    $this->errors = new TranslatableList();
+    $this->errors = new TranslatableCollection();
   }
 
   /**
@@ -89,7 +87,7 @@ class ValidatorChain implements ValidatorInterface, Countable {
   /**
    * 
    * @param  mixed|mixed[] $skippedValues
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setSkippedValues($skippedValues) {
     if (!is_array($skippedValues)) {
@@ -102,7 +100,7 @@ class ValidatorChain implements ValidatorInterface, Countable {
   /**
    * 
    * @param  mixed|mixed[] $skippedValues
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function addSkippedValue($skippedValues) {
     if (!in_array($skippedValues, $this->skippedValues, true)) {
@@ -113,14 +111,14 @@ class ValidatorChain implements ValidatorInterface, Countable {
 
   /**
    * 
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function removeSkippedValues() {
     $this->skippedValues = [];
     return $this;
   }
   
-  public function getErrors(): TranslatableList {
+  public function getErrors(): TranslatableCollection {
     return $this->errors;
   }
 
@@ -149,9 +147,9 @@ class ValidatorChain implements ValidatorInterface, Countable {
    * 
    * @param  ValidatorInterface $v new validator object
    * @param  boolean $break
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
-  public function appendValidator(ValidatorInterface $v, $break = false) {
+  public function appendValidator(ValidatorInterface $v, bool $break = false) {
     $data = [
         'validator' => $v,
         'break' => (bool) $break,

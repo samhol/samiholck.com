@@ -13,11 +13,10 @@ use Sphp\Html\ComponentInterface;
 /**
  * Implements Dropdown HTML component
  *
- * This component can be used to attach dropdowns or popovers to
+ * This component can be used to attach dropdowns or pop overs to
  * whatever Component needed.
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2014-04-10
  * @link    http://foundation.zurb.com/ Foundation
  * @link    http://foundation.zurb.com/sites/docs/dropdown.html Foundation Dropdown
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
@@ -28,7 +27,7 @@ class Dropdown implements ContentInterface {
   use \Sphp\Html\ContentTrait;
 
   private static $sizes = [
-      "tiny", "small", "large", "xlarge", "xxlarge"
+      'tiny', 'small', 'large', 'xlarge', 'xxlarge'
   ];
 
   /**
@@ -52,15 +51,15 @@ class Dropdown implements ContentInterface {
       $dropdown = new \Sphp\Html\Div($dropdown);
     }
     $this->dropdown = $dropdown;
-    $this->dropdown->identify("id", "dd_");
-    $this->dropdown->cssClasses()->lock("dropdown-pane");
-    $this->dropdown->attrs()->demand("data-dropdown");
+    $this->dropdown->identify();
+    $this->dropdown->cssClasses()->protect('dropdown-pane');
+    $this->dropdown->attrs()->demand('data-dropdown');
     $this->setTrigger($trigger);
   }
 
   public function __clone() {
     parent::__clone();
-    $this->identify("Dropdown");
+    $this->identify('Dropdown');
     $this->trigger = clone $this->trigger;
     $this->setTrigger($this->trigger);
   }
@@ -86,7 +85,7 @@ class Dropdown implements ContentInterface {
    * * `'xxlarge'` for xx-large dropdown pane
    * 
    * @param  string|null $size optional CSS class name defining dropdown pane size
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @link   http://foundation.zurb.com/docs/components/buttons.html#button-sizing Button Sizing
    */
   public function setSize($size) {
@@ -98,7 +97,7 @@ class Dropdown implements ContentInterface {
   /**
    * Resets the size settings of the component
    *
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function resetSize() {
     $this->dropdown->cssClasses()
@@ -118,7 +117,7 @@ class Dropdown implements ContentInterface {
    * * `false`: Removes settings
    *
    * @param  string|boolean $alignment the alignment value
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function align($alignment) {
     $this->dropdown->cssClasses()->remove('top left bottom right');
@@ -138,7 +137,7 @@ class Dropdown implements ContentInterface {
    * * `false`: Removes floating settings
    *
    * @param  string|boolean $float the floating value
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setFloat($float = false) {
     $this->trigger->cssClasses()->remove('float-left float-right');
@@ -152,7 +151,7 @@ class Dropdown implements ContentInterface {
    * Sets the component controlling this dropdown
    *
    * @param  mixed the component controlling this dropdown
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setTrigger($trigger) {
     if (!($trigger instanceof ComponentInterface)) {
@@ -179,9 +178,9 @@ class Dropdown implements ContentInterface {
   /**
    * 
    * @param  boolean $flag
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
-  public function closeOnBodyClick($flag = true) {
+  public function closeOnBodyClick(bool $flag = true) {
     if ($flag) {
       $this->dropdown->attrs()->set('data-close-on-click', 'true');
     } else {
@@ -193,9 +192,9 @@ class Dropdown implements ContentInterface {
   /**
    * 
    * @param  boolean $flag
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
-  public function autoFocus($flag = true) {
+  public function autoFocus(bool $flag = true) {
     if ($flag) {
       $this->dropdown->attrs()->set('data-auto-focus', 'true');
     } else {

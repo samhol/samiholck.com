@@ -15,7 +15,6 @@ use Sphp\Html\Foundation\Sites\Buttons\CloseButton;
  * Implements a Foundation Closable.
  * 
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2017-04-28
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
@@ -48,14 +47,14 @@ class ClosableContainer extends Div implements ClosableInterface {
   /**
    * Returns the Modal reveal controller
    * 
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setCloseButton(CloseButton $btn) {
     $this->closeButton = $btn;
     return $this;
   }
 
-  public function setClosable(bool $closable = true) {
+  public function setClosable($closable = true) {
     $this->attrs()->set('data-closable', $closable);
     return $this;
   }

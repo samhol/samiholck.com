@@ -8,10 +8,10 @@
 namespace Sphp\I18n\Zend;
 
 use Sphp\I18n\AbstractTranslator;
-use Sphp\Stdlib\Arrays;
 use Zend\I18n\Translator\Translator as ZendTranslator;
 use ReflectionClass;
 use Exception;
+use Sphp\Exceptions\BadMethodCallException;
 
 /**
  * Implements a natural language translator
@@ -21,7 +21,6 @@ use Exception;
  * @method self toAscii(string $str, bool $removeUnsupported = true)
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2015-05-12
  * @link    https://zendframework.github.io/zend-i18n/translation/
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
@@ -36,7 +35,6 @@ class Translator extends AbstractTranslator {
   private $domain;
 
   /**
-   *
    * @var ZendTranslator 
    */
   private $translator;
@@ -50,16 +48,26 @@ class Translator extends AbstractTranslator {
   /**
    * Constructs a new instance
    *
-   * @param strin|null $lang optional translation language
+   * @param string|null $lang optional translation language
    * @param ZendTranslator $t
    */
-  public function __construct(string $lang = null, ZendTranslator $t = null) {
+  public function __construct(ZendTranslator $t = null) {
     if ($t === null) {
       $t = new ZendTranslator();
     }
     $this->translator = $t;
-    $this->setLang($lang);
+    //$this->setLang($lang);
     $this->reflector = new ReflectionClass($this->translator);
+  }
+
+  /**
+   * Destroys the instance
+   *
+   * The destructor method will be called as soon as there are no other references
+   * to a particular object, or in any order during the shutdown sequence.
+   */
+  public function __destruct() {
+    unset($this->translator, $this->reflector);
   }
 
   /**
@@ -88,24 +96,33 @@ class Translator extends AbstractTranslator {
    * @param type $baseDir
    * @param type $pattern
    * @param type $textDomain
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function addTranslationFilePattern($type, $baseDir, $pattern, $textDomain) {
     $this->translator->addTranslationFilePattern($type, $baseDir, $pattern, $textDomain);
     return $this;
   }
 
+  /**
+   * Returns the ZEND translator used
+   * 
+   * @return ZendTranslator the ZEND translator used
+   */
+  public function getZend(): ZendTranslator {
+    return $this->translator;
+  }
+
   public function getLang(): string {
-    return $this->translator->getLocale();
+    return $this->getZend()->getLocale();
   }
 
   /**
    * 
    * @param string $lang
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setLang(string $lang) {
-    $this->translator->setLocale($lang);
+    $this->getZend()->setLocale($lang);
     return $this;
   }
 
@@ -128,26 +145,12 @@ class Translator extends AbstractTranslator {
     return $this->domain;
   }
 
-  public function get($text, $lang = null) {
-    if ($lang === null) {
-      $lang = $this->getLang();
-    }
-    $parser = function($arg) use ($lang) {
-      if (is_string($arg)) {
-        return $this->translator->translate($arg, $this->getDomain(), $lang);
-      }
-      return $arg;
-    };
-    if (is_array($text)) {
-      $translation = Arrays::multiMap($parser, $text);
-    } else {
-      $translation = $this->translator->translate($text, $this->getDomain(), $this->getLang());
-    }
-    return $translation;
+  public function get(string $text): string {
+    return $this->getZend()->translate($text, $this->getDomain(), $this->getLang());
   }
 
-  public function getPlural(string $msgid1, string $msgid2, int $n, string $lang = null):string{
-    return $this->translator->translatePlural($msgid1, $msgid2, $n, $this->getDomain(), $this->getLang());
+  public function getPlural(string $msgid1, string $msgid2, int $n): string {
+    return $this->getZend()->translatePlural($msgid1, $msgid2, $n, $this->getDomain(), $this->getLang());
   }
 
   /**
@@ -157,10 +160,10 @@ class Translator extends AbstractTranslator {
    * @param type $domain
    * @return self new instance
    */
-  public static function fromTranslationFilePattern(string $lang, string $directory, string $domain) {
+  public static function fromFilePattern($type, $baseDir, $pattern, $textDomain = 'default') {
     $t = new ZendTranslator();
-    $t->addTranslationFilePattern('gettext', \Sphp\LOCALE_PATH, $directory, $domain);
-    return new static($lang, $t);
+    $t->addTranslationFilePattern($type, $baseDir, $pattern, $textDomain);
+    return new static($t);
   }
 
 }

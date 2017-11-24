@@ -10,10 +10,7 @@ namespace Sphp\Html\Forms\Inputs;
 /**
  * Implements an HTML &lt;input type="number"&gt; tag
  *
- * {@inheritdoc}
- *
  * @author Sami Holck <sami.holck@gmail.com>
- * @since   2011-09-26
  * @link    http://www.w3schools.com/tags/tag_input.asp w3schools HTML
  * @link    https://www.w3.org/TR/html-markup/input.number.html W3C reference
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
@@ -43,7 +40,7 @@ class NumberInput extends InputTag implements NumberInputInterface {
   }
 
   public function getMinimum(): int {
-    return (int) $this->attrs()->get('min');
+    return (int) $this->attrs()->getValue('min');
   }
 
   public function setMinimum(int $min) {
@@ -52,7 +49,7 @@ class NumberInput extends InputTag implements NumberInputInterface {
   }
 
   public function getMaximum(): int {
-    return (int) $this->attrs()->get('max');
+    return (int) $this->attrs()->getValue('max');
   }
 
   public function setMaximum(int $max) {
@@ -61,7 +58,7 @@ class NumberInput extends InputTag implements NumberInputInterface {
   }
 
   public function getStep() {
-    return $this->attrs()->get('step');
+    return $this->attrs()->getValue('step');
   }
 
   public function setStep(int $step) {
@@ -69,7 +66,7 @@ class NumberInput extends InputTag implements NumberInputInterface {
     return $this;
   }
 
-  public function setPlaceholder($placeholder) {
+  public function setPlaceholder(string $placeholder = null) {
     $this->attrs()->set('placeholder', $placeholder);
     return $this;
   }
@@ -80,3 +77,4 @@ class NumberInput extends InputTag implements NumberInputInterface {
   }
 
 }
+

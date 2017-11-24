@@ -15,12 +15,7 @@ use Sphp\Html\Container;
 /**
  * Implements an HTML &lt;table&gt; tag.
  *
- *
- * {@inheritdoc}
- *
- *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2012-10-03
  * @link    http://www.w3schools.com/tags/tag_table.asp w3schools HTML API
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
@@ -40,31 +35,26 @@ class Table extends AbstractComponent implements IteratorAggregate, TraversableI
   const COUNT_CELLS = 2;
 
   /**
-   *
    * @var Caption 
    */
   private $caption;
 
   /**
-   *
    * @var Colgroup 
    */
   private $colgroup;
 
   /**
-   *
    * @var Thead 
    */
   private $thead;
 
   /**
-   *
    * @var Tbody 
    */
   private $tbody;
 
   /**
-   *
    * @var Tfoot 
    */
   private $tfoot;
@@ -113,7 +103,7 @@ class Table extends AbstractComponent implements IteratorAggregate, TraversableI
    * Sets the caption text of the table
    * 
    * @param  string|null $caption the caption text of the table
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setCaption($caption) {
     if (!($caption instanceof Caption)) {
@@ -126,7 +116,7 @@ class Table extends AbstractComponent implements IteratorAggregate, TraversableI
   /**
    * Destroys the optional caption component
    * 
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function removeCaption() {
     $this->caption = null;
@@ -137,7 +127,7 @@ class Table extends AbstractComponent implements IteratorAggregate, TraversableI
    * Sets (replaces) a part of a table with the given {@link TableContentInterface} component
    *
    * @param TableContentInterface $content the given part of a table
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setContent(TableContentInterface $content) {
     if ($content instanceof Colgroup || $content instanceof Col) {
@@ -173,7 +163,7 @@ class Table extends AbstractComponent implements IteratorAggregate, TraversableI
   /**
    * Destroys the optional colgroup component
    * 
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function removeColgroup() {
     $this->colgroup = null;
@@ -197,7 +187,7 @@ class Table extends AbstractComponent implements IteratorAggregate, TraversableI
   /**
    * Destroys the optional table header component
    * 
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function removeThead() {
     $this->thead = null;
@@ -222,7 +212,7 @@ class Table extends AbstractComponent implements IteratorAggregate, TraversableI
   /**
    * Destroys the optional table body component
    * 
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function removeTbody() {
     $this->tbody = null;
@@ -246,7 +236,7 @@ class Table extends AbstractComponent implements IteratorAggregate, TraversableI
   /**
    * Destroys the optional footer component
    * 
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function removeTfoot() {
     $this->tfoot = null;
@@ -265,7 +255,7 @@ class Table extends AbstractComponent implements IteratorAggregate, TraversableI
    * @return int number of elements in the html table
    * @link   http://php.net/manual/en/class.countable.php Countable
    */
-  public function count($mode = self::COUNT_ROWS): int {
+  public function count(int $mode = self::COUNT_ROWS): int {
     $num = 0;
     if ($this->thead !== null) {
       $num += $this->thead->count($mode);

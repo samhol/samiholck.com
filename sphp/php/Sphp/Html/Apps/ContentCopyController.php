@@ -19,7 +19,6 @@ use Sphp\Html\ComponentInterface;
  * using an invisible Adobe Flash movie and a JavaScript interface.
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2014-04-13
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
@@ -64,12 +63,12 @@ class ContentCopyController implements ContentInterface {
   /**
    * 
    * @param  ComponentInterface $target
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setCopyTarget($target) {
     if ($target !== $this->target) {
       if ($target instanceof ComponentInterface) {
-        $id = $target->identify('id', 'copy_target', 32);
+        $id = $target->identify(32);
       } else {
         $id = $target;
       }

@@ -7,6 +7,7 @@
 
 namespace Sphp\Database;
 
+use PDO;
 use PDOStatement;
 
 /**
@@ -19,6 +20,22 @@ use PDOStatement;
 interface StatementInterface {
 
   /**
+   * Sets the connection object between PHP and a database server
+   * 
+   * @param  PDO $pdo connection object between PHP and a database server
+   * @return $this for a fluent interface
+   */
+  public function setPDO(PDO $pdo);
+
+  /**
+   * Returns the current connection object between PHP and a database server
+   * 
+   * @return PDO connection object between PHP and a database server
+   * @link   http://www.php.net/manual/en/book.pdo.php PHP Data Objects
+   */
+  public function getPDO(): PDO;
+
+  /**
    * Returns the SQL statement as a string
    *
    * @return string the SQL statement as a string
@@ -26,35 +43,27 @@ interface StatementInterface {
   public function statementToString(): string;
 
   /**
-   * Returns the SQL statement object
+   * Returns the database statement object
    *
-   * @return PDOStatement the SQL statement object
+   * @return PDOStatement the database statement object
+   * @throws \Sphp\Exceptions\RuntimeException
+   * @link   http://php.net/manual/en/class.pdostatement.php The PDOStatement class
    */
   public function getStatement(): PDOStatement;
 
   /**
-   * Returns the bound parameters as an array
+   * Returns the parameter handler
    *
-   * @return mixed[] the bound parameters
+   * @return ParameterHandler the parameter handler
    */
-  public function getParams(): array;
+  public function getParams(): ParameterHandler;
 
   /**
-   * Returns the SQL statement as a string
+   * Executes the database statement
    *
-   * Replaces any parameter placeholders in a query with the value of that
-   * parameter. Useful for debugging. Assumes anonymous parameters from
-   * $params are are in the same order as specified in $query
-   *
-   * @return string the interpolated query for debugging purposes
-   */
-  public function __toString(): string;
-
-  /**
-   * Executes the SQL statement, returning a result set as a PDOStatement object
-   *
-   * @return \PDOStatement the result set
-   * @throws SQLException if there is no database connection or query execution fails
+   * @return PDOStatement the result set
+   * @throws \Sphp\Exceptions\RuntimeException if query execution fails
+   * @link   http://php.net/manual/en/class.pdostatement.php The PDOStatement class
    */
   public function execute(): PDOStatement;
 }

@@ -14,11 +14,10 @@ use Sphp\Html\Navigation\HyperlinkTrait;
  * Implements an HTML &lt;area&gt; tag
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2016-05-26
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
-abstract class AbstractArea extends \Sphp\Html\EmptyTag implements AreaInterface {
+abstract class AbstractArea extends EmptyTag implements Area {
 
   use HyperlinkTrait;
 
@@ -31,7 +30,7 @@ abstract class AbstractArea extends \Sphp\Html\EmptyTag implements AreaInterface
    */
   public function __construct(string $shape, string $href = null, string $alt = null) {
     parent::__construct('area');
-    $this->attrs()->lock('shape', $shape);
+    $this->attrs()->protect('shape', $shape);
     if ($href !== null) {
       $this->setHref($href);
     }
@@ -72,7 +71,7 @@ abstract class AbstractArea extends \Sphp\Html\EmptyTag implements AreaInterface
    * Sets the relationship between the current document and the linked document
    * 
    * @param  string $rel the value of the rel attribute
-   * @return AreaInterface for PHP Method Chaining
+   * @return Area for PHP Method Chaining
    * @link   http://www.w3schools.com/TAGS/att_area_rel.asp rel attribute
    */
   public function setRelationship($rel) {
@@ -103,7 +102,7 @@ abstract class AbstractArea extends \Sphp\Html\EmptyTag implements AreaInterface
    * The `alt` attribute is required if the `href` attribute is present.
    *
    * @param  string $alt the alternate text for an image
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @link   http://www.w3schools.com/tags/att_area_alt.asp alt attribute
    */
   public function setAlt($alt) {
@@ -128,7 +127,7 @@ abstract class AbstractArea extends \Sphp\Html\EmptyTag implements AreaInterface
    * @link  http://www.w3schools.com/tags/att_area_alt.asp alt attribute
    */
   public function getAlt() {
-    return $this->attrs()->get('alt');
+    return $this->attrs()->getValue('alt');
   }
 
 }

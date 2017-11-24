@@ -10,10 +10,9 @@ namespace Sphp\Html\Forms\Inputs;
 use Sphp\Html\ContentInterface;
 
 /**
- * Defines required operations for all input components used in {@link FormInterface}
+ * Defines required operations for all HTML form input components
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2011-02-15
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
@@ -33,9 +32,9 @@ interface InputInterface extends ContentInterface {
    * passed when submitting a form.
    *
    * @param  string $name the name of the form input
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
-  public function setName($name);
+  public function setName(string $name);
 
   /**
    * Checks whether the form input has a name
@@ -57,8 +56,8 @@ interface InputInterface extends ContentInterface {
   /**
    * Sets  the value of the form input
    *
-   * @param  string|string[] $value the value of the form input
-   * @return self for a fluent interface
+   * @param  scalar $value the value of the form input
+   * @return $this for a fluent interface
    * @throws \InvalidArgumentException if the value is not valid for the input type
    */
   public function setValue($value);
@@ -70,7 +69,7 @@ interface InputInterface extends ContentInterface {
    * Disabled input components in a form will not be submitted.
    *
    * @param  boolean $disabled true if the component is disabled, otherwise false
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function disable(bool $disabled = true);
 

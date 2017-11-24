@@ -36,7 +36,6 @@ use Sphp\Exceptions\RuntimeException;
  * </code>
  * 
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2017-03-16
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
@@ -67,7 +66,7 @@ class CRSFToken {
    * @param  string $tokenName the CRSF token name
    * @return string the CRSF token generated
    */
-  public function generateToken($tokenName) {
+  public function generateToken(string $tokenName): string {
     $token = md5(uniqid(microtime(), true));
     $_SESSION[$tokenName . '_token'] = $token;
     return $token;
@@ -80,7 +79,7 @@ class CRSFToken {
    * @param  int $type
    * @return boolean true if the token value matches
    */
-  public function verifyInputToken($tokenName, $type) {
+  public function verifyInputToken(string $tokenName, int $type): bool {
     $token = filter_input($type, $tokenName, FILTER_SANITIZE_STRING);
     if (!isset($_SESSION[$tokenName . '_token'])) {
       return false;
@@ -98,7 +97,7 @@ class CRSFToken {
    * @param  string $tokenName the CRSF token name
    * @return boolean true if the token value matches
    */
-  public function verifyPostToken($tokenName) {
+  public function verifyPostToken(string $tokenName): bool {
     return $this->verifyInputToken($tokenName, \INPUT_POST);
   }
 
@@ -108,16 +107,16 @@ class CRSFToken {
    * @param  string $tokenName the CRSF token name
    * @return boolean true if the token value matches
    */
-  public function verifyGetToken($tokenName) {
+  public function verifyGetToken(string $tokenName): bool {
     return $this->verifyInputToken($tokenName, \INPUT_GET);
   }
 
   /**
    * Returns the singleton instance of a CRSF token generator
    * 
-   * @return self singleton instance
+   * @return CRSFToken singleton instance
    */
-  public static function instance() {
+  public static function instance(): CRSFToken {
     if (static::$instance === null) {
       static::$instance = new static();
     }

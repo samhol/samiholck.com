@@ -13,7 +13,6 @@ use Sphp\Html\ContainerTag;
  * Implements an HTML &lt;textarea&gt; tag
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2011-09-26
  * @link    http://www.w3schools.com/tags/tag_textarea.asp w3schools HTML API
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
@@ -35,7 +34,7 @@ class Textarea extends ContainerTag implements TextareaInterface {
    * @link   http://www.w3schools.com/tags/att_textarea_rows.asp rows attribute
    * @link   http://www.w3schools.com/tags/att_textarea_cols.asp cols attribute
    */
-  public function __construct($name = null, $content = null, int $rows = null, int $cols = null) {
+  public function __construct(string $name = null, $content = null, int $rows = null, int $cols = null) {
     parent::__construct('textarea', $content);
     if ($name !== null) {
       $this->setName($name);
@@ -63,18 +62,21 @@ class Textarea extends ContainerTag implements TextareaInterface {
   }
 
   public function setRows(int $rows) {
-    $this->attrs()->set('rows', $rows);
+    $this->attrs()->setInteger('rows', $rows);
     return $this;
   }
 
   public function setCols(int $cols) {
-    $this->attrs()->set('cols', $cols);
+    $this->attrs()->setInteger('cols', $cols);
     return $this;
   }
 
-  public function setPlaceholder($placeholder) {
+  public function setPlaceholder(string $placeholder) {
     $this->attrs()->set('placeholder', $placeholder);
     return $this;
   }
 
 }
+
+
+

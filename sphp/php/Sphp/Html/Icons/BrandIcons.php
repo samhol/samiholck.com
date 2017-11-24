@@ -7,19 +7,20 @@
 
 namespace Sphp\Html\Icons;
 
-use Sphp\Html\AbstractComponent;
+use Sphp\Html\ContentInterface;
+use Sphp\Html\Lists\Ul;
+use Iterator;
 
 /**
  * Description of BrandIcons
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2017-05-02
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
-class BrandIcons extends AbstractComponent implements \Iterator, \Sphp\Html\TraversableInterface {
+class BrandIcons implements ContentInterface, Iterator {
 
-  use \Sphp\Html\TraversableTrait;
+  use \Sphp\Html\ContentTrait;
 
   const GITHUB = 'github';
   const FACEBOOK = 'facebook';
@@ -31,116 +32,99 @@ class BrandIcons extends AbstractComponent implements \Iterator, \Sphp\Html\Trav
    */
   private $icons;
 
+  /**
+   * Constructs a new instance
+   */
   public function __construct() {
-    parent::__construct('ul');
+    //parent::__construct('ul');
     $this->icons = [];
-    $this->cssClasses()->lock('brand-icons');
-    //$ul = (new \Sphp\Html\Lists\Ul());
-
-    /* $blee = new Dropdown(F::icon('widget'));
-      $blee->closeOnBodyClick()
-      ->align('bottom left')
-      ->addCssClass('sphp-f6-info large')
-      ->ajaxPrepend('manual/snippets/f6ScreenInfo.php'); */
-
-//$ul[] = $blee;
-    /* $ul['github'] = (new HyperlinkListItem('https://github.com/samhol/SPHP-framework', '<i class="fa fa-github"></i>', '_blank'))->addCssClass('github');
-      $ul['facebook'] = (new HyperlinkListItem('https://www.facebook.com/Sami.Petteri.Holck.Programming/', '<i class="fa fa-facebook-square"></i>', '_blank'))->addCssClass('facebook');
-      $ul['google'] = (new HyperlinkListItem('https://plus.google.com/b/113942361282002156141/113942361282002156141', '<i class="fa fa-google-plus-square"></i>', '_blank'))->addCssClass('google');
-      $ul['twitter'] = (new HyperlinkListItem('https://twitter.com/SPHPframework', '<i class="fa fa-twitter"></i>', '_blank'))->addCssClass('twitter');
-     */
-    //->printHtml();
-    //$ul
-    //$ul->addCssClass('sphp-brand-icons rounded')
-    //       ->printHtml();
+    //$this->cssClasses()->lock('brand-icons');
   }
 
   /**
    * 
-   * @param string $url
-   * @param type $target
-   * @return $this
+   * @param  string $url
+   * @param  string|null $target optional target of  the hyperlink
+   * @return $this for a fluent interface
    */
-  public function setGithub($url = null, $target = null) {
+  public function setGithub(string $url = null, string $target = null) {
     if ($url === null) {
       $url = 'https://www.github.com/';
     }
-    $this->setIcon(static::GITHUB, (new HyperlinkIcon($url, Icon::fontAwesome('github'), $target)));
+    $this->setIcon(static::GITHUB, (new HyperlinkIcon($url, Icons::fontAwesome('github'), $target)));
     return $this;
   }
 
   /**
    * 
-   * @param string $url
-   * @param type $target
-   * @return $this
+   * @param  string $url
+   * @param  string|null $target optional target of  the hyperlink
+   * @return $this for a fluent interface
    */
-  public function setFacebook($url = null, $target = null) {
+  public function setFacebook(string $url = null, string $target = null) {
     if ($url === null) {
       $url = 'https://www.facebook.com/';
     }
-    $this->setIcon(static::FACEBOOK, (new HyperlinkIcon($url, Icon::fontAwesome('facebook-square'), $target)));
+    $this->setIcon(static::FACEBOOK, (new HyperlinkIcon($url, Icons::fontAwesome('facebook-square'), $target)));
     return $this;
   }
 
   /**
    * 
-   * @param string $url
-   * @param string|null $target
-   * @return $this
+   * @param  string $url
+   * @param  string|null $target optional target of  the hyperlink
+   * @return $this for a fluent interface
    */
-  public function setTwitter($url = 'https://twitter.com/', $target = null) {
+  public function setTwitter(string $url = 'https://twitter.com/', string $target = null) {
     $this->setIcon(static::TWITTER, HyperlinkIcon::fontAwesome($url, 'twitter', $target));
     return $this;
   }
 
   /**
    * 
-   * @param string $url
-   * @return $this
+   * @param  string $url
+   * @param  string|null $target optional target of  the hyperlink
+   * @return $this for a fluent interface
    */
-  public function setGooglePlus($url = null) {
+  public function setGooglePlus(string $url = null, string $target = null) {
     if ($url === null) {
       $url = 'https://plus.google.com/';
     }
-    $this->setIcon(static::GOOGLE_PLUS, (new HyperlinkIcon($url, Icon::fontAwesome('google-plus-square'), '_blank')));
+    $this->setIcon(static::GOOGLE_PLUS, (new HyperlinkIcon($url, Icons::fontAwesome('google-plus-square'), $target)));
     return $this;
   }
 
   /**
    * 
    * @param  string $index
-   * @return HyperlinkIcon|null
+   * @return HyperlinkIcon
+   * @throws \Sphp\Exceptions\RuntimeException if there is no icon at the given index
    */
-  public function get($index) {
+  public function get(string $index): HyperlinkIcon {
     if (array_key_exists($index, $this->icons)) {
       return $this->icons[$index];
+    } else {
+      throw new \Sphp\Exceptions\RuntimeException("There is no Hyperlink icon at index '$index'");
     }
     return null;
   }
 
   /**
    * 
-   * @param type $index
-   * @param \Sphp\Html\Icons\HyperlinkIcon $icon
-   * @return $this
+   * @param  string $index
+   * @param  HyperlinkIcon $icon
+   * @return $this for a fluent interface
    */
-  protected function setIcon($index, HyperlinkIcon $icon) {
+  protected function setIcon(string $index, HyperlinkIcon $icon) {
     $this->icons[$index] = $icon;
     $icon->addCssClass($index);
     return $this;
   }
 
-  public function contentToString(): string {
-    $output = '';
-    foreach ($this->icons as $icon) {
-      $output .= "<li>$icon</li>";
-    }
-    return $output;
-  }
-
-  public function count(): int {
-    return count($this->icons);
+  public function getHtml(): string {
+    $ul = new Ul($this->icons);
+    $ul->addCssClass('brand-icons', 'rounded', 'logo');
+    return $ul->getHtml();
   }
 
   /**
@@ -180,7 +164,7 @@ class BrandIcons extends AbstractComponent implements \Iterator, \Sphp\Html\Trav
    * 
    * @return boolean current iterator position is valid
    */
-  public function valid() {
+  public function valid(): bool {
     return false !== current($this->icons);
   }
 

@@ -13,7 +13,6 @@ use Traversable;
  * Class is the base class for all HTML tag components acting as HTML component containers
  * 
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2016-10-03
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
@@ -24,7 +23,7 @@ trait ContainerComponentTrait {
    *
    * @return ContainerInterface the inner content container
    */
-  abstract protected function getInnerContainer();
+  abstract protected function getInnerContainer(): ContainerInterface;
 
   /**
    * Appends content to the component
@@ -39,7 +38,7 @@ trait ContainerComponentTrait {
    * represents.
    *
    * @param  mixed|mixed[] $content added content
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @link   http://www.php.net/manual/en/language.oop5.magic.php#object.tostring __toString() method
    */
   public function append($content) {
@@ -63,12 +62,13 @@ trait ContainerComponentTrait {
    * **Note:** the numeric keys of the content will be renumbered starting from zero
    *
    * @param  mixed|mixed[] $content added content
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function prepend($content) {
     $this->getInnerContainer()->prepend($content);
     return $this;
   }
+
   public function setContent($content) {
     $this->getInnerContainer()->setContent($content);
     return $this;
@@ -143,7 +143,7 @@ trait ContainerComponentTrait {
    * So also an object of any class that implements magic method `__toString()` is allowed.
    *
    * @param  mixed $content new content
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @link   http://www.php.net/manual/en/language.oop5.magic.php#object.tostring __toString() method
    */
   public function replaceContent($content) {
@@ -160,7 +160,7 @@ trait ContainerComponentTrait {
     return $this;
   }
 
-  public function exists($value) {
+  public function exists($value): bool {
     $this->getInnerContainer()->exists($value);
   }
 

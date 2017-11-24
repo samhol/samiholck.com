@@ -13,7 +13,6 @@ use Sphp\Html\ContentInterface;
  * Defines required properties for an HTML &lt;form&gt; component
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2011-09-26
  * @link    http://www.w3schools.com/tags/tag_form.asp w3schools HTML API
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
@@ -29,10 +28,10 @@ interface FormInterface extends ContentInterface {
    * @precondition `$method == "get" | $method == "post"`
    *
    * @param  string $method the value of the method attribute
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @link   http://www.w3schools.com/tags/att_form_method.asp method attribute
    */
-  public function setMethod($method);
+  public function setMethod(string $method = null);
 
   /**
    * Returns the value of the method attribute
@@ -52,10 +51,10 @@ interface FormInterface extends ContentInterface {
    * is submitted
    *
    * @param  string $action the value of the action attribute
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @link   http://www.w3schools.com/tags/att_form_action.asp action attribute
    */
-  public function setAction($action);
+  public function setAction(string $action = null);
 
   /**
    * Returns the value of the action attribute
@@ -75,10 +74,10 @@ interface FormInterface extends ContentInterface {
    * submitting it to the server.
    *
    * @param  string $enctype the value of the enctype attribute
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @link   http://www.w3schools.com/tags/att_form_enctype.asp enctype attribute
    */
-  public function setEnctype($enctype);
+  public function setEnctype(string $enctype = null);
 
   /**
    * Returns the value of the enctype attribute
@@ -99,10 +98,10 @@ interface FormInterface extends ContentInterface {
    * after a form is submitted.
    *
    * @param  string $name the value of the name attribute
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @link   http://www.w3schools.com/tags/att_form_name.asp name attribute
    */
-  public function setName($name);
+  public function setName(string $name = null);
 
   /**
    * Returns the value of the name attribute
@@ -115,7 +114,7 @@ interface FormInterface extends ContentInterface {
    * @link   http://www.w3schools.com/tags/att_form_name.asp name attribute
    */
   public function getName();
-  
+
   /**
    * Sets the autocomplete on or off
    *
@@ -125,7 +124,7 @@ interface FormInterface extends ContentInterface {
    * the browser should display options to fill in the field, based on earlier typed values.
    *
    * @param  boolean $allow (allow the browser to predict the value)
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @link   http://www.w3schools.com/tags/att_form_autocomplete.asp autocomplete attribute
    */
   public function autocomplete(bool $allow = true);
@@ -134,7 +133,7 @@ interface FormInterface extends ContentInterface {
    * Sets the form as validable
    * 
    * @param  boolean $validable
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @link   http://www.w3schools.com/tags/att_form_novalidate.asp novalidate attribute
    */
   public function validation(bool $validable = true);
@@ -158,10 +157,10 @@ interface FormInterface extends ContentInterface {
    * * <var>framename</var>: The response is displayed in a named iframe
    * 
    * @param  string $target the value of the target attribute
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @link   http://www.w3schools.com/tags/att_form_target.asp target attribute
    */
-  public function setTarget($target);
+  public function setTarget(string $target = null);
 
   /**
    * Returns the value of the target attribute
@@ -181,12 +180,11 @@ interface FormInterface extends ContentInterface {
   /**
    * Sets the values to the input fields
    *
-   * **Important:** Works only for sigle dimensional input names
+   * **Important:** Works only for single dimensional input names
    * 
    * @param  mixed[] $data
    * @param  boolean $filter true for enabling the data filtering, and false otherwise
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setData(array $data = [], $filter = true);
-
 }

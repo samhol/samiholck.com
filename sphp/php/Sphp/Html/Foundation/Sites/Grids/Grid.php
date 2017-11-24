@@ -10,12 +10,9 @@ namespace Sphp\Html\Foundation\Sites\Grids;
 use Sphp\Html\WrappingContainer;
 
 /**
- * Implements a grid 
- *
- * {@inheritdoc}
+ * Implements a Foundation grid 
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2016-11-24
  * @link    http://foundation.zurb.com/ Foundation
  * @link    http://foundation.zurb.com/sites/docs/grid.html Foundation grid
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
@@ -73,7 +70,7 @@ class Grid extends WrappingContainer implements GridInterface {
    * Sets/ the row completely fluid
    *
    * @param  boolean $expanded the target screen size
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function expand($expanded = true) {
     foreach($this as $row) {

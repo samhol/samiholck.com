@@ -15,8 +15,7 @@ use Sphp\Html\Foundation\Sites\Core\Screen;
  * Implements a layout manager for Block Grid columns
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2017-02-13
- * @link    http://foundation.zurb.com/ Foundation 6
+ * @link    http://foundation.zurb.com/ Foundation
  * @link    http://foundation.zurb.com/docs/components/block_grid.html Foundation Block Grid
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
@@ -24,7 +23,6 @@ use Sphp\Html\Foundation\Sites\Core\Screen;
 class BlockGridLayoutManager extends AbstractLayoutManager {
 
   /**
-   *
    * @var int 
    */
   private $maxSize = 8;
@@ -38,7 +36,7 @@ class BlockGridLayoutManager extends AbstractLayoutManager {
   public function __construct(ComponentInterface $component, int $max = 8) {
     parent::__construct($component);
     $this->maxSize = $max;
-    $this->cssClasses()->lock('row');
+    $this->cssClasses()->protect('row');
   }
 
   /**
@@ -53,7 +51,7 @@ class BlockGridLayoutManager extends AbstractLayoutManager {
    * Sets the number of columns within the row for different screen sizes
    * 
    * @param  string[] $layouts individual layout settings
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @throws \Sphp\Exceptions\InvalidArgumentException
    */
   public function setLayouts($layouts) {
@@ -72,7 +70,7 @@ class BlockGridLayoutManager extends AbstractLayoutManager {
    * @precondition `$screenSize` == `small|medium|large|xlarge|xxlarge`
    * @param  int $num number of columns in a row (1-8) or false for inheritance
    * @param  string $screenSize the target screen size
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @throws \Sphp\Exceptions\InvalidArgumentException
    */
   public function setGrid(int $num, string $screenSize) {
@@ -87,7 +85,7 @@ class BlockGridLayoutManager extends AbstractLayoutManager {
   /**
    * Unsets all layout settings 
    * 
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function unsetLayouts() {
     foreach (Screen::sizes() as $screenSize) {
@@ -101,7 +99,7 @@ class BlockGridLayoutManager extends AbstractLayoutManager {
    *
    * @precondition `$screenSize` == `medium|large|xlarge|xxlarge`
    * @param  string $screenSize the target screen size
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   protected function unsetGrid(string $screenSize) {
     $classes = [];

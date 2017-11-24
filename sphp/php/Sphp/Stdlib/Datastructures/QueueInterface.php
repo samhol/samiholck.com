@@ -11,7 +11,6 @@ namespace Sphp\Stdlib\Datastructures;
  * Defines properties of a First-In-First-Out (FIFO) queue
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2015-06-12
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
@@ -21,7 +20,7 @@ interface QueueInterface {
    * Adds a new item to the end of the queue
    *
    * @param  mixed $value the new item to add
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function enqueue($value);
 

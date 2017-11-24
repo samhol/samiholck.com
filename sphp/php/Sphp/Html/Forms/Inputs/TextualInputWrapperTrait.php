@@ -11,7 +11,6 @@ namespace Sphp\Html\Forms\Inputs;
  * Trait implements Textual input properties
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2014-03-02
  * @link    http://foundation.zurb.com/ Foundation
  * @link    http://foundation.zurb.com/docs/components/grid.html Foundation grid
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
@@ -48,7 +47,7 @@ trait TextualInputWrapperTrait {
     return $this;
   }
 
-  public function setPlaceholder($placeholder) {
+  public function setPlaceholder(string $placeholder = null) {
     $this->getInput()->setPlaceholder($placeholder);
     return $this;
   }
@@ -74,7 +73,7 @@ trait TextualInputWrapperTrait {
     return $this->getInput()->isRequired();
   }
 
-  public function setPattern($pattern) {
+  public function setPattern(string $pattern) {
     $this->getInput()->setPattern($pattern);
     return $this;
   }
@@ -85,3 +84,5 @@ trait TextualInputWrapperTrait {
   }
 
 }
+
+

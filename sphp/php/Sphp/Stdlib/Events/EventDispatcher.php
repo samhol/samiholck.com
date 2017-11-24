@@ -14,7 +14,6 @@ use InvalidArgumentException;
  * Implements an event dispatcher
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2015-05-12
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
@@ -132,7 +131,7 @@ class EventDispatcher implements EventDispatcherInterface {
    * @param  string $name the name of the event
    * @param  mixed $subject subject the subject which dispached this event
    * @param  mixed $data the data dispatched with this event
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function triggerEvent(string $name, $subject = null, $data = null) {
     $event = new Event($name, $subject, $data);

@@ -8,7 +8,7 @@
 namespace Sphp\I18n\Gettext;
 
 use Sepia\FileHandler;
-use Sepia\SepiaPoParser;
+use Sepia\PoParser;
 use Sphp\Stdlib\Datastructures\Collection;
 
 /**
@@ -17,7 +17,6 @@ use Sphp\Stdlib\Datastructures\Collection;
  * Iterator parses a Gettext Portable file and acts as an iterator for all gettext instances in the file
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2016-02-25
  * @uses    https://github.com/raulferras/PHP-po-parser Po Parser
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
@@ -25,45 +24,59 @@ use Sphp\Stdlib\Datastructures\Collection;
 class PoFileIterator implements \Iterator {
 
   /**
-   *
    * @var Collection 
    */
   private $objects;
 
   /**
+   * Constructs a new instance
    * 
-   * @param string $poFilePath
+   * @param Collection $entries
    */
-  public function __construct(string $poFilePath) {
-    $this->objects = $this->parseFromFile($poFilePath);
+  public function __construct(Collection $entries) {
+    $this->objects = $entries;
   }
 
-  protected function parseFromFile(string $poFilePath) {
+  public static function parseFrom(string $poFilePath): PoFileIterator {
     $fileHandler = new FileHandler($poFilePath);
-    $poParser = new SepiaPoParser($fileHandler);
+    $poParser = new PoParser($fileHandler);
     $rawData = $poParser->parse();
     //$this->entries = [];
     $arr = [];
     foreach ($rawData as $data) {
-      $arr[] = self::parseObject($data);
+      $arr[] = static::parseObject($data);
     }
-    return new Collection($arr);
+    return new static(new Collection($arr));
   }
 
   /**
+   * Filters components using the given callable
    * 
    * @param  callable $callback
-   * @return Collection
+   * @return PoFileIterator a subset of objects
    */
-  public function filter(callable $callback) {
-    return $this->objects->filter($callback, 0);
+  public function filter(callable $callback): PoFileIterator {
+    return new static($this->objects->filter($callback, 0));
   }
 
   /**
    * 
-   * @return Collection
+   * @param  string $id
+   * @return PoFileIterator
    */
-  public function getSingulars() {
+  public function getById(string $id): PoFileIterator {
+    $idFilter = function(GettextData $entry) use ($id) {
+      return !$entry->getMessageId() === $id;
+    };
+    return $this->filter($idFilter);
+  }
+
+  /**
+   * Returns a subset containing singular forms only
+   * 
+   * @return PoFileIterator containing singular forms only
+   */
+  public function getSingulars(): PoFileIterator {
     $singularFilter = function(GettextData $entry) {
       return !$entry instanceof PluralGettextData;
     };
@@ -71,10 +84,11 @@ class PoFileIterator implements \Iterator {
   }
 
   /**
+   * Returns a subset containing plural forms only
    * 
-   * @return Collection
+   * @return PoFileIterator containing plural forms only
    */
-  public function getPlurals() {
+  public function getPlurals(): PoFileIterator {
     $pluralFilter = function(GettextData $entry) {
       return $entry instanceof PluralGettextData;
     };
@@ -84,9 +98,9 @@ class PoFileIterator implements \Iterator {
   /**
    * 
    * @param  array $data
-   * @return self for a fluent interface
+   * @return GettextData
    */
-  private static function parseObject(array $data) {
+  private static function parseObject(array $data): GettextData {
     $flags = null;
     if (array_key_exists('flags', $data)) {
       $flags = $data['flags'][0];
@@ -128,12 +142,16 @@ class PoFileIterator implements \Iterator {
     $this->objects->rewind();
   }
 
-  public function valid() {
+  public function valid(): bool {
     return $this->objects->valid();
   }
 
   public function count(): int {
     return $this->objects->count();
+  }
+
+  public function toArray(): array {
+    return $this->objects->toArray();
   }
 
 }

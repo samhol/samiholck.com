@@ -19,7 +19,6 @@ namespace Sphp\Html\Navigation;
  * the `href` attribute is not present.
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2014-11-24
  * @link    http://www.w3schools.com/tags/tag_a.asp w3schools HTML API
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
@@ -36,7 +35,7 @@ interface HyperlinkInterface {
    *
    * @param  string $href the URL of the link
    * @param  boolean $encode converts all applicable characters of the $url to HTML entities
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @link   http://www.w3schools.com/tags/att_a_href.asp href attribute
    */
   public function setHref($href, $encode = true);
@@ -63,7 +62,7 @@ interface HyperlinkInterface {
    * * Only used if the href attribute is present.
    *
    * @param  string $target the value of the target attribute
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @link   http://www.w3schools.com/tags/att_a_target.asp target attribute
    */
   public function setTarget($target);

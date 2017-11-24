@@ -17,9 +17,8 @@ use Sphp\Html\ComponentInterface;
  * Modal dialogs, or pop-up windows, are handy for prototyping and production.
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2014-03-25
  * @link    http://foundation.zurb.com/ Foundation 
- * @link    http://foundation.zurb.com/sites/docs/reveal.html Founfation Reveal
+ * @link    http://foundation.zurb.com/sites/docs/reveal.html Foundation Reveal
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
@@ -65,8 +64,8 @@ class Modal implements ContentInterface, ClosableInterface {
       $popup = new Popup($popup);
     }
     $this->popup = $popup;
-    $this->popup->identify('id', 'modal_');
-    $this->popup->cssClasses()->lock('reveal');
+    $this->popup->identify();
+    $this->popup->cssClasses()->protect('reveal');
     $this->popup->attrs()->demand('data-reveal');
     $this->trigger = $this->createController($trigger);
   }
@@ -102,7 +101,7 @@ class Modal implements ContentInterface, ClosableInterface {
    * **Note:** Default on `'small'` screens is 100% (`'full'`) width.
    * 
    * @param  string $size the size of the component
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setSize($size) {
     $this->resetSize();
@@ -113,7 +112,7 @@ class Modal implements ContentInterface, ClosableInterface {
   /**
    * Resets the size settings of the component
    *
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function resetSize() {
     $this->popup->cssClasses()
@@ -157,7 +156,7 @@ class Modal implements ContentInterface, ClosableInterface {
     return $this->popup->isClosable();
   }
 
-  public function setClosable(bool $closable = true) {
+  public function setClosable($closable = true) {
     $this->popup->setClosable($closable);
     return $this;
   }

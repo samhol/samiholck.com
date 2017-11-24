@@ -13,7 +13,6 @@ use Sphp\Html\LayoutManagerInterface;
  * Defines a Column for a Row in a Grid system
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2017-03-02
  * @link    http://foundation.zurb.com/ Foundation
  * @link    http://foundation.zurb.com/sites/docs/grid.html Foundation grid
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
@@ -30,13 +29,13 @@ interface ColumnLayoutManagerInterface extends LayoutManagerInterface {
    * Sets the column width values for all screen sizes
    * 
    * @param  string[] $widths column widths for different screens sizes
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setWidths(array $widths);
 
   /**
    * 
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function unsetWidths();
 
@@ -54,7 +53,7 @@ interface ColumnLayoutManagerInterface extends LayoutManagerInterface {
    * @precondition `$screen` == `small|medium|large|xlarge|xxlarge`
    * @param  int|boolean $width the width of the column or false for inheritance
    * @param  string $screen the target screen size
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @throws \Sphp\Exceptions\InvalidArgumentException
    */
   public function setWidth(int $width, string $screen = 'small');
@@ -64,7 +63,7 @@ interface ColumnLayoutManagerInterface extends LayoutManagerInterface {
    *
    * @precondition `$screenSize` == `medium|large|xlarge|xxlarge`
    * @param  string $screenSize the target screen size
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function unsetWidth(string $screenSize);
 
@@ -77,13 +76,13 @@ interface ColumnLayoutManagerInterface extends LayoutManagerInterface {
    * @precondition `$screenSize` == `small|medium|large|xlarge|xxlarge`
    * @param  int|boolean $offset the column offset (0-11) or false for inheritance
    * @param  string $screenSize the target screen size
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setOffset(int $offset, string $screenSize = 'small');
 
   /**
    * 
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function unsetOffsets();
 
@@ -91,7 +90,7 @@ interface ColumnLayoutManagerInterface extends LayoutManagerInterface {
    * Sets the column offset values for all screen sizes
    *
    * @param  string[] $offsets column offsets for different screens sizes
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setOffsets(array $offsets);
 
@@ -109,7 +108,7 @@ interface ColumnLayoutManagerInterface extends LayoutManagerInterface {
    *
    * @precondition `$screenSize` == `small|medium|large|xlarge|xxlarge`
    * @param  string $screenSize the target screen size
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function unsetOffset(string $screenSize);
 
@@ -117,7 +116,7 @@ interface ColumnLayoutManagerInterface extends LayoutManagerInterface {
    * Sets the column offset values for all screen sizes
    *
    * @param  string[] $pushs column offsets for different screens sizes
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setOrders(array $pushs);
 
@@ -126,7 +125,7 @@ interface ColumnLayoutManagerInterface extends LayoutManagerInterface {
    *
    * @precondition `$screenSize` == `small|medium|large|xlarge|xxlarge`
    * @param  string $screenSize the target screen size
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function unsetOrder(string $screenSize);
 
@@ -135,7 +134,7 @@ interface ColumnLayoutManagerInterface extends LayoutManagerInterface {
    *
    * @precondition `$screenSize` == `small|medium|large|xlarge|xxlarge`
    * @param  string $screenSize the target screen size
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function unsetOrders();
 

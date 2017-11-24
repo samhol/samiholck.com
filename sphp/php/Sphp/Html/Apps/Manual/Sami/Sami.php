@@ -7,6 +7,7 @@
 
 namespace Sphp\Html\Apps\Manual\Sami;
 
+use Sphp\Html\Apps\Manual\ClassLinkerInterface;
 use Sphp\Html\Apps\Manual\AbstractPhpApiLinker;
 use Sphp\Html\Navigation\Hyperlink;
 use Sphp\Html\Foundation\Sites\Navigation\BreadCrumb;
@@ -17,7 +18,6 @@ use Sphp\Html\Adapters\QtipAdapter;
  * Hyperlink object generator pointing to an existing ApiGen documentation
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2014-11-29
  * @link    https://github.com/FriendsOfPHP/Sami Sami: an API documentation generator
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
@@ -40,11 +40,11 @@ class Sami extends AbstractPhpApiLinker {
     parent::__construct($urlGenerator, $defaultTarget, $defaultCssClasses);
   }
 
-  public function classLinker($class) {
+  public function classLinker(string $class): ClassLinkerInterface {
     return new SamiClassLinker($class, $this->urls(), $this->getDefaultTarget(), $this->getDefaultCssClasses());
   }
 
-  public function functionLink($function, $linkText = null) {
+  public function functionLink(string $function, string $linkText = null): Hyperlink {
     if ($linkText === null) {
       $linkText = $function;
     }
@@ -52,7 +52,7 @@ class Sami extends AbstractPhpApiLinker {
     return $this->hyperlink($path, $function, "function $function()")->addCssClass('function');
   }
 
-  public function constantLink($constant, $linkText = null) {
+  public function constantLink(string $constant, string $linkText = null): Hyperlink {
     if ($linkText === null) {
       $linkText = $constant;
     }
@@ -68,7 +68,7 @@ class Sami extends AbstractPhpApiLinker {
    * @param  boolean $fullName true if the full namespace name is visible, false otherwise
    * @return Hyperlink hyperlink object pointing to an API namespace page1
    */
-  public function namespaceLink($namespace, $fullName = true) {
+  public function namespaceLink(string $namespace, bool $fullName = true): Hyperlink {
     if ($fullName) {
       $name = $namespace;
     } else {
@@ -85,7 +85,7 @@ class Sami extends AbstractPhpApiLinker {
    * @param  string $namespace namespace name
    * @return BreadCrumbs breadcrumb showing the trail of nested namespaces
    */
-  public function namespaceBreadGrumbs($namespace) {
+  public function namespaceBreadGrumbs(string $namespace): BreadCrumbs {
     $namespaceArray = explode('\\', $namespace);
     $breadGrumbs = (new BreadCrumbs())->addCssClass(['api', 'namespace']);
     $currentNamespaceArray = [];

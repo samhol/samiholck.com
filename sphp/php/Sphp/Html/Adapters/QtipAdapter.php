@@ -8,12 +8,12 @@
 namespace Sphp\Html\Adapters;
 
 use Sphp\Html\ComponentInterface;
-use Sphp\Html\IdentifiableInterface;
+use Sphp\Html\IdentifiableComponent;
+
 /**
  * Inserts a qTip style tooltip to the adaptee
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2013-02-03
  * @link    http://qtip2.com/ qTip 2
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
@@ -36,13 +36,13 @@ class QtipAdapter extends AbstractComponentAdapter {
    * Sets the value of the title attribute
    *
    * @param  string|null $qtip the value of the title attribute
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @link   http://www.w3schools.com/tags/att_global_title.asp title attribute
    */
   public function setQtip($qtip) {
     $this->getComponent()->attrs()
-            ->set("title", $qtip)
-            ->set("data-sphp-qtip", true);
+            ->set('title', $qtip)
+            ->set('data-sphp-qtip', true);
     return $this;
   }
 
@@ -51,22 +51,23 @@ class QtipAdapter extends AbstractComponentAdapter {
    *
    * @param  string $my 
    * @param  string $at
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setQtipPosition(string $my, string $at) {
     $this->getComponent()->attrs()
-            ->set("data-sphp-qtip", true)
-            ->set("data-sphp-qtip-at", $at)
-            ->set("data-sphp-qtip-my", $my);
+            ->set('data-sphp-qtip', true)
+            ->set('data-sphp-qtip-at', $at)
+            ->set('data-sphp-qtip-my', $my);
     return $this;
   }
+
   /**
    * 
-   * @param IdentifiableInterface $viewport
-   * @return self for a fluent interface
+   * @param IdentifiableComponent $viewport
+   * @return $this for a fluent interface
    */
   public function setViewport($viewport) {
-    if ($viewport instanceof IdentifiableInterface) {
+    if ($viewport instanceof IdentifiableComponent) {
       $id = $viewport->identify();
     }
     $this->attrs()->set('data-sphp-qtip-viewport', "#$id");

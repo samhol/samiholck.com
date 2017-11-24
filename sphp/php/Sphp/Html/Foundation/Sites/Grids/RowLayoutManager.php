@@ -15,8 +15,7 @@ use Sphp\Html\ComponentInterface;
  * Implements a layout manager for Block Grid columns
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2017-02-13
- * @link    http://foundation.zurb.com/ Foundation 6
+ * @link    http://foundation.zurb.com/ Foundation
  * @link    http://foundation.zurb.com/docs/components/block_grid.html Foundation Block Grid
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
@@ -30,7 +29,7 @@ class RowLayoutManager extends AbstractLayoutManager {
    */
   public function __construct(ComponentInterface $component) {
     parent::__construct($component);
-    $this->cssClasses()->lock('row');
+    $this->cssClasses()->protect('row');
   }
 
   public function setLayouts($layout) {
@@ -45,7 +44,7 @@ class RowLayoutManager extends AbstractLayoutManager {
   /**
    * Unsets all layout settings 
    * 
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function unsetLayouts() {
     foreach (Screen::sizes() as $screenSize) {
@@ -58,7 +57,7 @@ class RowLayoutManager extends AbstractLayoutManager {
    * Sets/ the row completely fluid
    *
    * @param  boolean $expanded the target screen size
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function expand(bool $expanded = true) {
     if ($expanded) {
@@ -74,7 +73,7 @@ class RowLayoutManager extends AbstractLayoutManager {
    *
    * @precondition `$screenSize` == `small|medium|large|xlarge|xxlarge`
    * @param  string $screenSize the target screen size
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function collapse(string $screenSize) {
     $this->reset($screenSize);
@@ -87,7 +86,7 @@ class RowLayoutManager extends AbstractLayoutManager {
    *
    * @precondition `$screenSize` == `small|medium|large|xlarge|xxlarge`
    * @param  string $screenSize the target screen size
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function uncollapse(string $screenSize) {
     $this->reset($screenSize);
@@ -100,7 +99,7 @@ class RowLayoutManager extends AbstractLayoutManager {
    *
    * @precondition `$screenSize` == `medium|large|xlarge|xxlarge`
    * @param  string $screenSize the target screen size
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function reset(string $screenSize) {
     $classes = [];

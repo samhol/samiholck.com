@@ -16,9 +16,8 @@ use Sphp\Html\Adapters\VisibilityAdapter;
  * Slider allows to drag a handle to select a specific value from a range
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2016-05-17
- * @link    http://foundation.zurb.com/ Foundation 6
- * @link    http://foundation.zurb.com/sites/docs/slider.html Foundation 6 Sliders
+ * @link    http://foundation.zurb.com/ Foundation
+ * @link    http://foundation.zurb.com/sites/docs/slider.html Foundation Sliders
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
@@ -63,17 +62,17 @@ class RangeSlider extends AbstractSlider {
     $this->attrs()->demand('data-initial-end')
             ->set('data-initial-end', $max);
     $this->lowerHandle = new Span();
-    $this->lowerHandle->cssClasses()->lock('slider-handle');
+    $this->lowerHandle->cssClasses()->protect('slider-handle');
     $this->lowerHandle->attrs()
             ->demand('data-slider-handle')
-            ->lock('role', 'slider')
-            ->lock('tabindex', 1);
+            ->protect('role', 'slider')
+            ->protect('tabindex', 1);
     $this->upperHandle = new Span();
-    $this->upperHandle->cssClasses()->lock('slider-handle');
+    $this->upperHandle->cssClasses()->protect('slider-handle');
     $this->upperHandle->attrs()
             ->demand('data-slider-handle')
-            ->lock('role', 'slider')
-            ->lock('tabindex', 1);
+            ->protect('role', 'slider')
+            ->protect('tabindex', 1);
     $this->lowerInput = (new HiddenInput())->setValue($min);
     $this->upperInput = (new HiddenInput())->setValue($max);
     if ($name !== null) {
@@ -112,7 +111,7 @@ class RangeSlider extends AbstractSlider {
    * Sets the visibility of the current slider value
    * 
    * @param  boolean $valueVisible true for visible and false for hidden
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function showValue(bool $valueVisible = true) {
     $vis = new VisibilityAdapter($this->getInnerLabel());
@@ -124,7 +123,7 @@ class RangeSlider extends AbstractSlider {
    * Sets the description text of the slider
    * 
    * @param  string $description the description text of the slider
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setDescription($description) {
     $this->getInnerLabel()["description"] = "$description ";
@@ -135,7 +134,7 @@ class RangeSlider extends AbstractSlider {
    * Sets the unit of the slider value
    * 
    * @param  string $unit the unit of the value
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setValueUnit($unit = '') {
     $this->getInnerLabel()['unit'] = " $unit";
@@ -153,7 +152,7 @@ class RangeSlider extends AbstractSlider {
     return $this->name;
   }
 
-  public function setName($name) {
+  public function setName(string $name) {
     $this->name = $name;
     $this->getStartInput()->setName($name . "[start]");
     $this->getEndInput()->setName($name . "[end]");

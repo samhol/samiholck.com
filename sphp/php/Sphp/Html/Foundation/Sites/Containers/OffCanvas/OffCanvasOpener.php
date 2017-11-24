@@ -14,7 +14,6 @@ use Sphp\Html\Span;
  * Class MenuOpenerButton
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2016-06-28
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
@@ -33,17 +32,17 @@ class OffCanvasOpener extends AbstractComponent {
    */
   public function __construct(OffCanvasAreaInterface $offCanvas, $screenReaderText = 'Open menu') {
     parent::__construct('button');
-    $this->cssClasses()->lock('menu-icon');
-    $this->attrs()->lock('type', 'button')->demand('data-open');
+    $this->cssClasses()->protect('menu-icon');
+    $this->attrs()->protect('type', 'button')->demand('data-open');
     $this->span = new Span($screenReaderText);
-    $this->span->cssClasses()->lock('show-for-sr');
+    $this->span->cssClasses()->protect('show-for-sr');
     $this->setCanvas($offCanvas);
   }
 
   /**
    * 
    * @param  string|OffCanvasAreaInterface $offCanvas the off-canvas component or its id
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setCanvas($offCanvas) {
     if ($offCanvas instanceof OffCanvasAreaInterface) {

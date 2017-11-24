@@ -21,7 +21,6 @@ use Sphp\Html\ContainerTag;
  * the `href` attribute is not present.
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2011-09-14
  * @link    http://www.w3schools.com/tags/tag_a.asp w3schools HTML API
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
@@ -44,7 +43,7 @@ class Hyperlink extends ContainerTag implements HyperlinkInterface {
    * @link   http://www.w3schools.com/tags/att_a_href.asp href attribute
    * @link   http://www.w3schools.com/tags/att_a_target.asp target attribute
    */
-  public function __construct($href = null, $content = null, $target = null) {
+  public function __construct(string $href = null, string $content = null, string $target = null) {
     parent::__construct('a', $content);
     if ($href !== null) {
       $this->setHref($href);

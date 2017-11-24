@@ -11,9 +11,9 @@ namespace Sphp\Html;
  * Trait implements some {@link TraversableInterface} functionality
  * 
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2014-04-19
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
+ * @see     \Sphp\HtmlTraversableInterface
  */
 trait TraversableTrait {
 
@@ -46,28 +46,9 @@ trait TraversableTrait {
   }
 
   /**
-   * Returns a collection of sub components that contain the searched attribute
-   *
-   * @param  string $attrName the name of the searched attribute
-   * @return TraversableInterface containing matching sub components
-   */
-  public function getComponentsByAttrName($attrName) {
-    $search = function($element) use ($attrName) {
-      if (!($element instanceof ComponentInterface)) {
-        return false;
-      } else if ($element->attrExists($attrName)) {
-        return true;
-      } else {
-        return false;
-      }
-    };
-    return $this->getComponentsBy($search);
-  }
-
-  /**
    * Returns a collection of sub components that are of the given PHP type
    *
-   * @param  string|\object $typeName the name of the searched PHP object type
+   * @param  string|\object $type the name of the searched PHP object type
    * @return TraversableInterface containing matching sub components
    */
   public function getComponentsByObjectType($type) {

@@ -13,7 +13,6 @@ use Sphp\Stdlib\CsvFile;
  * Description of TableBuilder
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2017-04-05
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
@@ -78,7 +77,7 @@ class TableBuilder implements \Sphp\Html\ContentInterface {
   /**
    * 
    * @param  boolean $position
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setLineNumbersPosition($position) {
     $this->lineNumbers['use'] = (int) $position;
@@ -88,7 +87,7 @@ class TableBuilder implements \Sphp\Html\ContentInterface {
   /**
    * 
    * @param  int $start
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setFirstLineNumber($start) {
     $this->lineNumbers['start'] = (int) $start;
@@ -99,7 +98,7 @@ class TableBuilder implements \Sphp\Html\ContentInterface {
    * 
    * @param  int $start
    * @param  int $position
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setLineNumbers($start = 1, $position = self::NO_LINENUMBERS) {
     $this->setFirstLineNumber($start)
@@ -123,7 +122,7 @@ class TableBuilder implements \Sphp\Html\ContentInterface {
   /**
    * 
    * @param  array $data
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setTheadData($data) {
     $this->theadData = $data;
@@ -133,7 +132,7 @@ class TableBuilder implements \Sphp\Html\ContentInterface {
   /**
    * 
    * @param  array $data
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setTbodyData($data) {
     $this->tbodyData = $data;
@@ -143,7 +142,7 @@ class TableBuilder implements \Sphp\Html\ContentInterface {
   /**
    * 
    * @param  array $data
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setTfootData($data) {
     $this->tfootData = $data;
@@ -215,9 +214,6 @@ class TableBuilder implements \Sphp\Html\ContentInterface {
     return $table;
   }
 
-  /**
-   * {@inheritdoc}
-   */
   public function getHtml(): string {
     return $this->buildTable();
   }

@@ -1,27 +1,28 @@
 <?php
 
 /**
- * FiletypeBadge.php (UTF-8)
+ * Badge.php (UTF-8)
  * Copyright (c) 2017 Sami Holck <sami.holck@gmail.com>
  */
 
 namespace Sphp\Html\Foundation\Sites\Media;
 
+use Sphp\Html\AbstractComponent;
+
 /**
- * Description of FiletypeBadge
+ * Implements a Foundation Badge
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2017-04-16
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
-class Badge extends \Sphp\Html\AbstractComponent {
+class Badge extends AbstractComponent {
 
   private $content;
 
   public function __construct($content = null) {
     parent::__construct('span');
-    $this->cssClasses()->lock('badge');
+    $this->cssClasses()->protect('badge');
     if ($content !== null) {
       $this->content = $content;
     }

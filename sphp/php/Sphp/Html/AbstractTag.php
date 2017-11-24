@@ -7,17 +7,14 @@
 
 namespace Sphp\Html;
 
-use Sphp\Html\Attributes\AttributeManager;
+use Sphp\Html\Attributes\HtmlAttributeManager;
 use Sphp\Stdlib\Strings;
 use Sphp\Exceptions\InvalidArgumentException;
 
 /**
  * Abstract Class is the base class for all HTML tag implementations
  *
- * {@inheritdoc}
- *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2011-09-12
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
@@ -35,7 +32,7 @@ abstract class AbstractTag implements TagInterface {
   /**
    * attribute container
    *
-   * @var AttributeManager
+   * @var HtmlAttributeManager
    */
   private $attrs;
 
@@ -43,12 +40,15 @@ abstract class AbstractTag implements TagInterface {
    * Constructs a new instance
    *
    * @param  string $tagName the tag name of the component
-   * @param  AttributeManager|null $attrManager the attribute manager of the component
-   * @throws \Sphp\Exceptions\InvalidArgumentException if the tag name of the component is not valid
+   * @param  HtmlAttributeManager|null $attrManager the attribute manager of the component
+   * @throws InvalidArgumentException if the tag name of the component is not valid
    */
-  public function __construct(string $tagName, AttributeManager $attrManager = null) {
-    $this->setTagName($tagName)
-            ->setAttributeManager($attrManager);
+  public function __construct(string $tagName, HtmlAttributeManager $attrManager = null) {
+    if (!Strings::match($tagName, "/^([a-z]+[1-6]{0,1})$/")) {
+      throw new InvalidArgumentException("The tag name '$tagName' is malformed");
+    }
+    $this->tagName = $tagName;
+    $this->setAttributeManager($attrManager);
   }
 
   /**
@@ -58,7 +58,7 @@ abstract class AbstractTag implements TagInterface {
    * to a particular object, or in any order during the shutdown sequence.
    */
   public function __destruct() {
-    unset($this->attrs, $this->tagName);
+    unset($this->attrs);
   }
 
   /**
@@ -72,21 +72,6 @@ abstract class AbstractTag implements TagInterface {
     $this->attrs = clone $this->attrs;
   }
 
-  /**
-   * Sets the tag name of the component
-   *
-   * @param  string $tagName the tag name of the component
-   * @return self for a fluent interface
-   * @throws \Sphp\Exceptions\InvalidArgumentException if the `$tagName` is not valid
-   */
-  private function setTagName(string $tagName) {
-    if (!Strings::match($tagName, "/^([a-z]+[1-6]{0,1})$/")) {
-      throw new InvalidArgumentException("The tag name '$tagName' is malformed");
-    }
-    $this->tagName = $tagName;
-    return $this;
-  }
-
   public function getTagName(): string {
     return $this->tagName;
   }
@@ -94,19 +79,19 @@ abstract class AbstractTag implements TagInterface {
   /**
    * Sets the attribute manager attached to the component
    *
-   * @param  AttributeManager $attrManager the attribute manager to set
-   * @return self for a fluent interface
+   * @param  HtmlAttributeManager $attrManager the attribute manager to set
+   * @return $this for a fluent interface
    */
-  private function setAttributeManager(AttributeManager $attrManager = null) {
+  private function setAttributeManager(HtmlAttributeManager $attrManager = null) {
     if ($attrManager === null) {
-      $this->attrs = new AttributeManager();
+      $this->attrs = new HtmlAttributeManager();
     } else {
       $this->attrs = $attrManager;
     }
     return $this;
   }
 
-  public function attrs() {
+  public function attrs(): HtmlAttributeManager {
     return $this->attrs;
   }
 

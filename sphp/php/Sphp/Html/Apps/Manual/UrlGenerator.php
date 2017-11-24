@@ -11,14 +11,13 @@ namespace Sphp\Html\Apps\Manual;
  * URL string generator pointing to an online site
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2014-11-29
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
 class UrlGenerator implements UrlGeneratorInterface {
 
   /**
-   * the url pointing to the API documentation root
+   * the URL pointing to the API documentation root
    *
    * @var string
    */
@@ -27,9 +26,9 @@ class UrlGenerator implements UrlGeneratorInterface {
   /**
    * Constructs a new instance
    *
-   * @param string $root the url pointing to the API documentation
+   * @param string $root the URL pointing to the API documentation
    */
-  public function __construct($root = '') {
+  public function __construct(string $root = '') {
     $this->root = $root;
   }
 
@@ -40,25 +39,25 @@ class UrlGenerator implements UrlGeneratorInterface {
    * to a particular object, or in any order during the shutdown sequence.
    */
   public function __destruct() {
-    unset($this->root, $this->target);
+    unset($this->root);
   }
 
-  public function getRoot() {
+  public function getRoot(): string {
     return $this->root;
   }
 
   /**
-   * Sets the url pointing to the API documentation
+   * Sets the URL pointing to the API documentation
    *
    * @param  string $root the site root
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
-  protected function setRoot($root) {
+  protected function setRoot(string $root) {
     $this->root = $root;
     return $this;
   }
 
-  public function create($relative = '') {
+  public function create(string $relative = ''): string {
     return $this->root . $relative;
   }
 

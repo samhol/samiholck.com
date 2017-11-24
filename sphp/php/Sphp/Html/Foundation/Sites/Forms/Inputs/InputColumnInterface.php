@@ -7,7 +7,7 @@
 
 namespace Sphp\Html\Foundation\Sites\Forms\Inputs;
 
-use Sphp\Html\Foundation\Sites\Grids\ColumnInterface;
+use Sphp\Html\Foundation\Sites\Grids\XY\ColumnInterface;
 use Sphp\Html\Forms\Inputs\InputInterface;
 use Sphp\Html\Forms\Label;
 
@@ -15,7 +15,6 @@ use Sphp\Html\Forms\Label;
  * Defines a input column for a Grid system
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2014-03-02
  * @link    http://foundation.zurb.com/ Foundation
  * @link    http://foundation.zurb.com/docs/components/grid.html Foundation grid
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
@@ -34,7 +33,7 @@ interface InputColumnInterface extends ColumnInterface, InputInterface {
    * Sets the visible contents of the input label
    * 
    * @param  mixed $label the contents of the label 
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setLabel($label);
 }

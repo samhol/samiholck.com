@@ -13,7 +13,6 @@ use Sphp\Html\Navigation\HyperlinkTrait;
  * Trait implements {@link AreaInterface} for an an HTML &lt;area&gt; tag
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2016-05-26
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
@@ -27,17 +26,17 @@ trait AreaTrait {
    * @return string the shape of the area
    * @link   http://www.w3schools.com/TAGS/att_area_shape.asp shape attribute
    */
-  public function getShape() {
+  public function getShape(): string {
     return $this->getAttr('shape');
   }
 
   /**
-   * Returnsthe coordinates of the area
+   * Returns the coordinates of the area
    * 
    * @return int[] the coordinates of the area
    * @link   http://www.w3schools.com/TAGS/att_area_coords.asp coords attribute
    */
-  public function getCoordinates() {
+  public function getCoordinates(): array {
     $coords = [];
     if ($this->attrs()->exists('coords')) {
       $rawCoords = $this->getAttr('coords');
@@ -53,7 +52,7 @@ trait AreaTrait {
    * Sets the relationship between the current document and the linked document
    * 
    * @param  string $rel the value of the rel attribute
-   * @return AreaInterface for PHP Method Chaining
+   * @return Area for PHP Method Chaining
    * @link   http://www.w3schools.com/TAGS/att_area_rel.asp rel attribute
    */
   public function setRelationship($rel) {
@@ -84,7 +83,7 @@ trait AreaTrait {
    * The `alt` attribute is required if the `href` attribute is present.
    *
    * @param  string $alt the alternate text for an image
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @link   http://www.w3schools.com/tags/att_area_alt.asp alt attribute
    */
   public function setAlt($alt) {
@@ -109,7 +108,7 @@ trait AreaTrait {
    * @link  http://www.w3schools.com/tags/att_area_alt.asp alt attribute
    */
   public function getAlt() {
-    return $this->attrs()->get('alt');
+    return $this->attrs()->getValue('alt');
   }
 
 }

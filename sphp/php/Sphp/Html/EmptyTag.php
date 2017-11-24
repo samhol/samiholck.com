@@ -13,34 +13,17 @@ namespace Sphp\Html;
  * Empty tag has only attributes and no content
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2011-03-10
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
 class EmptyTag extends AbstractTag {
 
-  /**
-   * Constructs a new instance
-   *
-   * @param  string $tagName the name of the tag
-   * @param  string[] $attrs an array of attribute name value pairs
-   */
-  function __construct(string $tagName, array $attrs = []) {
-    parent::__construct($tagName);
-    $this->setAttrs($attrs);
-  }
-
   public function getHtml(): string {
-    $attrs = '' . $this->attrs();
-    if ($attrs !== '') {
-      $attrs = ' ' . $attrs;
+    $output = '<' . $this->getTagName();
+    if ($this->attrs()->containsInstances()) {
+      $output .= ' ' . $this->attrs();
     }
-    $output = '<' . $this->getTagName() . $attrs;
-    if (Document::isXHTML()) {
-      $output .= ' />';
-    } else {
-      $output .= '>';
-    }
+    $output .= '>';
     return $output;
   }
 

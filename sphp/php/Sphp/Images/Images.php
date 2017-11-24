@@ -10,10 +10,9 @@ namespace Sphp\Images;
 use Sphp\Objects\Datetime as Datetime;
 
 /**
- * Class contains some imagemanipulation tools
+ * Class contains some image manipulation tools
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2010-10-03
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
@@ -116,7 +115,7 @@ class Images {
   public static function loadGIF($imgSrc) {
     $im = @imagecreatefromgif($imgSrc);
     if (!$im) {
-      return self::loadTextImage("Error Loading gif image");
+      return self::loadTextImage('Error Loading gif image');
     }
     return $im;
   }
@@ -153,7 +152,7 @@ class Images {
    * @param  string $imgSrc to the image file
    * @return array image information or an empty array if the file is not an image
    */
-  public static function getImageInfo($imgSrc) {
+  public static function getImageInfo(string $imgSrc): array {
     $data = array();
     if (!static::isImage($imgSrc)) {
       return $data;
@@ -169,14 +168,14 @@ class Images {
     if (is_file($imgSrc)) {
       $splInfo = new \SplFileInfo($imgSrc);
       $splInfo->getSize();
-      $data["lastAccess"] = new Datetime(fileatime($imgSrc));
-      $data["modified"] = new Datetime(filemtime($imgSrc));
-      $data["basename"] = basename($imgSrc);
-      $data["dirname"] = dirname($imgSrc);
-      $data["absoluteDir"] = dirname(realpath($imgSrc));
-      $data["size_B"] = $splInfo->getSize();
-      $data["size_kB"] = intval(round($data["size_B"] / 1024));
-      $data["ext"] = $splInfo->getExtension();
+      $data['lastAccess'] = new Datetime(fileatime($imgSrc));
+      $data['modified'] = new Datetime(filemtime($imgSrc));
+      $data['basename'] = basename($imgSrc);
+      $data['dirname'] = dirname($imgSrc);
+      $data['absoluteDir'] = dirname(realpath($imgSrc));
+      $data['size_B'] = $splInfo->getSize();
+      $data['size_kB'] = intval(round($data["size_B"] / 1024));
+      $data['ext'] = $splInfo->getExtension();
     } else {
       $data["lastAccess"] = new Datetime(fileatime($imgSrc));
       $data["modified"] = new Datetime(filemtime($imgSrc));
@@ -187,10 +186,10 @@ class Images {
     //print_r(pathinfo($imgSrc));
     $pathInfo = pathinfo($imgSrc);
     //print_r(getimagesize($imgSrc));
-    $data["filename"] = $pathInfo["filename"];
-    $data["basename"] = $pathInfo["basename"];
-    $data["extension"] = $pathInfo["extension"];
-    $data["filename"] = $pathInfo["filename"];
+    $data['filename'] = $pathInfo["filename"];
+    $data['basename'] = $pathInfo["basename"];
+    $data['extension'] = $pathInfo["extension"];
+    $data['filename'] = $pathInfo["filename"];
 
     return $data;
   }
@@ -201,7 +200,7 @@ class Images {
    * @param  string $src path to the image file
    * @return string image file extension of the source or `'unknown'` if file was not recognized as an image
    */
-  public static function getImageTypeExt($src) {
+  public static function getImageTypeExt(string $src): string {
     $ext = exif_imagetype($src);
     if (!array_key_exists($ext, self::$extNames)) {
       $type = "unknown";

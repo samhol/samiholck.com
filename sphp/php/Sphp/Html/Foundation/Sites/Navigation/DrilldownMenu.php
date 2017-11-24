@@ -8,10 +8,9 @@
 namespace Sphp\Html\Foundation\Sites\Navigation;
 
 /**
- * Implements a Drilldown menu 
+ * Implements a Drill down menu 
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2016-03-11
  * @link    http://foundation.zurb.com/ Foundation
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
@@ -23,15 +22,12 @@ class DrilldownMenu extends Menu {
    *
    * @param mixed $content
    */
-  public function __construct($content = NULL) {
+  public function __construct($content = null) {
     parent::__construct($content);
     $this->vertical(true);
     $this->attrs()->demand('data-drilldown');
   }
 
-  /**
-   * {@inheritdoc}
-   */
   public function append(MenuItemInterface $content) {
     if ($content instanceof SubMenu) {
       $content->vertical(true);

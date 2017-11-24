@@ -7,13 +7,12 @@
 
 namespace Sphp\Html;
 
-use Sphp\Html\Attributes\MultiValueAttribute;
+use Sphp\Html\Attributes\ClassAttribute;
 
 /**
  * Implements an abstract layout manager
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2017-05-29
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
@@ -50,9 +49,9 @@ abstract class AbstractLayoutManager implements LayoutManagerInterface {
 
   /**
    * 
-   * @return MultiValueAttribute
+   * @return ClassAttribute
    */
-  public function cssClasses() {
+  public function cssClasses(): ClassAttribute {
     return $this->component->cssClasses();
   }
 

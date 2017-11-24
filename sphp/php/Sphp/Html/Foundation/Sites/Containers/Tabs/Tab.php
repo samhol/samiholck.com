@@ -13,7 +13,6 @@ use Sphp\Html\AbstractContainerTag;
  * Implements a Tab for Tabs
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2016-01-01
  * @link    http://foundation.zurb.com/ Foundation
  * @link    http://foundation.zurb.com/docs/components/tabs.html Foundation Tabs
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
@@ -36,7 +35,7 @@ class Tab extends AbstractContainerTag implements TabInterface {
   public function __construct($tab = null, $content = null) {
     parent::__construct('div');
     $this->identify();
-    $this->cssClasses()->lock("tabs-panel");
+    $this->cssClasses()->protect("tabs-panel");
     if ($content !== null) {
       $this->append($content);
     }

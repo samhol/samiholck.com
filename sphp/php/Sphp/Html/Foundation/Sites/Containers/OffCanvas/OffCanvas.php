@@ -14,7 +14,6 @@ use Sphp\Html\Div;
  * Implements Off-canvas navigation component
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2015-09-15
  * @link    http://foundation.zurb.com/ Foundation
  * @link    http://foundation.zurb.com/docs/components/offcanvas.html Foundation Off-canvas
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
@@ -60,9 +59,9 @@ class OffCanvas extends AbstractComponent {
   public function __construct($position = 'fixed') {
     parent::__construct('div');
     $this->position = $position;
-    $this->cssClasses()->lock('off-canvas-wrapper');
+    $this->cssClasses()->protect('off-canvas-wrapper');
     $this->offCanvasContent = new Div();
-    $this->offCanvasContent->cssClasses()->lock("off-canvas-content");
+    $this->offCanvasContent->cssClasses()->protect("off-canvas-content");
     $this->offCanvasContent->attrs()->demand('data-off-canvas-content');
   }
 
@@ -93,7 +92,7 @@ class OffCanvas extends AbstractComponent {
    * Sets the title of the Off-canvas
    * 
    * @param  string $heading
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setTitle($heading) {
     $this->getTabBar()['middle'][0]->replaceContent($heading);
@@ -104,7 +103,7 @@ class OffCanvas extends AbstractComponent {
    * Sets either the left or the right root menu of the Off-canvas
    * 
    * @param  AbstractRootMenu $menu the off-canvas menu
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setMenu(AbstractRootMenu $menu) {
     if ($menu instanceof LeftMenu) {
@@ -121,7 +120,7 @@ class OffCanvas extends AbstractComponent {
    * Sets the visibility of the left root menu
    * 
    * @param  boolean $use true if the menu is visible and false otherwise
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function useLeftMenu($use = true) {
     $this->useLeftMenu = $use;
@@ -137,7 +136,7 @@ class OffCanvas extends AbstractComponent {
    * Sets the visibility of the right root menu
    * 
    * @param  boolean $use true if the menu is visible and false otherwise
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function useRightMenu($use = true) {
     $this->useRightMenu = $use;

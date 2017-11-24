@@ -10,10 +10,7 @@ namespace Sphp\Html\Lists;
 /**
  * Implements an ordered HTML-list
  *
- * {@inheritdoc}
- * 
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2012-04-03
  * @link    http://www.w3schools.com/tags/tag_ol.asp w3schools API
  * @link    http://www.w3.org/html/wg/drafts/html/master/semantics.html#the-ol-element W3C API
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
@@ -46,7 +43,7 @@ class Ol extends AbstractList {
    * Sets or unsets the list ordering reversed
    * 
    * @param  boolean $reversed true if the list ordering is reversed, false otherwise
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @link   http://www.w3schools.com/tags/att_ol_reversed.asp reversed attribute
    */
   public function setReversed(bool $reversed = true) {
@@ -61,7 +58,7 @@ class Ol extends AbstractList {
    * the {LiInterface} components in the container
    * 
    * @param  int $start the start value of the list ordering index
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @link   http://www.w3schools.com/tags/att_ol_start.asp start attribute
    */
   public function setStart(int $start) {
@@ -81,7 +78,7 @@ class Ol extends AbstractList {
   public function getStart(): int {
     $start = 1;
     if ($this->attrs()->exists('start')) {
-      $start = $this->attrs()->get('start');
+      $start = $this->attrs()->getValue('start');
     }
     return (int) $start;
   }
@@ -90,7 +87,7 @@ class Ol extends AbstractList {
    * Sets the kind of marker used in the list
    * 
    * @param  string $type the kind of marker used in the list
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @link   http://www.w3schools.com/tags/att_ol_type.asp type attribute
    */
   public function setType(string $type = '1') {
@@ -107,7 +104,7 @@ class Ol extends AbstractList {
   public function getType(): string {
     $type = '1';
     if ($this->attrs()->exists('type')) {
-      $type = $this->attrs()->get('type');
+      $type = $this->attrs()->getValue('type');
     }
     return $type;
   }

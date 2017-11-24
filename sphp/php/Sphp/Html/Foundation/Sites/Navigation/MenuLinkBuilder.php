@@ -13,7 +13,6 @@ use Sphp\Stdlib\Path;
  * Description of MenuLinkBuilder
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2016-03-11
  * @link    http://foundation.zurb.com/ Foundation
  * @link    http://foundation.zurb.com/sites/docs/menu.html Foundation Menu
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
@@ -22,13 +21,11 @@ use Sphp\Stdlib\Path;
 class MenuLinkBuilder {
 
   /**
-   *
    * @var type 
    */
   private $defaultTarget = null;
 
   /**
-   *
    * @var type 
    */
   private $currentPage;
@@ -52,9 +49,9 @@ class MenuLinkBuilder {
   /**
    * 
    * @param  string $target
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
-  public function setMenuType($target) {
+  public function setMenuType(string $target) {
     $this->menuType = $target;
     return $this;
   }
@@ -80,7 +77,7 @@ class MenuLinkBuilder {
   /**
    * 
    * @param  string $target
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setDefaultTarget($target) {
     $this->defaultTarget = $target;
@@ -114,21 +111,18 @@ class MenuLinkBuilder {
    * @param  array $linkData
    * @return string
    */
-  protected function parseHref(array $linkData) {
+  protected function parseHref(array $linkData): string {
     if (array_key_exists('href', $linkData)) {
       $href = $linkData['href'];
     } else {
       $href = Path::get()->http();
-      if (array_key_exists('page', $linkData)) {
-        $href .= '?page=' . $linkData['page'];
-      }
     }
     return $href;
   }
 
   /**
    * 
-   * @param array $linkData
+   * @param  array $linkData
    * @return string
    */
   protected function parseTarget(array $linkData) {
@@ -140,7 +134,7 @@ class MenuLinkBuilder {
    * @param  array $linkData
    * @return MenuLink
    */
-  public function parseLink(array $linkData) {
+  public function parseLink(array $linkData): MenuLink {
     $href = $this->parseHref($linkData);
     $target = $this->parseTarget($linkData);
     $link = new MenuLink($href, $linkData['link'], $target);

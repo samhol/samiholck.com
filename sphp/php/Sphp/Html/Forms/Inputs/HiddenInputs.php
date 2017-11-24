@@ -17,15 +17,13 @@ use Sphp\Html\Container;
  * Description of HiddenInputs
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2017-05-18
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
 class HiddenInputs extends AbstractComponentGenerator implements ContentInterface, ArrayAccess, Iterator {
 
   /**
-   *
-   * @var array
+   * @var HiddenInput[]
    */
   private $inputs;
 
@@ -48,7 +46,7 @@ class HiddenInputs extends AbstractComponentGenerator implements ContentInterfac
    *
    * @param  string $name th name of the hidden variable
    * @param  scalar $value the value of the hidden variable
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @see    HiddenInput
    */
   public function setVariable($name, $value) {
@@ -63,7 +61,7 @@ class HiddenInputs extends AbstractComponentGenerator implements ContentInterfac
    *  {@link HiddenInput} components.
    *
    * @param  string[] $vars name => value pairs
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @see    HiddenInput
    */
   public function setVariables(array $vars) {
@@ -95,7 +93,7 @@ class HiddenInputs extends AbstractComponentGenerator implements ContentInterfac
     $this->inputs[$offset] = $value;
   }
 
-  public function offsetUnset($offset): void {
+  public function offsetUnset($offset) {
     if ($this->offsetExists($offset)) {
       unset($this->inputs[$offset]);
     }
@@ -138,8 +136,9 @@ class HiddenInputs extends AbstractComponentGenerator implements ContentInterfac
    * 
    * @return boolean current iterator position is valid
    */
-  public function valid() {
+  public function valid(): bool {
     return false !== current($this->inputs);
   }
 
 }
+

@@ -15,7 +15,6 @@ use Sphp\Html\Media\FigCaption;
  * Implements a figure slide for Orbit
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2016-06-01
  * @link    http://foundation.zurb.com/ Foundation
  * @link    http://foundation.zurb.com/sites/docs/orbit.html Orbit
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
@@ -48,19 +47,19 @@ class FigureSlide extends AbstractComponent implements SlideInterface {
   public function __construct($img, $caption = null) {
     parent::__construct('li');
     $this->cssClasses()
-            ->lock('orbit-slide');
+            ->protect('orbit-slide');
     if (!($img instanceof Img)) {
       $img = new Img($img);
     }
     $this->img = $img;
     $this->img->cssClasses()
-            ->lock('orbit-image');
+            ->protect('orbit-image');
     if (!($caption instanceof FigCaption)) {
       $caption = new FigCaption($caption);
     }
     $this->caption = $caption;
     $this->caption->cssClasses()
-            ->lock('orbit-caption');
+            ->protect('orbit-caption');
   }
 
   public function __destruct() {

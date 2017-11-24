@@ -19,7 +19,6 @@ use Sphp\Html\AbstractContainerComponent;
  * &lt;img&gt;'s usemap attribute and creates a relationship between the image and the map.
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2016-05-26
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
@@ -29,10 +28,10 @@ class Map extends AbstractContainerComponent {
    * Constructs a new instance
    *
    * @param  string $name the value of the name attribute
-   * @param  null|AreaInterface|AreaInterface[] $areas the value of the name attribute
+   * @param  null|Area|Area[] $areas the value of the name attribute
    * @link   http://www.w3schools.com/TAGS/att_iframe_src.asp src attribute
    */
-  public function __construct($name = null, $areas = null) {
+  public function __construct(string $name = null, $areas = null) {
     parent::__construct('map');
     $this->attrs()->demand('name');
     if ($name !== null) {
@@ -51,10 +50,10 @@ class Map extends AbstractContainerComponent {
    * The required name attribute specifies the name of an image-map.
    *  
    * @param  string $name the value of the name attribute
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @link   http://www.w3schools.com/tags/att_map_name.asp name attribute
    */
-  public function setName($name) {
+  public function setName(string $name) {
     $this->attrs()->set('name', $name);
     return $this;
   }
@@ -65,17 +64,17 @@ class Map extends AbstractContainerComponent {
    * @return string name attribute
    * @link   http://www.w3schools.com/tags/att_iframe_name.asp name attribute
    */
-  public function getName() {
-    return $this->attrs()->get('name');
+  public function getName(): string {
+    return $this->attrs()->getValue('name');
   }
 
   /**
    * Sets (replaces) one of the video sources
    *
-   * @param  AreaInterface $area the given part of a table
-   * @return self for a fluent interface
+   * @param  Area $area the given part of a table
+   * @return $this for a fluent interface
    */
-  public function append(AreaInterface $area) {
+  public function append(Area $area) {
     $this->getInnerContainer()->append($area);
     return $this;
   }

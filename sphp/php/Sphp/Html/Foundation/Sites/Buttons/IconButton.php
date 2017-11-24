@@ -10,14 +10,12 @@ namespace Sphp\Html\Foundation\Sites\Buttons;
 use Sphp\Html\AbstractComponent;
 use Sphp\Html\Span;
 use Sphp\Html\Foundation\Sites\Core\ScreenReaderLabelable;
-use Sphp\Html\Foundation\Sites\Core\ScreenReaderLabel;
-use Sphp\Html\Foundation\Sites\Foundation;
+use Sphp\Html\Foundation\Sites\Core\Factory;
 
 /**
  * Implements Close Button
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2016-04-11
  * @link    http://zurb.com/playground/foundation-icon-fonts-3 Foundation Icon Fonts 3
  * @link    http://foundation.zurb.com/sites/docs/button-group.html#split-buttons Foundation 6 Buttons
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
@@ -30,7 +28,7 @@ class IconButton extends AbstractComponent implements ButtonInterface, ScreenRea
   /**
    * the inner label for screen reader text
    *
-   * @var ScreenReaderLabel
+   * @var string 
    */
   private $screenReaderLabel;
 
@@ -43,38 +41,23 @@ class IconButton extends AbstractComponent implements ButtonInterface, ScreenRea
    * Constructs a new instance
    *
    * @param string $icon Foundation Icon Font name
-   * @param  ScreenReaderLabel|string $screenReaderLabel the screen reader label or its textual content
+   * @param string $screenReaderLabel the screen reader label or its textual content
    */
-  public function __construct($icon, $screenReaderLabel = "") {
+  public function __construct(string $icon, string $screenReaderLabel = null) {
     parent::__construct('button');
-    $this->cssClasses()->lock('button');
-    $this->attrs()->lock('type', 'button');
-    $this->screenReaderLabel = new ScreenReaderLabel();
+    $this->cssClasses()->protect('button');
+    $this->attrs()->protect('type', 'button');
     $this->setScreenReaderLabel($screenReaderLabel);
-    $this->icon = Foundation::icon($icon);
+    $this->icon = \Sphp\Html\Icons\Icons::fontAwesome($icon);
   }
 
-  /**
-   * Sets the screen reader-only label
-   * 
-   * @param  ScreenReaderLabel|string $label the screen reader label or its textual content
-   * @return self for a fluent interface
-   */
-  public function setScreenReaderLabel($label) {
-    if ($label instanceof ScreenReaderLabel) {
-      $this->screenReaderLabel = $label;
-    } else {
-      $this->screenReaderLabel->replaceContent($label);
-    }
+  public function setScreenReaderLabel(string $label = null) {
+    $this->screenReaderLabel = $label;
     return $this;
   }
 
-  public function getScreeReaderLabel() {
-    return $this->screenReaderLabel;
-  }
-
   public function contentToString(): string {
-    return $this->screenReaderLabel . '<span aria-hidden="true">' . $this->icon . '</span>';
+    return Factory::ScreenReaderLabel($this->screenReaderLabel) . '<span aria-hidden="true">' . $this->icon . '</span>';
   }
 
 }

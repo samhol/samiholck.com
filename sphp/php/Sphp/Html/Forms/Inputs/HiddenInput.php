@@ -7,27 +7,26 @@
 
 namespace Sphp\Html\Forms\Inputs;
 
-use Sphp\Html\NonVisualContentInterface;
+use Sphp\Html\NonVisualContent;
 
 /**
  * Implements an HTML &lt;input type="hidden"&gt; tag
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2011-03-10
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
-class HiddenInput extends AbstractInputTag implements NonVisualContentInterface {
+class HiddenInput extends AbstractInputTag implements NonVisualContent {
 
   /**
    * Constructs a new instance
    *
    * @param  string|null $name name attribute
-   * @param  string|null $value value attribute
+   * @param  scalar|null $value value attribute
    * @link   http://www.w3schools.com/tags/att_input_name.asp name attribute
    * @link   http://www.w3schools.com/tags/att_input_value.asp value attribute
    */
-  public function __construct($name = null, $value = null) {
+  public function __construct(string $name = null, $value = null) {
     parent::__construct('hidden', $name, $value);
   }
 

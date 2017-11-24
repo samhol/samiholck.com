@@ -15,13 +15,13 @@ use Sphp\Stdlib\Arrays;
  * Implements a basic iterator for HTML content
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2014-11-09
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
 class Iterator implements NativeIterator, ContentInterface, TraversableInterface {
 
-  use ContentTrait, TraversableTrait;
+  use ContentTrait,
+      TraversableTrait;
 
   /**
    * the content
@@ -78,7 +78,7 @@ class Iterator implements NativeIterator, ContentInterface, TraversableInterface
   }
 
   public function getHtml(): string {
-    return Arrays::implode($this->components);
+    return implode('', $this->components);
   }
 
   /**
@@ -92,6 +92,8 @@ class Iterator implements NativeIterator, ContentInterface, TraversableInterface
 
   /**
    * Advance the internal pointer of the collection
+   * 
+   * @return void
    */
   public function next() {
     next($this->components);
@@ -108,6 +110,8 @@ class Iterator implements NativeIterator, ContentInterface, TraversableInterface
 
   /**
    * Rewinds the Iterator to the first element
+   * 
+   * @return void
    */
   public function rewind() {
     reset($this->components);
@@ -118,7 +122,7 @@ class Iterator implements NativeIterator, ContentInterface, TraversableInterface
    * 
    * @return boolean current iterator position is valid
    */
-  public function valid() {
+  public function valid(): bool {
     return false !== current($this->components);
   }
 

@@ -8,12 +8,9 @@
 namespace Sphp\Html\Media;
 
 use Sphp\Html\AbstractComponent;
-use Sphp\Stdlib\URL;
 
 /**
  * Implements an HTML &lt;figure&gt; tag
- *
- * {@inheritdoc}
  *
  * @author  Sami Holck <sami.holck@gmail.com>
  * @link    http://www.w3schools.com/tags/tag_figure.asp w3schools API
@@ -23,13 +20,11 @@ use Sphp\Stdlib\URL;
 class Figure extends AbstractComponent implements ImgInterface {
 
   /**
-   *
    * @var Img 
    */
   private $img;
 
   /**
-   *
    * @var FigCaption
    */
   private $caption;
@@ -37,7 +32,7 @@ class Figure extends AbstractComponent implements ImgInterface {
   /**
    * Constructs a new instance
    *
-   * @param  string|URL|Img $img the image path or the image component
+   * @param  string|Img $img the image path or the image component
    * @param  mixed|FigCaption $caption the caption content or the caption component
    */
   public function __construct($img = null, $caption = null) {
@@ -66,7 +61,7 @@ class Figure extends AbstractComponent implements ImgInterface {
    * Sets the image component
    *
    * @param  Img $img the image path or the image component
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setImg(Img $img) {
     $this->img = $img;
@@ -78,7 +73,7 @@ class Figure extends AbstractComponent implements ImgInterface {
    *
    * @return Img the image component
    */
-  public function getImg() {
+  public function getImg(): Img {
     return $this->img;
   }
 
@@ -86,7 +81,7 @@ class Figure extends AbstractComponent implements ImgInterface {
    * Sets the caption component
    *
    * @param  FigCaption $caption the caption content or the caption component
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setCaption(FigCaption $caption) {
     $this->caption = $caption;

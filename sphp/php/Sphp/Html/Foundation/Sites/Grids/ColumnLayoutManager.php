@@ -13,7 +13,6 @@ use Sphp\Html\ComponentInterface;
  * Implements a layout manager for Grid columns
  * 
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2017-03-02
  * @link    http://foundation.zurb.com/ Foundation
  * @link    http://foundation.zurb.com/sites/docs/grid.html Foundation grid
  * @link    http://foundation.zurb.com/grid.html Foundation grid
@@ -29,7 +28,7 @@ class ColumnLayoutManager extends AbstractColumnLayoutManager {
    */
   public function __construct(ComponentInterface $component) {
     parent::__construct($component, 12);
-    $this->cssClasses()->lock('column');
+    $this->cssClasses()->protect('column');
   }
 
 }

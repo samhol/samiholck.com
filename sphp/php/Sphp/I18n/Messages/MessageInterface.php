@@ -13,24 +13,30 @@ use Sphp\I18n\Translatable;
  * Defines properties for a translatable message object
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2016-09-02
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
 interface MessageInterface extends Translatable {
 
   /**
-   * Returns the template used
+   * Returns the raw template string
    * 
-   * @return TemplateInterface the template used
+   * @return string the template
    */
-  public function getTemplate(): TemplateInterface;
+  public function getTemplate(): string;
+
+  /**
+   * Returns the template string 
+   * 
+   * @return string the template 
+   */
+  public function getFormattedTemplate(): string;
 
   /**
    * Sets the arguments used for message
    *
    * @param  array $args the arguments
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setArguments(array $args);
 
@@ -43,14 +49,14 @@ interface MessageInterface extends Translatable {
   /**
    * Returns the arguments used for the message
    *
-   * @return array $args the arguments
+   * @return array the arguments
    */
   public function getArguments(): array;
 
   /**
    *
    * @param  bool $translateArguments
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function translateArguments(bool $translateArguments = true);
 

@@ -15,7 +15,6 @@ use Sphp\Html\ContainerTag;
  * The fieldset element is expected to establish a new block formatting context
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2014-03-11
  * @link    http://www.w3schools.com/tags/tag_fieldset.asp w3schools HTML API
  * @link    http://www.w3.org/html/wg/drafts/html/master/forms.html#the-fieldset-element W3C API
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
@@ -48,7 +47,7 @@ class Fieldset extends ContainerTag {
    * Sets the legend of the fieldset component
    *
    * @param  string|Legend $legend the legend of the fielset component
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setLegend($legend) {
     if (!($legend instanceof Legend)) {
@@ -71,7 +70,7 @@ class Fieldset extends ContainerTag {
    * Activates the Fieldset component
    *
    * @param  boolean $enabled true if the component is enabled, otherwise false
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function enable(bool $enabled = true) {
     return parent::setAttr("disabled", !$enabled);

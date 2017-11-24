@@ -24,7 +24,6 @@ use Sphp\Html\TraversableTrait;
  * site or app. They'll fill out 100% of the width of their parent container.
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2014-12-01
  * @link    http://foundation.zurb.com/ Foundation
  * @link    http://foundation.zurb.com/sites/docs/breadcrumbs.html Foundation Breadcrumbs
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
@@ -41,9 +40,9 @@ class BreadCrumbs extends AbstractContainerComponent implements IteratorAggregat
    */
   public function __construct($content = null) {
     $ul = new Ul();
-    $ul->cssClasses()->lock('breadcrumbs');
+    $ul->cssClasses()->protect('breadcrumbs');
     parent::__construct('nav', null, $ul);
-    $this->cssClasses()->lock('breadcrumbs');
+    $this->cssClasses()->protect('breadcrumbs');
     //$this->attrs()->lock('role', 'navigation');
     $this->attrs()->set('aria-label', 'breadcrumbs');
     if ($content !== null) {
@@ -65,7 +64,7 @@ class BreadCrumbs extends AbstractContainerComponent implements IteratorAggregat
    * @param  string $href the URL of the link
    * @param  string $content link text
    * @param  string $target the value of the target attribute
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @link   http://www.w3schools.com/tags/att_a_href.asp href attribute
    * @link   http://www.w3schools.com/tags/att_a_target.asp target attribute
    */
@@ -86,7 +85,7 @@ class BreadCrumbs extends AbstractContainerComponent implements IteratorAggregat
    * @param  string $href the URL of the link
    * @param  string $content link text
    * @param  string $target the value of the target attribute
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @link   http://www.w3schools.com/tags/att_a_href.asp href attribute
    * @link   http://www.w3schools.com/tags/att_a_target.asp target attribute
    */
@@ -99,7 +98,7 @@ class BreadCrumbs extends AbstractContainerComponent implements IteratorAggregat
    * Prepends a {@link BreadCrumb} component to the container
    *
    * @param  BreadCrumb $breadcrumb component to append
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function prepend(BreadCrumb $breadcrumb) {
     $this->getInnerContainer()->prepend($breadcrumb);
@@ -110,25 +109,19 @@ class BreadCrumbs extends AbstractContainerComponent implements IteratorAggregat
    * Appends a BreadCrumb to the container
    *
    * @param  BreadCrumb $breadcrumb component to append
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function append(BreadCrumb $breadcrumb) {
     $this->getInnerContainer()->append($breadcrumb);
     return $this;
   }
 
-  /**
-   * {@inheritdoc}
-   */
   public function getIterator() {
     return $this->getInnerContainer()
                     ->getComponentsByObjectType(BreadCrumb::class)
                     ->getIterator();
   }
 
-  /**
-   * {@inheritdoc}
-   */
   public function count(): int {
     return $this->getInnerContainer()->count();
   }

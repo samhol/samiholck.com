@@ -13,7 +13,6 @@ namespace Sphp\Stdlib\Events;
  * Event Dispatcher manages event listeners and dispatching events
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2015-05-12
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
@@ -27,9 +26,9 @@ interface EventDispatcherInterface {
    * @param mixed $priority optional priority of the listener: priorities are 
    *        handled like queues, and multiple attachments added to the same 
    *        priority queue will be treated in the order of insertion.
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @throws \InvalidArgumentException if the `$listener` type is illegal
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function addListener($event, $listener, $priority = 0);
 
@@ -37,7 +36,7 @@ interface EventDispatcherInterface {
    * Removes an listener from the registry
    *
    * @param  EventListenerInterface|callable $listener the listener to remove
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function remove($listener);
 

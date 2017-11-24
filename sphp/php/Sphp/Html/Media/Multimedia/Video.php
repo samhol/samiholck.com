@@ -7,23 +7,19 @@
 
 namespace Sphp\Html\Media\Multimedia;
 
-use Sphp\Html\Media\SizeableInterface;
+use Sphp\Html\Media\SizeableMedia;
 use Sphp\Html\Media\SizeableTrait;
-use Sphp\Html\Media\LazyMediaInterface;
+use Sphp\Html\Media\LazyMedia;
 
 /**
  * Implements an HTML &lt;video&gt; tag
- *
- *
- * {@inheritdoc}
- *
  *
  * @author  Sami Holck <sami.holck@gmail.com>
  * @link    http://www.w3schools.com/tags/tag_video.asp w3schools HTML API
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
-class Video extends AbstractMultimediaTag implements SizeableInterface, LazyMediaInterface {
+class Video extends AbstractMultimediaTag implements SizeableMedia, LazyMedia {
 
   use SizeableTrait;
 
@@ -34,7 +30,7 @@ class Video extends AbstractMultimediaTag implements SizeableInterface, LazyMedi
    */
   public function __construct($sources = null) {
     parent::__construct('video', null, $sources);
-    $this->showControls(true);
+    //$this->showControls(true);
   }
 
   public function isLazy(): bool {
@@ -60,7 +56,7 @@ class Video extends AbstractMultimediaTag implements SizeableInterface, LazyMedi
    * this is not included, the first frame of the video will be used instead.
    * 
    * @param  string $poster the poster image for the video component
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @link   http://www.w3schools.com/tags/att_video_poster.asp poster attribute
    */
   public function setPoster(string $poster) {

@@ -28,7 +28,6 @@ use Traversable;
  * not recomended.
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2014-06-10
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
@@ -62,7 +61,7 @@ abstract class AbstractOptionsContainer extends AbstractContainerComponent imple
    * Prepends content to the component
    *
    * @param  SelectMenuContentInterface $opt the content
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function prepend(SelectMenuContentInterface $opt) {
     $this->getInnerContainer()->prepend($opt);
@@ -79,7 +78,7 @@ abstract class AbstractOptionsContainer extends AbstractContainerComponent imple
    *    key of the nested array as a label of the group
    * 
    * @param array $options
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function appendArray(array $options) {
     foreach ($options as $index => $option) {
@@ -100,7 +99,7 @@ abstract class AbstractOptionsContainer extends AbstractContainerComponent imple
    * @param  string $value the value attribute of the option
    * @param  string $content the textual content of the option
    * @param  boolean $selected whether the option is selected or not
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @link   http://www.w3schools.com/tags/att_option_value.asp value attribute
    * @link   http://www.w3schools.com/tags/att_option_selected.asp selected attribute
    */
@@ -123,7 +122,7 @@ abstract class AbstractOptionsContainer extends AbstractContainerComponent imple
    * @param string $label specifies a label for an option-group
    * @param SelectMenuContentInterface|mixed[] $opt the content 
    * @param boolean $disabled whether the Optgroup is enabled or not
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function appendOptgroup($label, $opt = null, $disabled = false) {
     $this->append(new Optgroup($label, $opt, $disabled));
@@ -134,7 +133,7 @@ abstract class AbstractOptionsContainer extends AbstractContainerComponent imple
    * Appends content to the component
    *
    * @param  SelectMenuContentInterface $opt the content
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function append(SelectMenuContentInterface $opt) {
     $this->getInnerContainer()->append($opt);

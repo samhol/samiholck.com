@@ -15,7 +15,6 @@ use Sphp\Html\Div;
  * Class AbstractPane
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2016-01-13
  * @link    http://foundation.zurb.com/ Foundation 6
  * @link    http://foundation.zurb.com/sites/docs/accordion.html Foundation 6 Accordion
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
@@ -45,12 +44,12 @@ abstract class AbstractPane extends AbstractContainerComponent implements PaneIn
   public function __construct($barContent = null, $content = null) {
     $div = new Div($content);
     $div->attrs()->demand('data-tab-content');
-    $div->cssClasses()->lock('accordion-content');
+    $div->cssClasses()->protect('accordion-content');
     parent::__construct('li', null, $div);
     $this->bar = (new ContainerTag('a', $barContent));
-    $this->bar->cssClasses()->lock("accordion-title");
-    $this->bar->attrs()->lock('href', '#');
-    $this->cssClasses()->lock('accordion-item');
+    $this->bar->cssClasses()->protect("accordion-title");
+    $this->bar->attrs()->protect('href', '#');
+    $this->cssClasses()->protect('accordion-item');
     $this->attrs()->demand('data-accordion-item');
   }
 

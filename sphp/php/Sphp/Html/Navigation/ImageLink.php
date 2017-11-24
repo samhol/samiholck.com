@@ -10,16 +10,12 @@ namespace Sphp\Html\Navigation;
 use Sphp\Html\AbstractComponent;
 use Sphp\Html\Media\ImgInterface;
 use Sphp\Html\Media\Img;
-use Sphp\Stdlib\Strings;
-use Sphp\Stdlib\URL;
+use Sphp\Stdlib\Networks\URL;
 
 /**
  * Implements an image that acts as a hyperlink
  *
- * {@inheritdoc}
- *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2014-11-22
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
@@ -28,7 +24,6 @@ class ImageLink extends AbstractComponent implements HyperlinkInterface, ImgInte
   use HyperlinkTrait;
 
   /**
-   *
    * @var Img
    */
   private $img;
@@ -41,38 +36,39 @@ class ImageLink extends AbstractComponent implements HyperlinkInterface, ImgInte
    * * The `href` attribute specifies the URL of the page the link goes to.
    * * If the `href` attribute is not present, the &lt;a&gt; tag is not a hyperlink.
    *
-   * @param  string|URL $href the URL of the hyperlink
+   * @param  string $href the URL of the hyperlink
    * @param  string $target the value of the target attribute
    * @param  string|Img $src link tag's content
+   * @param  string $alt
    * @link   http://www.w3schools.com/tags/att_a_href.asp href attribute
    * @link   http://www.w3schools.com/tags/att_a_target.asp target attribute
    */
-  public function __construct($href = null, $target = null, $src = null, $alt = '') {
+  public function __construct(string $href = null, string $target = null, $src = null, string $alt = '') {
     parent::__construct('a');
     if ($src instanceof Img) {
       $this->setImg($src);
     } else {
       $this->setImg(new Img($src, $alt));
     }
-    if (!Strings::isEmpty($href)) {
+    if ($href !== null) {
       $this->setHref($href);
     }
-    if (!Strings::isEmpty($target)) {
+    if ($target !== null) {
       $this->setTarget($target);
     }
   }
 
   /**
-   * {@inheritdoc}
+   * Destroys the instance
+   *
+   * The destructor method will be called as soon as there are no other references
+   * to a particular object, or in any order during the shutdown sequence.
    */
   public function __destruct() {
     unset($this->img);
     parent::__destruct();
   }
 
-  /**
-   * {@inheritdoc}
-   */
   public function __clone() {
     $this->img = clone $this->img;
     parent::__clone();
@@ -85,31 +81,22 @@ class ImageLink extends AbstractComponent implements HyperlinkInterface, ImgInte
    * `data-src` attribute instead of the `src` attribute
    *
    * @param  string|URL $src the path to the image source (The URL of the image file)
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setSrc(string $src) {
     $this->img()->setSrc($src);
     return $this;
   }
 
-  /**
-   * {@inheritdoc}
-   */
   public function setAlt(string $src) {
     $this->img()->setAlt($src);
     return $this;
   }
 
-  /**
-   * {@inheritdoc}
-   */
   public function getAlt(): string {
     return $this->img()->getAlt();
   }
 
-  /**
-   * {@inheritdoc}
-   */
   public function getSrc(): string {
     return $this->img()->getSrc();
   }
@@ -118,7 +105,7 @@ class ImageLink extends AbstractComponent implements HyperlinkInterface, ImgInte
    * Sets link image component
    * 
    * @param Img $img new link image component
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setImg(Img $img) {
     $this->img = $img;

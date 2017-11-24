@@ -11,7 +11,6 @@ namespace Sphp\Stdlib;
  * Implements a simple interface to track the consumed time
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2014-11-11
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
@@ -34,7 +33,7 @@ class StopWatch {
   /**
    * Starts the clock from the page request
    *
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function startFromRequest() {
     $this->startTime = $_SERVER['REQUEST_TIME_FLOAT'] ?? 0.0;
@@ -44,7 +43,7 @@ class StopWatch {
   /**
    * Starts the timer from the call of this method
    *
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function start() {
     $this->startTime = microtime(true);

@@ -15,7 +15,6 @@ use UnderflowException;
  * An implementation of a general purpose collection data structure
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2015-06-12
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
@@ -59,15 +58,6 @@ class Collection implements Iterator, CollectionInterface {
   }
 
   /**
-   * Returns the object as a string
-   *
-   * @return string the object as a string
-   */
-  public function __toString(): string {
-    return Arrays::implodeWithKeys($this->items);
-  }
-
-  /**
    * Determines whether the given property exists
    *
    * @param  mixed $offset the offset key
@@ -97,7 +87,7 @@ class Collection implements Iterator, CollectionInterface {
    *
    * @param  mixed $offset the offset key
    * @param  mixed $value the value to set
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function offsetSet($offset, $value) {
     if (is_null($offset)) {
@@ -112,12 +102,10 @@ class Collection implements Iterator, CollectionInterface {
    * Unset the item at a given offset
    *
    * @param  mixed $offset the offset key
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function offsetUnset($offset) {
-    if ($this->offsetExists($offset)) {
-      unset($this->items[$offset]);
-    }
+    unset($this->items[$offset]);
     return $this;
   }
 
@@ -149,7 +137,7 @@ class Collection implements Iterator, CollectionInterface {
    * Merge the collection with the given items
    *
    * @param  mixed $items
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function merge($items) {
     $this->items = array_merge($this->items, $this->getArrayableItems($items));
@@ -175,7 +163,7 @@ class Collection implements Iterator, CollectionInterface {
    * @param  mixed $items
    * @return array
    */
-  protected function getArrayableItems($items) {
+  protected function getArrayableItems($items): array {
     if ($items instanceof Arrayable) {
       $items = $items->toArray();
     } else if ($items instanceof Jsonable) {
@@ -187,7 +175,7 @@ class Collection implements Iterator, CollectionInterface {
   /**
    * Clears all stored properties
    *
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function clear() {
     $this->items = [];
@@ -237,7 +225,7 @@ class Collection implements Iterator, CollectionInterface {
    *
    * @return boolean true if the collection is empty, false otherwise
    */
-  public function isEmpty() {
+  public function isEmpty(): bool {
     return empty($this->items);
   }
 
@@ -359,7 +347,7 @@ class Collection implements Iterator, CollectionInterface {
    * 
    * @return boolean current iterator position is valid
    */
-  public function valid() {
+  public function valid(): bool {
     return false !== current($this->items);
   }
 

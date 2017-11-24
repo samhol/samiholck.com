@@ -25,7 +25,6 @@ use ArrayAccess;
  *    notation.
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2014-04-19
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
@@ -35,7 +34,7 @@ interface ContainerInterface extends TraversableInterface, Arrayable, ArrayAcces
    * Appends a new value as the last element
    *
    * @param  mixed $value element
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function append($value);
 
@@ -46,11 +45,10 @@ interface ContainerInterface extends TraversableInterface, Arrayable, ArrayAcces
    *   and the index of the prepended value is 'int(0)'
    *
    * @param  mixed $value the value being prepended
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function prepend($value);
 
-  
   /**
    * Sets the content of the component
    *
@@ -58,13 +56,14 @@ interface ContainerInterface extends TraversableInterface, Arrayable, ArrayAcces
    *   and the index of the prepended value is 'int(0)'
    *
    * @param  mixed $content the new content
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
-  public function setContent($content) ;
+  public function setContent($content);
+
   /**
    * Clears the contents
    *
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function clear();
 
@@ -74,5 +73,5 @@ interface ContainerInterface extends TraversableInterface, Arrayable, ArrayAcces
    * @param  mixed $value mixed content to check for
    * @return boolean `true` on success or `false` on failure
    */
-  public function exists($value);
+  public function exists($value): bool;
 }

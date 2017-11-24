@@ -7,6 +7,8 @@
 
 namespace Sphp\Html\Media;
 
+use Sphp\Html\Attributes\HtmlAttributeManager;
+
 /**
  * Trait implements the {@link LazyLoaderInterface} interface
  * 
@@ -14,7 +16,6 @@ namespace Sphp\Html\Media;
  * images/videos with build-in support of jQueryMobile framework.
  * 
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2015-06-15
  * @link    http://www.w3schools.com/tags/tag_img.asp w3schools API
  * @link    http://www.w3.org/html/wg/drafts/html/master/embedded-content.html#the-img-element W3C API
  * @link    https://github.com/ressio/lazy-load-xt Lazy Load XT jQuery plugin
@@ -22,8 +23,13 @@ namespace Sphp\Html\Media;
  * @filesource
  */
 trait LazyMediaSourceTrait {
-  
-  abstract public function attrs();
+
+  /**
+   * Returns the attribute manager attached to the component
+   * 
+   * @return HtmlAttributeManager the attribute manager
+   */
+  abstract public function attrs(): HtmlAttributeManager;
 
   /**
    * Sets or unsets the media source loading as lazy
@@ -32,7 +38,7 @@ trait LazyMediaSourceTrait {
    * `data-src` attribute instead of the `src` attribute
    * 
    * @param  boolean $lazy true if the loading is lazy, false otherwise
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setLazy(bool $lazy = true) {
     $classes = ['lazy-hidden', 'lazy-loaded'];
@@ -43,7 +49,7 @@ trait LazyMediaSourceTrait {
       $this->attrs()->set('data-src', $src);
     } else if ($this->isLazy()) {
       $this->attrs()->classes()->remove($classes);
-      $this->setSrc($this->attrs()->get('data-src'));
+      $this->setSrc($this->attrs()->getValue('data-src'));
       $this->attrs()->remove('data-src');
     }
     return $this;
@@ -87,9 +93,9 @@ trait LazyMediaSourceTrait {
    */
   public function getSrc(): string {
     if ($this->isLazy()) {
-      return $this->attrs()->get('data-src');
+      return $this->attrs()->getValue('data-src');
     } else {
-      return $this->attrs()->get('src');
+      return $this->attrs()->getValue('src');
     }
   }
 

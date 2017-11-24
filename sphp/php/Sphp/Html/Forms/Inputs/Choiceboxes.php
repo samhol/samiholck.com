@@ -10,14 +10,12 @@ namespace Sphp\Html\Forms\Inputs;
 use Sphp\Html\AbstractContainerComponent;
 use Sphp\Html\Lists\Ul;
 use Sphp\Html\Forms\Inputs\InputTag as InputTag;
-use Sphp\Stdlib\Strings;
 use Sphp\Html\Forms\Label;
 
 /**
  * A component containing multiple radio or checkbox inputs
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2011-10-18
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
@@ -59,7 +57,7 @@ abstract class Choiceboxes extends AbstractContainerComponent implements InputIn
    * @param scalar[] $values
    * @param mixed $label
    */
-  public function __construct($type, $name = null, array $values = []) {
+  public function __construct(string $type, string $name = null, array $values = []) {
     $this->type = $type;
     parent::__construct('fieldset');
     $this->boxCont = new Ul();
@@ -67,7 +65,7 @@ abstract class Choiceboxes extends AbstractContainerComponent implements InputIn
     //$this->mainLabel = new Legend($mainLabel)
     $this->setName($name)
             ->setOptions($values);
-    $this->cssClasses()->lock("sphp-choiceboxes $this->type");
+    $this->cssClasses()->protect("sphp-choiceboxes $this->type");
     $this->getInnerContainer()
             ->append($this->boxCont);
   }
@@ -77,10 +75,10 @@ abstract class Choiceboxes extends AbstractContainerComponent implements InputIn
    *
    * @param  Choicebox $label the label information of the new input option
    * @param  Choicebox $value the value of the new input option
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   protected function addInput($label, $value) {
-    $input = \Sphp\Html\Document::get($this->type);
+    $input = \Sphp\Html\Factory::{$this->type}();
     $input->setName($this->name);
     $input->setValue($value);
     //$input = new InputTag($this->type, $this->name, $value);
@@ -104,7 +102,7 @@ abstract class Choiceboxes extends AbstractContainerComponent implements InputIn
    * Sets new options to the form component
    *
    * @param  string[] $values
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setOptions(array $values) {
     foreach ($values as $value => $label) {
@@ -127,10 +125,10 @@ abstract class Choiceboxes extends AbstractContainerComponent implements InputIn
    * Sets the value of name attribute
    *
    * @param  string $name the value of the name attribute
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @link   http://www.w3schools.com/tags/att_input_name.asp name attribute
    */
-  public function setName($name) {
+  public function setName(string $name) {
     $this->name = $name;
     foreach ($this->options as $box) {
       $box->setName($name);
@@ -147,7 +145,7 @@ abstract class Choiceboxes extends AbstractContainerComponent implements InputIn
    * @return boolean true if the input has a name , otherwise false
    */
   public function isNamed(): bool {
-    return !Strings::isEmpty($this->name);
+    return $this->name !== null;
   }
 
   /**
@@ -157,10 +155,11 @@ abstract class Choiceboxes extends AbstractContainerComponent implements InputIn
    * Disabled input components in a form will not be submitted.
    *
    * @param  boolean $disabled true if the component is disabled, otherwise false
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function disable(bool $disabled = true) {
-    return $this->setAttr('disabled', $disabled);
+    $this->attrs()->setBoolean('disabled', $disabled);
+    return $this;
   }
 
   /**
@@ -176,7 +175,7 @@ abstract class Choiceboxes extends AbstractContainerComponent implements InputIn
    * Sets the current submission set of the input component
    *
    * @param  string|string[] $value the current submission set of the input component
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setValue($value) {
     if (!is_array($value)) {
@@ -208,3 +207,4 @@ abstract class Choiceboxes extends AbstractContainerComponent implements InputIn
   }
 
 }
+

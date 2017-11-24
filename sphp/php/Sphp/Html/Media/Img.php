@@ -30,10 +30,7 @@ use Sphp\Html\Media\ImageMap\Map;
  *
  * The alt attribute specifies an alternate text for an image, if the image cannot be displayed.
  *
- * {@inheritdoc}
- *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2011-02-15
  * @link    http://www.w3schools.com/tags/tag_img.asp w3schools API
  * @link    http://www.w3.org/html/wg/drafts/html/master/embedded-content.html#the-img-element W3C API
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
@@ -47,8 +44,8 @@ class Img extends EmptyTag implements ImgInterface {
   /**
    * Constructs a new instance
    *
-   * @param  string $src src attribute
-   * @param  string $alt alt attribute
+   * @param  string $src specifies the URL of an image
+   * @param  string $alt specifies an alternate text for an image
    * @link   http://www.w3schools.com/tags/att_img_src.asp src attribute
    * @link   http://www.w3schools.com/tags/att_img_type.asp type attribute
    */
@@ -60,9 +57,10 @@ class Img extends EmptyTag implements ImgInterface {
   }
 
   /**
+   * Sets the image map used
    * 
    * @param  string|Map $map the image map name or instance
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function useMap($map) {
     if ($map instanceof ImageMap\Map) {
@@ -91,7 +89,7 @@ class Img extends EmptyTag implements ImgInterface {
    *    (in this case you don't need to define "alt attribute at all")
    *
    * @param  string $alt the alternate text for an image
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @link   http://www.w3schools.com/tags/att_img_alt.asp alt attribute
    */
   public function setAlt(string $alt) {
@@ -104,17 +102,17 @@ class Img extends EmptyTag implements ImgInterface {
    *
    * **Notes:** The alt attribute specifies an alternate text for an image.
    *
-   * @return string the value of the alt attribute
+   * @return string the alternate text for the image
    * @link  http://www.w3schools.com/tags/att_img_alt.asp alt attribute
    */
   public function getAlt(): string {
-    return $this->attrs()->get('alt');
+    return $this->attrs()->getValue('alt');
   }
 
   /**
-   * Returns the object as html-markup string.
+   * Returns the object as HTML-markup string.
    *
-   * @return string html-markup of the object
+   * @return string HTML-markup of the object
    */
   public function getHtml(): string {
     $output = parent::getHtml();

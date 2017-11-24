@@ -15,7 +15,6 @@ use Sphp\Html\Foundation\Sites\Navigation\BreadCrumb;
  * Hyperlink object generator pointing to an existing Sami documentation about a class
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2014-11-29
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
@@ -29,7 +28,7 @@ class SamiClassLinker extends AbstractClassLinker {
    * @param string|null $defaultTarget
    * @param string|string[]|null $defaultCssClasses
    */
-  public function __construct($class, SamiUrlGenerator $urlGenerator = null, $defaultTarget = null, $defaultCssClasses = null) {
+  public function __construct(string $class, SamiUrlGenerator $urlGenerator = null, string $defaultTarget = null, $defaultCssClasses = null) {
     if ($urlGenerator === null) {
       $urlGenerator = new SamiUrlGenerator();
     }
@@ -41,7 +40,7 @@ class SamiClassLinker extends AbstractClassLinker {
    * 
    * @return BreadCrumbs
    */
-  public function classBreadGrumbs() {
+  public function classBreadGrumbs(): BreadCrumbs {
     $target = $this->getDefaultTarget();
     $namespace = $this->ref->getNamespaceName();
     $namespaceArray = explode('\\', $namespace);

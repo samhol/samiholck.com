@@ -11,7 +11,6 @@ namespace Sphp\Stdlib\Events;
  * Defines an event
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2014-05-12
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
@@ -35,14 +34,14 @@ interface EventInterface {
    * Sets the subject
    * 
    * @param  mixed $subject the subject
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setSubject($subject);
 
   /**
    * Stops the event from being used anymore
    *
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function stopPropagation();
 

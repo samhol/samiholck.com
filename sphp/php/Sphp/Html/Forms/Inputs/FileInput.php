@@ -10,14 +10,11 @@ namespace Sphp\Html\Forms\Inputs;
 /**
  * Implements an HTML &lt;input type="file"&gt; tag
  *
- * {@inheritdoc}
- *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2011-03-10
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
-class FileInput extends AbstractInputTag implements ValidableInputInterface {
+class FileInput extends AbstractInputTag implements Validable {
 
   use InputTrait,
       ValidableInputTrait;
@@ -26,11 +23,11 @@ class FileInput extends AbstractInputTag implements ValidableInputInterface {
    * Constructs a new instance
    *
    * @param  string|null $name name attribute
-   * @param  string|null $accept the accepted mimetypes for the file
+   * @param  string|null $accept the accepted mime types for the file
    * @link   http://www.w3schools.com/tags/att_input_name.asp name attribute
    * @link   http://www.w3schools.com/tags/att_input_accept.asp accept attribute
    */
-  public function __construct($name = null, $accept = null) {
+  public function __construct(string $name = null, string $accept = null) {
     parent::__construct('file', $name);
     if ($accept !== null) {
       $this->setFileTypes($accept);
@@ -38,13 +35,13 @@ class FileInput extends AbstractInputTag implements ValidableInputInterface {
   }
 
   /**
-   * Sets the accepted mimetypes for the file
+   * Sets the accepted mime types for the file
    *
-   * @param  string $accept the accepted mimetypes for the file
-   * @return self for a fluent interface
+   * @param  string $accept the accepted mime types for the file
+   * @return $this for a fluent interface
    * @link   http://www.w3schools.com/tags/att_input_accept.asp accept attribute
    */
-  public function setFileTypes($accept) {
+  public function setFileTypes(string $accept) {
     $this->attrs()->set('accept', $accept);
     return $this;
   }
@@ -53,12 +50,14 @@ class FileInput extends AbstractInputTag implements ValidableInputInterface {
    * Sets whether to accept multiple files or not
    *
    * @param  boolean $multiple whether to accept multiple files or not
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @link   http://www.w3schools.com/tags/att_input_multiple.asp multiple attribute
    */
   public function multipleFiles(bool $multiple = true) {
-    $this->attrs()->set('multiple', $multiple);
+    $this->attrs()->setBoolean('multiple', $multiple);
     return $this;
   }
 
 }
+
+

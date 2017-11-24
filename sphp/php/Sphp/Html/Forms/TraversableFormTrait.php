@@ -18,7 +18,6 @@ use Sphp\Html\ContainerInterface;
  * for processing.
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2014-09-26
  * @link    http://www.w3schools.com/tags/tag_form.asp w3schools HTML API
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
@@ -49,7 +48,7 @@ trait TraversableFormTrait {
    *
    * @return ContainerInterface containing matching sub components
    */
-  public function getHiddenInputs() {
+  public function getHiddenInputs(): Inputs\HiddenInputs {
     $search = function($element) {
       if ($element instanceof HiddenInput) {
         return true;
@@ -63,7 +62,7 @@ trait TraversableFormTrait {
   /**
    * Sets the values to the input fields
    *
-   * **Important:** Works only for sigle dimensional input names
+   * **Important:** Works only for single dimensional input names
    * 
    * @param  mixed[] $data
    * @param  boolean $filter true for enabling the data filtering, ans false otherwise

@@ -15,7 +15,6 @@ use Sphp\Html\Navigation\HyperlinkInterface;
  * Implements a hyperlink container
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2014-12-04
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
@@ -48,32 +47,20 @@ class HyperlinkContainer extends AbstractContainerTag implements HyperlinkInterf
     return $this->getInnerContainer();
   }
 
-  /**
-   * {@inheritdoc}
-   */
   public function getHref() {
     return $this->getHyperlink()->getHref();
   }
 
-  /**
-   * {@inheritdoc}
-   */
   public function setHref($href, $encode = true) {
     $this->getHyperlink()->setHref($href, $encode);
     return $this;
   }
 
-  /**
-   * {@inheritdoc}
-   */
   public function setTarget($target) {
     $this->getHyperlink()->setTarget($target);
     return $this;
   }
-
-  /**
-   * {@inheritdoc}
-   */
+  
   public function getTarget() {
     return $this->getHyperlink()->getTarget();
   }
@@ -82,7 +69,7 @@ class HyperlinkContainer extends AbstractContainerTag implements HyperlinkInterf
    * Sets the value of the title attribute
    *
    * @param  string|null $title the value of the title attribute
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @link   http://www.w3schools.com/tags/att_global_title.asp title attribute
    */
   public function setTitle($title) {

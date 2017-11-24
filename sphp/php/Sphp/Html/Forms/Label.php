@@ -7,7 +7,7 @@
 
 namespace Sphp\Html\Forms;
 
-use Sphp\Html\Forms\Inputs\IdentifiableInputInterface;
+use Sphp\Html\Forms\Inputs\IdentifiableInput;
 use Sphp\Html\ContainerTag;
 
 /**
@@ -19,7 +19,6 @@ use Sphp\Html\ContainerTag;
  * control inside the label element itself.
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2012-03-11
  * @link    http://www.w3schools.com/tags/tag_label.asp w3schools HTML API
  * @link    http://dev.w3.org/html5/spec/Overview.html#the-label-element W3C API
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
@@ -31,7 +30,7 @@ class Label extends ContainerTag {
    * Constructs a new instance
    *
    * @param mixed $content the content of the component
-   * @param string|null $for the id of the element the label is bound to
+   * @param string|IdentifiableInput|null $for the id of the element the label is bound to
    * @link  http://www.w3schools.com/tags/att_label_for.asp for attribute
    */
   public function __construct($content = null, $for = null) {
@@ -48,12 +47,12 @@ class Label extends ContainerTag {
    *
    * - For attribute specifies which form element a label is bound to.
    *
-   * @param  string|IdentifiableInputInterface $for the value of the for attribute
-   * @return self for a fluent interface
+   * @param  string|IdentifiableInput $for the value of the for attribute
+   * @return $this for a fluent interface
    * @link   http://www.w3schools.com/tags/att_label_for.asp for attribute
    */
   public function setFor($for) {
-    if ($for instanceof IdentifiableInputInterface) {
+    if ($for instanceof IdentifiableInput) {
       $for = $for->identify();
     }
     $this->attrs()->set('for', $for);
@@ -69,7 +68,7 @@ class Label extends ContainerTag {
    * @link  http://www.w3schools.com/tags/att_label_for.asp for attribute
    */
   public function getFor() {
-    return $this->attrs()->get('for');
+    return $this->attrs()->getValue('for');
   }
 
   /**
@@ -81,7 +80,7 @@ class Label extends ContainerTag {
    * - parameter can be an array of id's to one or more forms the object belongs to.
    *
    * @param  string|string[] $formIds the value of the form attribute
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @link   http://www.w3schools.com/tags/att_label_form.asp form attribute
    */
   public function setForms($formIds) {
@@ -103,9 +102,10 @@ class Label extends ContainerTag {
   public function getForms(): array {
     $result = [];
     if ($this->attrs()->exists('form')) {
-      $result = explode(' ', $this->attrs()->get('form'));
+      $result = explode(' ', $this->attrs()->getValue('form'));
     }
     return $result;
   }
 
 }
+

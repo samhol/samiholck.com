@@ -11,7 +11,6 @@ namespace Sphp\Html\Foundation\Sites\Core;
  * Defines a closable component
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2016-03-02
  * @link    http://foundation.zurb.com/ Foundation
  * @link    http://foundation.zurb.com/sites/docs/close-button.html Foundation Close Button
  * @link    http://foundation.zurb.com/sites/docs/close-button.html#making-closable Foundation - Making Closable
@@ -31,9 +30,9 @@ interface ClosableInterface {
    * * `false`: the component is not closable
    * 
    * @param  string|boolean $closable true for closable and false otherwise
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
-  public function setClosable(bool $closable = true);
+  public function setClosable($closable = true);
 
   /**
    * Checks whether the component is  set as closable or not

@@ -11,7 +11,6 @@ namespace Sphp\Filters;
  * Filter converts value to an integer
  * 
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2017-03-12
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
@@ -45,7 +44,7 @@ private $round  = \PHP_ROUND_HALF_UP;
   /**
    * 
    * @param  int $min the  minimum value of the integer
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setMin(int $min) {
     $this->setOption('min_range', $min);
@@ -55,7 +54,7 @@ private $round  = \PHP_ROUND_HALF_UP;
   /**
    * 
    * @param  int $max the  maximum value of the integer
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setMax(int $max) {
     $this->setOption('max_range', $max);
@@ -65,7 +64,7 @@ private $round  = \PHP_ROUND_HALF_UP;
   /**
    * 
    * @param  mixed $default
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setDefault($default) {
     $this->setOption('default', $default);

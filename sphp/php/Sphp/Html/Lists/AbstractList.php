@@ -8,15 +8,12 @@
 namespace Sphp\Html\Lists;
 
 use Sphp\Html\AbstractContainerTag;
-use Sphp\Stdlib\URL;
+use Sphp\Stdlib\Networks\URL;
 
 /**
  * Abstract implementation of both ordered and unordered HTML-list
  *
- * {@inheritdoc}
- *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2012-04-03
  * @link http://www.w3schools.com/html/html_lists.asp w3schools HTML API
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
@@ -29,7 +26,7 @@ abstract class AbstractList extends AbstractContainerTag {
    * @param  string|URL $href the URL of the link
    * @param  mixed $content link content
    * @param  string $target the value of the target attribute
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @link   http://www.w3schools.com/tags/att_a_href.asp href attribute
    * @link   http://www.w3schools.com/tags/att_a_target.asp target attribute
    */

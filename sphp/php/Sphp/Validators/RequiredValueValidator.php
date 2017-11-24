@@ -29,13 +29,12 @@ use Sphp\Stdlib\Strings;
  * * "\\x0B" (ASCII 11 (0x0B)), a vertical tab.
  * 
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2012-10-14
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
 class RequiredValueValidator extends AbstractValidator {
 
-  public function __construct($error = 'Please insert a value') {
+  public function __construct(string $error = 'Please insert a value') {
     parent::__construct($error);
   }
 

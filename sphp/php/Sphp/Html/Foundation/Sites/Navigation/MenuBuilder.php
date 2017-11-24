@@ -8,9 +8,9 @@
 namespace Sphp\Html\Foundation\Sites\Navigation;
 
 /**
+ * Implements a Foundation framework based menu builder
  * 
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2016-11-21
  * @link    http://foundation.zurb.com/ Foundation
  * @link    http://foundation.zurb.com/sites/docs/menu.html Foundation Menu
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
@@ -19,18 +19,17 @@ namespace Sphp\Html\Foundation\Sites\Navigation;
 class MenuBuilder {
 
   /**
-   *
    * @var string 
    */
   private $menuType = Menu::class;
 
   /**
-   *
    * @var MenuLinkBuilder 
    */
   private $linkBuilder;
 
   /**
+   * Constructs a new instance
    * 
    * @param MenuLinkBuilder $linkBuilder
    */
@@ -44,19 +43,19 @@ class MenuBuilder {
   /**
    * 
    * @param  string $menuType
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
-  public function setMenuType($menuType) {
+  public function setMenuType(string $menuType) {
     $this->menuType = $menuType;
     return $this;
   }
 
   /**
    * 
-   * @param  string $target
-   * @return self for a fluent interface
+   * @param  string|null $target
+   * @return $this for a fluent interface
    */
-  public function setDefaultTarget($target) {
+  public function setDefaultTarget(string $target = null) {
     $this->linkBuilder->setDefaultTarget($target);
     return $this;
   }
@@ -67,7 +66,7 @@ class MenuBuilder {
    * @param  MenuInterface $instance
    * @return MenuInterface
    */
-  private function insertIntoMenu(array $contentData, MenuInterface $instance = null) {
+  private function insertIntoMenu(array $contentData, MenuInterface $instance = null): MenuInterface {
     if ($instance === null) {
       $instance = new Menu();
     }
@@ -78,7 +77,7 @@ class MenuBuilder {
         $instance->append($this->buildSub($item));
       } else if (array_key_exists('separator', $item)) {
         $instance->appendText($item['separator']);
-      }else if (array_key_exists('ruler', $item)) {
+      } else if (array_key_exists('ruler', $item)) {
         $instance->appendRuler();
       }
     }
@@ -86,23 +85,25 @@ class MenuBuilder {
   }
 
   /**
+   * Builds a new sub menu from given menu data
    * 
-   * @param  array $sub
-   * @return SubMenu
+   * @param  array $data the menu data
+   * @return SubMenu new sub menu
    */
-  public function buildSub(array $sub) {
-    $instance = new SubMenu($sub['menu']);
-    $this->buildMenu($sub, $instance);
+  public function buildSub(array $data): SubMenu {
+    $instance = new SubMenu($data['menu']);
+    $this->buildMenu($data, $instance);
     return $instance;
   }
 
   /**
+   * Builds a new menu from given menu data
    * 
-   * @param  array $data
+   * @param  array $data the menu data
    * @param  MenuInterface|null $instance
-   * @return MenuInterface
+   * @return MenuInterface new menu
    */
-  public function buildMenu(array $data, MenuInterface $instance = null) {
+  public function buildMenu(array $data, MenuInterface $instance = null): MenuInterface {
     if ($instance === null) {
       $instance = new $this->menuType();
     }
@@ -114,19 +115,22 @@ class MenuBuilder {
   }
 
   /**
+   * Builds a new drop down menu from given menu data
    * 
-   * @param  array $data
+   * @param  array $data the menu data
    * @return DropdownMenu new menu instance
    */
-  public function buildDropdownMenu(array $data) {
+  public function buildDropdownMenu(array $data): DropdownMenu {
     return $this->buildMenu($data, new DropdownMenu());
   }
+
   /**
+   * Builds a new accordion menu from given menu data
    * 
-   * @param  array $data
-   * @return DropdownMenu new menu instance
+   * @param  array $data the menu data
+   * @return AccordionMenu new menu instance
    */
-  public function buildAccordionMenu(array $data) {
+  public function buildAccordionMenu(array $data): AccordionMenu {
     return $this->buildMenu($data, new AccordionMenu());
   }
 

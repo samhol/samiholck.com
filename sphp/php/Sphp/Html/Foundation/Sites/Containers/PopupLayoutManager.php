@@ -14,7 +14,6 @@ use Sphp\Html\ComponentInterface;
  * Implements a layout manager for modal popups columns
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2017-02-13
  * @link    http://foundation.zurb.com/ Foundation 6
  * @link    http://foundation.zurb.com/docs/components/block_grid.html Foundation Block Grid
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
@@ -44,9 +43,9 @@ class PopupLayoutManager extends ColourableLayoutManager {
    * Sets the number of columns within the row for different screen sizes
    * 
    * @param  string[] $layouts individual layout settings
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
-  public function setLayouts($layouts) {
+  public function setLayouts(...$layouts) {
     $this->unsetLayouts();
     parent::setLayouts($layouts);
     foreach (is_array($layouts) ? $layouts : [$layouts] as $layout) {
@@ -58,7 +57,7 @@ class PopupLayoutManager extends ColourableLayoutManager {
   /**
    * Unsets all layout settings 
    * 
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function unsetLayouts() {
     $this->unsetSizing();
@@ -76,7 +75,7 @@ class PopupLayoutManager extends ColourableLayoutManager {
    * * `'large'` for large padding
    * 
    * @param  string|null $size optional CSS class name defining the amount of the content padding
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @link   http://foundation.zurb.com/sites/docs/callout.html#sizing Callout Sizing
    */
   public function setSize($size) {
@@ -90,7 +89,7 @@ class PopupLayoutManager extends ColourableLayoutManager {
   /**
    * Unsets the content padding
    *
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function unsetSizing() {
     $this->cssClasses()

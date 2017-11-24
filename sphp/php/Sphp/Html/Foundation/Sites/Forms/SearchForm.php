@@ -9,16 +9,16 @@ namespace Sphp\Html\Foundation\Sites\Forms;
 
 use Sphp\Html\Forms\FormInterface;
 use Sphp\Html\Forms\Inputs\TextInput;
-use Sphp\Html\Forms\SubmitterInterface;
+use Sphp\Html\Forms\Buttons\SubmitterInterface;
 use Sphp\Html\Forms\Buttons\Submitter;
 use Sphp\Html\Forms\Inputs\HiddenInputs;
-use Sphp\Html\Icons\Icon;
+use Sphp\Html\Icons\Icons;
 
 /**
  * Description of SearchForm
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2017-05-18
+ * @link    http://foundation.zurb.com/ Foundation
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
@@ -46,7 +46,7 @@ class SearchForm extends \Sphp\Html\AbstractComponent implements FormInterface {
     $this->setAction($action)
             ->setMethod($method)
             ->setTarget('_self');
-    $this->setSubmitButton(new Submitter(Icon::fontAwesome('fa-search')));
+    $this->setSubmitButton(new Submitter(Icons::fontAwesome('fa-search')));
     $this->hiddenData = new HiddenInputs();
     $this->setSearchField(new TextInput());
   }
@@ -57,7 +57,7 @@ class SearchForm extends \Sphp\Html\AbstractComponent implements FormInterface {
 
   public function setSearchField(TextInput $searchField) {
     $this->searchField = $searchField;
-    $this->searchField->cssClasses()->lock('input-group-field');
+    $this->searchField->cssClasses()->protect('input-group-field');
     return $this;
   }
 
@@ -67,12 +67,12 @@ class SearchForm extends \Sphp\Html\AbstractComponent implements FormInterface {
 
   /**
    * 
-   * @param Submitter $submitButton
+   * @param  Submitter $submitButton
    * @return $this
    */
   public function setSubmitButton(SubmitterInterface $submitButton) {
     $this->submitButton = $submitButton;
-    $this->submitButton->cssClasses()->lock('button');
+    $this->submitButton->cssClasses()->protect('button');
     return $this;
   }
 

@@ -16,17 +16,10 @@ use Sphp\Exceptions\RuntimeException;
  * CSV file object
  * 
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2016-09-11
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
 class CsvFile implements Arrayable, \Iterator {
-
-  /**
-   *
-   * @var callable 
-   */
-  private $filter;
 
   /**
    *
@@ -70,7 +63,7 @@ class CsvFile implements Arrayable, \Iterator {
    * @param  string $escape optional field escape character (one character only)
    * @throws \Sphp\Exceptions\RuntimeException
    */
-  public function __construct($filename, $delimiter = ',', $enclosure = '"', $escape = "\\") {
+  public function __construct(string $filename, string $delimiter = ',', string $enclosure = '"', string $escape = "\\") {
     if (!Filesystem::isFile($filename)) {
       throw new RuntimeException("The path '$filename' is not a file");
     }
@@ -86,7 +79,7 @@ class CsvFile implements Arrayable, \Iterator {
    * 
    * @return string the field delimiter (one character only)
    */
-  public function getFilename() {
+  public function getFilename(): string {
     return $this->filename;
   }
 
@@ -95,7 +88,7 @@ class CsvFile implements Arrayable, \Iterator {
    * 
    * @return string the field escape character (one character only)
    */
-  public function getDelimiter() {
+  public function getDelimiter(): string {
     return $this->delimiter;
   }
 
@@ -104,7 +97,7 @@ class CsvFile implements Arrayable, \Iterator {
    * 
    * @return string the field enclosure character (one character only)
    */
-  public function getEnclosure() {
+  public function getEnclosure(): string {
     return $this->enclosure;
   }
 
@@ -113,14 +106,14 @@ class CsvFile implements Arrayable, \Iterator {
    * 
    * @return string the field escape character (one character only)
    */
-  public function getEscape() {
+  public function getEscape(): string {
     return $this->escape;
   }
 
   /**
    * 
    * @param  array $data
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function appendRow(array $data) {
     if ($data instanceof \Traversable) {
@@ -145,9 +138,9 @@ class CsvFile implements Arrayable, \Iterator {
    * Sets the internal pointer to the given line number of the CSV file
    * 
    * @param  int $line the line number of the CSV file
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
-  public function seek($line) {
+  public function seek(int $line) {
     $this->file->seek($line);
     return $this;
   }
@@ -155,10 +148,10 @@ class CsvFile implements Arrayable, \Iterator {
   /**
    * Returns the header row (first row) of the CSV file
    * 
-   * @return string[]indexed array containing the fields of the header row
+   * @return string[] indexed array containing the fields of the header row
    * @see    http://php.net/manual/en/splfileobject.fgetcsv.php
    */
-  public function getHeaderRow() {
+  public function getHeaderRow(): array {
     return $this->createSplFileObject()->fgetcsv();
   }
 
@@ -168,7 +161,7 @@ class CsvFile implements Arrayable, \Iterator {
    * @param  int $count optional count of the limit
    * @return string[]
    */
-  public function getChunk($offset = 0, $count = -1) {
+  public function getChunk(int $offset = 0, int $count = -1): array {
     $this->file->rewind();
     //var_dump($this->file->getCsvControl());
     foreach (new \LimitIterator($this->createSplFileObject(), $offset, $count) as $row => $line) {
@@ -209,7 +202,7 @@ class CsvFile implements Arrayable, \Iterator {
    * 
    * @return boolean true if not reached EOF, false otherwise.
    */
-  public function valid() {
+  public function valid(): bool {
     return $this->file->valid();
   }
 

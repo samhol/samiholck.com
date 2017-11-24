@@ -32,10 +32,10 @@ class VimeoPlayer extends AbstractVideoPlayer {
    * **Default:** the default color is `00adef`
    * 
    * @param  string $color the hexadecimal color code string
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setControlsColor(string $color) {
-    $this->getUrl()->setParam('color', trim($color, '#'));
+    $this->getUrl()->getQuery()->offsetSet('color', trim($color, '#'));
   }
 
   /**
@@ -44,10 +44,10 @@ class VimeoPlayer extends AbstractVideoPlayer {
    * **Default:** `true` the title is visible
    * 
    * @param  boolean $show true if the title is visible and false otherwise
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function showVideoTitle(bool $show) {
-    $this->getUrl()->setParam('title', int($show));
+    $this->getUrl()->getQuery()->offsetSet('title', int($show));
   }
 
 }

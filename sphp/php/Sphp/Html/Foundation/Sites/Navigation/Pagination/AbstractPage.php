@@ -9,13 +9,12 @@ namespace Sphp\Html\Foundation\Sites\Navigation\Pagination;
 
 use Sphp\Html\Navigation\Hyperlink;
 use Sphp\Html\AbstractComponent;
-use Sphp\Stdlib\URL;
+use Sphp\Stdlib\Networks\URL;
 
 /**
  * Implements a page button for a Pagination component
  * 
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2016-12-01
  * @link    http://foundation.zurb.com/ Foundation
  * @link    http://foundation.zurb.com/sites/docs/pagination.html Foundation Pagination
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
@@ -24,7 +23,6 @@ use Sphp\Stdlib\URL;
 abstract class AbstractPage extends AbstractComponent implements PageInterface {
 
   /**
-   *
    * @var Hyperlink 
    */
   private $hyperlink;
@@ -43,7 +41,7 @@ abstract class AbstractPage extends AbstractComponent implements PageInterface {
    * @link   http://www.w3schools.com/tags/att_a_href.asp href attribute
    * @link   http://www.w3schools.com/tags/att_a_target.asp target attribute
    */
-  public function __construct($href = null, $content = null, $target = null) {
+  public function __construct(string $href = null, $content = null, string $target = null) {
     parent::__construct('li');
     $this->hyperlink = new Hyperlink($href, $content, $target);
   }
@@ -56,7 +54,7 @@ abstract class AbstractPage extends AbstractComponent implements PageInterface {
   /**
    * 
    * @param  string $label
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @link   https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-label_attribute
    */
   public function setAriaLabel($label) {
@@ -64,7 +62,7 @@ abstract class AbstractPage extends AbstractComponent implements PageInterface {
     return $this;
   }
 
-  public function setCurrent($active = true) {
+  public function setCurrent(bool $active = true) {
     if ((boolean) $active) {
       return $this->addCssClass('current');
     } else {
@@ -72,17 +70,11 @@ abstract class AbstractPage extends AbstractComponent implements PageInterface {
     }
   }
 
-  /**
-   * {@inheritdoc}
-   */
-  public function isCurrent() {
+  public function isCurrent(): bool {
     return $this->hasCssClass('current');
   }
 
-  /**
-   * {@inheritdoc}
-   */
-  public function disable($disabled = true) {
+  public function disable(bool $disabled = true) {
     if ($disabled) {
       $this->cssClasses()->set('disabled');
     } else {
@@ -91,16 +83,10 @@ abstract class AbstractPage extends AbstractComponent implements PageInterface {
     return $this;
   }
 
-  /**
-   * {@inheritdoc}
-   */
-  public function isEnabled() {
+  public function isEnabled(): bool {
     return !$this->cssClasses()->contains('disabled');
   }
 
-  /**
-   * {@inheritdoc}
-   */
   public function contentToString(): string {
     $output = '';
     if (!$this->isEnabled()) {
@@ -111,31 +97,19 @@ abstract class AbstractPage extends AbstractComponent implements PageInterface {
     return $output;
   }
 
-  /**
-   * {@inheritdoc}
-   */
   public function getHref() {
     return $this->hyperlink->getHref();
   }
 
-  /**
-   * {@inheritdoc}
-   */
   public function getTarget() {
     return $this->hyperlink->getTarget();
   }
 
-  /**
-   * {@inheritdoc}
-   */
   public function setHref($href, $encode = true) {
     $this->hyperlink->setHref($href, $encode);
     return $this;
   }
 
-  /**
-   * {@inheritdoc}
-   */
   public function setTarget($target) {
     $this->hyperlink->setTarget($target);
     return $this;

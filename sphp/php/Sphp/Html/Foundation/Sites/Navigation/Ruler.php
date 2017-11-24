@@ -13,7 +13,6 @@ use Sphp\Html\AbstractComponent;
  * Implements a menu ruler
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2017-05-09
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
@@ -24,12 +23,9 @@ class Ruler extends AbstractComponent implements MenuItemInterface {
    */
   public function __construct() {
     parent::__construct('li');
-    $this->cssClasses()->lock('menu-ruler');
+    $this->cssClasses()->protect('menu-ruler');
   }
-  
-  /**
-   * {@inheritdoc}
-   */
+
   public function contentToString(): string {
     return '';
   }

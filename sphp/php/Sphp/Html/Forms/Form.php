@@ -18,7 +18,6 @@ use Sphp\Html\Forms\Inputs\HiddenInput;
  * for processing.
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2011-09-26
  * @link    http://www.w3schools.com/tags/tag_form.asp w3schools HTML API
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
@@ -41,12 +40,12 @@ class Form extends ContainerTag implements TraversableFormInterface {
    *
    * @precondition `$method == "get|post"`
    * @param  string|null $action where to send the form-data when the form is submitted
-   * @param  string $method how to send form-data
+   * @param  string|null $method how to send form-data
    * @param  mixed $content tag's content
    * @link   http://www.w3schools.com/tags/att_form_action.asp action attribute
    * @link   http://www.w3schools.com/tags/att_form_method.asp method attribute
    */
-  public function __construct($action = null, $method = "post", $content = null) {
+  public function __construct(string $action = null, string $method = null, $content = null) {
     parent::__construct('form');
     if ($content !== null) {
       $this->append($content);
@@ -54,7 +53,7 @@ class Form extends ContainerTag implements TraversableFormInterface {
     if ($action !== null) {
       $this->setAction($action);
     }
-    if ($method != "") {
+    if ($method !== null) {
       $this->setMethod($method);
     }
   }
@@ -66,7 +65,7 @@ class Form extends ContainerTag implements TraversableFormInterface {
    *
    * @param  string $name th name of the hidden variable
    * @param  scalar $value the value of the hidden variable
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @see    HiddenInput
    */
   public function appendHiddenVariable($name, $value) {
@@ -81,7 +80,7 @@ class Form extends ContainerTag implements TraversableFormInterface {
    *  {@link HiddenInput} components.
    *
    * @param  string[] $vars name => value pairs
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @see    HiddenInput
    */
   public function appendHiddenVariables(array $vars) {

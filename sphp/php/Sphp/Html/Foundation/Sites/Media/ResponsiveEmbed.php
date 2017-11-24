@@ -8,9 +8,9 @@
 namespace Sphp\Html\Foundation\Sites\Media;
 
 use Sphp\Html\AbstractComponent;
-use Sphp\Html\Media\LazyMediaInterface;
+use Sphp\Html\Media\LazyMedia;
 use Sphp\Html\Media\IframeInterface;
-use Sphp\Stdlib\URL;
+use Sphp\Stdlib\Networks\URL;
 use Sphp\Html\Media\Iframe;
 use Sphp\Html\Media\ViewerJS;
 use Sphp\Html\Media\Multimedia\DailyMotionPlayer;
@@ -28,13 +28,12 @@ use BadMethodCallException;
  * an intrinsic ratio that will properly scale the iframe based media on any device.
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2014-12-01
  * @link    http://foundation.zurb.com/ Foundation
  * @link    http://foundation.zurb.com/sites/docs/responsive-embed.html Responsive Embed
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
-class ResponsiveEmbed extends AbstractComponent implements ResponsiveEmbedInterface, LazyMediaInterface {
+class ResponsiveEmbed extends AbstractComponent implements ResponsiveEmbedInterface, LazyMedia {
 
   /**
    *
@@ -55,7 +54,7 @@ class ResponsiveEmbed extends AbstractComponent implements ResponsiveEmbedInterf
    */
   public function __construct(IframeInterface $media) {
     parent::__construct('div');
-    $this->cssClasses()->lock('responsive-embed');
+    $this->cssClasses()->protect('responsive-embed');
     $this->iframe = $media;
   }
 
@@ -96,7 +95,7 @@ class ResponsiveEmbed extends AbstractComponent implements ResponsiveEmbedInterf
    * Sets the actual iframe component
    * 
    * @param  IframeInterface $media iframe component
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   protected function setIframe(IframeInterface $media) {
     $this->iframe = $media;
@@ -173,7 +172,7 @@ class ResponsiveEmbed extends AbstractComponent implements ResponsiveEmbedInterf
    */
   public static function vimeo($videoId) {
     $player = new static(new VimeoPlayer($videoId));
-    $player->cssClasses()->lock('vimeo');
+    $player->cssClasses()->protect('vimeo');
     return $player;
   }
 

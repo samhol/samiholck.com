@@ -14,11 +14,10 @@ use Sphp\Stdlib\Reader\ReaderInterface;
  * Description of Factory
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2014-09-11
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
-class Parser {
+abstract class Parser {
 
   /**
    * @var string[]
@@ -84,14 +83,14 @@ class Parser {
     $fullPath = Filesystem::getFullPath($filepath);
     if (!file_exists($fullPath)) {
       throw new RuntimeException(sprintf(
-              'Filename "%s" cannot be found relative to the working directory', $filepath
+                      'Filename "%s" cannot be found relative to the working directory', $filepath
       ));
     }
     if ($extension === null) {
       $pathinfo = pathinfo($fullPath);
       if (!isset($pathinfo['extension'])) {
         throw new RuntimeException(sprintf(
-                'Filename "%s" is missing an extension and cannot be auto-detected', $filepath
+                        'Filename "%s" is missing an extension and cannot be auto-detected', $filepath
         ));
       }
       $extension = strtolower($pathinfo['extension']);

@@ -11,12 +11,11 @@ namespace Sphp\Html\Forms\Inputs;
  * Defines required operations for a pattern validable input components
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2011-02-15
  * @link    http://foundation.zurb.com/ Foundation
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
-interface PatternValidableInputInterface extends ValidableInputInterface {
+interface PatternValidableInputInterface extends Validable {
 
   /**
    * Sets the regular expression pattern that the component's value is checked against
@@ -24,9 +23,9 @@ interface PatternValidableInputInterface extends ValidableInputInterface {
    * **Note:** The pattern attribute works with the following input types: text, search, url, tel, email, and password.
    * 
    * @param  string $pattern a regular expression pattern
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
-  public function setPattern($pattern);
+  public function setPattern(string $pattern);
 
   /**
    * Returns the validation pattern string
@@ -46,3 +45,4 @@ interface PatternValidableInputInterface extends ValidableInputInterface {
    */
   public function hasPattern(): bool;
 }
+

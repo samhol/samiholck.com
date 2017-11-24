@@ -8,26 +8,28 @@
 namespace Sphp\Validators;
 
 use Sphp\I18n\MessageInterface;
-use Sphp\I18n\Messages\TranslatableList;
+use Sphp\I18n\Collections\TranslatableCollection;
 use Sphp\I18n\Messages\Message;
 use Sphp\I18n\Translatable;
 
 /**
- * Abstract superclass for validation
+ * Abstract superclass for miscellaneous data validation
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2012-10-14
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
 abstract class AbstractValidator implements ValidatorInterface {
 
+  /**
+   * `ID` for default error message
+   */
   const INVALID = '_invalid_';
 
   /**
    * stores error messages if not valid
    *
-   * @var TranslatableList
+   * @var TranslatableCollection
    */
   private $errors;
 
@@ -46,24 +48,24 @@ abstract class AbstractValidator implements ValidatorInterface {
   /**
    * Constructs a new validator
    *
-   * @param MessageList $m container for the error messages
+   * @param MessageList $error container for the error messages
    */
-  public function __construct($error = 'Invalid value') {
+  public function __construct(string $error = 'Invalid value') {
     $this->messageTemplates = [];
-    $this->errors = new TranslatableList();
+    $this->errors = new TranslatableCollection();
     $this->setMessageTemplate(static::INVALID, $error);
   }
 
   /**
-   * {@inheritdoc}
+   * Destroys the instance
+   *
+   * The destructor method will be called as soon as there are no other references
+   * to a particular object, or in any order during the shutdown sequence.
    */
   public function __destruct() {
     unset($this->messageTemplates, $this->errors, $this->value);
   }
 
-  /**
-   * {@inheritdoc}
-   */
   public function __clone() {
     $this->errors = clone $this->errors;
     $this->messageTemplates = clone $this->messageTemplates;
@@ -85,7 +87,7 @@ abstract class AbstractValidator implements ValidatorInterface {
    * @return Message
    * @throws \Sphp\Exceptions\InvalidArgumentException if the template does not exist
    */
-  public function getMessageTemplate($id) {
+  public function getMessageTemplate(string $id) {
     if (!array_key_exists($id, $this->messageTemplates)) {
       throw new \Sphp\Exceptions\InvalidArgumentException("Template with id: '$id' does not exist");
     }
@@ -96,7 +98,7 @@ abstract class AbstractValidator implements ValidatorInterface {
    * 
    * @param  string $id
    * @param  string $messageTemplate
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setMessageTemplate(string $id, $messageTemplate) {
     if (!$messageTemplate instanceof Translatable) {
@@ -108,9 +110,9 @@ abstract class AbstractValidator implements ValidatorInterface {
 
   /**
    * 
-   * @param  mixed $id
+   * @param  string $id
    * @param  array $params
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function error(string $id, array $params = []) {
     $this->errors->append($this->getMessageTemplate($id)->setArguments($params));
@@ -118,8 +120,9 @@ abstract class AbstractValidator implements ValidatorInterface {
   }
 
   /**
+   * Returns validated value 
    * 
-   * @return mixed
+   * @return mixed validated value 
    */
   public function getValue() {
     return $this->value;
@@ -128,7 +131,7 @@ abstract class AbstractValidator implements ValidatorInterface {
   /**
    * 
    * @param  mixed $value
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setValue($value) {
     $this->reset();
@@ -139,14 +142,14 @@ abstract class AbstractValidator implements ValidatorInterface {
   /**
    * Resets the validator to for revalidation
    *
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function reset() {
     $this->errors->clearContent();
     return $this;
   }
 
-  public function getErrors(): TranslatableList {
+  public function getErrors(): TranslatableCollection {
     return $this->errors;
   }
 

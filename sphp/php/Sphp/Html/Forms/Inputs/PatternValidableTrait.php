@@ -7,13 +7,12 @@
 
 namespace Sphp\Html\Forms\Inputs;
 
-use Sphp\Html\Attributes\AttributeManager;
+use Sphp\Html\Attributes\HtmlAttributeManager;
 
 /**
  * A trait implementation of the {@link PatternValidableInputInterface} 
  * 
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2014-09-26
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
@@ -22,9 +21,9 @@ trait PatternValidableTrait {
   /**
    * Returns the attribute manager attached to the component
    * 
-   * @return AttributeManager the attribute manager
+   * @return HtmlAttributeManager the attribute manager
    */
-  abstract public function attrs();
+  abstract public function attrs(): HtmlAttributeManager;
 
   /**
    * Sets the autocomplete attribute's value on or off
@@ -36,9 +35,9 @@ trait PatternValidableTrait {
    * @param  string $pattern a regular expression pattern that the component's value is checked against
    * @return PatternValidableInputInterface for PHP Method Chaining
    * @link   http://www.w3schools.com/tags/att_input_pattern.asp pattern attribute
-   */ 
-  public function setPattern($pattern) {
-    $this->attrs()->set("pattern", $pattern);
+   */
+  public function setPattern(string $pattern) {
+    $this->attrs()->set('pattern', $pattern);
     return $this;
   }
 
@@ -48,8 +47,8 @@ trait PatternValidableTrait {
    * @return string the regular expression pattern that the component's value is checked against
    * @link   http://www.w3schools.com/tags/att_input_pattern.asp pattern attribute
    */
-  public function getPattern() {
-    return $this->attrs()->get("pattern");
+  public function getPattern(): string {
+    return (string) $this->attrs()->getValue('pattern');
   }
 
   /**
@@ -59,7 +58,8 @@ trait PatternValidableTrait {
    * @link   http://www.w3schools.com/tags/att_input_pattern.asp pattern attribute
    */
   public function hasPattern(): bool {
-    return $this->attrs()->exists("pattern");
+    return $this->attrs()->exists('pattern');
   }
 
 }
+

@@ -7,13 +7,10 @@
 
 namespace Sphp\Html\Programming;
 
-use Sphp\Stdlib\Path;
-
 /**
  * Implements a SPHP JavaScript component container
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2011-10-17
  * @link http://www.w3schools.com/tags/tag_script.asp w3schools API
  * @link http://dev.w3.org/html5/spec/Overview.html#script W3C API
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
@@ -30,16 +27,15 @@ class SphpScriptsLoader extends ScriptsContainer {
 
   public function __construct($scripts = null) {
     parent::__construct($scripts);
-    $router = Path::get();
-    $this->paths['vendor'] = $router->http('sphp/js/vendor/');
-    $this->paths['app'] = $router->http('sphp/js/app/');
-    $this->paths['js_root'] = $router->http('sphp/js/');
+    $this->paths['vendor'] = 'sphp/js/vendor/';
+    $this->paths['app'] = 'sphp/js/app/';
+    $this->paths['js_root'] = 'sphp/js/';
   }
 
   /**
    * Appends Modernizr
    *
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @link   http://modernizr.com/ Modernizr
    */
   public function appendModernizr() {
@@ -49,7 +45,7 @@ class SphpScriptsLoader extends ScriptsContainer {
   /**
    * Appends FastClick
    *
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @link   https://github.com/ftlabs/fastclick FastClick
    */
   public function appendFastclick() {
@@ -59,7 +55,7 @@ class SphpScriptsLoader extends ScriptsContainer {
   /**
    * Appends the jQuery JavaScript file
    *
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @link   http://jquery.com/ jQuery
    */
   public function appendJQuery() {
@@ -69,7 +65,7 @@ class SphpScriptsLoader extends ScriptsContainer {
   /**
    * Appends JavaScript files for Foundation 6
    *
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @link   http://foundation.zurb.com/ Foundation
    */
   public function appendFoundation() {
@@ -80,7 +76,7 @@ class SphpScriptsLoader extends ScriptsContainer {
   /**
    * Appends JavaScript files for Any+Time AJAX Calendar Widget
    *
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @link   http://www.ama3.com/anytime/ Any+Time
    */
   public function appendAnyTime() {
@@ -92,18 +88,18 @@ class SphpScriptsLoader extends ScriptsContainer {
   /**
    * Appends JavaScript files for Video.js
    *
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @link   http://www.videojs.com/ Video.js
    */
   public function appendVideojs() {
-    $this->appendSrc('http://vjs.zencdn.net/5.18.4/video.js');
+    $this->appendSrc('http://vjs.zencdn.net/6.4.0/video.js');
     return $this;
   }
 
   /**
    * Appends JavaScript files for Lazy Load XT
    *
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @link   http://www.videojs.com/ Video.js
    */
   public function appendLazyload() {
@@ -115,7 +111,7 @@ class SphpScriptsLoader extends ScriptsContainer {
   /**
    * Appends JavaScript files for build-in Photoalbum
    *
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @link   http://www.videojs.com/ Video.js
    */
   public function appendPhotoAlbum() {
@@ -126,7 +122,7 @@ class SphpScriptsLoader extends ScriptsContainer {
   /**
    * Appends JavaScript files for ION range slider
    *
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @link   http://www.videojs.com/ Video.js
    */
   public function appendIonRangeSlider() {
@@ -139,7 +135,7 @@ class SphpScriptsLoader extends ScriptsContainer {
   /**
    * Appends JavaScript files for `clipboard.js` to copy text to clipboard
    *
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @link   https://clipboardjs.com/ clipboard.js
    */
   public function appendClipboard() {
@@ -150,34 +146,13 @@ class SphpScriptsLoader extends ScriptsContainer {
   /**
    * Appends JavaScript files for the entire SPHP framework
    *
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function appendSPHP() {
     $this
-            ->appendSrc($this->paths['js_root'] . "dist/all.js")
-            ->appendCode('sphp.initialize();');
-    $this->appendVideojs();
-    return $this;
-  }
-  /**
-   * Appends JavaScript files for the entire SPHP framework
-   *
-   * @return self for a fluent interface
-   */
-  public function appendSPHP1() {
-    $this->appendFoundation()
-            ->appendLazyload()
-            ->appendClipboard()
-            ->appendAnyTime()
-            ->appendVideojs()
-            ->appendIonRangeSlider()
-            ->appendSrc($this->paths['vendor'] . 'jquery.qtip.min.js')
-            ->appendSrc($this->paths['app'] . 'commonJqueryPlugins.js')
-            ->appendSrc($this->paths['app'] . 'QtipAdapter.js')
-            ->appendSrc($this->paths['app'] . 'sphp.TechLinks.js')
-            ->appendSrc($this->paths['js_root'] . "sphp.all.js")
+            ->appendSrc('sphp/js/dist/all.js')
             ->appendCode('sphp.initialize();')
-            ->appendSrc($this->paths['app'] . 'sphp.ProgressBar.js');
+            ->appendVideojs();
     return $this;
   }
 

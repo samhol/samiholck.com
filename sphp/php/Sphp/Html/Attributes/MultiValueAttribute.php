@@ -7,33 +7,53 @@
 
 namespace Sphp\Html\Attributes;
 
-use Countable;
-use IteratorAggregate;
-use ArrayIterator;
+use Iterator;
+use Sphp\Stdlib\Strings;
+use Sphp\Html\Attributes\Utils\MultiValueAttributeUtils;
+use Sphp\Html\Attributes\Exceptions\ImmutableAttributeException;
+use Sphp\Html\Attributes\Utils\Factory;
 
 /**
  * An implementation of a multi value HTML attribute
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2015-06-12
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
-class MultiValueAttribute extends AbstractAttribute implements Countable, IteratorAggregate {
+class MultiValueAttribute extends AbstractAttribute implements Iterator, CollectionAttributeInterface {
 
   /**
    * stored individual values
    *
-   * @var scalar[]
+   * @var array
    */
   private $values = [];
 
   /*
    * locked individual values
    *
-   * @var string[]
+   * @var array
    */
   private $locked = [];
+
+  /**
+   * @var MultiValueAttributeUtils
+   */
+  private $filter;
+
+  /**
+   * Constructs a new instance
+   *
+   * @param string $name the name of the attribute
+   * @param MultiValueAttributeUtils $u
+   */
+  public function __construct(string $name, MultiValueAttributeUtils $u = null) {
+    if ($u === null) {
+      $u = Factory::instance()->getUtil(MultiValueAttributeUtils::class);
+    }
+    $this->filter = $u;
+    parent::__construct($name);
+  }
 
   /**
    * Destroys the instance
@@ -47,37 +67,11 @@ class MultiValueAttribute extends AbstractAttribute implements Countable, Iterat
   }
 
   /**
-   * Returns an array of unique values parsed from the input
-   *
-   * **Important:** Parameter <var>$raw</var> restrictions and rules
    * 
-   * 1. A string parameter can contain multiple comma separated unique values
-   * 2. An array parameter can contain only one unique atomic value per value
-   * 3. Duplicate values are ignored
-   *
-   * @param  scalar|scalar[] $raw the value(s) to parse
-   * @return scalar[] separated atomic values in an array
+   * @return MultiValueAttributeUtils
    */
-  public static function parse($raw) {
-    if (is_array($raw)) {
-      $f = function ($var) {
-        return !empty($var) || $var === "0" || $var === 0;
-      };
-      $arr = array_map("trim", $raw);
-      $p = array_filter($arr, $f);
-      $parsed = array_unique($p);
-    } else if (is_string($raw)) {
-      $raw = preg_replace('/\s+/S', ' ', trim($raw));
-      $parsed = [];
-      if (strlen($raw) > 0) {
-        $parsed = array_unique(explode(' ', $raw));
-      }
-    } else if (is_numeric($raw)) {
-      $parsed = [$raw];
-    } else {
-      $parsed = [];
-    }
-    return $parsed;
+  public function getValueFilter(): MultiValueAttributeUtils {
+    return $this->filter;
   }
 
   /**
@@ -91,14 +85,11 @@ class MultiValueAttribute extends AbstractAttribute implements Countable, Iterat
    * 4. Stores only a single instance of every value (no duplicates)
    *
    * @param  scalar|scalar[] $values the values to set
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function set($values) {
     $this->clear();
-    $parsed = self::parse($values);
-    if (!empty($parsed)) {
-      $this->values = array_unique(array_merge($parsed, $this->values));
-    }
+    $this->add(func_get_args());
     return $this;
   }
 
@@ -111,14 +102,12 @@ class MultiValueAttribute extends AbstractAttribute implements Countable, Iterat
    * 2. An array parameter can contain only one atomic value per array value
    * 3. Stores only a single instance of every value (no duplicates)
    *
-   * @param  string|scalar[] $values the values to add
-   * @return self for a fluent interface
+   * @param  scalar|scalar[] $values the values to add
+   * @return $this for a fluent interface
    */
-  public function add($values) {
-    $parsed = self::parse($values);
-    if (!empty($parsed)) {
-      $this->values = array_unique(array_merge($parsed, $this->values));
-    }
+  public function add(...$values) {
+    $parsed = $this->getValueFilter()->parse($values, true);
+    $this->values = array_unique(array_merge($this->values, $parsed));
     return $this;
   }
 
@@ -133,14 +122,13 @@ class MultiValueAttribute extends AbstractAttribute implements Countable, Iterat
    * @param  null|scalar|scalar[] $values optional atomic values to check
    * @return boolean true if the given values are locked and false otherwise
    */
-  public function isLocked($values = null): bool {
-    if (is_array($values) || is_string($values) || is_numeric($values)) {
-      $parsed = self::parse($values);
-      $locked = !empty($parsed) && !array_diff(self::parse($values), $this->locked);
+  public function isProtected($values = null): bool {
+    if ($values === null) {
+      return !empty($this->locked);
     } else {
-      $locked = count($this->locked) > 0;
+      $parsed = $this->getValueFilter()->parse($values, true);
+      return empty(array_diff($parsed, $this->locked));
     }
-    return $locked;
   }
 
   /**
@@ -153,16 +141,12 @@ class MultiValueAttribute extends AbstractAttribute implements Countable, Iterat
    * 3. Stores only a single instance of every value (no duplicates)
    *
    * @param  scalar|scalar[] $values the atomic values to lock
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
-  public function lock($values) {
-    $arr = self::parse($values);
-    //print_r($arr);
-    if (count($arr) > 0) {
-      $this->locked = array_unique(array_merge($this->locked, $arr));
-      sort($this->locked);
-      $this->add($arr);
-    }
+  public function protect($values) {
+    $parsed = $this->filter->parse(func_get_args());
+    $this->values = array_unique(array_merge($this->values, $parsed));
+    $this->locked = array_unique(array_merge($this->locked, $parsed));
     return $this;
   }
 
@@ -175,28 +159,17 @@ class MultiValueAttribute extends AbstractAttribute implements Countable, Iterat
    * 2. An array parameter can contain only one atomic value per array value
    * 
    * @param  scalar|scalar[] $values the atomic values to remove
-   * @return self for a fluent interface
-   * @throws \Sphp\Exceptions\RuntimeException if any of the given values is unmodifiable
+   * @return $this for a fluent interface
+   * @throws ImmutableAttributeException if any of the given values is immutable
    */
   public function remove($values) {
-    if ($this->isLocked($values)) {
-      throw new RuntimeException($this->getName() . ' attribute values given are unremovable');
-    } else if (is_array($this->values)) {
-      $arr = self::parse($values);
-      if (count($arr) > 0) {
-        $this->values = array_unique(array_merge($this->locked, array_diff($this->values, $arr)));
-        sort($this->values);
-      }
-    }
+    $arr = $this->getValueFilter()->parse(func_get_args());
+    $this->values = array_diff(array_diff($arr, $this->locked), $this->values);
     return $this;
   }
 
   public function clear() {
-    if ($this->isLocked()) {
-      $this->values = $this->locked;
-    } else {
-      $this->values = [];
-    }
+    $this->values = $this->locked;
     return $this;
   }
 
@@ -212,20 +185,28 @@ class MultiValueAttribute extends AbstractAttribute implements Countable, Iterat
    * @return boolean true if the given atomic values exists
    */
   public function contains($values): bool {
-    $needle = self::parse($values);
-    if (!empty($needle)) {
-      return !array_diff($needle, $this->values);
+    $needles = $this->filter->parse($values);
+    $exists = false;
+    foreach ($needles as $needle) {
+      $exists = in_array($needle, $this->value);
+      if (!$exists) {
+        break;
+      }
     }
-    return false;
+    return $exists;
   }
 
   public function getValue() {
+    $output = null;
     if (!empty($this->values)) {
-      $value = implode(" ", $this->values);
+      $output = '';
+      foreach ($this->values as $value) {
+        $output .= htmlspecialchars($value);
+      }
     } else {
-      $value = $this->isDemanded();
+      $output = $this->isDemanded();
     }
-    return $value;
+    return $output;
   }
 
   /**
@@ -234,28 +215,82 @@ class MultiValueAttribute extends AbstractAttribute implements Countable, Iterat
    * @return int the number of the atomic values stored in the attribute
    */
   public function count(): int {
-    $num = 0;
-    if (!empty($this->values)) {
-      $num = count($this->values);
-    }
-    return $num;
+    return count($this->values);
   }
 
-  /**
-   * Retrieves an external iterator to iterate through the atomic values on the attribute
-   *
-   * @return ArrayIterator to iterate through the atomic values on the attribute
-   */
-  public function getIterator() {
-    return new ArrayIterator($this->values);
-  }
-
-  /**
-   * 
-   * @return scalar[]
-   */
   public function toArray(): array {
     return $this->values;
+  }
+
+  public function filter(callable $filter) {
+    $this->values = array_unique(array_merge($this->locked, array_filter($this->values, $filter)));
+    return $this;
+  }
+
+  public function filterPattern(string $pattern) {
+    $filter = function($value) use ($pattern) {
+      return Strings::match($value, $pattern);
+    };
+    $this->filter($filter);
+    return $this;
+  }
+
+  public function getHtml(): string {
+    $output = '';
+    $value = $this->getValue();
+    if ($value !== false) {
+      $output .= $this->getName();
+      if ($value !== true && !Strings::isEmpty($value)) {
+        $strVal = Strings::toString($value);
+        $output .= '="' . htmlspecialchars($strVal, ENT_COMPAT | ENT_HTML5) . '"';
+      }
+    }
+    return $output;
+  }
+
+  /**
+   * Returns the current element
+   * 
+   * @return mixed the current element
+   */
+  public function current() {
+    return current($this->values);
+  }
+
+  /**
+   * Advance the internal pointer of the collection
+   * 
+   * @return void
+   */
+  public function next() {
+    next($this->values);
+  }
+
+  /**
+   * Return the key of the current element
+   * 
+   * @return mixed the key of the current element
+   */
+  public function key() {
+    return key($this->values);
+  }
+
+  /**
+   * Rewinds the Iterator to the first element
+   * 
+   * @return void
+   */
+  public function rewind() {
+    reset($this->values);
+  }
+
+  /**
+   * Checks if current iterator position is valid
+   * 
+   * @return boolean current iterator position is valid
+   */
+  public function valid(): bool {
+    return false !== current($this->values);
   }
 
 }

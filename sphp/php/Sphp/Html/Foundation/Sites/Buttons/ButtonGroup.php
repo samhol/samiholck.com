@@ -17,7 +17,6 @@ use Sphp\Exceptions\InvalidArgumentException;
  *  displaying a group of actions in a bar.
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2014-03-25
  * @link    http://foundation.zurb.com/ Foundation
  * @link    http://foundation.zurb.com/sites/docs/button-group.html Foundation Button Groups
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
@@ -28,7 +27,6 @@ class ButtonGroup extends AbstractContainerComponent implements \IteratorAggrega
   use ButtonTrait;
 
   /**
-   *
    * @var string[]
    */
   private static $stackScreens = ['all', 'small', 'medium'];
@@ -40,7 +38,7 @@ class ButtonGroup extends AbstractContainerComponent implements \IteratorAggrega
    */
   public function __construct($buttons = null) {
     parent::__construct('div');
-    $this->cssClasses()->lock('button-group');
+    $this->cssClasses()->protect('button-group');
     if (is_array($buttons)) {
       $this->appendButtons($buttons);
     }
@@ -61,11 +59,11 @@ class ButtonGroup extends AbstractContainerComponent implements \IteratorAggrega
    * @param  string $href the URL of the link
    * @param  string $content the content of the button
    * @param  string $target the value of the target attribute
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @link   http://www.w3schools.com/tags/att_a_href.asp href attribute
    * @link   http://www.w3schools.com/tags/att_a_target.asp target attribute
    */
-  public function appendHyperlink($href, $content, $target = '_self') {
+  public function appendHyperlink(string $href, $content, string $target = '_self') {
     $this->appendButton(Button::hyperlink($href, $content, $target));
     return $this;
   }
@@ -88,7 +86,7 @@ class ButtonGroup extends AbstractContainerComponent implements \IteratorAggrega
    * Creates and appends a new submitter
    * 
    * @param  string|null $content the content of the button
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function appendResetter($content = null) {
     $this->appendButton(Button::resetter($content));
@@ -99,7 +97,7 @@ class ButtonGroup extends AbstractContainerComponent implements \IteratorAggrega
    * Appends a button to the group
    *
    * @param  ButtonInterface $button the appended button
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function appendButton(ButtonInterface $button) {
     $this->getInnerContainer()->append($button);
@@ -110,7 +108,7 @@ class ButtonGroup extends AbstractContainerComponent implements \IteratorAggrega
    * Appends aa array of buttons to the group
    *
    * @param  ButtonInterface[] $buttons the appended buttons
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function appendButtons(array $buttons) {
     foreach ($buttons as $button) {
@@ -133,7 +131,7 @@ class ButtonGroup extends AbstractContainerComponent implements \IteratorAggrega
    * 
    * @precondition `$screenSize` == `small|medium|all`
    * @param  string $screenSize the targeted screen size
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @throws \Sphp\Exceptions\InvalidArgumentException if the `$screenSize` does not match precondition
    */
   public function stackFor($screenSize = 'all') {
@@ -154,7 +152,7 @@ class ButtonGroup extends AbstractContainerComponent implements \IteratorAggrega
    * 
    * @precondition `$screenSize` == `small|medium|all`
    * @param  string $screenSize the targeted screen size
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @throws \Sphp\Exceptions\InvalidArgumentException if the `$screenSize` does not match precondition
    */
   public function unStackFor($screenSize = 'all') {

@@ -8,9 +8,9 @@
 namespace Sphp\Html\Media\Multimedia;
 
 use Sphp\Html\EmptyTag;
-use Sphp\Html\Media\LazyMediaInterface;
+use Sphp\Html\Media\LazyMedia;
 use Sphp\Html\Media\LazyMediaSourceTrait;
-use Sphp\Stdlib\URL;
+use Sphp\Stdlib\Networks\URL;
 
 /**
  * Implements an HTML &lt;source&gt; tag
@@ -27,7 +27,7 @@ use Sphp\Stdlib\URL;
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
-class Source extends EmptyTag implements MultimediaSourceInterface, LazyMediaInterface {
+class Source extends EmptyTag implements MultimediaSource, LazyMedia {
 
   use LazyMediaSourceTrait;
 
@@ -55,7 +55,7 @@ class Source extends EmptyTag implements MultimediaSourceInterface, LazyMediaInt
    * Sets the media type of the media resource
    *
    * @param  string $type the media type of the media resource
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @link   http://www.w3schools.com/tags/att_source_type.asp type attribute
    */
   public function setType(string $type) {
@@ -70,7 +70,7 @@ class Source extends EmptyTag implements MultimediaSourceInterface, LazyMediaInt
    * @link   http://www.w3schools.com/tags/att_source_type.asp type attribute
    */
   public function getType() {
-    return $this->attrs()->get('type');
+    return $this->attrs()->getValue('type');
   }
 
 }

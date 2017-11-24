@@ -13,7 +13,6 @@ use Sphp\Exceptions\InvalidArgumentException;
  * Description of IsInstanceOfValidator
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2017-03-28
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
@@ -25,32 +24,32 @@ class IsInstanceOfValidator extends AbstractValidator {
   private $className;
 
   /**
+   * Constructs a new instance
    * 
-   * @param type $className
+   * @param string $className
    */
-  public function __construct($className) {
+  public function __construct(string $className) {
     parent::__construct('Value is not instance of %s');
     $this->setClassName($className);
   }
 
   /**
+   * Returns the class name
    * 
    * @return string class name
    */
-  public function getClassName():string {
+  public function getClassName(): string {
     return $this->className;
   }
 
   /**
    * 
-   * @param  object|string $className
-   * @return self for a fluent interface
-   * @throws \Sphp\Exceptions\InvalidArgumentException
+   * @param  string $className the name of the class 
+   * @return $this for a fluent interface
+   * @throws \Sphp\Exceptions\InvalidArgumentException if the class is not defined
    */
-  public function setClassName($className) {
-    if (is_object($className)) {
-      $className = get_class($className);
-    } else if (!is_string($className)) {
+  public function setClassName(string $className) {
+    if (!class_exists($className)) {
       throw new InvalidArgumentException('Invalid class name parameter');
     }
     $this->className = $className;

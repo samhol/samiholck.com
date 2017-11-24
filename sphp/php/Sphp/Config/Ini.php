@@ -8,7 +8,7 @@
 namespace Sphp\Config;
 
 use Sphp\Stdlib\Datastructures\Arrayable;
-use Sphp\Stdlib\Arrays;
+use Sphp\Exceptions\OutOfRangeException;
 
 /**
  * Implements class for managing PHP settings
@@ -20,7 +20,7 @@ use Sphp\Stdlib\Arrays;
 class Ini implements Arrayable {
 
   /**
-   * the ini 
+   * current  ini 
    *
    * @var string[]
    */
@@ -33,6 +33,12 @@ class Ini implements Arrayable {
    */
   private $ini = [];
 
+  /**
+   * Destroys the instance
+   *
+   * The destructor method will be called as soon as there are no other references
+   * to a particular object, or in any order during the shutdown sequence.
+   */
   public function __destruct() {
     unset($this->ini, $this->pre);
   }
@@ -46,36 +52,41 @@ class Ini implements Arrayable {
    * **Not all the available options can be changed**
    * 
    * @param  string $name the name of the option
-   * @param  string $value the new value for the option
-   * @return self for a fluent interface
+   * @param  scalar $value the new value for the option
+   * @return $this for a fluent interface
    * @link   http://php.net/manual/en/function.ini-set.php ini_set
    * @link   http://php.net/manual/en/ini.list.php list of all available options
    */
   public function set(string $name, $value) {
-    $this->ini[$name] = $value;
+    $this->ini[$name] = (string) $value;
     return $this;
   }
 
   /**
-   * Returns the current value of a configuration option
+   * Checks whether the option is set in this configuration object
    * 
-   * @param  string $varname the name of the option
-   * @return string  the value of the option
-   * @link   http://php.net/manual/en/function.ini-get.php ini_get
+   * 
+   * @param  string $name the name of the option
+   * @return boolean true if the ini variable is set in this configuration
+   * @link   http://php.net/manual/en/function.ini-set.php ini_set
+   * @link   http://php.net/manual/en/ini.list.php list of all available options
    */
-  public function get(string $varname) {
-    return $this->ini[$varname];
+  public function exists(string $name): bool {
+    return isset($this->ini[$name]);
   }
 
   /**
-   * Returns the current value of a configuration option
+   * Returns the stored value of a configuration option
    * 
    * @param  string $varname the name of the option
-   * @return string  the value of the option
+   * @return string the value of the option
    * @link   http://php.net/manual/en/function.ini-get.php ini_get
+   * @throws OutOfRangeException
    */
-  public function getCurrent(string $varname) {
-    return ini_get($varname);
+  public function get(string $varname) {
+    if ($this->exists($varname)) {
+      return $this->ini[$varname];
+    }throw new OutOfRangeException();
   }
 
   /**
@@ -83,7 +94,7 @@ class Ini implements Arrayable {
    * 
    * Previous settings are replaced
    * 
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function init() {
     foreach ($this->ini as $name => $value) {
@@ -93,9 +104,11 @@ class Ini implements Arrayable {
   }
 
   /**
-   * Executes a function using a custom PHP configuration.
+   * Executes a callable using settings provided by the instance
    * 
-   * @param  callable $callable the code to execute using the given settings
+   * **NOTE:** Previous settings are restored after execution 
+   * 
+   * @param  callable $callable the callable to execute
    * @return mixed the value returned by the given callable
    */
   public function execute(callable $callable) {
@@ -106,22 +119,26 @@ class Ini implements Arrayable {
   }
 
   /**
-   * Initializes all PHP settings defined by the instance
+   * Restores the values of  configuration options
    * 
-   * Previous settings are replaced
+   * Previous settings restored
    * 
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function reset() {
-    foreach ($this->pre as $name => $value) {
-      ini_set($name, $value);
+    foreach ($this->pre as $varname => $value) {
+      if ($value !== false) {
+        ini_set($varname, $value);
+      } else {
+        ini_restore($varname);
+      }
     }
     $this->pre = [];
     return $this;
   }
 
   public function toArray(): array {
-    return Arrays::copy($this->ini);
+    return $this->ini;
   }
 
 }

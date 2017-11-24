@@ -13,10 +13,7 @@ use DateTimeImmutable;
 /**
  * Implements an HTML &lt;time&gt; tag
  *
- * {@inheritdoc}
- * 
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2012-03-06
  * @link    http://www.w3schools.com/tags/tag_time.asp w3schools HTML API
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
@@ -35,15 +32,17 @@ class TimeTag extends ContainerTag implements TimeTagInterface, AjaxLoaderInterf
   /**
    * Constructs a new instance
    *
-   * @param  DateTimeInterface $dateTime the datetime object
+   * @param  DateTimeInterface|null $dateTime the datetime object
    * @param  mixed $content optional content of the component
    */
   public function __construct(DateTimeInterface $dateTime = null, $content = null) {
     parent::__construct('time', $content);
+    if ($dateTime !== null) {
+      $this->setDateTime($dateTime);
+    }
     if ($dateTime === null) {
       $dateTime = new DateTimeImmutable();
     }
-    $this->setDateTime($dateTime);
   }
 
   public function __destruct() {
@@ -57,7 +56,7 @@ class TimeTag extends ContainerTag implements TimeTagInterface, AjaxLoaderInterf
   }
 
   public function setDateTime(DateTimeInterface $dateTime) {
-    $this->attrs()->set('datetime', $dateTime->format('Y-m-d H:i:s'));
+    $this->attrs()->set('datetime', (string) $dateTime->format('Y-m-d H:i:s'));
     $this->dateTime = $dateTime;
     return $this;
   }

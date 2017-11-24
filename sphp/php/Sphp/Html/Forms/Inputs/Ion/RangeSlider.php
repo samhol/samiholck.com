@@ -13,7 +13,6 @@ use InvalidArgumentException;
  * Implements jQuery range slider with skin support
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2014-10-11
  * @link    http://ionden.com/a/plugins/ion.rangeSlider/en.html ion range slider
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
@@ -31,7 +30,7 @@ class RangeSlider extends AbstractSlider {
    */
   public function __construct($name = null, int $start = 0, int $end = 100, int $step = 1) {
     parent::__construct($name, $start, $end, $step, [$start, $end]);
-    $this->attrs()->lock('data-type', 'double');
+    $this->attrs()->protect('data-type', 'double');
   }
 
   /**
@@ -42,7 +41,7 @@ class RangeSlider extends AbstractSlider {
   public function getInputValueSeparator() {
     $separator = ';';
     if ($this->attrs()->exists('data-input-values-separator')) {
-      $separator = $this->attrs()->get('data-input-values-separator');
+      $separator = $this->attrs()->getValue('data-input-values-separator');
     }
     return $separator;
   }
@@ -51,7 +50,7 @@ class RangeSlider extends AbstractSlider {
    * Sets the separator for double values in input value property
    * 
    * @param  string $separator separator for double values in input value property
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setInputValueSeparator($separator) {
     $this->attrs()->set('data-input-values-separator', $separator);
@@ -62,7 +61,7 @@ class RangeSlider extends AbstractSlider {
    * Sets the value of the value attribute
    *
    * @param  int|int[]|string $value the value of the value attribute
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @throws InvalidArgumentException if parameter(s) are not suitable for range slider
    */
   public function setValue($value) {

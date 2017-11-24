@@ -13,7 +13,6 @@ use Sphp\Html\AbstractComponent;
  * Implements a Split Button 
  * 
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2016-04-11
  * @link    http://foundation.zurb.com/ Foundation
  * @link    http://foundation.zurb.com/sites/docs/button-group.html#split-buttons Foundation 6 Split Button 
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
@@ -54,7 +53,7 @@ class SplitButton extends AbstractComponent {
    */
   public function __construct($primary = null, ArrowOnlyButton $secondary = null) {
     parent::__construct('div');
-    $this->cssClasses()->lock('button-group');
+    $this->cssClasses()->protect('button-group');
     if (!($primary instanceof ButtonInterface)) {
       $primary = Button::create($primary);
     }
@@ -101,7 +100,7 @@ class SplitButton extends AbstractComponent {
    * 
    * @param  string $size optional CSS class name defining button size. 
    *         `medium` value corresponds to no explicit size definition.
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @link   http://foundation.zurb.com/docs/components/buttons.html#button-sizing Button Sizing
    */
   public function setSize($size = null) {
@@ -120,7 +119,7 @@ class SplitButton extends AbstractComponent {
    * 
    *  Removes all specified size related CSS classes
    * 
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @link   http://foundation.zurb.com/docs/components/buttons.html#button-sizing Button Sizing
    */
   public function setDefaultSize() {

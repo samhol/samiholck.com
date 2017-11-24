@@ -12,12 +12,7 @@ use Sphp\Html\Lists\HyperlinkListItem;
 /**
  * Implements a hyperlink component for the Dropown menu component
  *
- *
- * {@inheritdoc}
- *
- *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2014-12-01
  * @link    http://foundation.zurb.com/ Foundation
  * @link    http://foundation.zurb.com/docs/components/subnav.html Foundation Sub Nav
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
@@ -40,7 +35,7 @@ class MenuLink extends HyperlinkListItem implements MenuItemInterface {
    * @link   http://www.w3schools.com/tags/att_a_href.asp href attribute
    * @link   http://www.w3schools.com/tags/att_a_target.asp target attribute
    */
-  public function __construct($href = '', $content = null, $target = '_self') {
+  public function __construct(string $href = '', $content = null, string $target = null) {
     parent::__construct($href, $content, $target);
   }
 
@@ -48,7 +43,7 @@ class MenuLink extends HyperlinkListItem implements MenuItemInterface {
    * Sets or unsets the hyperlink component as active
    *
    * @param  boolean $active true for activation and false for deactivation
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setActive(bool $active = true) {
     if ($active) {
@@ -65,7 +60,7 @@ class MenuLink extends HyperlinkListItem implements MenuItemInterface {
    * @return boolean true if the hyperlink component is set as active, otherwise false
    */
   public function isActive(): bool {
-    return $this->hasCssClass("active");
+    return $this->hasCssClass('active');
   }
 
 }

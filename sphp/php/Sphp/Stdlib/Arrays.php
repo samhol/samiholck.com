@@ -7,6 +7,8 @@
 
 namespace Sphp\Stdlib;
 
+use Sphp\Exceptions\OutOfBoundsException;
+
 /**
  * Utility class for PHP array operations
  * 
@@ -14,11 +16,10 @@ namespace Sphp\Stdlib;
  * and searching).
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2011-09-22
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
-class Arrays {
+abstract class Arrays {
 
   /**
    * Sets the internal array pointer to the given key value pair 
@@ -26,7 +27,7 @@ class Arrays {
    * @param  array $array the array to manipulate
    * @param  mixed $key the key of the new current element
    * @return array manipulated array 
-   * @throws \Sphp\Exceptions\RuntimeException if the key does not exist in the array
+   * @throws \Sphp\Exceptions\OutOfBoundsException if the key does not exist in the array
    */
   public static function pointToKey(array &$array, $key) {
     reset($array);
@@ -34,7 +35,7 @@ class Arrays {
       next($array);
     }
     if (current($array) === false) {
-      throw new \Sphp\Exceptions\RuntimeException("Key '$key' does not exist in the array");
+      throw new OutOfBoundsException("Key '$key' does not exist in the array");
     }
     return $array;
   }
@@ -45,7 +46,7 @@ class Arrays {
    * @param  array $array the array to manipulate
    * @param  mixed $value the value of the new current element
    * @return array manipulated array 
-   * @throws \Sphp\Exceptions\RuntimeException if the value does not exist in the array
+   * @throws \Sphp\Exceptions\OutOfBoundsException if the value does not exist in the array
    */
   public static function pointToValue(array &$array, $value) {
     reset($array);
@@ -53,7 +54,7 @@ class Arrays {
       next($array);
     }
     if (current($array) !== false) {
-      throw new \Sphp\Exceptions\RuntimeException("Value '$value' does not exist in the array");
+      throw new OutOfBoundsException("Value '$value' does not exist in the array");
     }
     return $array;
   }
@@ -108,7 +109,7 @@ class Arrays {
       if ($item === $needle) {
         $found = true;
         break;
-      } elseif (is_array($item)) {
+      } else if (is_array($item)) {
         $found = static::inArray($needle, $item);
         if ($found) {
           break;
@@ -244,7 +245,7 @@ class Arrays {
    * Checks each key value pairs of the array against a rule defined in a 
    *  {@link \callable} 
    * 
-   * @param  mixed[] $array the array to test
+   * @param  array $array the array to test
    * @param  \callable $rule the rule to test the array key value pair against
    * @return boolean true if the array passes the rule, otherwise false
    */
@@ -257,34 +258,17 @@ class Arrays {
     return true;
   }
 
-  public static function getkeypath($arr, $lookup) {
-    if (array_key_exists($lookup, $arr)) {
-      return array($lookup);
-    } else {
-      foreach ($arr as $key => $subarr) {
-        if (is_array($subarr)) {
-          $ret = getkeypath($subarr, $lookup);
-          if ($ret) {
-            $ret[] = $key;
-            return $ret;
-          }
-        }
-      }
-    }
-
-    return null;
-  }
-
   /**
    * Returns the value from an array using the key chain given as the second parameter
    * 
-   * @param  mixed[] $array the array to search
-   * @param  mixed|mixed[] $path the keychain 
+   * @param  array $array the array to search
+   * @param  mixed|mixed[] $path the key chain (accepts multiple values)
    * @return mixed the value found or `null` if none was found
    */
-  public static function getValue(array $array, $path) {
+  public static function getValue(array $array, ...$path) {
+    $path = static::flatten($path);
     $temp = &$array;
-    foreach (is_array($path) ? $path : [$path] as $key) {
+    foreach ($path as $key) {
       $temp = & $temp[$key];
     }
     return $temp;
@@ -340,8 +324,8 @@ class Arrays {
    * @param int $base the starting index of the sequence
    * @return boolean true if conditions hold and false otherwise
    */
-  public static function isSequential(array $arr, $base = 0): bool {
-    for (reset($arr), $base = (int) $base; key($arr) === $base++; next($arr))
+  public static function isSequential(array $arr, int $base = 0): bool {
+    for (reset($arr), $base = $base; key($arr) === $base++; next($arr))
       ;
     return is_null(key($arr));
   }
@@ -349,13 +333,13 @@ class Arrays {
   /**
    * Returns the input array values in a sequential array
    *
-   * @param array $arr checked array
-   * @param mixed $base the starting index of the sequence
-   * @param int $step optional increment between elements in the sequence.
-   * @return boolean true if conditions hold and false otherwise
+   * @param  array $arr checked array
+   * @param  int $base the starting index of the sequence
+   * @param  int $step optional increment between elements in the sequence.
+   * @return array sequential array
    */
-  public static function setSequential(array $arr, $base = 0, $step = 1): bool {
-    if ($base == 0 && $step == 1) {
+  public static function setSequential(array $arr, int $base = 0, int $step = 1): array {
+    if ($base === 0 && $step === 1) {
       $result = array_values($arr);
     } else {
       $sequence = range($base, count($arr), $step);
@@ -375,18 +359,18 @@ class Arrays {
    * * Inserts the optional $lastGlue string between the last two elements if 
    *   given. (Otherwise uses the $glue string)
    * 
-   * @param  $arr multidimensional array of strings to implode
+   * @param  array $arr multidimensional array of strings to implode
    * @param  string $glue string between each array element
    * @param  string|null $lastGlue optional string between the last two array elements
    * @return string the imploded array
    */
-  public static function implode(array $arr, $glue = "", $lastGlue = null): string {
+  public static function implode(array $arr, string $glue = '', string $lastGlue = null): string {
     if (is_null($lastGlue)) {
       $lastGlue = $glue;
     }
     $flat = self::flatten($arr);
     $length = count($flat);
-    $output = "";
+    $output = '';
     if ($length > 2) {
       for ($i = 0; $i < $length - 2; ++$i) {
         $output .= Strings::toString(array_shift($flat)) . $glue;
@@ -429,23 +413,19 @@ class Arrays {
   }
 
   /**
-   * Flattens the multidimensional array to a single dimension
+   * Flattens the given multidimensional array to a single dimension
    *
    * **Notes:** The keys of the array are not preserved.
    *
-   * @param  mixed[] $array
-   * @return mixed[] the one dimensional result array
+   * @param  array $array
+   * @return array the one dimensional result array
    */
   public static function flatten(array $array): array {
-    $newArray = [];
-    foreach ($array as $child) {
-      if (is_array($child)) {
-        $newArray = array_merge($newArray, self::flatten($child));
-      } else {
-        $newArray[] = $child;
-      }
-    }
-    return $newArray;
+    $return = [];
+    array_walk_recursive($array, function($a) use (&$return) {
+      $return[] = $a;
+    });
+    return $return;
   }
 
 }

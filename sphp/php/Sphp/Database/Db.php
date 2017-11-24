@@ -12,7 +12,7 @@ use Sphp\Exceptions\BadMethodCallException;
 use Sphp\Exceptions\InvalidArgumentException;
 
 /**
- * Implements a Database 
+ * Implements a Database manipulator
  *  
  * 
  * @author  Sami Holck <sami.holck@gmail.com>
@@ -22,8 +22,7 @@ use Sphp\Exceptions\InvalidArgumentException;
 class Db {
 
   /**
-   *
-   * @var Db 
+   * @var Db[]
    */
   private static $instances = [];
 
@@ -33,36 +32,48 @@ class Db {
   private $pdo;
 
   /**
+   * @var StatementStrategy
+   */
+  private $strategy;
+
+  /**
    * Constructs a new instance
    *
-   * @param  PDO $pdo the database connection
+   * @param  PDO $pdo connection object between PHP and a database server
    * @link   http://www.php.net/manual/en/book.pdo.php PHP Data Objects
    */
   public function __construct(PDO $pdo = null) {
     $this->pdo = $pdo;
+    $this->strategy = new StatementStrategy($pdo);
   }
 
+  /**
+   * Returns the connection object between PHP and a database server 
+   * 
+   * @return PDO connection object between PHP and a database server 
+   */
   public function getPdo(): PDO {
     return $this->pdo;
   }
 
   /**
    * 
-   * @param PDO $db
-   * @param string $name
+   * @param PDO $db the connection object between PHP and a database server
+   * @param string $name optional name of the instance created
    */
-  public static function createFrom(PDO $db, string $name = null) {
+  public static function createFrom(PDO $db, string $name = null): Db {
     $instance = new static($db);
     if ($name === null) {
       self::$instances[0] = $instance;
     } else {
       self::$instances[$name] = $instance;
     }
+    return $instance;
   }
 
   /**
    * 
-   * @param string $name
+   * @param  string $name
    * @return Db
    * @throws \Sphp\Exceptions\InvalidArgumentException
    */
@@ -80,8 +91,8 @@ class Db {
    * 
    * 
    * @param  string $name
-   * @param type $arguments
-   * @return type
+   * @param  array $arguments
+   * @return StatementInterface
    */
   public static function __callStatic(string $name, array $arguments = []) {
     if (count($arguments) > 0) {
@@ -100,23 +111,14 @@ class Db {
    * @method Update update(string $dbName) Returns a new query object for the named database
    * @method Insert insert(string $dbName)
    * 
-   * @param string $name
-   * @param type $arguments
-   * @return \Sphp\Database\Delete|\Sphp\Database\Insert|\Sphp\Database\Query|\Sphp\Database\Update
+   * @param  string $name the type name of the instance created
+   * @param  array $arguments
+   * @return StatementInterface
    * @throws \Sphp\Exceptions\BadMethodCallException
    */
   public function __call(string $name, array $arguments = []) {
-    if ($name === 'query') {
-      return new Query($this->pdo);
-    } else if ($name === 'delete') {
-      return new Delete($this->pdo);
-    } else if ($name === 'insert') {
-      return new Insert($this->pdo);
-    } else if ($name === 'update') {
-      return new Update($this->pdo);
-    } else {
-      throw new BadMethodCallException("Method $name does not exist in " . static::class);
-    }
+      return $this->strategy->generateStatement($name);
+    
   }
 
 }

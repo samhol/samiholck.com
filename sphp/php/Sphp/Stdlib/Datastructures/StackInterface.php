@@ -11,7 +11,6 @@ namespace Sphp\Stdlib\Datastructures;
  * Defines properties of a last-in-first-out (LIFO) stack
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2015-06-12
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
@@ -21,7 +20,7 @@ interface StackInterface {
    * Pushes an item onto the top of the stack
    *
    * @param  mixed $value the item to be pushed
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function push($value);
 

@@ -11,14 +11,12 @@ use Sphp\Html\AbstractContainerComponent;
 use IteratorAggregate;
 use ArrayAccess;
 use Sphp\Html\TraversableInterface;
+use Sphp\Html\Attributes\HtmlAttributeManager;
 
 /**
  * Implements an HTML table row collection namely (&lt;thead&gt;, &lt;tbody&gt; or &lt;tfoot&gt;)
  *
- * {@inheritdoc}
- *
  * @author Sami Holck <sami.holck@gmail.com>
- * @since   2012-10-03
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
@@ -45,10 +43,10 @@ abstract class TableRowContainer extends AbstractContainerComponent implements I
    *  * Any `$row` not implementing {@link RowInterface} is wrapped within a {@link Tr} component
    *
    * @param string $tagname
-   * @param AttributeManager $m
+   * @param HtmlAttributeManager $m
    * @param null|mixed|mixed[] $rows the row being appended
    */
-  public function __construct(string $tagname, \Sphp\Html\Attributes\AttributeManager $m = null, array $rows = null) {
+  public function __construct(string $tagname, HtmlAttributeManager $m = null, array $rows = null) {
     parent::__construct($tagname, $m);
     if ($rows !== null) {
       $this->fromArray($rows);
@@ -58,7 +56,7 @@ abstract class TableRowContainer extends AbstractContainerComponent implements I
   /**
    * 
    * @param  array $arr the row being appended
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   abstract public function fromArray(array $arr);
 
@@ -71,7 +69,7 @@ abstract class TableRowContainer extends AbstractContainerComponent implements I
    *  * Any `$row` not implementing {@link RowInterface} is wrapped within a {@link Tr} component
    *
    * @param  RowInterface $row the row being appended
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function append(RowInterface $row) {
     $this->getInnerContainer()->append($row);
@@ -87,7 +85,7 @@ abstract class TableRowContainer extends AbstractContainerComponent implements I
    *  * Any `$row` not implementing {@link RowInterface} is wrapped within a {@link Tr} component
    *
    * @param  mixed|mixed[] $cells the row being appended
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function appendHeaderRow($cells) {
     $this->append(Tr::fromThs($cells));
@@ -103,7 +101,7 @@ abstract class TableRowContainer extends AbstractContainerComponent implements I
    *  * Any `$row` not implementing {@link RowInterface} is wrapped within a {@link Tr} component
    *
    * @param  mixed|mixed[] $cells the row being appended
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function appendBodyRow($cells) {
     $this->append(Tr::fromTds($cells));
@@ -120,7 +118,7 @@ abstract class TableRowContainer extends AbstractContainerComponent implements I
    *  * The numeric keys of the container will be renumbered starting from zero
    *
    * @param  mixed|mixed[] $row the row(s) being appended
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function prepend(RowInterface $row) {
     $this->getInnerContainer()->prepend($row);
@@ -137,7 +135,7 @@ abstract class TableRowContainer extends AbstractContainerComponent implements I
    *  * The numeric keys of the container will be renumbered starting from zero
    *
    * @param  mixed|mixed[] $row the row(s) being appended
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function prependTr($row) {
     $this->prepend(new Tr($row));

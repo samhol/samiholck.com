@@ -12,10 +12,7 @@ use Sphp\Html\ContainerTag;
 /**
  * Implements HTML table tag's cells
  *
- * {@inheritdoc}
- *
  * @author Sami Holck <sami.holck@gmail.com>
- * @since   2012-08-28
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
@@ -44,7 +41,7 @@ abstract class Cell extends ContainerTag implements CellInterface {
   }
 
   public function getRowspan(): int {
-    return (int) $this->attrs()->get('rowspan');
+    return (int) $this->attrs()->getValue('rowspan');
   }
 
 }

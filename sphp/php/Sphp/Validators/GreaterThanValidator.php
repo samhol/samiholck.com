@@ -11,7 +11,6 @@ namespace Sphp\Validators;
  * Description of GreaterThanValidator
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2017-03-28
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
@@ -29,7 +28,7 @@ class GreaterThanValidator extends AbstractLimitValidator {
    * @param float $max the maximum value
    * @param boolean $inclusive true for inclusive limit and false for exclusive
    */
-  public function __construct($min, $inclusive = true) {
+  public function __construct(float $min, bool $inclusive = true) {
     parent::__construct($inclusive);
     $this->setMin($min);
     $this->setMessageTemplate(static::EXCLUSIVE_ERROR, 'Not in range (%s-%s)');
@@ -41,7 +40,7 @@ class GreaterThanValidator extends AbstractLimitValidator {
    * 
    * @return float the minimum value
    */
-  public function getMin() {
+  public function getMin(): float {
     return $this->min;
   }
 
@@ -49,16 +48,13 @@ class GreaterThanValidator extends AbstractLimitValidator {
    * Sets the minimum value
    * 
    * @param  float $min the minimum value
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
-  public function setMin($min) {
+  public function setMin(float $min) {
     $this->min = $min;
     return $this;
   }
 
-  /**
-   * {@inheritdoc}
-   */
   public function isValid($value): bool {
     $this->setValue($value);
     if ($this->isInclusive()) {

@@ -13,7 +13,6 @@ use Sphp\I18n\Messages\Message;
  * Validates a datetime
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2014-26-08
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
@@ -31,7 +30,7 @@ class DatetimeValidator extends AbstractValidator {
    *
    * @param string $format the required format of the validable value
    */
-  public function __construct($format = 'Y-m-d H:i:s') {
+  public function __construct(string $format = 'Y-m-d H:i:s') {
     parent::__construct();
     if ($format !== null) {
       $this->setDateTimeFormat($format);
@@ -42,17 +41,14 @@ class DatetimeValidator extends AbstractValidator {
   /**
    * Sets the required format of the validable value
    *
-   * @param string $format the required format of the validable value
-   * @return self for a fluent interface
+   * @param  string $format the required format of the validable value
+   * @return $this for a fluent interface
    */
-  public function setDateTimeFormat($format) {
+  public function setDateTimeFormat(string $format) {
     $this->format = $format;
     return $this;
   }
 
-  /**
-   * {@inheritdoc}
-   */
   public function isValid($value): bool {
     $this->setValue($value);
     $obj = DateTime::createFromFormat($this->format, $value);

@@ -16,7 +16,6 @@ use Sphp\Html\ComponentInterface;
  * Implements an abstract layout manager for responsive HTML components
  * 
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2017-03-02
  * @link    http://foundation.zurb.com/ Foundation
  * @link    http://foundation.zurb.com/sites/docs/grid.html Foundation grid
  * @link    http://foundation.zurb.com/grid.html Foundation grid
@@ -45,7 +44,7 @@ class AbstractColumnLayoutManager extends AbstractLayoutManager implements Colum
    * 
    * @return int
    */
-  public function getMaxSize():int {
+  public function getMaxSize(): int {
     return $this->maxSize;
   }
 
@@ -59,7 +58,7 @@ class AbstractColumnLayoutManager extends AbstractLayoutManager implements Colum
    * larger screens as necessary.
    *
    * @param  mixed|mixed[] $layouts layout parameters
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setLayouts($layouts) {
     $this->unsetLayouts();
@@ -82,7 +81,7 @@ class AbstractColumnLayoutManager extends AbstractLayoutManager implements Colum
         } else if ($parts[1] === 'pull') {
           $this->pull($parts[2], $parts[0]);
         }
-      } 
+      }
     }
     return $this;
   }
@@ -97,7 +96,7 @@ class AbstractColumnLayoutManager extends AbstractLayoutManager implements Colum
    * Sets the column width values for all screen sizes
    * 
    * @param  string[] $widths column widths for different screens sizes
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setWidths(array $widths) {
     $this->unsetWidths();
@@ -110,7 +109,7 @@ class AbstractColumnLayoutManager extends AbstractLayoutManager implements Colum
 
   /**
    * 
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function unsetWidths() {
     foreach (Screen::sizes() as $screenSize) {
@@ -133,7 +132,7 @@ class AbstractColumnLayoutManager extends AbstractLayoutManager implements Colum
    * @precondition `$screen` == `small|medium|large|xlarge|xxlarge`
    * @param  int|boolean $width the width of the column or false for inheritance
    * @param  string $screen the target screen size
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @throws \Sphp\Exceptions\InvalidArgumentException
    */
   public function setWidth(int $width, string $screen = 'small') {
@@ -182,7 +181,7 @@ class AbstractColumnLayoutManager extends AbstractLayoutManager implements Colum
    *
    * @precondition `$screenSize` == `medium|large|xlarge|xxlarge`
    * @param  string $screenSize the target screen size
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function unsetWidth(string $screenSize) {
     $classes = [];
@@ -202,7 +201,7 @@ class AbstractColumnLayoutManager extends AbstractLayoutManager implements Colum
    * @precondition `$screenSize` == `small|medium|large|xlarge|xxlarge`
    * @param  int|boolean $offset the column offset (0-11) or false for inheritance
    * @param  string $screenSize the target screen size
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setOffset(int $offset, string $screenSize = 'small') {
     $this->unsetOffset($screenSize);
@@ -214,7 +213,7 @@ class AbstractColumnLayoutManager extends AbstractLayoutManager implements Colum
 
   /**
    * 
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function unsetOffsets() {
     foreach (Screen::sizes() as $screenSize) {
@@ -227,7 +226,7 @@ class AbstractColumnLayoutManager extends AbstractLayoutManager implements Colum
    * Sets the column offset values for all screen sizes
    *
    * @param  string[] $offsets column offsets for different screens sizes
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setOffsets(array $offsets) {
     $this->unsetoffsets();
@@ -270,7 +269,7 @@ class AbstractColumnLayoutManager extends AbstractLayoutManager implements Colum
    *
    * @precondition `$screenSize` == `small|medium|large|xlarge|xxlarge`
    * @param  string $screenSize the target screen size
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function unsetOffset(string $screenSize) {
     for ($i = 1; $i < $this->getMaxSize(); $i++) {
@@ -301,7 +300,7 @@ class AbstractColumnLayoutManager extends AbstractLayoutManager implements Colum
    *
    * @precondition `$screenSize` == `small|medium|large|xlarge|xxlarge`
    * @param  string $screenSize the target screen size
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function unsetPull(string $screenSize) {
     for ($i = 0; $i < $this->getMaxSize(); $i++) {
@@ -316,7 +315,7 @@ class AbstractColumnLayoutManager extends AbstractLayoutManager implements Colum
    *
    * @precondition `$screenSize` == `small|medium|large|xlarge|xxlarge`
    * @param  string $screenSize the target screen size
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function unsetPulls() {
     foreach (Screen::sizes() as $screenSize) {
@@ -329,7 +328,7 @@ class AbstractColumnLayoutManager extends AbstractLayoutManager implements Colum
    * Sets the column offset values for all screen sizes
    *
    * @param  string[] $pushs column offsets for different screens sizes
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setOrders(array $pushs) {
     $this->unsetOrders();
@@ -345,7 +344,7 @@ class AbstractColumnLayoutManager extends AbstractLayoutManager implements Colum
    *
    * @precondition `$screenSize` == `small|medium|large|xlarge|xxlarge`
    * @param  string $screenSize the target screen size
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function unsetOrder(string $screenSize) {
     for ($i = 1; $i < $this->getMaxSize(); $i++) {
@@ -360,7 +359,7 @@ class AbstractColumnLayoutManager extends AbstractLayoutManager implements Colum
    *
    * @precondition `$screenSize` == `small|medium|large|xlarge|xxlarge`
    * @param  string $screenSize the target screen size
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function unsetOrders() {
     foreach (Screen::sizes() as $screenSize) {
@@ -385,7 +384,7 @@ class AbstractColumnLayoutManager extends AbstractLayoutManager implements Colum
    *
    * @precondition `$screenSize` == `small|medium|large|xlarge|xxlarge`
    * @param  string $screenSize the target screen size
-   * @return self for PHP Method Chaining
+   * @return $this for PHP Method Chaining
    */
   public function centerize(string $screenSize) {
     $this->cssClasses()
@@ -399,7 +398,7 @@ class AbstractColumnLayoutManager extends AbstractLayoutManager implements Colum
    *
    * @precondition `$screenSize` == `small|medium|large|xlarge|xxlarge`
    * @param  string $screenSize the target screen size
-   * @return self for PHP Method Chaining
+   * @return $this for PHP Method Chaining
    */
   public function uncenterize(string $screenSize) {
     $this->cssClasses()
@@ -413,7 +412,7 @@ class AbstractColumnLayoutManager extends AbstractLayoutManager implements Colum
    *
    * @precondition `$screenSize` == `small|medium|large|xlarge|xxlarge`
    * @param  string $screenSize the target screen size
-   * @return self for PHP Method Chaining
+   * @return $this for PHP Method Chaining
    */
   public function unsetCenterizing(string $screenSize) {
     $classes[] = "$screenSize-uncentered";

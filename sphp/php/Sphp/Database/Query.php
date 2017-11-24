@@ -7,7 +7,7 @@
 
 namespace Sphp\Database;
 
-use Sphp\Stdlib\BitMask as BitMask;
+use Traversable;
 
 /**
  * An implementation of a SQL SELECT statement
@@ -16,66 +16,16 @@ use Sphp\Stdlib\BitMask as BitMask;
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
-class Query extends ConditionalStatement implements \IteratorAggregate {
-
-  /**
-   * a list of column(s) to be included in the query
-   *
-   * @var string
-   */
-  private $columns = ["*"];
-
-  /**
-   * the table(s) from which data is to be retrieved
-   *
-   * @var string
-   */
-  private $from = [];
-
-  /**
-   * the HAVING clause
-   *
-   * @var string
-   */
-  private $having = "";
-
-  /**
-   * the GROUP BY clause
-   *
-   * @var string
-   */
-  private $groupBy = "";
-
-  /**
-   * result order
-   *
-   * @var string
-   */
-  private $orderBy = "";
-
-  /**
-   * result limit
-   *
-   * @var string  RF9RM3RCJPH3M
-   */
-  private $limit = "";
-
-  public function __construct(\PDO $db) {
-    parent::__construct($db);
-    $this->get('*');
-  }
+interface Query extends ConditionalStatementInterface, Traversable, \Countable {
 
   /**
    * Sets the list of columns to be included in the final result
    *
    * @param  string $columns the column(s) to show (can have multiple
    *         string parameters)
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
-  public function get(string ...$columns) {
-    $this->columns = $columns;
-    return $this;
-  }
+  public function get(string ...$columns);
 
   /**
    * Sets the table(s) from which data is to be retrieved
@@ -84,12 +34,9 @@ class Query extends ConditionalStatement implements \IteratorAggregate {
    *
    * @param  string $tables the table(s) to show (can have multiple
    *         string parameters)
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
-  public function from(string ...$tables) {
-    $this->from = $tables;
-    return $this;
-  }
+  public function from(string ...$tables);
 
   /**
    * Sets the GROUP BY clause to the query
@@ -100,20 +47,10 @@ class Query extends ConditionalStatement implements \IteratorAggregate {
    *  GROUP BY is often used in conjunction with SQL aggregation functions or to eliminate duplicate
    *  rows from a result set.
    *
-   * @param  string|string[] $columns the columns
-   * @return self for a fluent interface
+   * @param  string $columns the columns
+   * @return $this for a fluent interface
    */
-  public function groupBy(string ...$columns) {
-    if (func_num_args() > 0) {
-      $columns = func_get_args();
-    }
-    if (is_array($columns)) {
-      $this->groupBy = implode(", ", $columns);
-    } else {
-      $this->groupBy = $columns;
-    }
-    return $this;
-  }
+  public function groupBy(string ...$columns);
 
   /**
    * Sets a condition to the HAVING part of the query
@@ -128,22 +65,53 @@ class Query extends ConditionalStatement implements \IteratorAggregate {
    * * **If you are using multiple arguments; None of the arguments should be an array**
    *
    * @param  string|string[] $cond condition(s) (accepts multiple arguments)
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
-  public function having(string ...$cond) {
-    if (func_num_args() > 0) {
-      $cond = func_get_args();
-    }
-    if (is_array($cond)) {
-      $cond = implode(" AND ", $cond);
-    }
-    if (strlen($this->having) > 0) {
-      $this->having .= " AND " . $cond;
-    } else {
-      $this->having = $cond;
-    }
-    return $this;
-  }
+  public function having(... $rules);
+
+  /**
+   * Adds rules to the HAVING conditions component
+   *
+   * @param  string|RuleInterface|array $rules SQL condition(s)
+   * @return $this for a fluent interface
+   * not evaluate to `true`.
+   */
+
+  /**
+   * Appends SQL conditions by using logical AND as a conjunction
+   *
+   * @param  string|RuleInterface|array $rules SQL condition(s)
+   * @return $this for a fluent interface
+   * @throws \Sphp\Exceptions\InvalidArgumentException
+   */
+  public function andHaving(... $rules);
+
+  /**
+   * Appends SQL conditions by using AND NOT as a conjunction
+   *
+   * @param  string|RuleInterface|array $rules SQL condition(s)
+   * @return $this for a fluent interface
+   * @throws \Sphp\Exceptions\InvalidArgumentException
+   */
+  public function andNotHaving(... $rules);
+
+  /**
+   * Appends SQL conditions by using logical OR as a conjunction
+   *
+   * @param  string|RuleInterface|array $rules SQL condition(s)
+   * @return $this for a fluent interface
+   * @throws \Sphp\Exceptions\InvalidArgumentException
+   */
+  public function orHaving(... $rules);
+
+  /**
+   * Appends SQL conditions by using logical OR NOT as a conjunction
+   *
+   * @param  string|RuleInterface|array $rules SQL condition(s)
+   * @return $this for a fluent interface
+   * @throws \Sphp\Exceptions\InvalidArgumentException
+   */
+  public function orNotHaving(... $rules);
 
   /**
    * Sets columns which are used to sort the resulting data
@@ -161,20 +129,15 @@ class Query extends ConditionalStatement implements \IteratorAggregate {
    * - 'ASC' indicates ascending order (default)
    * - 'DESC' indicates descending order
    *
-   * @param  string|string[] $columns the column(s) (accepts multiple arguments)
-   * @return self for a fluent interface
+   * @param  string ...$columns the column(s) (accepts multiple arguments)
+   * @return $this for a fluent interface
    * @example $select->orderBy('a DESC', 'b ASC', 'c ASC, d ASC');
    */
-  public function orderBy(string ...$columns) {
-    if (func_num_args() > 0) {
-      $columns = func_get_args();
-    }
-    if (!is_array($columns)) {
-      $columns = array($columns);
-    }
-    $this->orderBy = implode(", ", $columns);
-    return $this;
-  }
+  public function orderBy(string ...$columns);
+
+  public function setLimit(int $limit);
+
+  public function setOffset(int $offset);
 
   /**
    * Limits the result rows
@@ -192,50 +155,11 @@ class Query extends ConditionalStatement implements \IteratorAggregate {
    * * Vertica
    * * Polyhedra
    *
-   * @param int $rowCount the maximum number of rows to return
-   * @param mixed $offset the offset of the initial row
-   * @return self for a fluent interface
+   * @param  int $limit the maximum number of rows to return
+   * @param  mixed $offset the offset of the initial row
+   * @return $this for a fluent interface
    */
-  public function limit(int $rowCount, $offset = 0) {
-    $this->limit = "LIMIT " . $rowCount . " OFFSET " . $offset;
-    return $this;
-  }
-
-  public function statementToString(): string {
-    $query = "SELECT " . implode(", ", $this->columns);
-    $query .= " FROM " . implode(", ", $this->from);
-    if ($this->conditions()->hasConditions()) {
-      $query .= " WHERE " . $this->conditions();
-    }
-    if (strlen($this->groupBy) > 0) {
-      $query .= " GROUP BY " . $this->groupBy;
-    }
-    if (strlen($this->having) > 0) {
-      $query .= " HAVING " . $this->having;
-    }
-    if (strlen($this->orderBy) > 0) {
-      $query .= " ORDER BY " . $this->orderBy;
-    }
-    if (strlen($this->limit) > 0) {
-      $query .= " " . $this->limit;
-    }
-    return $query;
-  }
-
-  public function getParams(): array {
-    return $this->where()->getParams();
-  }
-
-  /**
-   * Executes the SQL query in the given database and returns the result rows as an array
-   *
-   * @return mixed[] result rows as an array
-   * @throws \PDOException if there is no database connection or query execution fails
-   * @link   http://www.php.net/manual/en/book.pdo.php PHP Data Objects
-   */
-  public function toArray(): array {
-    return $this->execute()->fetchAll(\PDO::FETCH_ASSOC);
-  }
+  public function limit(int $limit, int $offset = 0);
 
   /**
    * Executes the SQL query in the given database and returns the row count of the results
@@ -244,24 +168,5 @@ class Query extends ConditionalStatement implements \IteratorAggregate {
    * @throws \PDOException if there is no database connection or query execution fails
    * @link   http://www.php.net/manual/en/book.pdo.php PHP Data Objects
    */
-  public function count(): int {
-    $columns = $this->columns;
-    $count = $this->get("COUNT(*)")->execute()->fetchColumn();
-    $this->columns = $columns;
-    return (int) $count;
-  }
-
-  /**
-   * 
-   * @return \ArrayIterator
-   */
-  public function getIterator(): \Traversable {
-    try {
-      $data = $this->fetchArray();
-    } catch (Exception $ex) {
-      $data = [];
-    }
-    return new \ArrayIterator($data);
-  }
-
+  public function count(): int;
 }

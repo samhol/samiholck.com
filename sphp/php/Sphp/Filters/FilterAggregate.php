@@ -14,7 +14,6 @@ use ArrayIterator;
  * An aggregate of filters
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2015-05-12
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
@@ -67,7 +66,7 @@ class FilterAggregate extends AbstractFilter implements IteratorAggregate {
    * Adds a filter to the aggregate
    * 
    * @param  callable $filter a filter to add
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function addFilter(callable $filter) {
     $this->filters[] = $filter;

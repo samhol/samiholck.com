@@ -10,7 +10,7 @@ namespace Sphp\Html\Lists;
 use Sphp\Html\AbstractContainerComponent;
 use Sphp\Html\TraversableInterface;
 use IteratorAggregate;
-use Sphp\Html\Attributes\AttributeManager;
+use Sphp\Html\Attributes\HtmlAttributeManager;
 use Sphp\Html\ContainerInterface;
 
 /**
@@ -19,12 +19,7 @@ use Sphp\Html\ContainerInterface;
  * The {@link self} component is used in conjunction with &lt;dt&gt; (defines the item in the list)
  * and &lt;dd&gt; (describes the item in the list).
  *
- *
- * {@inheritdoc}
- *
- *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2013-05-23
  * @link    http://www.w3schools.com/tags/tag_dl.asp w3schools HTML API
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
@@ -36,10 +31,10 @@ class Dl extends AbstractContainerComponent implements IteratorAggregate, Traver
   /**
    * Constructs a new instance
    *
-   * @param  AttributeManager|null $attrManager the attribute manager of the component
+   * @param  HtmlAttributeManager|null $attrManager the attribute manager of the component
    * @param  ContainerInterface|null $contentContainer the inner content container of the component
    */
-  public function __construct(AttributeManager $attrManager = null, ContainerInterface $contentContainer = null) {
+  public function __construct(HtmlAttributeManager $attrManager = null, ContainerInterface $contentContainer = null) {
     parent::__construct('dl', $attrManager, $contentContainer);
   }
 
@@ -47,7 +42,7 @@ class Dl extends AbstractContainerComponent implements IteratorAggregate, Traver
    * Appends elements to the object
    *
    * @param  DlContentInterface $it list elements
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function append(DlContentInterface $it) {
     $this->getInnerContainer()->append($it);
@@ -58,7 +53,7 @@ class Dl extends AbstractContainerComponent implements IteratorAggregate, Traver
    * Appends {@link Dt} term component to the list
    *
    * @param  mixed $terms the term component or its content
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function appendTerms($terms) {
     foreach ((is_array($terms)) ? $terms : [$terms] as $term) {
@@ -74,7 +69,7 @@ class Dl extends AbstractContainerComponent implements IteratorAggregate, Traver
    * Appends {@link Dd} description component to the list
    *
    * @param  mixed $descriptions the description components or their content
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function appendDescriptions($descriptions) {
     foreach ((is_array($descriptions)) ? $descriptions : [$descriptions] as $description) {
@@ -90,7 +85,7 @@ class Dl extends AbstractContainerComponent implements IteratorAggregate, Traver
    * Prepends an item to the object
    * 
    * @param  DlContentInterface $it list element
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function prepend(DlContentInterface $it) {
     $this->getInnerContainer()->prepend($it);

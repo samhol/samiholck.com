@@ -14,7 +14,6 @@ namespace Sphp\Stdlib\Events;
  * to these events and get notified when they trigger.
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2014-05-12
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
@@ -84,7 +83,7 @@ class Event implements EventInterface {
    * Sets the name of the event
    * 
    * @param  string $name the name of the event
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   protected function setName(string $name) {
     $this->name = $name;
@@ -116,7 +115,7 @@ class Event implements EventInterface {
    * Sets the data attached to the event
    * 
    * @param  mixed $data the data attached to the event
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setData($data) {
     $this->data = $data;

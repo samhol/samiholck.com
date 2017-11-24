@@ -8,12 +8,12 @@
 namespace Sphp\Html\Attributes;
 
 use Sphp\Stdlib\Strings;
+use Sphp\Html\Attributes\Exceptions\ImmutableAttributeException;
 
 /**
  * An abstract implementation of an HTML attribute object
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2015-06-12
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
@@ -34,11 +34,20 @@ abstract class AbstractAttribute implements AttributeInterface {
   private $required = false;
 
   /**
+   * @var bool 
+   */
+  private $protected = false;
+
+  /**
    * Constructs a new instance
    *
-   * @param string $name the name of the attribute
+   * @param  string $name the name of the attribute
+   * @throws AttributeException
    */
-  public function __construct($name) {
+  public function __construct(string $name) {
+    if (!Strings::match($name, '/^[a-zA-Z][\w:.-]*$/')) {
+      throw new AttributeException("Malformed Attribute name '$name'");
+    }
     $this->name = $name;
   }
 
@@ -52,67 +61,61 @@ abstract class AbstractAttribute implements AttributeInterface {
     unset($this->name, $this->required);
   }
 
-  /**
-   * Returns the instance of the {@link self} object as a string
-   *
-   * @return string the object as a string
-   */
   public function __toString(): string {
+    return $this->getHtml();
+  }
+
+  public function isProtected(): bool {
+    return $this->protected;
+  }
+
+  public function protect($value) {
+    if ($this->isProtected()) {
+      throw new ImmutableAttributeException("Attribute '{$this->getName()}' is immutable");
+    }
+    $this->set($value);
+    $this->protected = true;
+    return $this;
+  }
+
+  public function getHtml(): string {
     $output = '';
-    $value = $this->getValue();
-    if ($value !== false) {
+    if ($this->isVisible()) {
       $output .= $this->getName();
-      if ($value !== true && !Strings::isEmpty($value)) {
-        $strVal = Strings::toString($value);
-        $output .= '="' . htmlspecialchars($strVal, \ENT_COMPAT | \ENT_DISALLOWED | \ENT_HTML5, 'utf-8', false) . '"';
+      if (!$this->isEmpty()) {
+        $value = $this->getValue();
+        if (is_string($value)) {
+          $value = preg_replace('/[\t\n\r]+/', ' ', $value);
+          $output .= '="' . htmlspecialchars($value, \ENT_COMPAT | \ENT_DISALLOWED | \ENT_HTML5, 'utf-8', false) . '"';
+        } else {
+          $output .= '="' . $value . '"';
+        }
       }
     }
     return $output;
   }
 
-  /**
-   * Returns the name of the attribute 
-   * 
-   * @return string the name of the attribute
-   */
   public function getName(): string {
     return $this->name;
   }
 
-  /**
-   * Sets the attribute as required
-   *  
-   * **A required attribute cannot be removed** but its value is still mutable.
-   * 
-   * @return self for a fluent interface
-   */
   public function demand() {
     $this->required = true;
     return $this;
   }
 
-  /**
-   * Checks whether the attribute is required or not
-   * 
-   * **Note:** a required attribute either has locked value or the attribute 
-   * name is required.
-   *
-   * @return boolean true if the attribute is required and false otherwise
-   */
   public function isDemanded(): bool {
-    return $this->required || $this->isLocked();
+    return $this->required || $this->isProtected();
   }
 
-  /**
-   * Checks whether the attribute is visible or not
-   * 
-   * **Note:** an attribute is visible if it has locked value or the attribute 
-   * name is required or the attribute value is not boolean (false).
-   * 
-   * @return boolean true if the attribute is visible and false otherwise
-   */
   public function isVisible(): bool {
-    return $this->isDemanded() || $this->getValue() !== false;
+    return $this->isDemanded() || ($this->getValue() !== false && $this->getValue() !== null);
+  }
+
+  public function isEmpty(): bool {
+    $val = $this->getValue();
+    return is_bool($val) || $val === null || $val === '';
   }
 
 }
+

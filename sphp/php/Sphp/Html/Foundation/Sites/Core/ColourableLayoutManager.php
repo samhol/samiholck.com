@@ -7,20 +7,18 @@
 
 namespace Sphp\Html\Foundation\Sites\Core;
 
-use Sphp\Html\AbstractLayoutManager;
 use Sphp\Html\ComponentInterface;
 
 /**
  * Trait implements {@link ColourableInterface} functionality
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2016-04-11
  * @link    http://foundation.zurb.com/ Foundation
  * @link    http://foundation.zurb.com/docs/components/buttons.html Foundation Buttons
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
-class ColourableLayoutManager extends AbstractLayoutManager implements ColourableInterface {
+class ColourableLayoutManager extends AbstractLayoutManager implements Colourable {
 
   /**
    * CSS classes corresponding to the colors
@@ -44,7 +42,7 @@ class ColourableLayoutManager extends AbstractLayoutManager implements Colourabl
    * 
    * @param array $layouts
    */
-  public function setLayouts($layouts) {
+  public function setLayouts(...$layouts) {
     $this->unsetColors();
     foreach (is_array($layouts) ? $layouts : [$layouts] as $layout) {
       $this->setColor($layout);
@@ -70,10 +68,10 @@ class ColourableLayoutManager extends AbstractLayoutManager implements Colourabl
    * * `'disabled'` for disabled buttons
    * 
    * @param  string|null $color one of the CSS class names defining button styles
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @link   http://foundation.zurb.com/docs/components/buttons.html#button-colors Button Sizing
    */
-  public function setColor($color = null) {
+  public function setColor(string $color = null) {
     if ($color === null) {
       $this->unsetLayouts();
     } else if (in_array($color, $this->colors)) {
@@ -87,7 +85,7 @@ class ColourableLayoutManager extends AbstractLayoutManager implements Colourabl
   /**
    * Unsets the color settings
    * 
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @link   http://foundation.zurb.com/docs/components/buttons.html#button-colors Button Sizing
    */
   public function unsetColors() {  

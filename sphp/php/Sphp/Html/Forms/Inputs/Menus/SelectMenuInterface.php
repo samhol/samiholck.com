@@ -7,7 +7,7 @@
 
 namespace Sphp\Html\Forms\Inputs\Menus;
 
-use Sphp\Html\Forms\Inputs\ValidableInputInterface;
+use Sphp\Html\Forms\Inputs\Validable;
 use Sphp\Html\TraversableInterface;
 use Sphp\Html\ContainerInterface;
 
@@ -30,12 +30,11 @@ use Sphp\Html\ContainerInterface;
  *   form to collect user input.
  * 
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2011-03-10
  * @link    http://www.w3schools.com/tags/tag_select.asp w3schools HTML API
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
-interface SelectMenuInterface extends ValidableInputInterface, TraversableInterface {
+interface SelectMenuInterface extends Validable, TraversableInterface {
 
   /**
    * Returns all {@link Option} components in the component
@@ -55,7 +54,7 @@ interface SelectMenuInterface extends ValidableInputInterface, TraversableInterf
    * Sets the selected options of the menu object
    *
    * @param  scalar|scalar[] $selectedValues selected options of the menu object
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setSelectedValues($selectedValues);
 
@@ -64,7 +63,7 @@ interface SelectMenuInterface extends ValidableInputInterface, TraversableInterf
    * 
    * @param  boolean $multiple true if multiple selections are allowed, 
    *         otherwise false
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function selectMultiple($multiple = true);
 
@@ -75,7 +74,7 @@ interface SelectMenuInterface extends ValidableInputInterface, TraversableInterf
    *  expected for size="2" and size="3".
    * 
    * @param  int $size the number of the visible {@link Option} components
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setSize($size);
 }

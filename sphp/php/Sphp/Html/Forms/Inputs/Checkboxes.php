@@ -13,7 +13,6 @@ use Sphp\Stdlib\Strings;
  * A component containing multiple {@link Checkbox} inputs
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2011-10-18
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
@@ -26,7 +25,7 @@ class Checkboxes extends Choiceboxes {
    * @param scalar[] $values
    * @param mixed $mainLabel
    */
-  public function __construct($name, array $values = []) {
+  public function __construct(string $name = null, array $values = []) {
     parent::__construct('input:checkbox', $name, $values);
   }
 
@@ -34,10 +33,10 @@ class Checkboxes extends Choiceboxes {
    * Sets the value of name attribute
    *
    * @param  string $name the value of the name attribute
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @link   http://www.w3schools.com/tags/att_input_name.asp name attribute
    */
-  public function setName($name) {
+  public function setName(string $name) {
     if (!Strings::endsWith($name, '[]')) {
       $name .= '[]';
     }
@@ -62,7 +61,7 @@ class Checkboxes extends Choiceboxes {
    * 
    * @param  boolean $required true if an {@link Checkbox} component must
    *         be checked before form submission, otherwise false
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setRequired(bool $required = true) {
     return $this->setAttr('data-required', $required);

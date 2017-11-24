@@ -18,10 +18,7 @@ namespace Sphp\Html\Tables;
  *  **Standard cells** - contains data (created with the &lt;td&gt; element).
  *  The text in &lt;td&gt; elements are regular and left-aligned by default.
  * 
- * {@inheritdoc}
- *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2012-10-04
  * @link    http://www.w3schools.com/tags/tag_td.asp w3schools API
  * @link    http://dev.w3.org/html5/spec/Overview.html#the-td-element W3C API
  * @link    http://www.w3schools.com/tags/tag_th.asp w3schools API
@@ -40,7 +37,7 @@ interface CellInterface extends TableContentInterface {
    *
    * @precondition  $value >= 1
    * @param  int $value the value of the colspan attribute
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @link   http://www.w3schools.com/tags/att_td_colspan.asp td colspan attribute
    * @link   http://www.w3schools.com/tags/att_th_colspan.asp th colspan attribute
    */
@@ -64,7 +61,7 @@ interface CellInterface extends TableContentInterface {
    *
    * @precondition  $value >= 1
    * @param  int $value the value of the rowspan attribute
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @link   http://www.w3schools.com/tags/att_td_rowspan.asp td rowspan attribute
    * @link   http://www.w3schools.com/tags/att_th_rowspan.asp th rowspan attribute
    */

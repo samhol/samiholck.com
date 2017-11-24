@@ -16,7 +16,6 @@ use OutOfBoundsException;
  * Implements a container for Foundation Tabs 
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2016-01-01
  * @link    http://foundation.zurb.com/ Foundation
  * @link    http://foundation.zurb.com/docs/components/tabs.html Foundation Tabs
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
@@ -43,7 +42,7 @@ class TabContentContainer extends AbstractContainerComponent implements Iterator
       $tabs = new TabControllerContainer();
     }
     $this->tabs = $tabs;
-    $this->cssClasses()->lock('tabs-content');
+    $this->cssClasses()->protect('tabs-content');
     $this->attrs()->set('data-tabs-content', $this->tabs->identify());
   }
 
@@ -51,7 +50,7 @@ class TabContentContainer extends AbstractContainerComponent implements Iterator
    * Appends the given tab instance to the container
    * 
    * @param  TabInterface $tab the tab instance
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function append(TabInterface $tab) {
     $this->getInnerContainer()->append($tab);
@@ -107,7 +106,7 @@ class TabContentContainer extends AbstractContainerComponent implements Iterator
   /**
    * 
    * @param  boolean $match
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function matchHeight(bool $match = true) {
     $value = $match ? 'true' : 'false';
@@ -139,7 +138,7 @@ class TabContentContainer extends AbstractContainerComponent implements Iterator
    * 
    * @param  int $index the index of the tab
    * @throws OutOfBoundsException if the index is not set
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setActive(int $index) {
     if (!$this->hasTab($index)) {

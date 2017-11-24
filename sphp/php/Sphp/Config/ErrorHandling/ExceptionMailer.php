@@ -12,7 +12,7 @@ use Zend\Mail\Message;
 use Zend\Mail\Transport\Sendmail;
 
 /**
- * Sends an exception as a email
+ * Sends a thrown exception as a email
  *
  * @author  Sami Holck <sami.holck@gmail.com>
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
@@ -21,7 +21,7 @@ use Zend\Mail\Transport\Sendmail;
 class ExceptionMailer implements ExceptionListener {
 
   /**
-   * @var string|null
+   * @var string
    */
   private $sender;
 
@@ -33,10 +33,10 @@ class ExceptionMailer implements ExceptionListener {
   /**
    * Constructs a new instance
    * 
+   * @param string $from optional senders email address 
    * @param string $to receivers email address
-   * @param string|null $from optional senders email address (null for none)
    */
-  public function __construct(string $to, string $from = null) {
+  public function __construct(string $from, string $to) {
     $this->setSender($from)->setReceiver($to);
   }
 
@@ -45,7 +45,7 @@ class ExceptionMailer implements ExceptionListener {
    * 
    * @return string|null senders email address or null if not set
    */
-  public function getSender() {
+  public function getSender(): string {
     return $this->sender;
   }
 
@@ -62,27 +62,18 @@ class ExceptionMailer implements ExceptionListener {
    * Sets senders email address
    * 
    * @param  string $sender optional senders email address (null for none)
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
-  public function setSender(string $sender = null) {
+  public function setSender(string $sender) {
     $this->sender = $sender;
     return $this;
-  }
-
-  /**
-   * Checks if senders email address is set
-   * 
-   * @return boolean true if senders email address is set, otherwise false
-   */
-  public function hasSender(): bool {
-    return $this->sender !== null;
   }
 
   /**
    * Sets receivers email address
    * 
    * @param  string $receiver receivers email address
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setReceiver(string $receiver) {
     $this->receiver = $receiver;
@@ -92,13 +83,11 @@ class ExceptionMailer implements ExceptionListener {
   /**
    * 
    * @param  Throwable $t the throwable to mail
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function send(Throwable $t) {
     $mail = new Message();
-    if ($this->hasSender()) {
-      $mail->setFrom($this->getSender());
-    }
+    $mail->setFrom($this->getSender());
     $mail->addTo($this->getReceiver());
     $mail->setSubject(get_class($t));
     $mail->setBody($this->createMailBody($t));

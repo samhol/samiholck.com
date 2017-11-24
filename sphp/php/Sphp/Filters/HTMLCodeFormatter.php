@@ -15,7 +15,6 @@ use Gajus\Dindent\Indenter;
  * **IMPORTANT!** manipulates only string inputs
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2015-05-12
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  * @see     https://github.com/gajus/dindent
@@ -23,7 +22,6 @@ use Gajus\Dindent\Indenter;
 class HTMLCodeFormatter extends AbstractFilter {
 
   /**
-   *
    * @var Indenter 
    */
   private static $formatter;

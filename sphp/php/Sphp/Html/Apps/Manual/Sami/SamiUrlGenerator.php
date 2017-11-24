@@ -14,54 +14,35 @@ use Sphp\Html\Apps\Manual\ApiUrlGeneratorInterface;
  * URL string generator pointing to an existing Sami documentation
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2014-11-29
  * @link    https://github.com/FriendsOfPHP/Sami Sami: an API documentation generator
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
 class SamiUrlGenerator extends UrlGenerator implements ApiUrlGeneratorInterface {
 
-  /**
-   * {@inheritdoc}
-   */
-  public function getClassUrl($class) {
+  public function getClassUrl(string $class): string {
     $path = str_replace('\\', '/', $class);
     return $this->create("$path.html");
   }
 
-  /**
-   * {@inheritdoc}
-   */
-  public function getClassMethodUrl($class, $method) {
+  public function getClassMethodUrl(string $class, string $method): string {
     return $this->getClassUrl($class) . '#method_' . $method;
   }
 
-  /**
-   * {@inheritdoc}
-   */
-  public function getClassConstantUrl($class, $constant) {
+  public function getClassConstantUrl(string $class, string $constant): string {
     return $this->getClassUrl($class);
   }
 
-  /**
-   * {@inheritdoc}
-   */
-  public function getNamespaceUrl($namespace) {
+  public function getNamespaceUrl(string $namespace): string {
     $path = str_replace('\\', '/', $namespace);
     return $this->create("$path.html");
   }
 
-  /**
-   * {@inheritdoc}
-   */
-  public function getFunctionUrl($function) {
+  public function getFunctionUrl(string $function): string {
     return $this->create("function-$function.html");
   }
-  
-  /**
-   * {@inheritdoc}
-   */
-  public function getConstantUrl($constant) {
+
+  public function getConstantUrl(string $constant): string {
     $path = str_replace('\\', '.', $constant);
     return $this->createUrl("constant-$path.html");
   }

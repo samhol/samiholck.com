@@ -13,7 +13,7 @@ use Sphp\Html\Forms\Inputs\Checkbox;
  * A component containing multiple {@link Checkbox} inputs
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2011-10-18
+ * @link    http://foundation.zurb.com/ Foundation
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
@@ -31,7 +31,7 @@ class Checkboxes extends Choiceboxes {
    * 
    * @param  boolean $required true if an {@link Checkbox} component must
    *         be checked before form submission, otherwise false
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setRequired(bool $required = true) {
     return $this->setAttr('data-required', $required);

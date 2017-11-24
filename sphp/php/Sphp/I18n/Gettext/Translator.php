@@ -14,6 +14,7 @@ if (!defined('LC_MESSAGES')) {
 use Sphp\I18n\AbstractTranslator;
 use Sphp\Exceptions\InvalidArgumentException;
 use Sphp\Stdlib\Arrays;
+use Sphp\Config\Locale;
 
 /**
  * Implements a natural language translator
@@ -28,7 +29,6 @@ use Sphp\Stdlib\Arrays;
  * * {@link http://php.net/manual/en/function.setlocale.php}
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2015-05-12
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
@@ -62,20 +62,14 @@ class Translator extends AbstractTranslator {
    * The name of the `.mo` file must match the `$domain`. e.g the file path
    * (Finnish translations) should match `$directory/fi_FI/LC_MESSAGES/$domain.mo`
    * 
-   * @param  string|null $lang optional language used (defaults to system locale)
-   * @param  string|null $domain the filename of the dictionary
+   * @param  string $domain the filename of the dictionary
    * @param  string $directory the locale path of the dictionary
    * @param  string $charset the character set of the dictionary
    * @throws InvalidArgumentException
    */
-  public function __construct(string $domain = 'Sphp.Defaults', string $directory = 'sphp/locale', string $charset = 'utf8') {
-    if ($domain === null) {
-      throw new InvalidArgumentException('no domain');
-    } else {
-      DomainBinder::bindtextdomain($domain, $directory, $charset);
-    }
-    $this->domain = $domain;
+  public function __construct(string $domain = 'Sphp.Defaults', string $directory = 'sphp/locale', string $charset = null) {
     $this->directory = $directory;
+    $this->setDomain($domain, $charset);
     $this->charset = $charset;
   }
 
@@ -84,7 +78,7 @@ class Translator extends AbstractTranslator {
    *
    * @return string the name (filename) of the text domain
    */
-  public function getDomain() {
+  public function getDomain(): string {
     return $this->domain;
   }
 
@@ -92,19 +86,19 @@ class Translator extends AbstractTranslator {
    * Sets the name of the text domain
    *
    * @param  string $domain the name (filename) of the text domain
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
-  public function setDomain(string $domain) {
+  public function setDomain(string $domain, string $charset = null) {
     $this->domain = $domain;
-    DomainBinder::bindtextdomain($domain, $this->directory, $this->charset);
+    DomainBinder::bindtextdomain($domain, $this->directory, $charset);
     return $this;
   }
 
-  public function getDirectory() {
+  public function getDirectory(): string {
     return $this->directory;
   }
 
-  public function getCharset() {
+  public function getCharset(): string {
     return $this->charset;
   }
 
@@ -118,35 +112,25 @@ class Translator extends AbstractTranslator {
     return $this;
   }
 
-  public function get($text, string $lang = null) {
-    if ($lang === null) {
-      $lang = $this->getLang();
+  public function get(string $message): string {
+    $lang = $this->getLang();
+    $tempLc = Locale::getMessageLocale();
+    if ($lang !== $tempLc) {
+      Locale::setMessageLocale($lang);
     }
-    $parser = function($arg) {
-      if (is_string($arg)) {
-        return dgettext($this->getDomain(), $arg);
-      }
-      return $arg;
-    };
-    $tempLc = setLocale(\LC_MESSAGES, '0');
-    setLocale(\LC_MESSAGES, $lang);
-    if (is_array($text)) {
-      $translation = Arrays::multiMap($parser, $text);
-    } else {
-      $translation = dgettext($this->domain, $text);
+    $translation = dgettext($this->domain, $message);
+    if ($lang !== $tempLc) {
+      Locale::setMessageLocale($tempLc);
     }
-    setLocale(\LC_MESSAGES, $tempLc);
     return $translation;
   }
 
-  public function getPlural(string $msgid1, string $msgid2, int $n, string $lang = null): string {
-    if ($lang === null) {
-      $lang = $this->getLang();
-    }
-    $tempLc = setLocale(\LC_MESSAGES, '0');
-    setLocale(\LC_MESSAGES, $lang);
+  public function getPlural(string $msgid1, string $msgid2, int $n): string {
+    $lang = $this->getLang();
+    $tempLc = Locale::getMessageLocale();
+    Locale::setMessageLocale($lang);
     $translation = dngettext($this->domain, $msgid1, $msgid2, $n);
-    setLocale(\LC_MESSAGES, $tempLc);
+    Locale::setMessageLocale($tempLc);
     return $translation;
   }
 

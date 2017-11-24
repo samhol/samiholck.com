@@ -11,7 +11,6 @@ namespace Sphp\Html\Foundation\Sites\Navigation;
  * Implements an Accordion menu
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2014-03-25
  * @link    http://foundation.zurb.com/ Foundation
  * @link    http://foundation.zurb.com/docs/components/sidenav.html Foundation Side Nav
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
@@ -26,7 +25,7 @@ class AccordionMenu extends Menu {
    */
   public function __construct($content = null) {
     parent::__construct($content);
-    $this->cssClasses()->lock('vertical');
+    $this->cssClasses()->protect('vertical accordion-menu');
     $this->attrs()->demand('data-accordion-menu');
   }
 

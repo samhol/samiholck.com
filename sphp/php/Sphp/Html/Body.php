@@ -15,10 +15,7 @@ use Sphp\Html\Programming\SphpScriptsLoader;
  *
  * This component represents the main content of the HTML document.
  *
- * {@inheritdoc}
- *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2013-02-25
  * @link    http://www.w3schools.com/tags/tag_body.asp w3schools API
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
@@ -58,7 +55,12 @@ class Body extends ContainerTag implements ContentParserInterface {
     $this->scripts = clone $this->scripts;
   }
 
+  public function contentToString(): string {
+    return parent::contentToString().$this->scripts();
+  }
+
   /**
+   * Returns parsed script tags and the closing tag
    * 
    * @return string the script tags and the closing tag
    */
@@ -69,7 +71,7 @@ class Body extends ContainerTag implements ContentParserInterface {
   /**
    * Sets up the SPHP framework related JavaScript files to the end of the body
    *
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function enableSPHP() {
     $sphpScripts = new SphpScriptsLoader();

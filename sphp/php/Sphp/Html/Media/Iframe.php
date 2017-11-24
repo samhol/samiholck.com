@@ -15,7 +15,6 @@ use Sphp\Html\AbstractComponent;
  * This component represents a nested browsing context.
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2015-07-14
  * @link    http://www.w3schools.com/tags/tag_iframe.asp w3schools HTML API
  * @link    http://dev.w3.org/html5/spec/Overview.html#the-iframe-element W3C API
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
@@ -47,7 +46,7 @@ class Iframe extends AbstractComponent implements IframeInterface {
    * Sets the value of the name attribute
    *
    * @param  string $name the value of the name attribute
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @link   http://www.w3schools.com/tags/att_iframe_name.asp name attribute
    */
   public function setName(string $name) {
@@ -62,7 +61,7 @@ class Iframe extends AbstractComponent implements IframeInterface {
    * @link   http://www.w3schools.com/tags/att_iframe_name.asp name attribute
    */
   public function getName() {
-    return $this->attrs()->get('name');
+    return $this->attrs()->getValue('name');
   }
 
   /**
@@ -72,7 +71,7 @@ class Iframe extends AbstractComponent implements IframeInterface {
    * **Note:** Limited browser support.
    *
    * @param  string $seamless the value of the seamless attribute
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @link   http://www.w3schools.com/tags/att_a_target.asp target attribute
    */
   public function setSeamless(bool $seamless = true) {
@@ -100,7 +99,7 @@ class Iframe extends AbstractComponent implements IframeInterface {
    * * The sandbox attribute is new in HTML5.
    *
    * @param  string $sandbox the value of the sandbox attribute
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @link   http://www.w3schools.com/TAGS/att_iframe_sandbox.asp sandbox attribute
    */
   public function setSandbox(string $sandbox) {

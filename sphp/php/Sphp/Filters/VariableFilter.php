@@ -11,7 +11,6 @@ namespace Sphp\Filters;
  * Filters a variable with a specified filter
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2015-05-12
  * @link    http://php.net/manual/en/filter.filters.php filter_var
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
@@ -19,13 +18,11 @@ namespace Sphp\Filters;
 class VariableFilter extends AbstractFilter {
 
   /**
-   *
    * @var int 
    */
   private $filter;
 
   /**
-   *
    * @var mixed[] 
    */
   private $options;
@@ -62,7 +59,7 @@ class VariableFilter extends AbstractFilter {
   /**
    * 
    * @param  int $filter
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   protected function setFilter($filter) {
     $this->filter = $filter;
@@ -74,7 +71,7 @@ class VariableFilter extends AbstractFilter {
    * 
    * @param  string $optName option name
    * @param  mixed $value
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   protected function setOption($optName, $value) {
     $this->options['options'][$optName] = $value;
@@ -86,7 +83,7 @@ class VariableFilter extends AbstractFilter {
    * 
    * @param  string $optName option name
    * @param  mixed $value
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   protected function setFlags($flags) {
     $this->options['flags'] = $flags;
@@ -96,7 +93,7 @@ class VariableFilter extends AbstractFilter {
   /**
    * 
    * @param  array $options
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   protected function setOptions($options) {
     $this->options['options'] = $options;

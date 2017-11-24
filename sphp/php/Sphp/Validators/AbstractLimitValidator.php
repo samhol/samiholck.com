@@ -6,19 +6,28 @@
  */
 
 namespace Sphp\Validators;
+
 use Sphp\I18n\Messages\Message;
+
 /**
  * Description of GreaterThanValidator
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2017-03-28
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
 abstract class AbstractLimitValidator extends AbstractValidator {
 
+  /**
+   * `ID` for error message describing values not matching an inclusive limit
+   */
   const INCLUSIVE_ERROR = '_inclusive_';
+
+  /**
+   * `ID` for error message describing values not matching an exclusive limit
+   */
   const EXCLUSIVE_ERROR = '_exclusive_';
+
   /**
    * Whether to do inclusive comparisons, allowing equivalence to max
    *
@@ -42,6 +51,7 @@ abstract class AbstractLimitValidator extends AbstractValidator {
   }
 
   /**
+   * Checks whether the the limit is set as inclusive or not
    * 
    * @return boolean true for inclusive limit and false for not
    */
@@ -53,7 +63,7 @@ abstract class AbstractLimitValidator extends AbstractValidator {
    * Sets whether the the limit is inclusive or not
    * 
    * @param boolean $inclusive true for inclusive limit and false for exclusive
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setInclusive(bool $inclusive) {
     $this->inclusive = $inclusive;

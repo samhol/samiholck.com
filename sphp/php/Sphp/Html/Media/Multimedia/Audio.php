@@ -10,10 +10,7 @@ namespace Sphp\Html\Media\Multimedia;
 /**
  * Implements an HTML &lt;audio&gt; tag
  *
- * {@inheritdoc}
- *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2015-07-20
  * @link    http://www.w3schools.com/tags/tag_audio.asp w3schools HTML API
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
@@ -27,7 +24,7 @@ class Audio extends AbstractMultimediaTag {
    */
   public function __construct($sources = null) {
     parent::__construct('audio', null, $sources);
-    $this->showControls(true);
+    //$this->showControls(true);
   }
 
   /**
@@ -42,7 +39,7 @@ class Audio extends AbstractMultimediaTag {
    * * `none`: The browser should NOT load the audio file when the page loads
    * 
    * @param  string $preload the value of the preload attribute
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @link   http://www.w3schools.com/tags/att_audio_preload.asp preload attribute
    */
   public function setPreload($preload) {

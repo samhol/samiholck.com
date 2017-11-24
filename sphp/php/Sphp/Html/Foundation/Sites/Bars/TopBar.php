@@ -14,7 +14,6 @@ use Sphp\Html\Div;
  * Implements a Top Bar
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2016-11-21
  * @link    http://foundation.zurb.com/ Foundation
  * @link    http://foundation.zurb.com/docs/components/topbar.html Foundation Top Bar
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
@@ -38,14 +37,14 @@ class TopBar extends AbstractBar {
     if ($left === null) {
       $left = new BarContentArea('div');
     }
-    $left->cssClasses()->lock('top-bar-left');
+    $left->cssClasses()->protect('top-bar-left');
     if ($right === null) {
       $right = new BarContentArea('div');
     }
-    $right->cssClasses()->lock('top-bar-right');
+    $right->cssClasses()->protect('top-bar-right');
     parent::__construct('div', $left, $right);
     $this->barTitle($title);
-    $this->cssClasses()->lock('top-bar');
+    $this->cssClasses()->protect('top-bar');
   }
 
   public function __destruct() {
@@ -63,7 +62,7 @@ class TopBar extends AbstractBar {
    * 
    * @precondition `$screenSize` == `small|medium|large`
    * @param  string $screenSize the targeted screensize
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @throws InvalidArgumentException if the `$screenSize` does not match precondition
    */
   public function stackFor($screenSize = 'small') {
@@ -81,7 +80,7 @@ class TopBar extends AbstractBar {
   /**
    * Unstacks the stacked buttons in the given screen sizes
    * 
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setDefaultStacking() {
     $this->cssClasses()
@@ -93,12 +92,12 @@ class TopBar extends AbstractBar {
    * Sets and Returns the title area component
    *
    * @param  mixed $title the title content of the Navigator component
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function barTitle($title = null) {
     if ($title !== null) {
       $this->titleArea = new Div($title);
-      $this->titleArea->attrs()->classes()->lock('top-bar-title');
+      $this->titleArea->attrs()->classes()->protect('top-bar-title');
 
       $this->titleArea->replaceContent($title);
     } else {

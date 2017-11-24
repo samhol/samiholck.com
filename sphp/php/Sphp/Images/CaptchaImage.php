@@ -18,7 +18,6 @@ use Imagine\Gd\Imagine,
  * Implements a captha image
  *
  * @author  Sami Holck <sami.holck@gmail.com>, Simon Jarvis
- * @since   2014-09-26
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
@@ -37,7 +36,7 @@ class CaptchaImage {
 	 * @param  int $width the width of the image
 	 * @param  int $height the height of the image
 	 * @param  int $length the length of the Captha code
-	 * @return self for a fluent interface
+	 * @return $this for a fluent interface
 	 */
 	public function draw($width = 150, $height = 50, $length = 6) {
 		$code = $this->generateCode($length);
@@ -82,7 +81,7 @@ class CaptchaImage {
 	 * Saves the generated captha code to the session variable
 	 * 
 	 * @param  string $code the correct captha code
-	 * @return self for a fluent interface
+	 * @return $this for a fluent interface
 	 */
 	protected function saveCorrectCapthaCode($code) {
 		$_SESSION['security_code'] = $code;
@@ -93,7 +92,7 @@ class CaptchaImage {
 	 * Sets the path to the ttf font file
 	 * 
 	 * @param  string $fontPath the path to the ttf font file
-	 * @return self for a fluent interface
+	 * @return $this for a fluent interface
 	 */
 	public function setFontPath($fontPath) {
 		$this->font = $fontPath;

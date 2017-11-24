@@ -8,16 +8,18 @@
 namespace Sphp\MVC;
 
 use Sphp\Exceptions\RuntimeException;
+use Sphp\Stdlib\Networks\URL;
+use Zend\Stdlib\PriorityQueue;
+use Sphp\Stdlib\Datastructures\StablePriorityQueue;
 
 /**
- * Simple URL router
+ * URL router
  *
- * This it the Igniter URL Router, the layer of a web application between the
- * URL and the function executed to perform a request. The router determines
- * which function to execute for a given URL.
+ * URL Router is a web application between the URL and the function executed to 
+ * perform a request. The router determines which function to execute for a given URL.
  *
  * <code>
- * $router = new \Igniter\Router;
+ * $router = new Router;
  *
  * // Adding a basic route
  * $router->route( '/login', 'login_function' );
@@ -51,72 +53,65 @@ use Sphp\Exceptions\RuntimeException;
  * </code>
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2017-03-11
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
 class Router {
 
   /**
-   * Contains the callback function to execute, retrieved during run()
-   *
-   * @var string|array
-   */
-  private $callback = null;
-
-  /**
    * Contains the callback function to execute if none of the given routes can
    * be matched to the current URL.
    *
-   * @var atring|array
+   * @var callable
    */
-  private $default_route = null;
+  private $defaultRoute = null;
 
   /**
-   * An array containing the parameters to pass to the callback function,
-   * retrieved during run()
+   * A priority queue containing routing rules and their callback
+   * functions.
    *
-   * @var array
+   * @var PriorityQueue
    */
-  private $params = [];
-
-  /**
-   * An array containing the list of routing rules and their callback
-   * functions, as well as their priority and any additional paramters.
-   *
-   * @var array
-   */
-  private $routes = [];
+  private $routes;
 
   /**
    * A sanitized version of the URL, excluding the domain and base component
    *
    * @var string
    */
-  private $url = '';
+  private $path = '';
 
   /**
    * Constructs a new instance
    * 
    * Initializes the router by getting the URL and cleaning it.
    *
-   * @param  string|null $url optional URL to route
-   * @throws \Sphp\Exceptions\RuntimeException
+   * @param  URL|string|null $url optional URL to route
    */
   public function __construct($url = null) {
-    $this->url = static::getCleanUrl($url);
+    if ($url === null) {
+      $url = URL::getCurrent();
+    }
+    if (is_string($url)) {
+      $url = new URL($url);
+    }
+    $this->path = rtrim($url->getPath(), '/') . '/';
+    $this->routes = new PriorityQueue();
+    $this->routes->setInternalQueueClass(StablePriorityQueue::class);
   }
 
   /**
+   * Sets the callback function for the default route
+   * 
    * If the router cannot match the current URL to any of the given routes,
    * the function passed to this method will be executed instead. This would
    * be useful for displaying a 404 page for example.
    *
-   * @param  callable $callback
-   * @return self for a fluent interface
+   * @param  callable $callback the callback function for the default route
+   * @return $this for a fluent interface
    */
-  public function setDefaultRoute($callback) {
-    $this->default_route = $callback;
+  public function setDefaultRoute(callable $callback) {
+    $this->defaultRoute = $callback;
     return $this;
   }
 
@@ -126,58 +121,56 @@ class Router {
    * Tries to match one of the URL routes to the current URL, otherwise
    * execute the default function.
    *
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function execute() {
     // Whether or not we have matched the URL to a route
-    $matched_route = false;
-    // Sort the array by priority
-    ksort($this->routes);
-    // Loop through each priority level
-    foreach ($this->routes as $priority => $routes) {
-      // Loop through each route for this priority level
-      foreach ($routes as $route => $callback) {
-        // Does the routing rule match the current URL?
-        if (preg_match($route, $this->url, $matches)) {
-          // A routing rule was matched
-          $matched_route = TRUE;
-          // Parameters to pass to the callback function
-          $params = array($this->url);
-          // Get any named parameters from the route
-          foreach ($matches as $key => $match) {
-            if (is_string($key)) {
-              $params[] = $match;
-            }
+    $routeFound = false;
+    // Loop through routes
+    foreach ($this->routes as $routingData) {
+      $route = $routingData['route'];
+      $callback = $routingData['callback'];
+      // Does the routing rule match the current URL?
+      if (preg_match($route, $this->path, $matches)) {
+        // A routing rule was matched
+        $routeFound = true;
+        // Parameters to pass to the callback function
+        $params = [$this->path];
+        // echo "<pre>";
+        // var_dump($matches);
+        // echo "</pre>";
+        // Get any named parameters from the route
+        foreach ($matches as $key => $match) {
+          if (is_string($key)) {
+            $params[] = $match;
           }
-          // Store the parameters and callback function to execute later
-          $this->params = $params;
-          $this->callback = $callback;
         }
+        // execute the callback and stop
+        call_user_func_array($callback, $params);
+        break;
       }
     }
     // Was a match found or should we execute the default callback?
-    if (!$matched_route && $this->default_route !== null) {
-      $this->callback = $this->default_route;
-      $this->params = [$this->url];
+    if (!$routeFound && $this->defaultRoute !== null) {
+      call_user_func_array($this->defaultRoute, [$this->path]);
+      $routeFound = true;
     }
-    if ($this->callback === null || $this->params === null) {
-      throw new RuntimeException('No callback or parameters found for the route');
+    if (!$routeFound) {
+      throw new RuntimeException('No callback found for the route');
     }
-    call_user_func_array($this->callback, $this->params);
     return $this;
   }
 
   /**
-   * Adds a new URL routing rule to the routing table, after converting any of
-   * our special tokens into proper regular expressions.
+   * Adds a new URL routing rule to the routing table
    *
    * @param  string   $route
-   * @param  Callable $callback
+   * @param  callable $callback
    * @param  integer  $priority
-   * @return boolean
+   * @return $this for a fluent interface
    * @throws \Sphp\Exceptions\RuntimeException
    */
-  public function route($route, $callback, $priority = 10) {
+  public function route(string $route, callable $callback, int $priority = 10) {
     // Make sure the route ends in a / since all of the URLs will
     $route = rtrim($route, '/') . '/';
     // Custom capture, format: <:var_name|regex>
@@ -192,66 +185,8 @@ class Router {
     $route = preg_replace('/\<\!(.*?)\>/', '(?P<\1>[^\/]+)', $route);
     // Add the regular expression syntax to make sure we do a full match or no match
     $route = '#^' . $route . '$#';
-    // Does this URL routing rule already exist in the routing table?
-    if (isset($this->routes[$priority][$route])) {
-      // Trigger a new error and exception if errors are on
-      throw new RuntimeException('The URI "' . htmlspecialchars($route) . '" already exists in the router table');
-    }
-    // Add the route to our routing array
-    $this->routes[$priority][$route] = $callback;
-    return true;
-  }
-
-  /**
-   * Retrieves the part of the URL after the base (Calculated from the location
-   * of the main application file, such as index.php), excluding the query
-   * string. Adds a trailing slash.
-   *
-   * <code>
-   * http://localhost/projects/test/users///view/1 would return the following,
-   * assuming that /test/ was the base directory
-   *
-   * /users/view/1/
-   * </code>
-   *
-   * @param  string|null $url optional URL to to parse
-   * @return string
-   * @throws \Sphp\Exceptions\RuntimeException
-   */
-  public static function getCleanUrl($url = null) {
-    if ($url === null) {
-      // Get the current URL, differents depending on platform/server software
-      $url = filter_input(\INPUT_SERVER, 'REQUEST_URL', FILTER_SANITIZE_URL);
-      if ($url === null) {
-        $url = filter_input(\INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZE_URL);
-      } else {
-        throw new RuntimeException('URL cannot be resolved for routing');
-      }
-    }
-    // The request url might be /project/index.php, this will remove the /project part
-    //echo "$url\n";
-    //echo "SCRIPT_NAME:". $_SERVER['SCRIPT_NAME']."\n";
-    //$url = str_replace(dirname($_SERVER['SCRIPT_NAME']), '', $url);
-    //echo "$url\n";
-    // Remove the query string if there is one
-    $query_string = strpos($url, '?');
-    if ($query_string !== false) {
-      $url = substr($url, 0, $query_string);
-      //echo "$url\n";
-    }
-    $scriptName = basename(filter_input(\INPUT_SERVER, 'SCRIPT_NAME', FILTER_SANITIZE_STRING));
-    // If the URL looks like http://localhost/index.php/path/to/folder remove /index.php
-    if (substr($url, 1, strlen($scriptName)) == $scriptName) {
-      $url = substr($url, strlen($scriptName) + 1);
-      //echo "$url\n";
-    }
-    // Make sure the URI ends in a /
-    $url = rtrim($url, '/') . '/';
-    //echo "$url\n";
-    // Replace multiple slashes in a url, such as /my//dir/url
-    $url = preg_replace('/\/+/', '/', $url);
-    //echo "$url\n";
-    return $url;
+    $this->routes->insert(['route' => $route, 'callback' => $callback], $priority);
+    return $this;
   }
 
 }

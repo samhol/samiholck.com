@@ -14,10 +14,7 @@ use Sphp\Html\Programming\ScriptsContainer;
 /**
  * Implements an HTML &lt;html&gt; tag
  *
- * {@inheritdoc}
- *
  * @author Sami Holck <sami.holck@gmail.com>
- * @since   2013-02-25
  * @link    http://www.w3schools.com/tags/tag_html.asp w3schools HTML API
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
@@ -52,7 +49,7 @@ class Html extends AbstractComponent implements IteratorAggregate, TraversableIn
    * @param string|null $charset optional character encoding of the document (defaults to: "UTF-8")
    * @param string|null $lang optional body content
    */
-  public function __construct($title = null, $charset = 'UTF-8', $lang = null) {
+  public function __construct(string $title = null, string $charset = 'UTF-8', string $lang = null) {
     parent::__construct('html');
     $this->head = new Head($title, $charset);
     $this->body = new Body();
@@ -98,10 +95,10 @@ class Html extends AbstractComponent implements IteratorAggregate, TraversableIn
    * Specifies the MIME type of the script
    *
    * @param  string $language the language of the document 
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @link   http://www.w3schools.com/tags/att_lang.asp lang attribute
    */
-  public function setLanguage($language) {
+  public function setLanguage(string $language) {
     $this->attrs()->set('lang', $language);
     return $this;
   }
@@ -110,7 +107,7 @@ class Html extends AbstractComponent implements IteratorAggregate, TraversableIn
    * Sets the title of the html page
    *
    * @param  string|Title $title the title of the html page
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setDocumentTitle($title) {
     $this->head->setDocumentTitle($title);
@@ -120,7 +117,7 @@ class Html extends AbstractComponent implements IteratorAggregate, TraversableIn
   /**
    * Sets up the SPHP framework related JavaScript and CSS files
    *
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function enableSPHP() {
     $this->head->enableSPHP();
@@ -159,7 +156,7 @@ class Html extends AbstractComponent implements IteratorAggregate, TraversableIn
 
   /**
    * 
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function startBody() {
     echo $this->getBodyStart();
@@ -177,7 +174,7 @@ class Html extends AbstractComponent implements IteratorAggregate, TraversableIn
   /**
    * 
    * 
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function documentClose() {
     echo $this->getDocumentClose();
@@ -201,24 +198,25 @@ class Html extends AbstractComponent implements IteratorAggregate, TraversableIn
     return $this;
   }
 
-  public function appendMd($md) {
+  public function appendMd(string $md) {
     $this->body->appendMd($md);
     return $this;
   }
 
-  public function appendMdFile($path) {
+  public function appendMdFile(string $path) {
     $this->body->appendMdFile($path);
     return $this;
   }
 
-  public function appendPhpFile($path) {
+  public function appendPhpFile(string $path) {
     $this->body->appendPhpFile($path);
     return $this;
   }
 
-  public function appendRawFile($path) {
+  public function appendRawFile(string $path) {
     $this->body->appendRawFile($path);
     return $this;
   }
 
 }
+

@@ -16,7 +16,6 @@ use Sphp\Html\Adapters\QtipAdapter;
  * Hyperlink generator pointing to an existing API documentation
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2014-11-29
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
@@ -52,10 +51,12 @@ abstract class AbstractLinker implements LinkerInterface {
    * @link  http://www.w3schools.com/tags/att_a_target.asp target attribute
    * @link  http://www.w3schools.com/tags/att_global_class.asp CSS class attribute
    */
-  public function __construct(UrlGeneratorInterface $urlGenerator, $defaultTarget = null, $defaultCssClasses = null) {
+  public function __construct(UrlGeneratorInterface $urlGenerator, string $defaultTarget = null, $defaultCssClasses = null) {
     $this->urlGenerator = $urlGenerator;
     $this->setDefaultCssClasses($defaultCssClasses);
-    $this->setDefaultTarget($defaultTarget);
+    if ($defaultTarget !== null) {
+      $this->setDefaultTarget($defaultTarget);
+    }
   }
 
   /**
@@ -96,7 +97,7 @@ abstract class AbstractLinker implements LinkerInterface {
     return $this->hyperlink($url, $content, $title);
   }
 
-  public function urls() {
+  public function urls(): UrlGeneratorInterface {
     return $this->urlGenerator;
   }
 
@@ -110,11 +111,11 @@ abstract class AbstractLinker implements LinkerInterface {
 
   /**
    * 
-   * @param  string|null $target
-   * @return self for a fluent interface
+   * @param  string $target
+   * @return $this for a fluent interface
    * @link   http://www.w3schools.com/tags/att_a_target.asp target attribute
    */
-  public function setDefaultTarget($target) {
+  public function setDefaultTarget(string $target) {
     $this->target = $target;
     return $this;
   }
@@ -133,7 +134,7 @@ abstract class AbstractLinker implements LinkerInterface {
    * Sets the default CSS classes for the generated links
    *
    * @param  string|null $defaultCssClasses the default CSS classes for the generated links
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @link   http://www.w3schools.com/tags/att_global_class.asp CSS class attribute
    */
   public function setDefaultCssClasses($defaultCssClasses = null) {
@@ -144,12 +145,12 @@ abstract class AbstractLinker implements LinkerInterface {
   /**
    * Sets the default target and CSS classes to the hyperlink component
    * 
-   * @param  HyperlinkInterface $a the hyperlink component to modify
-   * @return HyperlinkInterface returns the modified component
+   * @param  Hyperlink $a the hyperlink component to modify
+   * @return Hyperlink returns the modified component
    * @link   http://www.w3schools.com/tags/att_a_target.asp target attribute
    * @link   http://www.w3schools.com/tags/att_global_class.asp CSS class attribute
    */
-  public function insertDefaults(HyperlinkInterface $a) {
+  public function insertDefaults(Hyperlink $a): Hyperlink {
     if ($this->target !== null) {
       $a->setTarget($this->target);
     }
@@ -159,9 +160,9 @@ abstract class AbstractLinker implements LinkerInterface {
     return $a;
   }
 
-  public function hyperlink($url = null, $content = null, $title = null) {
-    if ($url === null) {
-      $url = $this->urls()->getRoot();
+  public function hyperlink(string $url = null, string $content = null, string $title = null): Hyperlink {
+    if (!\Sphp\Stdlib\Strings::startsWith("$url", $this->urls()->getRoot())) {
+      $url = $this->urls()->create("$url");
     }
     if ($content === null) {
       $content = $url;

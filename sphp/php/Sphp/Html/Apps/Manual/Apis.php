@@ -17,47 +17,43 @@ use Sphp\Html\Apps\Manual\PHPManual\PHPManual;
  * A factory for API manual linkers
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2014-11-29
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
 class Apis {
 
   /**
-   *
    * @var Sami[] 
    */
   private static $samis = [];
 
   /**
-   *
    * @var ApiGen[] 
    */
   private static $apigens = [];
 
   /**
-   *
    * @var PHPManual
    */
   private static $phpManual;
 
   /**
-   *
-   * @var W3schools[] 
+   * @var FoundationDocsLinker
+   */
+  private static $foundation;
+
+  /**
+   * @var W3schools
    */
   private static $w3schools;
-  
-  
+
   /**
    * 
    * @param  string $path
    * @param  string|null $target
-   * @return ApiGen
+   * @return ApiGen singleton API linker
    */
-  public static function sami($path = 'API/sami/', $target = "sami") {
-    if ($path === null) {
-      $path = DEFAULT_APIGEN;
-    }
+  public static function sami(string $path = 'API/sami/', string $target = 'sami'): Sami {
     if (!array_key_exists($path, self::$samis)) {
       $instance = new Sami(new SamiUrlGenerator($path), $target);
       self::$apigens[$path] = $instance;
@@ -69,12 +65,13 @@ class Apis {
   }
 
   /**
+   * Returns a singleton instance of ApiGen API linker
    * 
    * @param  string $path
    * @param  string|null $target
-   * @return ApiGen
+   * @return ApiGen singleton API linker
    */
-  public static function apigen($path = '', $target = "apigen") {
+  public static function apigen(string $path = '', string $target = 'apigen'): ApiGen {
     if ($path === null) {
       $path = DEFAULT_APIGEN;
     }
@@ -89,10 +86,11 @@ class Apis {
   }
 
   /**
+   * Returns a singleton instance of PHPManual API linker
    * 
-   * @return PHPManual
+   * @return PHPManual singleton API linker
    */
-  public static function phpManual($target = 'phpman') {
+  public static function phpManual(string $target = 'phpman'): PHPManual {
     if (self::$phpManual === null) {
       self::$phpManual = (new PHPManual($target));
     } else {
@@ -103,21 +101,26 @@ class Apis {
   }
 
   /**
+   * Returns a singleton instance of Foundation for sites API linker
    * 
-   * @return FoundationDocsLinker
+   * @return FoundationDocsLinker singleton API linker
    */
-  public static function foundation() {
-    return FoundationDocsLinker::get();
+  public static function foundation($target = '_blank') {
+    if (self::$foundation === null) {
+      self::$foundation = new FoundationDocsLinker($target);
+    }
+    return self::$foundation;
   }
 
   /**
+   * Returns a singleton instance of W3schools API linker
    * 
-   * @return W3schools
+   * @return W3schools singleton API linker
    */
-  public static function w3schools($target = 'w3schools') {
+  public static function w3schools($target = 'w3schools'): W3schools {
     if (self::$w3schools === null) {
       self::$w3schools = new W3schools($target);
-    }else {
+    } else {
       self::$w3schools->setDefaultTarget($target);
     }
     return self::$w3schools;

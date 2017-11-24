@@ -11,11 +11,10 @@ namespace Sphp\Stdlib;
  * Utility class for multibyte string operations
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2011-09-22
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
-class Strings {
+abstract class Strings {
 
   /**
    * Performs a regular expression match
@@ -26,7 +25,7 @@ class Strings {
    *         Defaults to `mb_internal_encoding()`
    * @return boolean true if string matches to the regular expression, false otherwise
    */
-  public static function match(string $string, string $pattern, $encoding = null): bool {
+  public static function match(string $string, string $pattern, string $encoding = null): bool {
     //$regexEncoding = mb_regex_encoding();
     //echo "regexEncoding:($regexEncoding)\n";
     //\mb_regex_encoding(self::getEncoding($encoding));
@@ -80,7 +79,7 @@ class Strings {
    *         Defaults to `mb_internal_encoding()`
    * @return string string reversed string 
    */
-  public static function reverse(string $string, $encoding = null): string {
+  public static function reverse(string $string, string $encoding = null): string {
     $strLength = static::length($string, $encoding);
     $reversed = '';
     for ($i = $strLength - 1; $i >= 0; $i--) {
@@ -99,7 +98,7 @@ class Strings {
    * @param  int $limit optional maximum number of results to return
    * @return string[] an array of strings
    */
-  public static function split(string $string, string $pattern, int $limit = -1, $encoding = null): array {
+  public static function split(string $string, string $pattern, int $limit = -1, string $encoding = null): array {
     if ($limit === 0) {
       return array();
     }
@@ -118,7 +117,7 @@ class Strings {
    *         Defaults to `mb_internal_encoding()`
    * @return string[] lines from input string as an array of strings
    */
-  public static function lines(string $string, $encoding = null): array {
+  public static function lines(string $string, string $encoding = null): array {
     $array = static::split($string, '[\r\n]{1,2}', -1, $encoding);
     return $array;
   }
@@ -134,7 +133,7 @@ class Strings {
    *         Defaults to `mb_internal_encoding()`
    * @return string trimmed string 
    */
-  public static function trim(string $string, string $charMask = null, $encoding = null): string {
+  public static function trim(string $string, string $charMask = null, string $encoding = null): string {
     $chars = ($charMask) ? preg_quote($charMask) : '[:space:]';
     return static::regexReplace($string, "^[$chars]+|[$chars]+$", '', 'msr', static::getEncoding($encoding));
   }
@@ -151,7 +150,7 @@ class Strings {
    *         Defaults to `mb_internal_encoding()`
    * @return string trimmed string 
    */
-  public static function trimLeft(string $string, string $charMask = null, $encoding = null): string {
+  public static function trimLeft(string $string, string $charMask = null, string $encoding = null): string {
     $chars = ($charMask) ? preg_quote($charMask) : '[:space:]';
     return static::regexReplace($string, "^[$chars]+", '', 'msr', static::getEncoding($encoding));
   }
@@ -168,7 +167,7 @@ class Strings {
    *         Defaults to `mb_internal_encoding()`
    * @return string trimmed string 
    */
-  public static function trimRight(string $string, string $charMask = null, $encoding = null): string {
+  public static function trimRight(string $string, string $charMask = null, string $encoding = null): string {
     $chars = ($charMask) ? preg_quote($charMask) : '[:space:]';
     return static::regexReplace($string, "[$chars]+$", '', 'msr', static::getEncoding($encoding));
   }
@@ -185,7 +184,7 @@ class Strings {
    *         Defaults to `mb_internal_encoding()`
    * @return string the trimmed string
    */
-  public static function collapseWhitespace(string $string, $encoding = null): string {
+  public static function collapseWhitespace(string $string, string $encoding = null): string {
     $enc = self::getEncoding($encoding);
     $collapsed = static::regexReplace($string, '[[:space:]]+', ' ', 'msr', $enc);
     return static::trim($collapsed, null, $enc);
@@ -200,7 +199,7 @@ class Strings {
    *         Defaults to `mb_internal_encoding()`
    * @return boolean true if needle was found from the haystack string, false otherwise
    */
-  public static function contains(string $haystack, string $needle, $encoding = null): bool {
+  public static function contains(string $haystack, string $needle, string $encoding = null): bool {
     return (mb_stripos($haystack, $needle, 0, self::getEncoding($encoding)) !== false);
   }
 
@@ -213,12 +212,12 @@ class Strings {
    *         Defaults to `mb_internal_encoding()`
    * @return bool whether or not the haystack contains $needle
    */
-  public static function containsAll(string $haystack, array $needles, $encoding = null): bool {
+  public static function containsAll(string $haystack, array $needles, string $encoding = null): bool {
     if (empty($needles)) {
       return false;
     } else {
       foreach ($needles as $needle) {
-        if (!self::contains($haystack, $needle, $encoding)) {
+        if (!self::contains($haystack, (string) $needle, $encoding)) {
           return false;
         }
       }
@@ -275,7 +274,7 @@ class Strings {
         if (static::endsWith($haystack, $value)) {
           return true;
         }
-      } 
+      }
       return false;
     }
     if ($needle === '') {
@@ -295,7 +294,7 @@ class Strings {
    *                Defaults to `mb_internal_encoding()`
    * @return string|null the character at $index or null if the index does not exist
    */
-  public static function charAt(string $string, int $index, $encoding = null) {
+  public static function charAt(string $string, int $index, string $encoding = null) {
     $length = static::length($string, $encoding);
     $result = null;
     if ($index >= 0 && $length > $index) {
@@ -312,7 +311,7 @@ class Strings {
    *                Defaults to `mb_internal_encoding()`
    * @return array an array of string chars
    */
-  public static function chars(string $string, $encoding = null): array {
+  public static function chars(string $string, string $encoding = null): array {
     $enc = self::getEncoding($encoding);
     $length = static::length($string, $enc);
     $chars = array();
@@ -335,7 +334,7 @@ class Strings {
    *                Defaults to `mb_internal_encoding()`
    * @return int|bool The occurrence's index if found, otherwise false
    */
-  public static function indexOf($string, $needle, $offset = 0, $encoding = null) {
+  public static function indexOf(string $string, $needle, int $offset = 0, string $encoding = null) {
     $enc = self::getEncoding($encoding);
     return \mb_strpos($string, (string) $needle, (int) $offset, $enc);
   }
@@ -353,7 +352,7 @@ class Strings {
    *                Defaults to `mb_internal_encoding()`
    * @return string Object whose $str has been converted to an URL slug
    */
-  public static function between(string $string, $start, $end, $offset = 0, $encoding = null) {
+  public static function between(string $string, $start, $end, $offset = 0, string $encoding = null) {
     $enc = self::getEncoding($encoding);
     $startIndex = static::indexOf($string, $start, $offset, $encoding);
     if ($startIndex === false) {
@@ -385,23 +384,8 @@ class Strings {
    *                Defaults to `mb_internal_encoding()`
    * @return int the length of the given string
    */
-  public static function length(string $str, $encoding = null): int {
+  public static function length(string $str, string $encoding = null): int {
     return mb_strlen($str, self::getEncoding($encoding));
-  }
-
-  /**
-   * Determines if the string length is on a given closed interval
-   *
-   * @param  string $str checked string
-   * @param  int $lower lower limit
-   * @param  int $upper upper limit
-   * @param  string|null $encoding the character encoding parameter;
-   *                Defaults to `mb_internal_encoding()`
-   * @return boolean true if the string length is on a given closed interval, false otherwise.
-   */
-  public static function lengthBetween(string $str, int $lower, int $upper, $encoding = null): bool {
-    $length = self::length($str, $encoding);
-    return ($lower <= $length && $length <= $upper);
   }
 
   /**
@@ -412,7 +396,7 @@ class Strings {
    *                Defaults to `mb_internal_encoding()`
    * @return bool returns true if the string contains only alphabetic chars, false otherwise.
    */
-  public static function isAlpha(string $string, $encoding = null): bool {
+  public static function isAlpha(string $string, string $encoding = null): bool {
     return self::match($string, '/^[[:alpha:]]*$/', $encoding);
   }
 
@@ -424,7 +408,7 @@ class Strings {
    *                Defaults to `mb_internal_encoding()`
    * @return bool returns true if the string contains only alphanumeric chars, false otherwise
    */
-  public static function isAlphanumeric(string $string, $encoding = null): bool {
+  public static function isAlphanumeric(string $string, string $encoding = null): bool {
     return self::match($string, '/^[[:alnum:]]*$/', $encoding);
   }
 
@@ -436,7 +420,7 @@ class Strings {
    *                Defaults to `mb_internal_encoding()`
    * @return bool returns true if the string contains only whitespace chars, false otherwise
    */
-  public static function isBlank(string $string, $encoding = null): bool {
+  public static function isBlank(string $string, string $encoding = null): bool {
     return self::match($string, '^[[:space:]]*$', $encoding);
   }
 
@@ -444,12 +428,14 @@ class Strings {
    * Checks whether or not the input string contains only hexadecimal chars
    *
    * @param  string $string checked string
-   * @param  string|null $encoding the character encoding parameter;
-   *                Defaults to `mb_internal_encoding()`
    * @return bool returns true if the string contains only hexadecimal chars, false otherwise
    */
-  public static function isHexadecimal(string $string, $encoding = null): bool {
-    return self::match($string, '/^[[:xdigit:]]*$/', $encoding);
+  public static function isHexadecimal(string $string): bool {
+    return self::match($string, '/^[[:xdigit:]]*$/');
+  }
+
+  public static function isBinary(string $string): bool {
+    return self::match($string, '/^[0-1]+$/');
   }
 
   /**
@@ -463,7 +449,7 @@ class Strings {
    *                Defaults to `mb_internal_encoding()`
    * @return bool true if the string is JSON, false otherwise
    */
-  public static function isJson(string $string, $encoding = null): bool {
+  public static function isJson(string $string, string $encoding = null): bool {
     if (!static::length($string, $encoding)) {
       return false;
     }
@@ -479,7 +465,7 @@ class Strings {
    *                Defaults to `mb_internal_encoding()`
    * @return bool returns true if the string contains only upper chars, false otherwise
    */
-  public static function isUpperCase(string $string, $encoding = null): bool {
+  public static function isUpperCase(string $string, string $encoding = null): bool {
     return static::toUpperCase($string, $encoding) == $string;
   }
 
@@ -491,7 +477,7 @@ class Strings {
    *                Defaults to `mb_internal_encoding()`
    * @return string input string with all characters being uppercase
    */
-  public static function toUpperCase(string $string, $encoding = null): string {
+  public static function toUpperCase(string $string, string $encoding = null): string {
     return \mb_strtoupper($string, static::getEncoding($encoding));
   }
 
@@ -503,7 +489,7 @@ class Strings {
    *                Defaults to `mb_internal_encoding()`
    * @return bool returns true if the string contains only lower chars, false otherwise
    */
-  public static function isLowerCase(string $string, $encoding = null): bool {
+  public static function isLowerCase(string $string, string $encoding = null): bool {
     return static::toLowerCase($string, $encoding) == $string;
   }
 
@@ -520,16 +506,6 @@ class Strings {
   }
 
   /**
-   * Checks whether or not the input string is serialized
-   *
-   * @param  string $string checked string
-   * @return bool returns true if the string is serialized, false otherwise
-   */
-  public static function isSerialized(string $string): bool {
-    return $string === 'b:0;' || @unserialize($string) !== false;
-  }
-
-  /**
    * Returns a random string for non cryptographic purposes
    *
    * @param  int $length the length of the string
@@ -539,12 +515,22 @@ class Strings {
     return str_shuffle(substr(str_repeat(md5(mt_rand()), 2 + $length / 32), 0, $length));
   }
 
+  public static function randomize(string $characters, int $length = 16): string {
+    //$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $charactersLength = strlen($characters);
+    $randomString = '';
+    for ($i = 0; $i < $length; $i++) {
+      $randomString .= $characters[rand(0, $charactersLength - 1)];
+    }
+    return $randomString;
+  }
+
   /**
    * 
    * @param  string|null $encoding
    * @return string
    */
-  public static function getEncoding($encoding = null): string {
+  public static function getEncoding(string $encoding = null): string {
     if ($encoding === null) {
       $encoding = \mb_internal_encoding();
     }
@@ -605,66 +591,65 @@ class Strings {
   }
 
   /**
-   * Converts each tab in the string to given number of spaces
-   * 
-   * By default, each tab is converted to `4` consecutive spaces.
-   *
-   * @param  string $string the input string
-   * @param  int $tabLength Number of spaces to replace each tab with
-   * @return string a string whose tabs are switched to spaces
-   */
-  public static function toSpaces(string $string, int $tabLength = 4): string {
-    $spaces = str_repeat(' ', $tabLength);
-    return str_replace('\t', $spaces, $string);
-  }
-
-  /**
-   * Converts each occurrence of given consecutive number of spaces  to a tab
-   * 
-   * By default, each `4` consecutive spaces are converted to a tab.
-   *
-   * @param  string $string the input string
-   * @param  int $tabLength Number of spaces to replace with a tab
-   * @return string A string whose spaces are switched to tabs
-   */
-  public static function toTabs(string $string, int $tabLength = 4): string {
-    $spaces = str_repeat(' ', $tabLength);
-    return str_replace($spaces, "\t", $string);
-  }
-
-  /**
-   * Converts the first character of each word in the string to uppercase
-   *
-   * @param  string $string the input string
-   * @param  string|null $encoding the character encoding parameter;
-   *                Defaults to `mb_internal_encoding()`
-   * @return string input string with all characters being title-cased
-   */
-  public static function toTitleCase(string $string, $encoding = null): string {
-    return \mb_convert_case($string, \MB_CASE_TITLE, static::getEncoding($encoding));
-  }
-
-  /**
    * Forces a string representation from any type of input parameter
    *
    * @param  mixed $var input parameter
    * @return string a string representation of the input parameter
    */
   public static function toString($var): string {
+    $output = '';
     if (is_array($var)) {
-      return print_r($var, true);
+      $output = print_r($var, true);
     } else if (is_object($var)) {
       if (method_exists($var, '__toString')) {
-        return $var->__toString();
+        $output = "$var";
       } else {
-        return get_class($var);
+        $output = get_class($var);
       }
-    }
-    if (is_float($var)) {
-      return sprintf('%0.0f', $var);
+    } else if (is_float($var)) {
+      $output = sprintf('%0.0f', $var);
     } else {
-      return strval($var);
+      $output = strval($var);
     }
+    return $output;
+  }
+
+  /**
+   * Forces a string representation from any type of input parameter
+   *
+   * @param  mixed $var the variable to check
+   * @return booltrue if the variable has a string representation
+   */
+  public static function hasStringRepresentation($var): bool {
+    if ($var === null || is_scalar($var)) {
+      return true;
+    } else if (is_object($var) && method_exists($var, '__toString')) {
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * Parses the given flags type to an integer
+   * 
+   * @param  int|string|BitMask $flags the flags
+   * @return int parsed flags value
+   * @throws InvalidArgumentException if the value given can not be parsed
+   */
+  public static function parseInt(string $flags): int {
+    if (static::isHexadecimal($flags)) {
+      $flags = str_replace(['#', '0x'], '', $flags);
+      $result = hexdec($flags);
+    } else if (static::isBinary($flags)) {
+      $flags = str_replace(['0b'], '', $flags);
+      $result = bindec($flags);
+    } else {
+      $result = intval($flags, 10);
+    }
+    if ($result > PHP_INT_MAX) {
+      throw new InvalidArgumentException("Value cannot be parsed to integer");
+    }
+    return (int) $result;
   }
 
   /**

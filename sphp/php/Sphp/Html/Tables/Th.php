@@ -12,12 +12,7 @@ namespace Sphp\Html\Tables;
  * 
  * This component defines a header cell in a {@link Table} component
  *
- *
- * {@inheritdoc}
- *
- *
  * @author Sami Holck <sami.holck@gmail.com>
- * @since   2012-08-28
  * @link http://www.w3schools.com/tags/tag_th.asp w3schools HTML API
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
@@ -58,7 +53,7 @@ class Th extends Cell {
    *
    * @precondition  $scope == row|col|rowgroup|colgroup
    * @param  string $scope the value of the scope attribute
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @link   http://www.w3schools.com/tags/att_th_scope.asp scope attribute
    */
   public function setScope(string $scope) {

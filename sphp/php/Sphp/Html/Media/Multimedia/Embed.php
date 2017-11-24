@@ -8,8 +8,8 @@
 namespace Sphp\Html\Media\Multimedia;
 
 use Sphp\Html\EmptyTag;
-use Sphp\Html\Media\LazyMediaInterface;
-use Sphp\Html\Media\SizeableInterface;
+use Sphp\Html\Media\LazyMedia;
+use Sphp\Html\Media\SizeableMedia;
 
 /**
  * Implements an HTML &lt;embed&gt; tag
@@ -17,15 +17,13 @@ use Sphp\Html\Media\SizeableInterface;
  * This component defines a container for an external application or
  * interactive content (a plug-in).
  *
- * {@inheritdoc}
- *
  * @author  Sami Holck <sami.holck@gmail.com>
  * @link    http://www.w3schools.com/tags/tag_embed.asp w3schools API
  * @link    http://www.w3.org/html/wg/drafts/html/master/embedded-content.html#the-img-element W3C API
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
-class Embed extends EmptyTag implements LazyMediaInterface, SizeableInterface {
+class Embed extends EmptyTag implements LazyMedia, SizeableMedia {
 
   use \Sphp\Html\Media\SizeableTrait,
       \Sphp\Html\Media\LazyMediaSourceTrait;
@@ -55,7 +53,7 @@ class Embed extends EmptyTag implements LazyMediaInterface, SizeableInterface {
    * embedded content.
    *
    * @param  string $type the MIME type of the embedded component
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @link   http://www.w3schools.com/tags/att_embed_type.asp type attribute
    */
   public function setType(string $type) {
@@ -73,7 +71,7 @@ class Embed extends EmptyTag implements LazyMediaInterface, SizeableInterface {
    * @link  http://www.w3schools.com/tags/att_embed_type.asp type attribute
    */
   public function getType() {
-    return $this->attrs()->get('type');
+    return $this->attrs()->getValue('type');
   }
 
 }

@@ -7,8 +7,6 @@
 
 namespace Sphp\Html;
 
-use Sphp\Stdlib\URL;
-
 /**
  * Defines the functionality of an Ajax content loader component
  * 
@@ -21,7 +19,6 @@ use Sphp\Stdlib\URL;
  *    document is discarded.
  * 
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2015-08-11
  * @link    http://api.jquery.com/load/ jQuery load()
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
@@ -34,8 +31,8 @@ interface AjaxLoaderInterface {
    * **Important note:** 
    * This method overrides all previous calls of {@link AjaxLoaderInterface} methods.
    *
-   * @param  string|URL $url the URL to which the request is sent
-   * @return self for a fluent interface
+   * @param  string $url the URL to which the request is sent
+   * @return $this for a fluent interface
    */
   public function ajaxPrepend(string $url);
 
@@ -45,8 +42,8 @@ interface AjaxLoaderInterface {
    * **Important note:** 
    * This method overrides all previous calls of {@link AjaxLoaderInterface} methods.
    *
-   * @param  string|URL $url the URL to which the request is sent
-   * @return self for a fluent interface
+   * @param  string $url the URL to which the request is sent
+   * @return $this for a fluent interface
    */
   public function ajaxAppend(string $url);
 }

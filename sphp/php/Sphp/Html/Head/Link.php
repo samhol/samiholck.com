@@ -7,7 +7,7 @@
 
 namespace Sphp\Html\Head;
 
-use Sphp\Html\NonVisualContentInterface;
+use Sphp\Html\NonVisualContent;
 use Sphp\Html\EmptyTag;
 use Sphp\Stdlib\Strings;
 
@@ -18,15 +18,12 @@ use Sphp\Stdlib\Strings;
  *  external resource. The &lt;link&gt; tag is most used to link to style
  *  sheets.
  *
- * {@inheritdoc}
- *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2013-02-03
  * @link    http://www.w3schools.com/tags/tag_link.asp w3schools HTML API
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
-class Link extends EmptyTag implements HeadComponentInterface, NonVisualContentInterface {
+class Link extends EmptyTag implements HeadContent, NonVisualContent {
 
   /**
    * Constructs a new instance
@@ -38,7 +35,7 @@ class Link extends EmptyTag implements HeadComponentInterface, NonVisualContentI
    * @link   http://www.w3schools.com/tags/att_link_rel.asp rel attribute
    * @link   http://www.w3schools.com/tags/att_link_media.asp media attribute
    */
-  public function __construct(string $href = '', string $rel = 'stylesheet', string $media = 'screen') {
+  public function __construct(string $href = null, string $rel = null, string $media = null) {
     parent::__construct('link');
     $this->attrs()->demand('rel');
     if ($href !== null) {
@@ -61,7 +58,7 @@ class Link extends EmptyTag implements HeadComponentInterface, NonVisualContentI
    *
    * @param  string $href the location of the linked document
    * @param  boolean $encode converts all applicable characters of the $url to HTML entities
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @link   http://www.w3schools.com/tags/att_link_href.asp href attribute
    */
   public function setHref(string $href, bool $encode = true) {
@@ -73,7 +70,7 @@ class Link extends EmptyTag implements HeadComponentInterface, NonVisualContentI
   }
 
   /**
-   * Returns the value of the href attribute
+   * Returns the location of the linked document
    *
    * **Notes:**
    * 
@@ -84,13 +81,13 @@ class Link extends EmptyTag implements HeadComponentInterface, NonVisualContentI
    * @link   http://www.w3schools.com/tags/att_link_href.asp href attribute
    */
   public function getHref() {
-    return $this->attrs()->get('href');
+    return $this->attrs()->getValue('href');
   }
 
   /**
-   * Sets the value of the rel attribute
+   * Sets the relationship between the current document and the linked one
    *
-   * **Notes:** The required rel attribute specifies the relationship
+   * **Notes:** The rel attribute specifies the relationship
    *  between the current document and the linked document/resource.
    *
    * **Values:**
@@ -110,7 +107,7 @@ class Link extends EmptyTag implements HeadComponentInterface, NonVisualContentI
    * * `stylesheet` URL to a style sheet to import
    *
    * @param  string $rel the relationship between the current document and the linked one
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @link   http://www.w3schools.com/tags/att_link_rel.asp rel attribute
    */
   public function setRel(string $rel) {
@@ -119,9 +116,9 @@ class Link extends EmptyTag implements HeadComponentInterface, NonVisualContentI
   }
 
   /**
-   * Returns the value of the rel attribute
+   * Returns the relationship between the current document and the linked one
    *
-   * **Notes:** The required rel attribute specifies the relationship
+   * **Notes:** The rel attribute specifies the relationship
    *  between the current document and the linked document/resource.
    *
    * **Values:**
@@ -143,18 +140,18 @@ class Link extends EmptyTag implements HeadComponentInterface, NonVisualContentI
    * @return string the relationship between the current document and the linked one
    * @link   http://www.w3schools.com/tags/att_link_rel.asp rel attribute
    */
-  public function getRel() {
-    return $this->attrs()->get('rel');
+  public function getRel(): string {
+    return $this->attrs()->getValue('rel');
   }
 
   /**
-   * Sets the value of the type attribute
+   * Sets the MIME type of the linked document
    *
    * **Notes:** The type attribute specifies the MIME type of the linked
    *  document.
    *
    * @param  string $type the MIME type of the linked document
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @link   http://www.w3schools.com/tags/att_link_type.asp type attribute
    * @link   http://www.iana.org/assignments/media-types complete list of standard MIME types
    */
@@ -164,7 +161,7 @@ class Link extends EmptyTag implements HeadComponentInterface, NonVisualContentI
   }
 
   /**
-   * Returns the value of the type attribute
+   * Returns the MIME type of the linked document
    *
    * **Note:** The type attribute specifies the MIME type of the linked
    *  document.
@@ -174,11 +171,11 @@ class Link extends EmptyTag implements HeadComponentInterface, NonVisualContentI
    * @link   http://www.iana.org/assignments/media-types complete list of standard MIME types
    */
   public function getType() {
-    return $this->attrs()->get('type');
+    return $this->attrs()->getValue('type');
   }
 
   /**
-   * Sets the value of the media attribute
+   * Sets what media/device the target resource is optimized for
    *
    * **Notes:**
    *
@@ -189,7 +186,7 @@ class Link extends EmptyTag implements HeadComponentInterface, NonVisualContentI
    * * The media attribute can accept several values.
    *
    * @param  string $media what media/device the target resource is optimized for
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @link   http://www.w3schools.com/tags/att_link_media.asp media attribute
    */
   public function setMedia(string $media) {
@@ -204,7 +201,7 @@ class Link extends EmptyTag implements HeadComponentInterface, NonVisualContentI
    *
    * * The media attribute specifies what media/device the target resource
    *   is optimized for.
-   * * This attribute is mostly used with CSS stylesheets to specify
+   * * This attribute is mostly used with CSS style sheets to specify
    *   different styles for different media types.
    * * The media attribute can accept several values.
    *
@@ -212,21 +209,21 @@ class Link extends EmptyTag implements HeadComponentInterface, NonVisualContentI
    * @link   http://www.w3schools.com/tags/att_link_media.asp media attribute
    */
   public function getMedia() {
-    return $this->attrs()->get('media');
+    return $this->attrs()->getValue('media');
   }
 
   /**
-   * Adds an link tag which points to a CSS stylesheet file to the object
+   * Adds an link which points to a CSS style sheet file to the object
    *
    * @param  string $href an absolute URL that acts as the base URL
    * @param  string $media the relationship between the current document and the linked one
    * @param  string $media what media/device the target resource is optimized for
-   * @return self new object
+   * @return Link new object
    * @link   http://www.w3schools.com/tags/att_link_href.asp href attribute
    * @link   http://www.w3schools.com/tags/att_link_media.asp media attribute
    */
-  public static function cssSrc($href, $media = 'screen') {
-    return (new Link($href, 'stylesheet', $media))->setType('text/css');
+  public static function cssSrc(string $href, string $media = 'screen'): Link {
+    return (new static($href, 'stylesheet', $media))->setType('text/css');
   }
 
   /**
@@ -234,13 +231,13 @@ class Link extends EmptyTag implements HeadComponentInterface, NonVisualContentI
    *
    * @param  string $href an absolute URL that acts as the base URL
    * @param  string $type the MIME type of the linked document
-   * @return self new object
+   * @return Link new object
    * @link   http://www.w3schools.com/tags/att_link_href.asp href attribute
    * @link   http://www.w3schools.com/tags/att_link_type.asp type attribute
    * @link   http://www.iana.org/assignments/media-types complete list of standard MIME types
    */
-  public static function shortcutIcon(string $href, string $type = 'image/x-icon') {
-    $link = new static($href, 'icon');
+  public static function shortcutIcon(string $href, string $type = 'image/x-icon'): Link {
+    $link = new static($href, 'icon', 'screen');
     $link->setType($type);
     return $link;
   }

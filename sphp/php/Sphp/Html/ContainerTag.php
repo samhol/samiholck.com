@@ -12,10 +12,7 @@ use InvalidArgumentException;
 /**
  * Class is the base class for all HTML tag components acting as HTML component containers
  *
- * {@inheritdoc}
- *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2011-05-03
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
@@ -35,7 +32,7 @@ class ContainerTag extends AbstractContainerTag {
    * @throws InvalidArgumentException if the tagname is not valid
    * @link   http://www.php.net/manual/en/language.oop5.magic.php#object.tostring __toString() method
    */
-  public function __construct($tagName, $content = null) {
+  public function __construct(string $tagName, $content = null) {
     parent::__construct($tagName);
     if ($content !== null) {
       $this->append($content);

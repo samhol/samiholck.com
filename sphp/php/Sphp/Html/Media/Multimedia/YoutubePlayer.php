@@ -33,20 +33,21 @@ class YoutubePlayer extends AbstractVideoPlayer {
     } else {
       
     }
-    $this->cssClasses()->lock('youtube-player');
-    $this->attrs()->lock('type', 'text/html');
+    $this->cssClasses()->protect('youtube-player');
+    //$this->attrs()->lock('type', 'text/html');
   }
 
   /**
    * 
    * @param  string $playlistId
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   protected function loadPlaylist(string $playlistId) {
     $this->getUrl()
-            ->setPath('embed')
-            ->setParam('listType', 'playlist')
-            ->setParam('list', $playlistId);
+            ->setPath('embed');
+    $this->getUrl()->getQuery()
+            ->offsetSet('listType', 'playlist')
+            ->offsetSet('list', $playlistId);
     return $this;
   }
 
@@ -58,10 +59,10 @@ class YoutubePlayer extends AbstractVideoPlayer {
    * * `2` (default): If the player has 16:9 or 4:3 ratio, same as `1`, otherwise same as `0`.
    * 
    * @param  int $autohide the value of the autohide parameter
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function autohide(int $autohide = 2) {
-    $this->getUrl()->setParam('autohide', $autohide);
+    $this->getUrl()->getQuery()->offsetSet('autohide', $autohide);
     return $this;
   }
 
@@ -76,13 +77,13 @@ class YoutubePlayer extends AbstractVideoPlayer {
    * around two seconds.
    * 
    * @param  int $start the start time measured from the beginning of the video
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setStartTime(int $start = 0) {
     if ($start >= 0) {
-      $this->getUrl()->setParam('start', $start);
+      $this->getUrl()->getQuery()->offsetSet('start', $start);
     } else {
-      $this->getUrl()->unsetParam('start');
+      $this->getUrl()->getQuery()->offsetUnset('start');
     }
     return $this;
   }
@@ -102,13 +103,13 @@ class YoutubePlayer extends AbstractVideoPlayer {
    * 
    * @param  int $end the end time measured from the beginning of the  
    *                     video or `false` for playing the full video
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setEndTime(int $end) {
     if ($end >= 0) {
-      $this->getUrl()->setParam('end', $end);
+      $this->getUrl()->getQuery()->offsetSet('end', $end);
     } else {
-      $this->getUrl()->unsetParam('end');
+      $this->getUrl()->getQuery()->offsetUnset('end');
     }
     return $this;
   }

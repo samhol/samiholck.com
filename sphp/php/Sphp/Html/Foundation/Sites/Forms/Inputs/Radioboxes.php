@@ -13,10 +13,9 @@ use Sphp\Html\Forms\Inputs\Radiobox;
  * A component containing multiple radio inputs
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2013-10-18
+ * @link    http://foundation.zurb.com/ Foundation
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
- * @see     \Sphp\Html\Forms\Inputs\Radiobox  
  */
 class Radioboxes extends Choiceboxes {
 
@@ -30,7 +29,7 @@ class Radioboxes extends Choiceboxes {
    * Sets the current submission set of the input component
    *
    * @param string|string[] $value the current submission set of the input component
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setValue($value) {
     if (!is_array($value)) {
@@ -64,7 +63,7 @@ class Radioboxes extends Choiceboxes {
    * 
    * @param  boolean $required true if one of the {@link Radiobox} components 
    *         must be checked before form submission, otherwise false
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setRequired(bool $required = true) {
     foreach ($this->getOptionFields() as $opt) {

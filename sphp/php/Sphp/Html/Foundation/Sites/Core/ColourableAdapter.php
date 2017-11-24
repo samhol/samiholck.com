@@ -8,35 +8,35 @@
 namespace Sphp\Html\Foundation\Sites\Core;
 
 use Sphp\Html\Adapters\AbstractComponentAdapter;
-use Sphp\Html\ComponentInterface;
+use Sphp\Html\CssClassifiedComponent;
+use Sphp\Stdlib\Arrays;
 
 /**
  * Trait implements {@link ColourableInterface} functionality
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2016-04-11
  * @link    http://foundation.zurb.com/ Foundation
  * @link    http://foundation.zurb.com/docs/components/buttons.html Foundation Buttons
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
-class ColourableAdapter extends AbstractComponentAdapter implements ColourableInterface {
+class ColourableAdapter extends AbstractLayoutManager implements Colourable {
 
   /**
    * CSS classes corresponding to the button style constants
    *
    * @var string[]
    */
-  private $styles = [
+  private static $styles = [
       'alert', 'success', 'secondary', 'info', 'disabled'
   ];
 
   /**
    * Constructs a new instance
    * 
-   * @param ComponentInterface $component
+   * @param CssClassifiedComponent $component
    */
-  public function __construct(ComponentInterface $component) {
+  public function __construct(CssClassifiedComponent $component) {
     parent::__construct($component);
   }
 
@@ -53,18 +53,23 @@ class ColourableAdapter extends AbstractComponentAdapter implements ColourableIn
    * * `'disabled'` for disabled buttons
    * 
    * @param  string|null $style one of the CSS class names defining button styles
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    * @link   http://foundation.zurb.com/docs/components/buttons.html#button-colors Button Sizing
    */
-  public function setColor($style = null) {
-    $this->getComponent()->cssClasses()->remove($this->styles);
-    if ($style !== null) {
-      $this->getComponent()->cssClasses()->add($style);
-      if (!in_array($style, $this->styles)) {
-        $this->styles[] = $style;
-      }
-    }
+  public function setColor(string $style = null) {
+    $this->setOneOf(static::$styles, $style);
     return $this;
+  }
+
+  public function setLayouts(...$layouts) {
+    $colors = array_intersect(Arrays::flatten($layouts), static::$styles);
+    foreach ($colors as $colorCandidate) {
+      $this->setColor($colorCandidate);
+    }
+  }
+
+  public function unsetLayouts(): \this {
+    
   }
 
 }

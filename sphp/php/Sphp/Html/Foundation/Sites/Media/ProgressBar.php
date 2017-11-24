@@ -8,22 +8,21 @@
 namespace Sphp\Html\Foundation\Sites\Media;
 
 use Sphp\Html\AbstractComponent;
-use Sphp\Html\Foundation\Sites\Core\ColourableInterface;
+use Sphp\Html\Foundation\Sites\Core\Colourable;
 use Sphp\Html\Foundation\Sites\Core\ColourableTrait;
 use Sphp\Html\Span;
-use Sphp\Html\Sections\Paragraph;
+use Sphp\Html\Content\Paragraph;
 
 /**
  * Implements a Progress Bar
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2016-06-01
  * @link    http://foundation.zurb.com/ Foundation
  * @link    http://foundation.zurb.com/sites/docs/progress-bar.html Progress Bar
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
-class ProgressBar extends AbstractComponent implements ColourableInterface {
+class ProgressBar extends AbstractComponent implements Colourable {
 
   use ColourableTrait;
 
@@ -41,20 +40,20 @@ class ProgressBar extends AbstractComponent implements ColourableInterface {
   public function __construct($progress, $name = null) {
     parent::__construct('div');
     $this->progressMeter = new Span();
-    $this->progressMeter->cssClasses()->lock('progress-meter');
+    $this->progressMeter->cssClasses()->protect('progress-meter');
     $this->progressMeter['progress-meter-text'] = new Paragraph();
-    $this->progressMeter["progress-meter-text"]->cssClasses()->lock('progress-meter-text');
+    $this->progressMeter["progress-meter-text"]->cssClasses()->protect('progress-meter-text');
     $this->identify();
     $this->attrs()
             ->set('data-sphp-progressbar', 'blaa')
-            ->lock('tabindex', 0)
-            ->lock('role', 'progressbar')
-            ->lock('aria-valuemin', 0)
-            ->lock('aria-valuemax', 100)
+            ->protect('tabindex', 0)
+            ->protect('role', 'progressbar')
+            ->protect('aria-valuemin', 0)
+            ->protect('aria-valuemax', 100)
             ->demand('aria-valuenow')
             ->demand('aria-valuenow')
             ->demand('data-sphp-progressbar-name');
-    $this->cssClasses()->lock('progress');
+    $this->cssClasses()->protect('progress');
     $this->setProgress($progress)->setBarName($name);
   }
 
@@ -62,7 +61,7 @@ class ProgressBar extends AbstractComponent implements ColourableInterface {
    * Sets the visibility of the progress bar text
    * 
    * @param  boolean $show true for visible progress text and false otherwise
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function showProgressText($show = true) {
     if ($show) {
@@ -77,7 +76,7 @@ class ProgressBar extends AbstractComponent implements ColourableInterface {
    * Sets the progress bar name
    * 
    * @param  string $name the optional bar name for build-in javascript library use
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setBarName($name) {
     $this->attrs()->set('data-sphp-progressbar-name', $name);
@@ -89,7 +88,7 @@ class ProgressBar extends AbstractComponent implements ColourableInterface {
    * 
    * @param  int $progress (0-100) the current progress
    * @param  string $progressText the optional screenreader text describing the current progress
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setProgress($progress, $progressText = null) {
     if ($progressText === null) {

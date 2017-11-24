@@ -13,7 +13,6 @@ use Sphp\Html\Span;
  * Implements a Title Bar content area
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2016-11-21
  * @link    http://foundation.zurb.com/ Foundation
  * @link    http://foundation.zurb.com/docs/components/topbar.html Foundation Top Bar
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
@@ -39,7 +38,7 @@ class TitleBarContentArea extends BarContentArea {
   public function __construct($side) {
     parent::__construct('div');
     $this->side = $side;
-    $this->cssClasses()->lock("title-bar-$side");
+    $this->cssClasses()->protect("title-bar-$side");
   }
 
   public function __destruct() {
@@ -61,7 +60,7 @@ class TitleBarContentArea extends BarContentArea {
    * Sets and Returns the title area component
    *
    * @param  MenuButton $btn the menu controller button
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setMenuButton(MenuButton $btn) {
     $this->menuButton = $btn;
@@ -72,11 +71,11 @@ class TitleBarContentArea extends BarContentArea {
    * Sets the title of the Title Bar area component
    *
    * @param  mixed $title the title of the Title Bar area component
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setTitle($title) {
     $this->title = new Span($title);
-    $this->title->cssClasses()->lock('title-bar-title');
+    $this->title->cssClasses()->protect('title-bar-title');
     return $this;
   }
 

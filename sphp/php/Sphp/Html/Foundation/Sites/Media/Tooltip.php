@@ -15,7 +15,6 @@ use Sphp\Html\ComponentInterface;
  * Implements a Tooltip component
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2016-04-30
  * @link    http://foundation.zurb.com/ Foundation
  * @link    http://foundation.zurb.com/docs/components/tooltip.html Tooltip
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
@@ -39,9 +38,9 @@ class Tooltip implements ContentInterface {
     $this->toolTipped = $toolTipped;
     $this->toolTipped->attrs()
             ->demand('data-tooltip')
-            ->lock('aria-haspopup', 'true')
+            ->protect('aria-haspopup', 'true')
             ->set('data-disable-hover', 'false');
-    $this->toolTipped->cssClasses()->lock('has-tip');
+    $this->toolTipped->cssClasses()->protect('has-tip');
     if ($tip !== null) {
       $this->setTip($tip);
     }
@@ -69,7 +68,7 @@ class Tooltip implements ContentInterface {
   /**
    * 
    * @param  string $tip the tip content
-   * @return self for a fluent interface
+   * @return $this for a fluent interface
    */
   public function setTip($tip) {
     $this->toolTipped->attrs()->set('title', $tip);

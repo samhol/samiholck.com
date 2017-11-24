@@ -7,14 +7,13 @@
 
 namespace Sphp\Html\Forms\Inputs;
 
-use Sphp\Html\Attributes\AttributeManager;
-use Sphp\Stdlib\Strings;
+use Sphp\Html\Attributes\HtmlAttributeManager;
 
 /**
  * Trait implements parts of the {@link InputInterface}
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2014-09-05
+ * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
 trait InputTrait {
@@ -22,17 +21,17 @@ trait InputTrait {
   /**
    * Returns the attribute manager attached to the component
    * 
-   * @return AttributeManager the attribute manager
+   * @return HtmlAttributeManager the attribute manager
    */
-  abstract public function attrs();
+  abstract public function attrs(): HtmlAttributeManager;
 
   /**
    * Returns the value of the name attribute.
    *
-   * @return string|null name attribute
+   * @return string name attribute
    */
-  public function getName() {
-    return $this->attrs()->get('name');
+  public function getName(): string {
+    return (string) $this->attrs()->getValue('name');
   }
 
   /**
@@ -41,7 +40,7 @@ trait InputTrait {
    * @param  string $name the value of the name attribute
    * @return InputInterface for PHP Method Chaining
    */
-  public function setName($name) {
+  public function setName(string $name) {
     $this->attrs()->set('name', $name);
     return $this;
   }
@@ -55,7 +54,7 @@ trait InputTrait {
    * @return boolean true if the input has a name, otherwise false
    */
   public function isNamed(): bool {
-    return $this->attrs()->exists('name') && !Strings::isEmpty($this->getName());
+    return $this->attrs()->exists('name');
   }
 
   /**
@@ -68,7 +67,7 @@ trait InputTrait {
    * @return InputInterface for PHP Method Chaining
    */
   public function disable(bool $disabled = true) {
-    $this->attrs()->set('disabled', $disabled);
+    $this->attrs()->setBoolean('disabled', $disabled);
     return $this;
   }
 
@@ -82,3 +81,5 @@ trait InputTrait {
   }
 
 }
+
+
