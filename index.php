@@ -22,7 +22,18 @@ include_once("components/templates/htmlHead.php");
         <article>
           <h2>... So why did I do it?</h2>
           <p> I could offer a million answers - all false. 
-            The truth is that I'm a bad person. But, that's gonna change - I'm going to change. This is the last of that sort of thing. Now I'm cleaning up and I'm moving on, going straight and choosing life. I'm looking forward to it already. I'm gonna be just like you. The job, the family, the fucking big television. The washing machine, the car, the compact disc and electric tin opener, good health, low cholesterol, dental insurance, mortgage, starter home, leisure wear, luggage, three piece suite, DIY, game shows, junk food, children, walks in the park, nine to five, good at golf, washing the car, choice of sweaters, family Christmas, indexed pension, tax exemption, clearing gutters, getting by, looking ahead, the day you die.</p>
+            The truth is that I'm a bad person. But, that's gonna change - I'm 
+            going to change. This is the last of that sort of thing. Now I'm 
+            cleaning up and I'm moving on, going straight and choosing life. 
+            I'm looking forward to it already. I'm gonna be just like you. The 
+            job, the family, the fucking big television. The washing machine, 
+            the car, the compact disc and electric tin opener, good health, 
+            low cholesterol, dental insurance, mortgage, starter home, leisure 
+            wear, luggage, three piece suite, DIY, game shows, junk food, 
+            children, walks in the park, nine to five, good at golf, washing 
+            the car, choice of sweaters, family Christmas, indexed pension, 
+            tax exemption, clearing gutters, getting by, looking ahead, the 
+            day you die.</p>
         </article>
       </main>
     </div>
