@@ -1,76 +1,111 @@
+/**
+ * sphp6.styles.all.scss (UTF-8)
+ * Copyright (c) 2015 Sami Holck <sami.holck@gmail.com>
+ */ 
+@charset "UTF-8";
 
-
-@import url('https://fonts.googleapis.com/css?family=Montserrat');
 @import "compass/css3";
-@import "../sphp/scss/app/sphp-back-to-top-button";
-@import "../sphp/scss/app/brands";
-//@import "settings";
-@import "../vendor/zurb/foundation/scss/settings/settings";
+@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,400italic,600italic,700italic%7cSource+Code+Pro:400,500,600,700%7cOpen+Sans:400italic,600italic,700italic,400,700,600);
+
+//@import "../../vendor/zurb/foundation/scss/util/util";
+
+@import "settings";
 @import "../vendor/zurb/foundation/scss/foundation";
- 
+//@import "compass/css3"; 
+  
+
+@include foundation-everything;
+@include foundation-grid;
+@import "anim-topbar";
+
+/*
+@include foundation-global-styles;
+@include foundation-xy-grid-classes;
+@include foundation-grid;
+//@include foundation-flex-grid;
+@include foundation-flex-classes;
+@include foundation-typography;
+@include foundation-forms;
+@include foundation-button;
+@include foundation-accordion;
+@include foundation-accordion-menu;
+@include foundation-badge;
+@include foundation-breadcrumbs;
+@include foundation-button-group;
+@include foundation-callout;
+@include foundation-card;
+@include foundation-close-button;
+@include foundation-menu;
+@include foundation-menu-icon;
+@include foundation-drilldown-menu;
+@include foundation-dropdown;
+@include foundation-dropdown-menu;
+@include foundation-responsive-embed;
+@include foundation-label;
+@include foundation-media-object;
+@include foundation-off-canvas;
+@include foundation-orbit;
+@include foundation-pagination;
+@include foundation-progress-bar;
+@include foundation-slider;
+@include foundation-sticky;
+@include foundation-reveal;
+@include foundation-switch;
+@include foundation-table;
+@include foundation-tabs;
+@include foundation-thumbnail;
+@include foundation-title-bar;
+@include foundation-tooltip;
+@include foundation-top-bar;
+@include foundation-visibility-classes;
+@include foundation-float-classes;
+*/
+@import "../sphp/scss/vendor/vendors"; 
+//@import "../sphp/scss/app/apps";
+//@import "manual/manual";
+
+
+
+
+
 .Site {
   display: flex;
   min-height: 100vh;
   flex-direction: column;
 }
 
-.Site-content {
-  main {
-    //margin: rem-calc(0 0 0 2);  
-    border: solid 1px #999;
-    background-color: #fefefe;
-    padding: rem-calc(0 0 50 0);
-    margin: rem-calc(20);
-    h1, h2, h3, h4, h5, h6 {
-      color: #333;
-    }
-    h1 {
-      padding: rem-calc(10 10 10 10);
-      text-transform: uppercase;
-      border-left: solid 1px #999;
-      border-bottom: solid 1px #999;
-      background-color: #efefef;
-      @include background-image(linear-gradient(to right, #eaeaea, #fafafa));
-    }
-    h2, h3, h4, h5, h6 {
-      color: #666;
-      padding: rem-calc(4 10 5 10);
-    }
-    .flex-video {
-      margin: rem-calc(10 30);
-    }
-    p {
-      text-align: justify;
-      margin: rem-calc(10 30);
-    }
-    dl, ul, ol {
-      margin-left: rem-calc(30);
-    }
-    ul, ol {
-      list-style-position: inside;
-    }
-    dl{
-      dd {
-        margin-left: rem-calc(10);
-      }
-    }
-    .row.board {
-      img {
-        display: block;
-        top: 0;
-        right: 0;
-        position: absolute;
-      }
-    }
-    table {
-      font-size: rem-calc(14);
-      //table-layout : fixed;
-      th, td {
-      }
-    }
+
+main {
+  //margin: rem-calc(0 0 0 2);  
+  border: solid 1px #999;
+  background-color: #fefefe;
+  padding: rem-calc(0 0 50 0);
+  margin: rem-calc(20);
+  h1, h2, h3, h4, h5, h6 {
+    color: #333;
   }
-
-
+  h1 {
+    padding: rem-calc(10 10 10 10);
+    text-transform: uppercase;
+    border-left: solid 1px #999;
+    border-bottom: solid 1px #999;
+    background-color: #efefef;
+    @include background-image(linear-gradient(to right, #eaeaea, #fafafa));
+  }
+  h2, h3, h4, h5, h6 {
+    color: #666;
+    padding: rem-calc(4 10 5 10);
+  }
+  p {
+    text-align: justify;
+    margin: rem-calc(10 30);
+  }
+  ul, ol {
+    list-style-position: inside;
+  }
+}
+.background {
+  
   background-color: #fefefe;
   background-image: url('http://samiholck.com/components/pics/gray-body.jpg');
   background-repeat: no-repeat;
@@ -79,6 +114,7 @@
   background-position-y: 100px;
   flex: 1;
 }
+
 footer {
   color: #fff;
   border: solid 1px #666;
@@ -94,8 +130,8 @@ footer {
     }
     .fa-facebook, .fa-html5, .fa-css3 {
       border: solid 1px #fff;
-  @include border-radius(4px);
-      
+      @include border-radius(4px);
+
     }
   }
   .copyright {
@@ -109,117 +145,3 @@ footer {
   }
 }
 
-
-
-$sphp6-topbar-bg: #121212; 
-$sphp6-topbar-menu-bg: smart-scale($sphp6-topbar-bg, 5%);
-$sphp6-topbar-link-hover-bg: smart-scale($sphp6-topbar-menu-bg, 5%);
-$sphp6-topbar-font-color: #efefef;
-$sphp6-topbar-link-font-color: smart-scale($sphp6-topbar-font-color, 5%);
-$sphp6-topbar-title-font-color: smart-scale($sphp6-topbar-font-color, 25%);//#8a8a8a;
-$sphp6-root-border-color: #333;
-
-
-.top-bar {
-  width: 100%;
-  z-index: 11; 
-  border-top: solid 1px #FF8000;
-  border-bottom: solid 1px #FF8000;
-  color: #fafafa;
-
-  .top-bar-left {
-    //height: 100%;
-    margin: rem-calc(0 0 0 5);
-    > ul {
-      margin: 0;
-      // height: 100%;
-      >li {
-        //height: 100%;
-      }
-    }
-    > ul > li {
-      margin: 0;
-      z-index: 12; 
-      > a {
-    //    height: 45px;
-        border-top: 1px solid $sphp6-root-border-color;
-        border-bottom: 1px solid $sphp6-root-border-color;
-        border-left: 1px solid $sphp6-root-border-color;
-        line-height: inherit;
-        &:last-of-type {
-          border-right: 1px solid $sphp6-root-border-color;
-        }
-        min-width: rem-calc(130);
-      }
-      //height: rem-calc(40);
-      ul {
-        z-index: 11; 
-      }
-      // border-top: 1px solid $sphp6-root-border-color;
-      // border-bottom: 1px solid $sphp6-root-border-color;
-      // border-left: 1px solid $sphp6-root-border-color;
-
-    }
-    //margin-left: rem-calc(10);
-    >ul{
-      //height: 100%;
-    }
-    li { 
-      //height: 100%;
-      font-size: rem-calc(12);
-      &.menu-text {
-        //font-size: rem-calc(13); 
-        @include background-image(linear-gradient(to right, #444, #1b1b1b));
-        background-color: smart-scale($sphp6-topbar-bg, 15%);
-        border-top: solid 1px #444;
-        border-bottom:  solid 1px #444;
-        padding-top: rem-calc(10);
-        padding-bottom: rem-calc(10);
-        color: smart-scale($sphp6-topbar-font-color, 25%);
-      }
-      &.menu-ruler {
-        @include background-image(linear-gradient(to right, #535353, #202020));
-        background-color: smart-scale($sphp6-topbar-bg, 25%);
-      }
-    }
-    a {
-      color: smart-scale($sphp6-topbar-font-color, 5%);   
-      @include background-image(linear-gradient(to right, #333, #111));
-      &:hover {
-        color: smart-scale($sphp6-topbar-font-color, -15%);
-        background-color: smart-scale($sphp6-topbar-bg, 10%);
-        @include background-image(linear-gradient(to right, #444, #222));
-      }
-    }
-    li.active a {  
-      background-color: #666;
-      @include background-image(linear-gradient(to right, #9e4700, #333));
-      //
-      &:hover {
-        background-color: #888;
-        @include background-image(linear-gradient(to right, #a35611, #444));
-      }
-    }
-    .menu {
-      li button {
-        display: block;
-        padding: 0.7rem 1rem;
-        line-height: 1;
-      }
-      background-color: smart-scale($topbar-background, 5%);
-      ul {
-        border-color:  #FF8000;
-
-      }
-    }
-  }
-  .top-bar-right {
-    margin: rem-calc(2);
-    .input-group {
-      input {
-        width: 400px;
-      }
-      margin: 0;
-    }
-  }
-}

@@ -1,25 +1,23 @@
-<?php
-
-namespace Sphp\Html\Foundation\Sites\Navigation;
-
-use Sphp\Html\Foundation\Sites\Bars\TopBar;
-use Sphp\Html\Foundation\Sites\Navigation\SubMenu;
-use Sphp\Html\Foundation\Sites\Navigation\MenuBuilder;
-require_once(__DIR__ . '/../menuArrays.php');
-try {
-  ob_start();
-  $navi = (new TopBar());
-$leftDrop = new DropdownMenu();
-  $builder = new MenuBuilder();
-  $leftDrop->appendSubMenu($builder->buildSub($links));
-  $navi->left()->setContent($leftDrop);
-  $navi->printHtml();
-
-  $content = ob_get_contents();
-} catch (\Exception $e) {
-  $content .= new \Sphp\Html\Foundation\F6\Containers\ExceptionCallout($e, true);
-}
-ob_end_clean();
-echo $content;
-unset($content);
-?>
+<nav class="top-bar topbar-responsive">
+  <div class="top-bar-title">
+    <span data-responsive-toggle="topbar-responsive" data-hide-for="medium">
+      <button class="menu-icon" type="button" data-toggle></button>
+    </span>
+    <a class="topbar-responsive-logo" href="#"><strong>Site Title</strong></a>
+  </div>
+  <div id="topbar-responsive" class="topbar-responsive-links">
+    <div class="top-bar-right">
+      <ul class="menu simple vertical medium-horizontal">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Services</a></li>
+        <li><a href="#">Works</a></li>
+        <li><a href="#">News</a></li>
+        <li><a href="#">Contact</a></li>
+        <li>
+          <button type="button" class="button hollow topbar-responsive-button">Categories</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

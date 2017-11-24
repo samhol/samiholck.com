@@ -16,9 +16,8 @@ namespace Sphp\Config;
 (new PHPConfig())
         ->setErrorReporting(E_ALL)
         ->setDefaultTimezone('Europe/Helsinki')
-        ->setEncoding('UTF-8')
-        ->setMessageLocale('fi_FI')
-        ->init();
+        ->setCharacterEncoding('UTF-8')
+        ->setMessageLocale('fi_FI');
 
 session_start();
 
