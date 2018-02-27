@@ -1,13 +1,13 @@
 <?php
 
 /**
- * ScriptFile.php (UTF-8)
+ * ScriptSrc.php (UTF-8)
  * Copyright (c) 2011 Sami Holck <sami.holck@gmail.com>
  */
 
 namespace Sphp\Html\Programming;
 
-use Sphp\Html\AbstractTag;
+use Sphp\Html\EmptyTag;
 
 /**
  * Implements an HTML &lt;script&gt; tag having script code as its content
@@ -22,14 +22,14 @@ use Sphp\Html\AbstractTag;
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
-class ScriptSrc extends AbstractTag implements Script {
+class ScriptSrc extends EmptyTag implements Script {
 
   /**
    * Constructs a new instance
    * 
    * **IMPORTANT:** 
    * 
-   * This component points to an external script file through the src attribute.
+   * This component points to an external script file through the `src` attribute.
    * 
    * @param  string $src the URL of the script file
    * @param  boolean $async true for asynchronous execution, false otherwise
@@ -37,13 +37,11 @@ class ScriptSrc extends AbstractTag implements Script {
    * @link   http://www.w3schools.com/tags/att_script_async.asp async attribute
    */
   public function __construct(string $src = '', bool $async = false) {
-    parent::__construct('script');
+    parent::__construct('script', true);
     $this->setSrc($src)->setAsync($async);
   }
 
   /**
-   * Sets the value of the type attribute
-   *
    * Specifies the MIME type of the script
    *
    * @param  string $type the value of the type attribute (mime-type)
@@ -51,53 +49,62 @@ class ScriptSrc extends AbstractTag implements Script {
    * @link   http://www.w3schools.com/tags/att_script_type.asp type attribute
    */
   public function setType(string $type) {
-    return $this->setAttr('type', $type);
-  }
-
-  /**
-   * Sets the value of the async attribute
-   * 
-   * When present, it specifies that the script will be executed asynchronously as soon as it is available.
-   * Note: The async attribute is only for external scripts (and should only be used if the src attribute is present).
-   *
-   * @param  boolean $async true for asynchronous execution, false otherwise
-   * @return $this for a fluent interface
-   * @link   http://www.w3schools.com/tags/att_script_async.asp async attribute
-   */
-  public function setAsync(bool $async = true) {
-    return $this->setAttr('async', $async);
-  }
-
-  /**
-   * Sets the value of the src attribute
-   *
-   * @param  string $src the file path of the script file
-   * @return $this for a fluent interface
-   * @link   http://www.w3schools.com/tags/att_script_src.asp src attribute
-   */
-  public function setSrc(string $src) {
-    $this->attrs()->set('src', $src);
+    $this->attributes()->set('type', $type);
     return $this;
   }
 
   /**
-   * Returns the value of the src attribute
-   *
-   * @param  string script's file path
-   * @link   http://www.w3schools.com/tags/att_script_src.asp src attribute
+   * Sets whether the script is executed asynchronously
+   * 
+   * Asynchronous script will be executed as soon as it is available.
+   * 
+   * @param  boolean $async true for asynchronous execution, false otherwise
+   * @return $this for a fluent interface
+   * @link   http://www.w3schools.com/tags/att_script_async.asp async attribute
+   * @link   http://www.w3schools.com/tags/att_script_defer.asp defer attribute
    */
-  public function getSrc() {
-    return $this->attrs()->getValue('src');
+  public function setAsync(bool $async = true) {
+    $this->attributes()
+            ->remove('defer')
+            ->set('async', $async);
+    return $this;
   }
 
-  public function getHtml(): string {
-    $attrs = '' . $this->attrs();
-    if ($attrs != '') {
-      $attrs = ' ' . $attrs;
-    }
-    $output = '<' . $this->getTagName() . $attrs . '>';
-    $output .= '</' . $this->getTagName() . '>';
-    return $output;
+  /**
+   * Sets whether the script will not run until after the page has loaded
+   * 
+   * @param  boolean $defer true for deferred execution, false otherwise
+   * @return $this for a fluent interface
+   * @link   http://www.w3schools.com/tags/att_script_defer.asp defer attribute
+   * @link   http://www.w3schools.com/tags/att_script_async.asp async attribute
+   */
+  public function setDefer(bool $defer = true) {
+    $this->attributes()
+            ->remove('async')
+            ->set('defer', $defer);
+    return $this;
+  }
+
+  /**
+   * Sets the URL of the script file
+   *
+   * @param  string $src the URL of the script file
+   * @return $this for a fluent interface
+   * @link   http://www.w3schools.com/tags/att_script_src.asp src attribute
+   */
+  public function setSrc(string $src) {
+    $this->attributes()->set('src', $src);
+    return $this;
+  }
+
+  /**
+   * Returns the URL of the script file
+   *
+   * @return string the URL of the script file
+   * @link   http://www.w3schools.com/tags/att_script_src.asp src attribute
+   */
+  public function getSrc(): string {
+    return $this->attributes()->getValue('src');
   }
 
 }

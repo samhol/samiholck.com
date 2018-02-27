@@ -51,16 +51,16 @@ class HyperlinkContainer extends AbstractContainerTag implements HyperlinkInterf
     return $this->getHyperlink()->getHref();
   }
 
-  public function setHref($href, $encode = true) {
-    $this->getHyperlink()->setHref($href, $encode);
+  public function setHref(string $href) {
+    $this->getHyperlink()->setHref($href);
     return $this;
   }
 
-  public function setTarget($target) {
+  public function setTarget(string $target = null) {
     $this->getHyperlink()->setTarget($target);
     return $this;
   }
-  
+
   public function getTarget() {
     return $this->getHyperlink()->getTarget();
   }
@@ -72,9 +72,18 @@ class HyperlinkContainer extends AbstractContainerTag implements HyperlinkInterf
    * @return $this for a fluent interface
    * @link   http://www.w3schools.com/tags/att_global_title.asp title attribute
    */
-  public function setTitle($title) {
-    $this->getHyperlink()->setAttr("title", $title);
+  public function setTitle(string $title = null) {
+    $this->getHyperlink()->setAttribute("title", $title);
     return $this;
+  }
+
+  public function setRel(string $rel = null) {
+    $this->getHyperlink()->setRel($rel);
+    return $this;
+  }
+
+  public function getRel() {
+    return $this->getHyperlink()->getRel();
   }
 
 }

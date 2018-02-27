@@ -8,6 +8,7 @@
 namespace Sphp\Html\Media\Multimedia;
 
 use Sphp\Html\EmptyTag;
+use Sphp\Html\Media\Embeddable;
 use Sphp\Html\Media\LazyMedia;
 use Sphp\Html\Media\SizeableMedia;
 
@@ -23,7 +24,7 @@ use Sphp\Html\Media\SizeableMedia;
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
-class Embed extends EmptyTag implements LazyMedia, SizeableMedia {
+class Embed extends EmptyTag implements Embeddable, LazyMedia, SizeableMedia {
 
   use \Sphp\Html\Media\SizeableTrait,
       \Sphp\Html\Media\LazyMediaSourceTrait;
@@ -57,7 +58,7 @@ class Embed extends EmptyTag implements LazyMedia, SizeableMedia {
    * @link   http://www.w3schools.com/tags/att_embed_type.asp type attribute
    */
   public function setType(string $type) {
-    $this->attrs()->set('type', $type);
+    $this->attributes()->set('type', $type);
     return $this;
   }
 
@@ -71,7 +72,7 @@ class Embed extends EmptyTag implements LazyMedia, SizeableMedia {
    * @link  http://www.w3schools.com/tags/att_embed_type.asp type attribute
    */
   public function getType() {
-    return $this->attrs()->getValue('type');
+    return $this->attributes()->getValue('type');
   }
 
 }

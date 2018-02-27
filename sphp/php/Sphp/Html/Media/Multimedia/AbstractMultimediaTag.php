@@ -10,6 +10,9 @@ namespace Sphp\Html\Media\Multimedia;
 use Sphp\Html\AbstractComponent;
 use Sphp\Html\Attributes\HtmlAttributeManager;
 use Sphp\Html\Container;
+use Traversable;
+use Sphp\Html\Iterator;
+use Sphp\Html\TraversableContent;
 
 /**
  * Implements an abstract HTML multimedia tag
@@ -18,7 +21,7 @@ use Sphp\Html\Container;
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
-abstract class AbstractMultimediaTag extends AbstractComponent implements \IteratorAggregate, \Sphp\Html\TraversableInterface, MediaTagInterface {
+abstract class AbstractMultimediaTag extends AbstractComponent implements \IteratorAggregate, \Sphp\Html\TraversableContent, MediaTagInterface {
 
   use \Sphp\Html\TraversableTrait;
 
@@ -76,43 +79,53 @@ abstract class AbstractMultimediaTag extends AbstractComponent implements \Itera
     return $this;
   }
 
-  public function addSource(string $src, string $type = null) {
-    return $this->addMediaSrc(new Source($src, $type));
+  public function addSource(string $src, string $type = null): Source {
+    $source = new Source($src, $type);
+    $this->addMediaSrc($source);
+    return $source;
   }
 
-  public function getSources() {
+  public function getSources(): TraversableContent {
     return $this->sources->getIterator();
   }
 
-  public function addTrack(string $src, string $srclang = null) {
-    return $this->addMediaSrc(new Track($src, $srclang));
+  public function addTrack(string $src, string $srclang = null): Track {
+    $track = new Track($src, $srclang);
+    $this->addMediaSrc($track);
+    return $track;
   }
 
-  public function getTracks() {
+  public function getTracks(): TraversableContent {
     return $this->tracks->getIterator();
   }
 
   public function autoplay(bool $autoplay = true) {
-    $this->attrs()->set('autoplay', (bool) $autoplay);
+    $this->attributes()->set('autoplay', (bool) $autoplay);
     return $this;
   }
 
   public function loop(bool $loop = true) {
-    $this->attrs()->set('loop', (bool) $loop);
+    $this->attributes()->set('loop', (bool) $loop);
     return $this;
   }
 
   public function mute(bool $muted = true) {
-    $this->attrs()->set('muted', (bool) $muted);
+    $this->attributes()->set('muted', (bool) $muted);
     return $this;
   }
 
   public function showControls(bool $show = true) {
-    $this->attrs()->set('controls', (bool) $show);
+    $this->attributes()->set('controls', (bool) $show);
     return $this;
   }
 
-  public function count($mode = 'source'): int {
+  /**
+   * Counts source and/or track components
+   * 
+   * @param  string $mode
+   * @return int number of source and/or track components
+   */
+  public function count(string $mode = MultimediaSource::class): int {
     $num = 0;
     if ($mode === 'source') {
       $num += $this->sources->count();
@@ -124,8 +137,13 @@ abstract class AbstractMultimediaTag extends AbstractComponent implements \Itera
     return $this->sources->count();
   }
 
-  public function getIterator() {
-    return new \Sphp\Html\Iterator($this->tracks->toArray(), $this->sources->toArray());
+  /**
+   * Create a new iterator to iterate through content
+   *
+   * @return Traversable iterator
+   */
+  public function getIterator(): Traversable {
+    return new Iterator($this->tracks->toArray() + $this->sources->toArray());
   }
 
 }

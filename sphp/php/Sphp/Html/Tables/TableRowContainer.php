@@ -9,8 +9,8 @@ namespace Sphp\Html\Tables;
 
 use Sphp\Html\AbstractContainerComponent;
 use IteratorAggregate;
-use ArrayAccess;
-use Sphp\Html\TraversableInterface;
+use Sphp\Html\TraversableContent;
+use Traversable;
 use Sphp\Html\Attributes\HtmlAttributeManager;
 
 /**
@@ -20,45 +20,19 @@ use Sphp\Html\Attributes\HtmlAttributeManager;
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
-abstract class TableRowContainer extends AbstractContainerComponent implements IteratorAggregate, ArrayAccess, TraversableInterface, TableContentInterface {
+abstract class TableRowContainer extends AbstractContainerComponent implements IteratorAggregate, TraversableContent, TableContent {
 
   use \Sphp\Html\TraversableTrait;
 
   /**
-   * Counts the {@link RowInterface} components in the table
-   */
-  const COUNT_NORMAL = 1;
-
-  /**
-   * Counts the {@link CellInterface} components in the table
-   */
-  const COUNT_CELLS = 2;
-
-  /**
    * Constructs a new instance
    * 
-   * **Notes:**
-   * 
-   *  * A mixed `$row` can be of any type that converts to a PHP string
-   *  * Any `$row` not implementing {@link RowInterface} is wrapped within a {@link Tr} component
-   *
    * @param string $tagname
-   * @param HtmlAttributeManager $m
-   * @param null|mixed|mixed[] $rows the row being appended
+   * @param HtmlAttributeManager|null $m
    */
-  public function __construct(string $tagname, HtmlAttributeManager $m = null, array $rows = null) {
+  public function __construct(string $tagname, HtmlAttributeManager $m = null) {
     parent::__construct($tagname, $m);
-    if ($rows !== null) {
-      $this->fromArray($rows);
-    }
   }
-
-  /**
-   * 
-   * @param  array $arr the row being appended
-   * @return $this for a fluent interface
-   */
-  abstract public function fromArray(array $arr);
 
   /**
    * Appends a {@link RowInterface} object to the container object
@@ -68,122 +42,74 @@ abstract class TableRowContainer extends AbstractContainerComponent implements I
    *  * A mixed `$row` can be of any type that converts to a PHP string
    *  * Any `$row` not implementing {@link RowInterface} is wrapped within a {@link Tr} component
    *
-   * @param  RowInterface $row the row being appended
+   * @param  Row $row the row being appended
    * @return $this for a fluent interface
    */
-  public function append(RowInterface $row) {
+  public function append(Row $row) {
     $this->getInnerContainer()->append($row);
     return $this;
   }
 
   /**
-   * Appends a {@link RowInterface} object to the container object
+   * Appends a &lt;tr&gt; object containing &lt;th&gt; objects
    *
    * **Notes:**
    * 
-   *  * A mixed `$row` can be of any type that converts to a PHP string
-   *  * Any `$row` not implementing {@link RowInterface} is wrapped within a {@link Tr} component
+   *  * A `$cells` array can contain anything that converts to a PHP string
    *
-   * @param  mixed|mixed[] $cells the row being appended
-   * @return $this for a fluent interface
+   * @param  array $cells the row being appended
+   * @return Tr appended table row component
    */
-  public function appendHeaderRow($cells) {
-    $this->append(Tr::fromThs($cells));
-    return $this;
+  public function appendHeaderRow(array $cells): Tr {
+    $row = Tr::fromThs($cells);
+    $this->append($row);
+    return $row;
   }
 
   /**
-   * Appends a {@link RowInterface} object to the container object
+   * Appends a &lt;tr&gt; object containing &lt;td&gt; objects
    *
    * **Notes:**
    * 
-   *  * A mixed `$row` can be of any type that converts to a PHP string
-   *  * Any `$row` not implementing {@link RowInterface} is wrapped within a {@link Tr} component
+   *  * A `$cells` array can contain anything that converts to a PHP string
    *
-   * @param  mixed|mixed[] $cells the row being appended
-   * @return $this for a fluent interface
+   * @param  array $cells the row being appended
+   * @return Tr appended table row component
    */
-  public function appendBodyRow($cells) {
-    $this->append(Tr::fromTds($cells));
-    return $this;
+  public function appendBodyRow(array $cells): Tr {
+    $row = Tr::fromTds($cells);
+    $this->append($row);
+    return $row;
   }
 
   /**
-   * Prepends a {@link RowInterface} to the object
+   * Prepends a &lt;tr&gt object
    *
-   * **Notes:**
-   * 
-   *  * A mixed `$row` can be of any type that converts to a PHP string
-   *  * Any `$row` not implementing {@link RowInterface} is wrapped within a {@link Tr} component
-   *  * The numeric keys of the container will be renumbered starting from zero
-   *
-   * @param  mixed|mixed[] $row the row(s) being appended
+   * @param  Row $row the row(s) being appended
    * @return $this for a fluent interface
    */
-  public function prepend(RowInterface $row) {
+  public function prepend(Row $row) {
     $this->getInnerContainer()->prepend($row);
     return $this;
   }
 
   /**
-   * Prepends a {@link RowInterface} to the object
+   * Count the number of inserted rows in the table
    *
-   * **Notes:**
-   * 
-   *  * A mixed `$row` can be of any type that converts to a PHP string
-   *  * Any `$row` not implementing {@link RowInterface} is wrapped within a {@link Tr} component
-   *  * The numeric keys of the container will be renumbered starting from zero
-   *
-   * @param  mixed|mixed[] $row the row(s) being appended
-   * @return $this for a fluent interface
+   * @return int number of elements in the HTML table
+   * @link   http://php.net/manual/en/class.countable.php Countable
    */
-  public function prependTr($row) {
-    $this->prepend(new Tr($row));
-    return $this;
+  public function count(): int {
+    return $this->getInnerContainer()->count();
   }
 
   /**
-   * Count the number of inserted elements in the table
+   * Create a new iterator to iterate through content
    *
-   * **`$mode` parameter values:**
-   * 
-   * * {@link self::COUNT_ROWS} counts the {@link RowInterface} components in the table
-   * * {@link self::COUNT_CELLS} counts the {@link CellInterface} components in the table
-   *
-   * @param  int $mode defines the type of the objects to count
-   * @return string number of elements in the html table
-   * @link   http://php.net/manual/en/class.countable.php Countable
+   * @return Traversable iterator
    */
-  public function count($mode = 'tr'): int {
-    $num = 0;
-    if ($mode === 'tr') {
-      $num += $this->getInnerContainer()->count();
-    } else if ($mode === 'td') {
-      foreach ($this as $row) {
-        $num += $row->count();
-      }
-    }
-    return $num;
-  }
-
-  public function getIterator() {
+  public function getIterator(): Traversable {
     return $this->getInnerContainer();
-  }
-
-  public function offsetExists($offset) {
-    return $this->getInnerContainer()->offsetExists($offset);
-  }
-
-  public function offsetGet($offset) {
-    return $this->getInnerContainer()->offsetGet($offset);
-  }
-
-  public function offsetSet($offset, $value) {
-    return $this->getInnerContainer()->offsetSet($offset, $value);
-  }
-
-  public function offsetUnset($offset) {
-    
   }
 
 }

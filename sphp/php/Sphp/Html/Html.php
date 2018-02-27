@@ -19,7 +19,7 @@ use Sphp\Html\Programming\ScriptsContainer;
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
-class Html extends AbstractComponent implements IteratorAggregate, TraversableInterface, ContentParserInterface {
+class Html extends AbstractComponent implements IteratorAggregate, TraversableContent, ContentParser {
 
   use TraversableTrait;
 
@@ -74,7 +74,7 @@ class Html extends AbstractComponent implements IteratorAggregate, TraversableIn
    *
    * @return Head the head tag object
    */
-  public function head() {
+  public function head(): Head {
     return $this->head;
   }
 
@@ -83,7 +83,7 @@ class Html extends AbstractComponent implements IteratorAggregate, TraversableIn
    *
    * @return Body the body component
    */
-  public function body() {
+  public function body(): Body {
     return $this->body;
   }
 
@@ -99,7 +99,7 @@ class Html extends AbstractComponent implements IteratorAggregate, TraversableIn
    * @link   http://www.w3schools.com/tags/att_lang.asp lang attribute
    */
   public function setLanguage(string $language) {
-    $this->attrs()->set('lang', $language);
+    $this->attributes()->set('lang', $language);
     return $this;
   }
 
@@ -131,14 +131,10 @@ class Html extends AbstractComponent implements IteratorAggregate, TraversableIn
    * @param  ScriptsContainer|null $c optional new script container to set
    * @return ScriptsContainer the script container
    */
-  public function scripts(ScriptsContainer $c = null) {
+  public function scripts(ScriptsContainer $c = null): ScriptsContainer {
     return $this->body->scripts($c);
   }
 
-  /**
-   * 
-   * @return string
-   */
   public function getOpeningTag(): string {
     return '<!DOCTYPE html>' . parent::getOpeningTag();
   }
@@ -164,15 +160,16 @@ class Html extends AbstractComponent implements IteratorAggregate, TraversableIn
   }
 
   /**
+   * Returns the document end
    * 
-   * @return string 
+   * @return string the document end
    */
   public function getDocumentClose(): string {
     return $this->body()->close() . $this->getClosingTag();
   }
 
   /**
-   * 
+   * Prints the component as HTML markup string
    * 
    * @return $this for a fluent interface
    */
@@ -181,6 +178,11 @@ class Html extends AbstractComponent implements IteratorAggregate, TraversableIn
     return $this;
   }
 
+  /**
+   * Create a new iterator to iterate through content
+   *
+   * @return Traversable iterator
+   */
   public function getIterator() {
     return $this->body->getIterator();
   }
@@ -193,7 +195,7 @@ class Html extends AbstractComponent implements IteratorAggregate, TraversableIn
     return $this->head . $this->body;
   }
 
-  public function append($content) {
+  public function append(...$content) {
     $this->body->append($content);
     return $this;
   }
@@ -219,4 +221,3 @@ class Html extends AbstractComponent implements IteratorAggregate, TraversableIn
   }
 
 }
-

@@ -8,12 +8,16 @@
 namespace Sphp\Database;
 
 use PDO;
-use Sphp\Exceptions\BadMethodCallException;
-use Sphp\Exceptions\InvalidArgumentException;
+use Sphp\Database\Exceptions\InvalidArgumentException;
+use Sphp\Database\Exceptions\BadMethodCallException;
 
 /**
- * Implements a Database manipulator
+ * Implements a Database statement factory
  *  
+ * @method \Sphp\Database\Query query(string $dbName) Returns a new `SELECT` statement object for the named database
+ * @method \Sphp\Database\Delete delete(string $dbName) Returns a new `DELETE` statement object for the named database
+ * @method \Sphp\Database\Update update(string $dbName) Returns a new `UPDATE` statement object for the named database
+ * @method \Sphp\Database\Insert insert(string $dbName) Returns a new `INSERT` statement object for the named database
  * 
  * @author  Sami Holck <sami.holck@gmail.com>
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
@@ -27,14 +31,17 @@ class Db {
   private static $instances = [];
 
   /**
+   * @var string[] 
+   */
+  private $map = [
+      'mysql' => 'MySQL',
+      'sqlsrv' => 'Microsoft'
+  ];
+
+  /**
    * @var PDO 
    */
   private $pdo;
-
-  /**
-   * @var StatementStrategy
-   */
-  private $strategy;
 
   /**
    * Constructs a new instance
@@ -44,7 +51,7 @@ class Db {
    */
   public function __construct(PDO $pdo = null) {
     $this->pdo = $pdo;
-    $this->strategy = new StatementStrategy($pdo);
+    //$this->strategy = new StatementStrategy($pdo);
   }
 
   /**
@@ -73,9 +80,9 @@ class Db {
 
   /**
    * 
-   * @param  string $name
+   * @param  string|null $name
    * @return Db
-   * @throws \Sphp\Exceptions\InvalidArgumentException
+   * @throws InvalidArgumentException
    */
   public static function instance(string $name = null): Db {
     if ($name === null) {
@@ -92,7 +99,7 @@ class Db {
    * 
    * @param  string $name
    * @param  array $arguments
-   * @return StatementInterface
+   * @return Statement
    */
   public static function __callStatic(string $name, array $arguments = []) {
     if (count($arguments) > 0) {
@@ -106,19 +113,26 @@ class Db {
   /**
    * 
    *
-   * @method Query query(string $dbName) Returns a new query object for the named database
-   * @method Delete delete(string $dbName)
-   * @method Update update(string $dbName) Returns a new query object for the named database
-   * @method Insert insert(string $dbName)
    * 
    * @param  string $name the type name of the instance created
    * @param  array $arguments
-   * @return StatementInterface
-   * @throws \Sphp\Exceptions\BadMethodCallException
+   * @return Statement
+   * @throws BadMethodCallException
    */
-  public function __call(string $name, array $arguments = []) {
-      return $this->strategy->generateStatement($name);
-    
+  public function __call(string $className, array $arguments = []) {
+    $result = __NAMESPACE__ . "\\Legacy\\" . ucfirst($className);
+    if (!class_exists($result)) {
+      throw new InvalidArgumentException("Statement ($className) cannot be created");
+    }
+    $driverName = $this->pdo->getAttribute(PDO::ATTR_DRIVER_NAME);
+    if (array_key_exists($driverName, $this->map)) {
+      $try = __NAMESPACE__ . "\\{$this->map[$driverName]}\\$className";
+      //var_dump($try);
+      if (class_exists($try)) {
+        $result = $try;
+      }
+    }
+    return new $result($this->pdo);
   }
 
 }

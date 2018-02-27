@@ -15,7 +15,7 @@ namespace Sphp\Html\Forms\Inputs;
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
-interface TextualInputInterface extends PatternValidableInputInterface {
+interface TextualInputInterface extends InputField, PatternValidableInput {
 
   /**
    * Sets the value of the size attribute
@@ -27,14 +27,6 @@ interface TextualInputInterface extends PatternValidableInputInterface {
    * @link   http://www.w3schools.com/tags/att_input_size.asp size attribute
    */
   public function setSize(int $size);
-
-  /**
-   * Returns the value of the maxlength attribute
-   *
-   * @return int the value of the maxlength attribute
-   * @link   http://www.w3schools.com/tags/att_input_maxlength.asp maxlength attribute
-   */
-  public function getMaxlength();
 
   /**
    * Sets the value of the maxlength attribute
@@ -80,4 +72,3 @@ interface TextualInputInterface extends PatternValidableInputInterface {
    */
   public function autocomplete(bool $allow = true);
 }
-

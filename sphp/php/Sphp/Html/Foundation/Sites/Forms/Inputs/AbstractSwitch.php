@@ -12,7 +12,7 @@ use Sphp\Html\Forms\Inputs\Choicebox;
 use Sphp\Html\Forms\Label;
 use Sphp\Html\Span;
 use Sphp\Html\Foundation\Sites\Core\ScreenReaderLabelable;
-use Sphp\Html\Forms\Inputs\ChoiceboxInterface;
+use Sphp\Html\Forms\Inputs\BooleanInput;
 use Sphp\Html\Foundation\Sites\Core\Factory;
 
 /**
@@ -24,7 +24,7 @@ use Sphp\Html\Foundation\Sites\Core\Factory;
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
-class AbstractSwitch extends AbstractComponent implements ChoiceboxInterface, ScreenReaderLabelable {
+class AbstractSwitch extends AbstractComponent implements BooleanInput, ScreenReaderLabelable {
 
   /**
    * CSS classes corresponding to the size constants
@@ -72,16 +72,16 @@ class AbstractSwitch extends AbstractComponent implements ChoiceboxInterface, Sc
     $paddle->cssClasses()
             ->protect('switch-paddle');
     if ($this->screenReaderLabel !== null) {
-      $paddle->append(Factory::ScreenReaderLabel($this->screenReaderLabel));
+      $paddle->append(Factory::screenReaderLabel($this->screenReaderLabel));
     }
     if ($this->active !== null || $this->inactive !== null) {
       $activeLabel = new Span($this->active);
-      $activeLabel->attrs()
+      $activeLabel->attributes()
               ->protect('aria-hidden', 'true')
               ->classes()->protect('switch-active');
       $paddle->append($activeLabel);
       $inactiveLabel = new Span($this->inactive);
-      $inactiveLabel->attrs()
+      $inactiveLabel->attributes()
               ->protect('aria-hidden', 'true')
               ->classes()->protect('switch-inactive');
       $paddle->append($inactiveLabel);
@@ -161,8 +161,8 @@ class AbstractSwitch extends AbstractComponent implements ChoiceboxInterface, Sc
     return $this->input->isNamed();
   }
 
-  public function setValue($value) {
-    $this->input->setValue($value);
+  public function setSubmitValue($value) {
+    $this->input->setSubmitValue($value);
     return $this;
   }
 

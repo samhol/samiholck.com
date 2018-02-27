@@ -7,58 +7,35 @@
 
 namespace Sphp\Html\Foundation\Sites\Grids;
 
-use Sphp\Html\AbstractContainerTag;
-use Sphp\Html\WrappingContainer;
-use Sphp\Html\NonVisualContent;
+use Sphp\Html\AbstractComponent;
+use Sphp\Html\Container;
+use Traversable;
 
 /**
- * Implements a row
+ * Implements an abstract Foundation framework based XY Row
  *
  * @author  Sami Holck <sami.holck@gmail.com>
  * @link    http://foundation.zurb.com/ Foundation
- * @link    http://foundation.zurb.com/sites/docs/grid.html Foundation grid
+ * @link    https://foundation.zurb.com/sites/docs/xy-grid.html XY Grid
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
-abstract class AbstractRow extends AbstractContainerTag implements RowInterface {
+abstract class AbstractRow extends AbstractComponent implements \IteratorAggregate, RowInterface {
+
+  /**
+   * @var Container
+   */
+  private $columns;
 
   /**
    * @var RowLayoutManager 
    */
   private $layoutManager;
 
-  /**
-   * Constructs a new instance
-   *
-   * **Important:**
-   *
-   * Calculates the widths of the individual column components by dividing the Row width
-   *  with the number of the inserted columns.
-   *
-   * if the number of the columns exceed the maximum width of the row, in most
-   *  browser environments the excessive columns are floated to a new 'row'.
-   * **HOWEVER** this behavior is not actively supported.
-   *
-   * **Notes:**
-   * 
-   * * `mixed $columns` can be of any type that converts to a string or to a string[]
-   * * all values of `$columns` not extending {@link ColumnInterface} are wrapped with {@link Column} component
-   * * The widths of the `mixed $columns` extending {@link ColumnInterface} are kept
-   * * The sum of the column widths in a row should not exceed 12.
-   * 
-   * @param  mixed|mixed[] $columns row columns
-   * @link   http://www.php.net/manual/en/language.oop5.magic.php#object.tostring __toString() method
-   */
-  public function __construct($tagname, RowLayoutManager $layoutManager = null) {
-    $wrapToCol = function($c) {
-      if ($c instanceof NonVisualContent || $c instanceof ColumnInterface) {
-        return $c;
-      } else {
-        return new Column($c);
-      }
-    };
-    parent::__construct($tagname, null, new WrappingContainer($wrapToCol));
+  public function __construct($tagname) {
+    parent::__construct($tagname, null);
     $this->layoutManager = new RowLayoutManager($this);
+    $this->columns = new Container();
   }
 
   public function layout(): RowLayoutManager {
@@ -70,17 +47,11 @@ abstract class AbstractRow extends AbstractContainerTag implements RowInterface 
       $columns = [$columns];
     }
 
-    $colCount = count($columns);
-    $div = floor(12 / $colCount);
     if ($sizes === null) {
-      if ($div < 1) {
-        $sizes = ["small-12"];
-      } else {
-        $sizes = ["small-$div"];
-      }
+      $sizes = ['auto'];
     }
 
-    $this->clear();
+    $this->columns->clear();
     //print_r($sType);
     foreach ($columns as $column) {
       if ($column instanceof ColumnInterface) {
@@ -92,15 +63,56 @@ abstract class AbstractRow extends AbstractContainerTag implements RowInterface 
     return $this;
   }
 
-  public function appendColumn($content, array $sizes = ['small-12']) {
+  /**
+   * Appends a new Column to the container
+   * 
+   * @param  mixed $column column or column content
+   * @return ColumnInterface appended column
+   */
+  public function append($column): ColumnInterface {
+    if (!($column instanceof ColumnInterface)) {
+      $column = new Column($column);
+    }
+    $this->columns->append($column);
+    return $column;
+  }
+
+  /**
+   * Prepends a new Column to the container
+   * 
+   * @param  mixed $column column or column content
+   * @return ColumnInterface prepended column
+   */
+  public function prepend($column): ColumnInterfac {
+    if (!($column instanceof ColumnInterface)) {
+      $column = new Column($column);
+    }
+    $this->columns->prepend($column);
+    return $column;
+  }
+
+  public function appendColumn($content, array $sizes = ['auto']) {
     $this->append(new Column($content, $sizes));
     return $this;
   }
 
-  public function appendMdColumn($content, array $sizes = ['small-12']) {
+  public function appendMdColumn($content, array $sizes = ['auto']) {
     $p = new \ParsedownExtraPlugin();
     $this->append(new Column($p->parse($content), $sizes));
     return $this;
+  }
+
+  /**
+   * Create a new iterator to iterate through Row content
+   *
+   * @return Traversable iterator
+   */
+  public function getIterator(): Traversable {
+    return $this->columns->getIterator();
+  }
+
+  public function contentToString(): string {
+    return $this->columns->getHtml();
   }
 
   /**

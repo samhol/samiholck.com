@@ -31,7 +31,7 @@ class VideoJs extends AbstractMultimediaTag implements SizeableMedia {
     parent::__construct('video', null, $sources);
     $this->cssClasses()->protect(['video-js']);
     $this->identify();
-    $this->attrs()->demand('data-setup');
+    $this->attributes()->demand('data-setup');
   }
 
   /**
@@ -45,8 +45,8 @@ class VideoJs extends AbstractMultimediaTag implements SizeableMedia {
    * @return $this for a fluent interface
    * @link   http://www.w3schools.com/tags/att_video_poster.asp poster attribute
    */
-  public function setPoster($poster) {
-    $this->attrs()->set('poster', $poster);
+  public function setPoster(string $poster = null) {
+    $this->attributes()->set('poster', $poster);
     return $this;
   }
 

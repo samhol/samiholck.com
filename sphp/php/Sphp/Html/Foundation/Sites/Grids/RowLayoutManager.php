@@ -7,20 +7,20 @@
 
 namespace Sphp\Html\Foundation\Sites\Grids;
 
-use Sphp\Html\AbstractLayoutManager;
 use Sphp\Html\Foundation\Sites\Core\Screen;
 use Sphp\Html\ComponentInterface;
+use Sphp\Html\Foundation\Sites\Core\AlingmentAdapter;
 
 /**
- * Implements a layout manager for Block Grid columns
+ * Implements a layout manager for a Foundation framework based XY Row
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @link    http://foundation.zurb.com/ Foundation
+ * @link    http://foundation.zurb.com/ Foundation 6
  * @link    http://foundation.zurb.com/docs/components/block_grid.html Foundation Block Grid
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
-class RowLayoutManager extends AbstractLayoutManager {
+class RowLayoutManager extends AlingmentAdapter {
 
   /**
    * Constructs a new instance
@@ -29,11 +29,10 @@ class RowLayoutManager extends AbstractLayoutManager {
    */
   public function __construct(ComponentInterface $component) {
     parent::__construct($component);
-    $this->cssClasses()->protect('row');
+    $this->cssClasses()->protect('grid-x');
   }
 
-  public function setLayouts($layout) {
-    $this->unsetLayouts();
+  public function setLayouts(...$layout) {
     foreach (is_array($layout) ? $layout : [$layout] as $width) {
       $parts = explode('-', $width);
       $this->setGrid($parts[2], $parts[0]);
@@ -54,16 +53,29 @@ class RowLayoutManager extends AbstractLayoutManager {
   }
 
   /**
-   * Sets/ the row completely fluid
-   *
-   * @param  boolean $expanded the target screen size
+   * 
+   * @param  bool $margin
    * @return $this for a fluent interface
    */
-  public function expand(bool $expanded = true) {
-    if ($expanded) {
-      $this->cssClasses()->add('expanded');
+  public function useMargin(bool $margin = true) {
+    if ($margin) {
+      $this->cssClasses()->add('grid-margin-x');
     } else {
-      $this->cssClasses()->remove('expanded');
+      $this->cssClasses()->remove('grid-margin-x');
+    }
+    return $this;
+  }
+
+  /**
+   * 
+   * @param  bool $padding
+   * @return $this for a fluent interface
+   */
+  public function usePadding(bool $padding = true) {
+    if ($padding) {
+      $this->cssClasses()->add('grid-padding-x');
+    } else {
+      $this->cssClasses()->remove('grid-padding-x');
     }
     return $this;
   }

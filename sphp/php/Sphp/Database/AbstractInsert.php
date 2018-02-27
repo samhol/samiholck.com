@@ -7,10 +7,11 @@
 
 namespace Sphp\Database;
 
-use Traversable;
+use Sphp\Database\Parameters\ParameterHandler;
+use Sphp\Database\Parameters\SequentialParameterHandler;
 
 /**
- * An abstract implementation of an SQL INSERT statement
+ * An abstract implementation of an `INSERT` statement
  *
  * @author  Sami Holck <sami.holck@gmail.com>
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
@@ -53,14 +54,11 @@ abstract class AbstractInsert extends AbstractStatement implements Insert {
   }
 
   public function values(... $values) {
-    $this->valuesFromCollection([$values]);
+    $this->valuesFromArray([$values]);
     return $this;
   }
 
-  public function valuesFromCollection(array $values) {
-    if ($values instanceof Traversable) {
-      $values = iterator_to_array($values);
-    }
+  public function valuesFromArray(array $values) {
     $this->params = $values;
     return $this;
   }
@@ -92,7 +90,7 @@ abstract class AbstractInsert extends AbstractStatement implements Insert {
   }
 
   public function getParams(): ParameterHandler {
-    $p = new SequentialParameters();
+    $p = new SequentialParameterHandler();
     foreach ($this->params as $row) {
       $p->appendParams($row);
     }

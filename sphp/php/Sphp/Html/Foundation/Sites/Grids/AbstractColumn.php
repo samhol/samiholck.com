@@ -10,13 +10,11 @@ namespace Sphp\Html\Foundation\Sites\Grids;
 use Sphp\Html\Div;
 
 /**
- * Implements framework based component to create  multi-device layouts
- *
- * The sum of the column widths in a row should never exceed 12.
+ * Implements an abstract Foundation framework based XY Grid Column
  *
  * @author  Sami Holck <sami.holck@gmail.com>
  * @link    http://foundation.zurb.com/ Foundation
- * @link    http://foundation.zurb.com/sites/docs/grid.html Foundation grid
+ * @link    https://foundation.zurb.com/sites/docs/xy-grid.html XY Grid
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
@@ -39,7 +37,7 @@ abstract class AbstractColumn extends Div implements ColumnInterface {
    * @param  mixed $content the content of the column
    * @param  array $layout column layout parameters
    */
-  public function __construct($content = null, array $layout = ['small-12']) {
+  public function __construct($content = null, array $layout = ['auto']) {
     parent::__construct($content);
     $this->layoutManager = new ColumnLayoutManager($this);
     $this->layout()->setLayout($layout);

@@ -15,8 +15,8 @@
 //@import "compass/css3"; 
   
 
-@include foundation-everything;
-@include foundation-grid;
+@include foundation-everything($prototype: true);
+//@include foundation-grid;
 
 /*
 @include foundation-global-styles;

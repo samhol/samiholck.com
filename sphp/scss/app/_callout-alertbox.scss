@@ -1,48 +1,52 @@
-$alert-box-opacity: 0.2;
 
+@charset "UTF-8";
+
+$error-bg: rgba(255,127,80, 0.40);
+
+@mixin php-callout($type, $color: $error-bg) { 
+  &.#{$type} {
+    color: smart-scale($color, 60%);
+    border: 3px solid $color;
+    background-color: rgba($color, 0.2);
+    .type {
+      border-bottom: solid $color;
+      .icon {
+        color: $color;
+      } 
+      background-color: rgba($color, .35);
+    }
+    .close-button {
+      color: smart-scale($color, 60%); 
+    }
+  }
+}
 .alert-box {
-  padding-right: 3.25rem;
-  width: 100%;
+  padding: 0rem;
   border-radius: 5px;
-
-  &.callout {
-    color: #333;
+  .type {
+    font-size: rem-calc(25);
     font-weight: bold;
+    padding: rem-calc(3 10 5 3);
+    border-bottom: solid 3px;
   }
-
-  &.alert {
-    color: $alert-color;
-    border: 3px solid $alert-color;
-    background-color: rgba($alert-color, $alert-box-opacity);
+  .message {
+    font-size: rem-calc(20);
+    font-weight: bold;
+    padding: rem-calc(5 15 5 15);
   }
-
-  &.warning {
-    border: 3px solid $warning-color;
-    background-color: rgba($warning-color, $alert-box-opacity);
+  .file-info {
+    font-size: rem-calc(18);
+    padding: rem-calc(5 15 10 15);
+    .file-path {
+      font-family: $font-family-monospace;
+      font-size: rem-calc(14);
+    }
   }
-
-  &.success {
-    border: 3px solid $success-color;
-    background-color: rgba($success-color, $alert-box-opacity);
-  }
-
-  &.info {
-    border: 3px solid $primary-color;
-    background-color: rgba($primary-color, $alert-box-opacity);
-  }
-  small {
-    color: #555;
-  }
-
-  i {
-    border: 2px solid #555;
-    border-radius: 50%;
-    padding: .3em .325em;
-    margin-right: 0.5rem;
-  }
-
+  @include php-callout(alert, $alert-color);
+  @include php-callout(warning, $warning-color);
+  @include php-callout(success, $success-color);
+  @include php-callout(info, $primary-color);
   .close-button {
-    color: rgba(#555, 0.5);
-    font-size: 2rem;
+    @include close-button-size(large);
   }
 }

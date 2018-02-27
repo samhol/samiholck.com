@@ -9,7 +9,7 @@ namespace Sphp\Html\Foundation\Sites\Containers\Tabs;
 
 use IteratorAggregate;
 use Sphp\Html\AbstractContainerComponent;
-use Sphp\Html\TraversableInterface;
+use Sphp\Html\TraversableContent;
 use OutOfBoundsException;
 
 /**
@@ -21,7 +21,7 @@ use OutOfBoundsException;
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
-class TabContentContainer extends AbstractContainerComponent implements IteratorAggregate, TraversableInterface {
+class TabContentContainer extends AbstractContainerComponent implements IteratorAggregate, TraversableContent {
 
   use \Sphp\Html\TraversableTrait;
 
@@ -43,7 +43,7 @@ class TabContentContainer extends AbstractContainerComponent implements Iterator
     }
     $this->tabs = $tabs;
     $this->cssClasses()->protect('tabs-content');
-    $this->attrs()->set('data-tabs-content', $this->tabs->identify());
+    $this->attributes()->set('data-tabs-content', $this->tabs->identify());
   }
 
   /**
@@ -110,7 +110,7 @@ class TabContentContainer extends AbstractContainerComponent implements Iterator
    */
   public function matchHeight(bool $match = true) {
     $value = $match ? 'true' : 'false';
-    $this->attrs()->set('data-match-height', $value);
+    $this->attributes()->set('data-match-height', $value);
     $this->tabs->matchHeight($match);
     return $this;
   }

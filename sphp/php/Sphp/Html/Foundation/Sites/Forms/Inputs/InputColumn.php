@@ -8,18 +8,19 @@
 namespace Sphp\Html\Foundation\Sites\Forms\Inputs;
 
 use Sphp\Html\AbstractComponent;
-use Sphp\Html\Forms\Inputs\InputInterface;
+use Sphp\Html\Forms\Inputs\Input;
 use Sphp\Html\Forms\Label;
 use Sphp\Html\Span;
-use Sphp\Html\Content\Paragraph;
+use Sphp\Html\Flow\Paragraph;
 use ReflectionClass;
 use BadMethodCallException;
-use Sphp\Html\Foundation\Sites\Grids\XY\ColumnLayoutManager;
+use Sphp\Html\Foundation\Sites\Grids\ColumnLayoutManager;
+use Sphp\Html\Foundation\Sites\Grids\ColumnLayoutManagerInterface;
 use Sphp\Html\Forms\Inputs\TextInput;
 use Sphp\Html\Forms\Inputs\Textarea;
 use Sphp\Html\Forms\Inputs\Menus\Select;
 use Sphp\Html\Forms\Inputs\EmailInput;
-use Sphp\Html\Forms\Inputs\Input;
+use Sphp\Html\Forms\Inputs\Factory;
 
 /**
  * Implements framework based component to create  multi-device layouts
@@ -40,7 +41,7 @@ class InputColumn extends AbstractComponent implements InputColumnInterface {
   /**
    * The inner input component
    *
-   * @var InputInterface 
+   * @var Input 
    */
   private $input;
 
@@ -69,10 +70,10 @@ class InputColumn extends AbstractComponent implements InputColumnInterface {
   /**
    * Constructs a new instance
    *
-   * @param  InputInterface $input the actual input component
+   * @param  Input $input the actual input component
    * @param  string[] $layout the layout parameters
    */
-  public function __construct(InputInterface $input, array $layout = ['small-12']) {
+  public function __construct(Input $input, array $layout = ['small-12']) {
     parent::__construct('div');
     $this->layoutManager = new ColumnLayoutManager($this);
     $this->layout()->setLayouts($layout);
@@ -122,7 +123,7 @@ class InputColumn extends AbstractComponent implements InputColumnInterface {
   /**
    * Returns the actual input component
    * 
-   * @return InputInterface the actual input component
+   * @return Input the actual input component
    */
   public function getInput() {
     return $this->input;
@@ -186,8 +187,8 @@ class InputColumn extends AbstractComponent implements InputColumnInterface {
     return $this->input->getSubmitValue();
   }
 
-  public function setValue($value) {
-    $this->input->setValue($value);
+  public function setSubmitValue($value) {
+    $this->input->setSubmitValue($value);
     return $this;
   }
 
@@ -195,7 +196,7 @@ class InputColumn extends AbstractComponent implements InputColumnInterface {
     return $this->label->getHtml() . $this->helper;
   }
 
-  public function layout() {
+  public function layout(): ColumnLayoutManagerInterface {
     return $this->layoutManager;
   }
 
@@ -263,7 +264,7 @@ class InputColumn extends AbstractComponent implements InputColumnInterface {
    */
   public static function __callStatic(string $inputType, array $arguments): TagInterface {
     try {
-      $input = \Sphp\Html\Forms\Inputs\Input::__callStatic($arguments);
+      $input = \Sphp\Html\Forms\Inputs\Factory::__callStatic($arguments);
     } catch (\Exception $ex) {
       
     }

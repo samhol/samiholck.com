@@ -11,15 +11,16 @@ use PDO;
 use IteratorAggregate;
 use Traversable;
 use ArrayIterator;
+use Sphp\Database\Rules\Clause;
 
 /**
- * An implementation of a SQL SELECT statement
+ * An abstract implementation of a `SELECT` statement
  *
  * @author  Sami Holck <sami.holck@gmail.com>
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
-abstract class AbstractQuery extends ConditionalStatement implements IteratorAggregate, Query {
+abstract class AbstractQuery extends AbstractConditionalStatement implements IteratorAggregate, Query {
 
   /**
    * a list of column(s) to be included in the query
@@ -382,8 +383,9 @@ abstract class AbstractQuery extends ConditionalStatement implements IteratorAgg
   }
 
   /**
-   * 
-   * @return Traversable
+   * Create a new iterator to iterate through query results
+   *
+   * @return Traversable iterator
    */
   public function getIterator(): Traversable {
     try {
@@ -400,36 +402,15 @@ abstract class AbstractQuery extends ConditionalStatement implements IteratorAgg
     }
   }
 
-  /**
-   * Executes the SQL query in the given database and returns the result rows as an array
-   *
-   * @return mixed[] result rows as an array
-   * @throws \PDOException if there is no database connection or query execution fails
-   * @link   http://www.php.net/manual/en/book.pdo.php PHP Data Objects
-   */
   public function fetchAll(int $fetch_style = PDO::FETCH_ASSOC): array {
     return $this->execute()->fetchAll($fetch_style);
   }
 
-  /**
-   * Executes the SQL query in the given database and returns the result rows as an array
-   *
-   * @return mixed[] result rows as an array
-   * @throws \PDOException if there is no database connection or query execution fails
-   * @link   http://www.php.net/manual/en/book.pdo.php PHP Data Objects
-   */
-  public function fetchColumn(int $colNum = 0) {
+  public function fetchColumn(int $colNum = 0): array {
     return $this->execute()->fetchColumn($colNum);
   }
 
-  /**
-   * Executes the SQL query in the given database and returns the result rows as an array
-   *
-   * @return mixed[] result rows as an array
-   * @throws \PDOException if there is no database connection or query execution fails
-   * @link   http://www.php.net/manual/en/book.pdo.php PHP Data Objects
-   */
-  public function fetchFirstRow() {
+  public function fetchFirstRow(): array {
     return $this->execute()->fetch(PDO::FETCH_ASSOC);
   }
 

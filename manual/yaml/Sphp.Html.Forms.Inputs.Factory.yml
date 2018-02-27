@@ -1,0 +1,24 @@
+---
+Sphp\Html\Forms\inputs\Factory:
+  Inputs: 
+    hidden: 'A hidden input field'
+    text: 'A text input field'
+    email: 'An email input field'
+    number: 'A number input field'
+    password: 'A password input field'
+    radio: 'A radio input'
+    checkbox: 'A checkbox input'
+    textarea: 'A text area'
+    #keygen: 'A generated key in a form'
+    #output: 'Defines some types of output'
+    #label: 'A label for a form control'
+    #fieldset: 'A fieldset'
+    #legend: 'A title in a fieldset'
+    #datalist: 'A dropdown list'
+    select: 'A selectable list'
+    optgroup: 'An option group'
+    option: 'An option in a drop-down list'
+  Buttons: 
+    pushButton: 'A push button'
+    reset: 'A reset button for forms'
+    submit: 'A sybmit button for forms'

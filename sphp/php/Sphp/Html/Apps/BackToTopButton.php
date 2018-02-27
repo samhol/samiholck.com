@@ -7,9 +7,9 @@
 
 namespace Sphp\Html\Apps;
 
-use Sphp\Html\ContentInterface;
+use Sphp\Html\Content;
 use Sphp\Html\ComponentInterface;
-use Sphp\Html\Icons\AbstractIcon;
+use Sphp\Html\Media\Icons\AbstractIcon;
 
 /**
  * Implements a back to top button for the web page
@@ -18,7 +18,7 @@ use Sphp\Html\Icons\AbstractIcon;
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
-class BackToTopButton implements ContentInterface {
+class BackToTopButton implements Content {
 
   use \Sphp\Html\ContentTrait;
 
@@ -34,7 +34,7 @@ class BackToTopButton implements ContentInterface {
    * @param string $iconClass CSS class names of the icon font style
    */
   public function __construct(ComponentInterface $component) {
-    $component->attrs()->demand('data-sphp-back-to-top-button');
+    $component->attributes()->demand('data-sphp-back-to-top-button');
     $this->component = $component;
   }
 
@@ -47,8 +47,9 @@ class BackToTopButton implements ContentInterface {
   }
 
   public static function fromIcon(AbstractIcon $icon): BackToTopButton {
-    $icon->cssClasses()->protect('sphp-back-to-top-button');
-    return new static($icon);
+    $div = new \Sphp\Html\Div($icon);
+    $div->cssClasses()->protect('sphp-back-to-top-button');
+    return new static($div);
   }
 
 }

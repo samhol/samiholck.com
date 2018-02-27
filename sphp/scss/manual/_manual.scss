@@ -39,9 +39,10 @@ $error-bg: rgba(255,127,80, 0.40);
 @import "api-stuff";
 @import "form-submission-viewer";
 @import "footer";
-@import "error-pages";
 @import 'topbar';
 @import 'gettext-form';
+@import "forms"; 
+@import 'icon-examples';
 
 @import "logo-area"; 
 
@@ -56,9 +57,14 @@ $error-bg: rgba(255,127,80, 0.40);
   margin: rem-calc(5 0 20 0); // top right bottom left
   @include box-shadow(#888 0px 3px 8px 4px);
   background: #eaeaea;
+  @include breakpoint(medium down) {  margin: rem-calc(5 0 20 0);}
 }
 .mainContent .container  { 
-  @import "f6-manual-accordion";
+
+  >.button-group, >.grid-x {
+    @include default-margin();
+  }
+  @import "example-accordion";
   border-left: solid 1px #ccc;
   border-right: solid 1px #ccc;
   //@include border-radius(4px);
@@ -82,13 +88,14 @@ $error-bg: rgba(255,127,80, 0.40);
       }
     } 
   }
-  @import "html-ref-tables"; 
+  @import "sphp-factory-tables"; 
   //@import "breadcrumbs";
-  > p, > ul, > ol > .callout, > .sphp-single-accordion {
+  > p, > ul, > ol, > .sphp-single-accordion {
     margin-left: rem-calc(5);
     margin-right: rem-calc(5); 
   }
 
+  @import "callouts"; 
   > p:not([class]), > blockquote:not([class]) {
     @include default-margin();
     //margin: rem-calc(5 25 15 35); // top right bottom left
@@ -116,7 +123,7 @@ $error-bg: rgba(255,127,80, 0.40);
   }
   @import "headings"; 
   @import "hyperlinks"; 
-  
+
   @import "technologies"; 
   @import "grid-examples"; 
 
@@ -131,7 +138,7 @@ $error-bg: rgba(255,127,80, 0.40);
   > div.wrapper {
     @include default-margin();
   }
-  @import "orbit-intro";
+  @import "carousels";
 }
 
 @import "body";

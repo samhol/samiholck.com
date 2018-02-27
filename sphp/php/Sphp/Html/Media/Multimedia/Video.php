@@ -55,12 +55,12 @@ class Video extends AbstractMultimediaTag implements SizeableMedia, LazyMedia {
    * the video is downloading, or until the user hits the play button. If 
    * this is not included, the first frame of the video will be used instead.
    * 
-   * @param  string $poster the poster image for the video component
+   * @param  string|null $poster the poster image for the video component
    * @return $this for a fluent interface
    * @link   http://www.w3schools.com/tags/att_video_poster.asp poster attribute
    */
-  public function setPoster(string $poster) {
-    $this->attrs()->set('poster', $poster);
+  public function setPoster(string $poster = null) {
+    $this->attributes()->set('poster', $poster);
     return $this;
   }
 

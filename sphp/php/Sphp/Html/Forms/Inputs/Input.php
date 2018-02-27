@@ -1,72 +1,68 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * SPHPlayground Framework (http://playground.samiholck.com/)
+ *
+ * @link      https://github.com/samhol/SPHP-framework for the source repository
+ * @copyright Copyright (c) 2017 Sami Holck <sami.holck@gmail.com>.
+ * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
 namespace Sphp\Html\Forms\Inputs;
 
-use ReflectionClass;
-use Sphp\Exceptions\BadMethodCallException;
+use Sphp\Html\Forms\FormController;
+use Sphp\Html\Exceptions\InvalidStateException;
 
 /**
- * Description of Factory
- * @method \Sphp\Html\Forms\Inputs\EmailInput email(mixed $content = null) creates a new email inpue component
- * @method \Sphp\Html\Span span(mixed $content = null) creates a new span tag component
+ * Defines required operations for all HTML form input components
  *
- * @author samih
+ * @author  Sami Holck <sami.holck@gmail.com>
+ * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
+ * @filesource
  */
-class Input {
+interface Input extends FormController {
 
   /**
-   * list of tags and their corresponding PHP classes
+   * Returns the name of the form input
    *
-   * @var string[]
+   * @return string|null the name of the form input
    */
-  private static $components = array(
-      'pushButton' => Forms\Buttons\Button::class,
-      'resetButton' => Forms\Buttons\Resetter::class,
-      'submitButton' => Forms\Buttons\Submitter::class,
-      'input' => InputTag::class,
-      'hidden' => HiddenInput::class,
-      'text' => TextInput::class,
-      'email' => EmailInput::class,
-      'password' => PasswordInput::class,
-      'radio' => Radiobox::class,
-      'checkbox' => Checkbox::class,
-      'number' => NumberInput::class,
-      'resetInput' => Buttons\Resetter::class,
-      'submitInput' => Buttons\Submitter::class,
-      'optgroup' => Menus\Optgroup::class,
-      'option' => Menus\Option::class,
-      'textarea' => Textarea::class,
-      'keygen' => EmptyTag::class,
-      'menu' => ContainerTag::class,
-      'meter' => ContainerTag::class,
-      'output' => ContainerTag::class,
-      'select' => Menus\Select::class,
-  );
+  public function getName();
 
   /**
-   * Creates a HTML object
+   * Sets the name of the input
    *
-   * @param  string $name the name of the component
-   * @param  array $arguments 
-   * @return InputInterface the corresponding component
-   * @throws BadMethodCallException
+   * **Note:** Only form elements with a name attribute will have their values 
+   * passed when submitting a form.
+   *
+   * @param  string $name the name of the input
+   * @return $this for a fluent interface
    */
-  public static function __callStatic(string $name, array $arguments): InputInterface {
-    if (!isset(static::$components[$name])) {
-      throw new BadMethodCallException("Method $name does not exist");
-    }
-    if (is_string(static::$components[$name])) {
-      static::$components[$name] = new ReflectionClass(static::$components[$name]);
-    }
-    $reflectionClass = static::$components[$name];
-    $instance = $reflectionClass->newInstanceArgs($arguments);
-    return $instance;
-  }
+  public function setName(string $name);
 
+  /**
+   * Checks whether the form input has a name
+   *
+   * **Note:** Only form elements with a name attribute will have their values 
+   * passed when submitting a form.
+   *
+   * @return boolean true if the input has a name, otherwise false
+   */
+  public function isNamed(): bool;
+
+  /**
+   * Returns the value of the form input
+   *
+   * @return mixed the value
+   */
+  public function getSubmitValue();
+
+  /**
+   * Sets  the value of the input
+   *
+   * @param  scalar $value the value of the input
+   * @return $this for a fluent interface
+   * @throws InvalidStateException if value is not suitable for input
+   */
+  public function setSubmitValue($value);
 }

@@ -7,7 +7,7 @@
 
 namespace Sphp\Html\Foundation\Sites\Containers;
 
-use Sphp\Html\ContentInterface;
+use Sphp\Html\Content;
 use Sphp\Html\ComponentInterface;
 
 /**
@@ -22,7 +22,7 @@ use Sphp\Html\ComponentInterface;
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
-class Dropdown implements ContentInterface {
+class Dropdown implements Content {
 
   use \Sphp\Html\ContentTrait;
 
@@ -43,7 +43,7 @@ class Dropdown implements ContentInterface {
   /**
    * Constructs a new instance
    *
-   * @param  ContentInterface|mixed $trigger the target component for the dropdown functionality
+   * @param  Content|mixed $trigger the target component for the dropdown functionality
    * @param  mixed $dropdown the dropdown or the content of the dropdown
    */
   public function __construct($trigger, $dropdown) {
@@ -53,7 +53,7 @@ class Dropdown implements ContentInterface {
     $this->dropdown = $dropdown;
     $this->dropdown->identify();
     $this->dropdown->cssClasses()->protect('dropdown-pane');
-    $this->dropdown->attrs()->demand('data-dropdown');
+    $this->dropdown->attributes()->demand('data-dropdown');
     $this->setTrigger($trigger);
   }
 
@@ -158,7 +158,7 @@ class Dropdown implements ContentInterface {
       $trigger = new \Sphp\Html\Span($trigger);
     }
     $this->trigger = $trigger
-            ->setAttr('data-toggle', $this->dropdown->identify());
+            ->setAttribute('data-toggle', $this->dropdown->identify());
     return $this;
   }
 
@@ -182,9 +182,9 @@ class Dropdown implements ContentInterface {
    */
   public function closeOnBodyClick(bool $flag = true) {
     if ($flag) {
-      $this->dropdown->attrs()->set('data-close-on-click', 'true');
+      $this->dropdown->attributes()->set('data-close-on-click', 'true');
     } else {
-      $this->dropdown->attrs()->set('data-close-on-click', 'false');
+      $this->dropdown->attributes()->set('data-close-on-click', 'false');
     }
     return $this;
   }
@@ -196,9 +196,9 @@ class Dropdown implements ContentInterface {
    */
   public function autoFocus(bool $flag = true) {
     if ($flag) {
-      $this->dropdown->attrs()->set('data-auto-focus', 'true');
+      $this->dropdown->attributes()->set('data-auto-focus', 'true');
     } else {
-      $this->dropdown->attrs()->set('data-auto-focus', 'false');
+      $this->dropdown->attributes()->set('data-auto-focus', 'false');
     }
     return $this;
   }

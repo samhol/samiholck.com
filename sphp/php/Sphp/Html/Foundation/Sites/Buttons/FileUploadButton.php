@@ -11,6 +11,7 @@ use Sphp\Html\Forms\Inputs\IdentifiableInput;
 use Sphp\Html\Foundation\Sites\Buttons\ButtonInterface;
 use Sphp\Html\Forms\Label;
 use Sphp\Html\Forms\Inputs\FileInput;
+use Sphp\Html\Attributes\ClassAttribute;
 
 /**
  * Implements &lt;input type="file"&gt; tag as a Foundation Button
@@ -28,7 +29,7 @@ use Sphp\Html\Forms\Inputs\FileInput;
 class FileUploadButton implements IdentifiableInput, ButtonInterface {
 
   use \Sphp\Html\ContentTrait,
-      \Sphp\Html\Foundation\Sites\Buttons\ButtonTrait;
+      \Sphp\Html\Foundation\Sites\Buttons\ButtonTrait, \Sphp\Html\CssClassifiableTrait;
 
   /**
    * @var FileInput 
@@ -58,20 +59,20 @@ class FileUploadButton implements IdentifiableInput, ButtonInterface {
     return $this->label . $this->fileInput;
   }
 
-  public function attrs() {
-    return $this->label->attrs();
+  public function attributes() {
+    return $this->label->attributes();
   }
 
   public function getSubmitValue() {
     return $this->fileInput->getSubmitValue();
   }
 
-  public function setValue($value) {
-    $this->fileInput->setValue($value);
+  public function setSubmitValue($value) {
+    $this->fileInput->setSubmitValue($value);
     return $this;
   }
 
-  public function cssClasses() {
+  public function cssClasses(): ClassAttribute {
     return $this->label->cssClasses();
   }
 

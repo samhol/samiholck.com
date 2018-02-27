@@ -7,20 +7,32 @@
 
 namespace Sphp\Html\Foundation\Sites\Grids;
 
-use Sphp\Html\ContainerInterface;
-use Sphp\Html\ContentInterface;
-use Sphp\Html\TraversableInterface;
+use Sphp\Html\CssClassifiableContent;
+use Sphp\Html\TraversableContent;
 
 /**
- * Defines a responsive Foundation Grid 
+ * Defines a Foundation framework based XY Grid container for rows
  *
+ * **Important!**
+ *
+ * This component is mobile-first. Code for small screens first,
+ * and larger devices will inherit those styles. Customize for
+ * larger screens as necessary
+ * 
  * @author  Sami Holck <sami.holck@gmail.com>
  * @link    http://foundation.zurb.com/ Foundation
- * @link    http://foundation.zurb.com/sites/docs/grid.html Foundation grid
+ * @link    https://foundation.zurb.com/sites/docs/xy-grid.html#grid-container XY Grid Container
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
-interface GridInterface extends ContentInterface, TraversableInterface {
+interface GridInterface extends CssClassifiableContent, TraversableContent {
+
+  /**
+   * Returns the Grid layout manager
+   * 
+   * @return GridLayoutManagerInterface the layout manager
+   */
+  public function layout(): GridLayoutManagerInterface;
 
   /**
    * Appends a new row to the grid
@@ -53,9 +65,9 @@ interface GridInterface extends ContentInterface, TraversableInterface {
   public function prepend($row);
 
   /**
-   * Returns all {@link ColumnInterface} components from the grid
+   * Returns all column components from the grid
    * 
-   * @return ContainerInterface containing all the {@link ColumnInterface} components
+   * @return TraversableContent containing all the column components
    */
-  public function getColumns();
+  public function getColumns(): TraversableContent;
 }

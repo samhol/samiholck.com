@@ -8,10 +8,11 @@
 namespace Sphp\Html;
 
 use Sphp\Stdlib\Filesystem;
-use ParsedownExtraPlugin;
+use Sphp\Stdlib\Parser;
+use Sphp\Html\Exceptions\RuntimeHtmlException;
 
 /**
- * Trait implements functionality of the {@link ContentParserInterface}
+ * Trait implements functionality of the {@link ContentParser}
  *
  * @author  Sami Holck <sami.holck@gmail.com>
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
@@ -20,57 +21,75 @@ use ParsedownExtraPlugin;
 trait ContentParsingTrait {
 
   /**
-   * 
-   * @param  mixed $content
+   * Appends a new value as the last element
+   *
+   * @param  mixed,... $value element
    * @return $this for a fluent interface
    */
-  abstract public function append($content);
+  abstract public function append(...$content);
 
   /**
    * Appends a raw file to the container
    * 
-   * @param  string $path
+   * @param  string $path path to the file
    * @return $this for a fluent interface
-   * @throws \Sphp\Exceptions\InvalidArgumentException if the parsing fails for any reason
+   * @throws RuntimeHtmlException if the parsing fails for any reason
    */
   public function appendRawFile(string $path) {
-    $this->append(Filesystem::toString($path));
+    try {
+      $this->append(Filesystem::toString($path));
+    } catch (\Exception $ex) {
+      throw new RuntimeHtmlException($ex->getMessage(), $ex->getCode(), $ex);
+    }
     return $this;
   }
 
   /**
    * Appends an executed PHP file to the container
    * 
-   * @param  string $path path to the PHP file
+   * @param  string $path  the path to the file
    * @return $this for a fluent interface
-   * @throws \Sphp\Exceptions\InvalidArgumentException if the parsing fails for any reason
+   * @throws RuntimeHtmlException if the parsing fails for any reason
    */
   public function appendPhpFile(string $path) {
-    $this->append(Filesystem::executePhpToString($path));
+    try {
+      $this->append(Filesystem::executePhpToString($path));
+    } catch (\Exception $ex) {
+      throw new RuntimeHtmlException($ex->getMessage(), $ex->getCode(), $ex);
+    }
     return $this;
   }
 
   /**
    * Appends a parsed Mark Down string to the container
    * 
-   * @param  string $md
+   * @param  string $md the path to the file
    * @return $this for a fluent interface
+   * @throws RuntimeHtmlException if the parsing fails for any reason
    */
   public function appendMd(string $md) {
-    $p = new ParsedownExtraPlugin();
-    $this->append($p->text($md));
+    try {
+      $p = Parser::md();
+      $this->append($p->fromString($md));
+    } catch (\Exception $ex) {
+      throw new RuntimeHtmlException($ex->getMessage(), $ex->getCode(), $ex);
+    }
     return $this;
   }
 
   /**
    * Appends a parsed Mark Down file to the container
    * 
-   * @param  string $path
+   * @param  string $path  the path to the file
    * @return $this for a fluent interface
-   * @throws \Sphp\Exceptions\InvalidArgumentException if the parsing fails for any reason
+   * @throws RuntimeHtmlException if the parsing fails for any reason
    */
   public function appendMdFile(string $path) {
-    $this->appendMd(Filesystem::executePhpToString($path));
+    try {
+      $this->appendMd(Filesystem::executePhpToString($path));
+    } catch (\Exception $ex) {
+      throw new RuntimeHtmlException($ex->getMessage(), $ex->getCode(), $ex);
+    }
     return $this;
   }
 

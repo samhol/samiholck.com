@@ -9,6 +9,8 @@ namespace Sphp\Database\Doctrine;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Sphp\Stdlib\Datastructures\Collection;
+use Sphp\Database\Doctrine\Objects\Location;
+use Sphp\Database\Doctrine\Objects\DbObjectInterface;
 
 /**
  * Implements a {@link Location} storage
@@ -17,10 +19,10 @@ use Sphp\Stdlib\Datastructures\Collection;
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
-class LocationStorage extends AbstractObjectStorage {
+class LocationStorage extends AbstractObjectStorage implements \IteratorAggregate {
 
   /**
-   * Constructor
+   * Constructs a new instance
    *
    * @param EntityManagerInterface $em
    */
@@ -34,26 +36,22 @@ class LocationStorage extends AbstractObjectStorage {
    * @param  string $name the name of the searched location
    * @return Location|null  the location or null if nothing was found
    */
-  public function findByName($name) {
-    if ($name instanceof Location) {
-      $name = $name->getName();
-    }
+  public function findByName(string $name) {
     return $this->getRepository()->findOneBy(['name' => $name]);
   }
 
   /**
-   * Tries to get a location by its unique name
+   * Tries to remove a location by its unique name
    *
-   * @param  string $name the name of the searched location
-   * @return Location|null  the location or null if nothing was found
+   * @param  string $name the name of the location
+   * @return Location|null  removed location or null if nothing was found
    */
-  public function removeByName($name) {
+  public function removeByName(string $name) {
     $obj = $this->findByName($name);
     if ($obj !== null) {
-      $this->getManager()->remove($obj);
-      $this->getManager()->flush();
+      $this->remove($obj);
     }
-    return $this;
+    return $obj;
   }
 
   /**
@@ -62,11 +60,11 @@ class LocationStorage extends AbstractObjectStorage {
    * @param  string $country the name of the country
    * @return Location[] all managed objects that have the same country name
    */
-  public function findByCountry($country, array $orderBy = null, $limit = null, $offset = null) {
-    return $this->findBy(['address.country' => $country], $orderBy, $limit, $offset);
+  public function findByCountry(string $country, $limit = null, $offset = null): array {
+    return $this->getRepository()->findBy(['address.country' => $country], ['name' => 'ASC'], $limit, $offset);
   }
 
-  public function getIterator() {
+  public function getIterator(): \Traversable {
     return new Collection($this->getRepository()->findBy([], ['name' => 'ASC']));
   }
 
@@ -76,7 +74,7 @@ class LocationStorage extends AbstractObjectStorage {
    * @param  Location|string $needle the location instance or the location name string
    * @return boolean true, if location name is unique, false otherwise.
    */
-  public function nameNotUsed($needle) {
+  public function nameNotUsed($needle): bool {
     if ($needle instanceof Location) {
       $result = $needle->getName();
     }
@@ -86,16 +84,6 @@ class LocationStorage extends AbstractObjectStorage {
     $result = $query->getSingleScalarResult() == 0;
 
     return $result;
-  }
-
-  public function exists(DbObjectInterface $id) {
-    if ($id instanceof Location) {
-      $username = $id->getName();
-    }
-    $query = $this->getManager()
-            ->createQuery('SELECT COUNT(obj.id) FROM ' . $this->getObjectType() . " obj WHERE obj.name = :name");
-    $query->setParameter('name', $username);
-    return $query->getSingleScalarResult() == 1;
   }
 
 }

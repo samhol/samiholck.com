@@ -49,21 +49,26 @@ class Popup extends Div {
     parent::__construct($content);
     $this->identify();
     $this->cssClasses()->protect('reveal');
-    $this->attrs()->demand('data-reveal');
+    $this->attributes()->demand('data-reveal');
     $this->closeButton = new CloseButton();
     $this->layoutManager = new PopupLayoutManager($this);
   }
 
+  /**
+   * Returns the layout manager
+   * 
+   * @return PopupLayoutManager the layout manager
+   */
   public function layout(): PopupLayoutManager {
     return $this->layoutManager;
   }
 
   /**
-   * Returns the Modal reveal controller
+   * Returns the close button
    * 
-   * @return CloseButton
+   * @return CloseButton the close button
    */
-  public function getCloseButton() {
+  public function getCloseButton(): CloseButton {
     return $this->closeButton;
   }
 
@@ -78,36 +83,6 @@ class Popup extends Div {
   }
 
   /**
-   * Sets the size of the component
-   *
-   * **Available size options:**
-   * 
-   * * `'tiny'`: set the width to 30%
-   * * `'small'`: set the width to 50%
-   * * `'large'`: set the width to 90%
-   * * `'full'`: set the width and height to 100%
-   * 
-   * **Note:** Default on `'small'` screens is 100% (`'full'`) width.
-   * 
-   * @param  string $size the size of the component
-   * @return $this for a fluent interface
-   */
-  public function setSize(string $size = null) {
-    $this->layout()->setSize($size);
-    return $this;
-  }
-
-  /**
-   * Resets the size settings of the component
-   *
-   * @return $this for a fluent interface
-   */
-  public function resetSize() {
-    $this->layout()->unsetSizing();
-    return $this;
-  }
-
-  /**
    * Returns the default Modal reveal controller
    * 
    * @return Controller
@@ -117,27 +92,18 @@ class Popup extends Div {
   }
 
   public function contentToString(): string {
-    $output = parent::contentToString();
-
-    $output .= $this->getCloseButton()->getHtml();
-
+    $output = parent::contentToString() . $this->getCloseButton()->getHtml();
     return $output;
   }
 
   /**
-   * Returns a link component pointing to the Modal component
-   *
-   * **Important!**
-   *
-   * Parameter `mixed $controller` can be of any type that converts to a
-   * string or to an array of strings. So also an object of any class
-   * that implements magic method `__toString()` is allowed.
+   * Returns a controller component pointing to the Modal component
    *
    * @param  ComponentInterface $content the controller component
    * @return ComponentInterface a controller component pointing to this Modal
    */
   public function createController(ComponentInterface $content): ComponentInterface {
-    $content->setAttr('data-open', $this->identify());
+    $content->setAttribute('data-open', $this->identify());
     return $content;
   }
 

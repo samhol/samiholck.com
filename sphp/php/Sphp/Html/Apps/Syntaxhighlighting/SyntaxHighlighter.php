@@ -15,7 +15,7 @@ use Gajus\Dindent\Indenter;
 use Sphp\Html\Forms\Buttons\Button;
 use Sphp\Html\Apps\ContentCopyController as CopyToClipboardButton;
 use Sphp\Html\Div;
-use Sphp\Exceptions\InvalidArgumentException;
+use Sphp\Exceptions\RuntimeException;
 use Sphp\Stdlib\Filesystem;
 use Sphp\Html\Adapters\VisibilityAdapter;
 use Sphp\Stdlib\Strings;
@@ -83,7 +83,6 @@ class SyntaxHighlighter extends AbstractComponent implements SyntaxHighlighterIn
     $this->footer = (new Div($footerText))->addCssClass("foot");
     $this->buttonArea = (new Div())->addCssClass('button-area');
     $this->showLineNumbers(true)
-            ->startLineNumbersAt(1)
             ->useFooter()
             ->setDefaultContentCopyController();
   }
@@ -111,8 +110,7 @@ class SyntaxHighlighter extends AbstractComponent implements SyntaxHighlighterIn
   }
 
   public function contentToString(): string {
-    $output = "";
-    $output .= $this->geshi->parse_code();
+    $output = $this->geshi->parse_code();
     $output .= $this->buttonArea . $this->footer;
     return $output;
   }
@@ -137,19 +135,9 @@ class SyntaxHighlighter extends AbstractComponent implements SyntaxHighlighterIn
   }
 
   /**
-   * Sets what number line numbers should start at
+   * Sets the linenumber visibility
    * 
-   * @param  int $number the number to start line numbers at
-   * @return $this for a fluent interface
-   */
-  public function startLineNumbersAt(int $number) {
-    $this->geshi->start_line_numbers_at($number);
-    return $this;
-  }
-
-  /**
-   * 
-   * @param  boolean $show
+   * @param  boolean $show true for visible line numbers and false otherwise
    * @return $this for a fluent interface
    */
   public function showLineNumbers(bool $show = true) {
@@ -205,23 +193,25 @@ class SyntaxHighlighter extends AbstractComponent implements SyntaxHighlighterIn
    * @param  mixed $button the copier button
    * @return $this for a fluent interface
    */
-  public function setDefaultContentCopyController($button = 'copy') {
-    if (!($button instanceof ComponentInterface)) {
-      $button = new Button('button', $button);
+  public function setDefaultContentCopyController($button = 'Copy') {
+    if (!$button instanceof ComponentInterface) {
+      $button = new Button($button);
     }
     $this->copyBtn = $this->attachContentCopyController($button);
     $this->buttonArea['copy'] = $this->copyBtn;
     return $this;
   }
 
-  public function setLanguage(string $lang) {
-    $this->geshi->set_language($lang);
-    return $this;
-  }
-
+  /**
+   * 
+   * @param string $source
+   * @param string $lang
+   * @return string
+   */
   protected function formatCode(string $source, string $lang): string {
     if ($lang == 'html5') {
-      $source = (new Indenter())->indent($source);
+      $indenter = new Indenter();
+      $source = $indenter->indent($source);
     } else if ($lang == 'sql') {
       $source = SqlFormatter::format($source, false);
     }
@@ -243,20 +233,13 @@ class SyntaxHighlighter extends AbstractComponent implements SyntaxHighlighterIn
       $this->geshi->load_from_file($path);
       return $this;
     } catch (\Exception $ex) {
-      throw new InvalidArgumentException("The file '$filename' does not exist!");
+      throw new RuntimeException("The file '$filename' does not exist!", $ex->getCode(), $ex);
     }
   }
 
-  /**
-   * 
-   * @param  string $path
-   * @param  string $lang
-   * @return $this for a fluent interface
-   * @throws InvalidArgumentException
-   */
   public function executeFromFile(string $path, string $lang = 'text') {
     if (!file_exists($path)) {
-      throw new InvalidArgumentException("The file in the '$path' does not exist!");
+      throw new RuntimeException("The file in the '$path' does not exist!");
     }
     $source = Filesystem::executePhpToString($path);
     if ($lang == 'html5') {

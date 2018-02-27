@@ -15,7 +15,14 @@ namespace Sphp\Html\Forms\Inputs;
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
-class InputTag extends AbstractInputTag implements Validable {
+class InputTag extends AbstractInputTag implements ValidableInput {
 
-  use ValidableInputTrait;
+  public function setRequired(bool $required = true) {
+    $this->attributes()->setBoolean('required', $required);
+    return $this;
+  }
+
+  public function isRequired(): bool {
+    return $this->attributeExists('required');
+  }
 }

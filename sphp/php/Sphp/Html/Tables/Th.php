@@ -8,16 +8,14 @@
 namespace Sphp\Html\Tables;
 
 /**
- * Implements an HTML &lt;table&gt; tag's header cell (&lt;th&gt; tag)
+ * Implements a &lt;th&gt; header cell for an HTML &lt;table&gt;
  * 
- * This component defines a header cell in a {@link Table} component
- *
  * @author Sami Holck <sami.holck@gmail.com>
  * @link http://www.w3schools.com/tags/tag_th.asp w3schools HTML API
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
-class Th extends Cell {
+class Th extends AbstractCell {
 
   /**
    * Constructs a new instance
@@ -32,14 +30,14 @@ class Th extends Cell {
    * @precondition  $colspan >= 1
    * @precondition  $rowspan >= 1
    * @param mixed $content the content of the tag
+   * @param int $colspan specifies the number of columns cell should span
+   * @param int $rowspan specifies the number of rows cell should span
    * @param string|null $scope the value of the scope attribute or null for none
-   * @param int $colspan solun colspan attribute value
-   * @param int $rowspan solun rowspan attribute value
-   * @link  http://www.w3schools.com/tags/att_th_scope.asp scope attribute
    * @link  http://www.w3schools.com/tags/att_th_colspan.asp colspan attribute
    * @link  http://www.w3schools.com/tags/att_th_rowspan.asp rowspan attribute
+   * @link  http://www.w3schools.com/tags/att_th_scope.asp scope attribute
    */
-  public function __construct($content = null, string $scope = null, int $colspan = 1, int $rowspan = 1) {
+  public function __construct($content = null, int $colspan = 1, int $rowspan = 1, string $scope = null) {
     parent::__construct('th', $content);
     if ($scope !== null) {
       $this->setScope($scope);
@@ -56,8 +54,8 @@ class Th extends Cell {
    * @return $this for a fluent interface
    * @link   http://www.w3schools.com/tags/att_th_scope.asp scope attribute
    */
-  public function setScope(string $scope) {
-    return $this->setAttr('scope', $scope);
+  public function setScope(string $scope = null) {
+    return $this->setAttribute('scope', $scope);
   }
 
   /**
@@ -66,8 +64,8 @@ class Th extends Cell {
    * @return string the value of the scope attribute
    * @link   http://www.w3schools.com/tags/att_th_scope.asp scope attribute
    */
-  public function getScope() {
-    return $this->getAttr('scope');
+  public function getScope(): string {
+    return (string) $this->getAttribute('scope');
   }
 
 }

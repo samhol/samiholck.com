@@ -18,7 +18,7 @@ use Sphp\Stdlib\Arrays;
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
-class Iterator implements NativeIterator, ContentInterface, TraversableInterface {
+class Iterator implements NativeIterator, Content, TraversableContent {
 
   use ContentTrait,
       TraversableTrait;
@@ -70,7 +70,7 @@ class Iterator implements NativeIterator, ContentInterface, TraversableInterface
   /**
    * Count the number of inserted elements in the container
    *
-   * @return int number of elements in the html component
+   * @return int number of elements in the HTML component
    * @link   http://php.net/manual/en/class.countable.php Countable
    */
   public function count(): int {
@@ -78,7 +78,26 @@ class Iterator implements NativeIterator, ContentInterface, TraversableInterface
   }
 
   public function getHtml(): string {
-    return implode('', $this->components);
+    $output = '';
+    foreach ($this->components as $value) {
+      if (is_scalar($value) || $value === null) {
+        $output .=   $value;
+      } else if (is_object($value)) {
+        if (method_exists($value, '__toString')) {
+          $output .=  $value;
+        } else if ($value instanceof \Traversable) {
+          $arr = iterator_to_array($value);
+          $output .= Arrays::implode($arr);
+        } else {
+          throw new InvalidArgumentException('Object has no string representation');
+        }
+      } else if (is_array($value)) {
+        $output .= Arrays::implode($value);
+      } else {
+        throw new InvalidArgumentException('value has no string representation');
+      }
+    }
+    return $output;
   }
 
   /**

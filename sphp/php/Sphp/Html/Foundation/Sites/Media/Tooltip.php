@@ -7,7 +7,7 @@
 
 namespace Sphp\Html\Foundation\Sites\Media;
 
-use Sphp\Html\ContentInterface;
+use Sphp\Html\Content;
 use Sphp\Html\ContentTrait;
 use Sphp\Html\ComponentInterface;
 
@@ -20,7 +20,7 @@ use Sphp\Html\ComponentInterface;
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
-class Tooltip implements ContentInterface {
+class Tooltip implements Content {
 
   use ContentTrait;
 
@@ -36,7 +36,7 @@ class Tooltip implements ContentInterface {
    */
   public function __construct(ComponentInterface $toolTipped, $tip = null) {
     $this->toolTipped = $toolTipped;
-    $this->toolTipped->attrs()
+    $this->toolTipped->attributes()
             ->demand('data-tooltip')
             ->protect('aria-haspopup', 'true')
             ->set('data-disable-hover', 'false');
@@ -71,7 +71,7 @@ class Tooltip implements ContentInterface {
    * @return $this for a fluent interface
    */
   public function setTip($tip) {
-    $this->toolTipped->attrs()->set('title', $tip);
+    $this->toolTipped->attributes()->set('title', $tip);
     return $this;
   }
 

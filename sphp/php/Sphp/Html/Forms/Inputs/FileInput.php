@@ -14,10 +14,7 @@ namespace Sphp\Html\Forms\Inputs;
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
-class FileInput extends AbstractInputTag implements Validable {
-
-  use InputTrait,
-      ValidableInputTrait;
+class FileInput extends AbstractInputTag implements ValidableInput {
 
   /**
    * Constructs a new instance
@@ -42,7 +39,7 @@ class FileInput extends AbstractInputTag implements Validable {
    * @link   http://www.w3schools.com/tags/att_input_accept.asp accept attribute
    */
   public function setFileTypes(string $accept) {
-    $this->attrs()->set('accept', $accept);
+    $this->attributes()->set('accept', $accept);
     return $this;
   }
 
@@ -54,10 +51,17 @@ class FileInput extends AbstractInputTag implements Validable {
    * @link   http://www.w3schools.com/tags/att_input_multiple.asp multiple attribute
    */
   public function multipleFiles(bool $multiple = true) {
-    $this->attrs()->setBoolean('multiple', $multiple);
+    $this->attributes()->setBoolean('multiple', $multiple);
     return $this;
   }
 
+  public function setRequired(bool $required = true) {
+    $this->attributes()->setBoolean('required', $required);
+    return $this;
+  }
+
+  public function isRequired(): bool {
+    return $this->attributeExists('required');
+  }
+
 }
-
-

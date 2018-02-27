@@ -20,7 +20,7 @@ use Sphp\Html\ContainerTag;
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
-class Fieldset extends ContainerTag {
+class Fieldset extends ContainerTag implements FormController {
 
   /**
    * the legend of the fieldset component
@@ -44,17 +44,17 @@ class Fieldset extends ContainerTag {
   }
 
   /**
-   * Sets the legend of the fieldset component
+   * Sets the legend component
    *
-   * @param  string|Legend $legend the legend of the fielset component
-   * @return $this for a fluent interface
+   * @param  string|Legend $legend the legend component
+   * @return Legend the legend
    */
-  public function setLegend($legend) {
+  public function setLegend($legend): Legend {
     if (!($legend instanceof Legend)) {
       $legend = new Legend($legend);
     }
     $this->legend = $legend;
-    return $this;
+    return $this->legend;
   }
 
   /**
@@ -62,22 +62,21 @@ class Fieldset extends ContainerTag {
    *
    * @return Legend the legend of the fieldset component or null
    */
-  public function getLegend() {
+  public function getLegend(): Legend {
     return $this->legend;
   }
 
-  /**
-   * Activates the Fieldset component
-   *
-   * @param  boolean $enabled true if the component is enabled, otherwise false
-   * @return $this for a fluent interface
-   */
-  public function enable(bool $enabled = true) {
-    return parent::setAttr("disabled", !$enabled);
+  public function disable(bool $disabled = true) {
+    $this->attributes()->setBoolean('disabled', $disabled);
+    return $this;
+  }
+
+  public function isEnabled(): bool {
+    return !$this->attributes()->exists('disabled');
   }
 
   public function contentToString(): string {
-    return $this->getLegend() . parent::contentToString();
+    return $this->legend . parent::contentToString();
   }
 
 }

@@ -15,7 +15,7 @@ namespace Sphp\Html\Forms\Inputs;
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
-interface TextareaInterface extends Validable {
+interface TextareaInterface extends ValidableInput, InputField {
 
   /**
    * specifies how the contents is to be wrapped when submitted in a form
@@ -23,11 +23,11 @@ interface TextareaInterface extends Validable {
    * Sets the value of the `wrap´ attribute
    *
    * @precondition `$wrapType == soft|hard`
-   * @param  int $wrapType the value of the wrap attribute
+   * @param  string $wrapType the value of the wrap attribute
    * @return $this for a fluent interface
    * @link   http://www.w3schools.com/tags/att_textarea_wrap.asp wrap attribute
    */
-  public function wrap($wrapType);
+  public function wrap(string $wrapType = null);
 
   /**
    * Sets the value of the rows attribute
@@ -60,6 +60,6 @@ interface TextareaInterface extends Validable {
    * @return $this for a fluent interface
    * @link   http://www.w3schools.com/tags/att_textarea_placeholder.asp placeholder attribute
    */
-  public function setPlaceholder(string $placeholder);
+  public function setPlaceholder(string $placeholder = null);
 }
 

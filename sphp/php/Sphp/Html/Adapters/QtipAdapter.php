@@ -8,7 +8,7 @@
 namespace Sphp\Html\Adapters;
 
 use Sphp\Html\ComponentInterface;
-use Sphp\Html\IdentifiableComponent;
+use Sphp\Html\IdentifiableContent;
 
 /**
  * Inserts a qTip style tooltip to the adaptee
@@ -40,7 +40,7 @@ class QtipAdapter extends AbstractComponentAdapter {
    * @link   http://www.w3schools.com/tags/att_global_title.asp title attribute
    */
   public function setQtip($qtip) {
-    $this->getComponent()->attrs()
+    $this->getComponent()->attributes()
             ->set('title', $qtip)
             ->set('data-sphp-qtip', true);
     return $this;
@@ -54,7 +54,7 @@ class QtipAdapter extends AbstractComponentAdapter {
    * @return $this for a fluent interface
    */
   public function setQtipPosition(string $my, string $at) {
-    $this->getComponent()->attrs()
+    $this->getComponent()->attributes()
             ->set('data-sphp-qtip', true)
             ->set('data-sphp-qtip-at', $at)
             ->set('data-sphp-qtip-my', $my);
@@ -63,14 +63,14 @@ class QtipAdapter extends AbstractComponentAdapter {
 
   /**
    * 
-   * @param IdentifiableComponent $viewport
+   * @param IdentifiableContent $viewport
    * @return $this for a fluent interface
    */
   public function setViewport($viewport) {
-    if ($viewport instanceof IdentifiableComponent) {
+    if ($viewport instanceof IdentifiableContent) {
       $id = $viewport->identify();
     }
-    $this->attrs()->set('data-sphp-qtip-viewport', "#$id");
+    $this->attributes()->set('data-sphp-qtip-viewport', "#$id");
     return $this;
   }
 

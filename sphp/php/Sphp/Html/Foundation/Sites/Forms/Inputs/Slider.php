@@ -3,14 +3,16 @@
 /**
  * Slider.php (UTF-8)
  * Copyright (c) 2016 Sami Holck <sami.holck@gmail.com>
+ * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  */
 
 namespace Sphp\Html\Foundation\Sites\Forms\Inputs;
 
 use Sphp\Html\Forms\Inputs\HiddenInput;
-use Sphp\Html\Forms\Label;
+use Sphp\Html\Forms\Inputs\InputField;
+use Sphp\Html\Forms\Inputs\NumberInput;
 use Sphp\Html\Span;
-use Sphp\Html\Adapters\VisibilityAdapter;
+use Sphp\Html\Exceptions\InvalidStateException;
 
 /**
  * Slider allows to drag a handle to select a specific value from a range
@@ -29,7 +31,7 @@ class Slider extends AbstractSlider {
   private $handle;
 
   /**
-   * @var HiddenInput
+   * @var InputField
    */
   private $input;
 
@@ -45,29 +47,20 @@ class Slider extends AbstractSlider {
     parent::__construct($start, $end, $step);
     $this->handle = new Span();
     $this->handle->cssClasses()->protect('slider-handle');
-    $this->handle->attrs()
+    $this->handle->attributes()
             ->demand('data-slider-handle')
             ->protect('role', 'slider')
             ->protect('tabindex', 1);
     $this->input = new HiddenInput();
-    $this->setStepLength($step)->setValue($value);
+    $this->setStepLength($step)->setSubmitValue($value);
   }
 
   /**
-   * Returns the label of the slider
+   * Returns the form element containing the value of the slider
    * 
-   * @return Label the label describing the slider
+   * @return HiddenInput the form element containing the value of the slider
    */
-  private function getInnerLabel() {
-    
-  }
-
-  /**
-   * Returns the actual (hidden) form element containing the value of the slider
-   * 
-   * @return HiddenInput the actual (hidden) form element containing the value of the slider
-   */
-  private function getInput(): HiddenInput {
+  private function getInput(): InputField {
     return $this->input;
   }
 
@@ -79,45 +72,11 @@ class Slider extends AbstractSlider {
   public function setVertical(bool $vertical = true) {
     if ($vertical) {
       $this->cssClasses()->add('vertical');
-      $this->attrs()->set('data-vertical', 'true');
+      $this->attributes()->set('data-vertical', 'true');
     } else {
       $this->cssClasses()->remove('vertical');
-      $this->attrs()->set('data-vertical', 'false');
+      $this->attributes()->set('data-vertical', 'false');
     }
-    return $this;
-  }
-
-  /**
-   * Sets the visibility of the current slider value
-   * 
-   * @param  boolean $valueVisible true for visible and false for hidden
-   * @return $this for a fluent interface
-   */
-  public function showValue(bool $valueVisible = true) {
-    $vis = new VisibilityAdapter($this->getInnerLabel());
-    $vis->setHidden(!$valueVisible);
-    return $this;
-  }
-
-  /**
-   * Sets the description text of the slider
-   * 
-   * @param  string $description the description text of the slider
-   * @return $this for a fluent interface
-   */
-  public function setDescription($description) {
-    $this->getInnerLabel()["description"] = "$description ";
-    return $this;
-  }
-
-  /**
-   * Sets the unit of the slider value
-   * 
-   * @param  string $unit the unit of the value
-   * @return $this for a fluent interface
-   */
-  public function setValueUnit($unit = "") {
-    $this->getInnerLabel()["unit"] = " $unit";
     return $this;
   }
 
@@ -131,7 +90,7 @@ class Slider extends AbstractSlider {
     return $this->getInput()->getName();
   }
 
-  public function setName(string $name) {
+  public function setName(string $name = null) {
     $this->getInput()->setName($name);
     return $this;
   }
@@ -140,58 +99,45 @@ class Slider extends AbstractSlider {
     return $this->getInput()->isNamed();
   }
 
-  /**
-   * Returns the minimum value of the slider
-   *
-   * @return int the minimum value of the slider
-   */
-  public function getMin(): int {
-    return $this->attrs()->getValue('data-start');
+  public function getMin(): float {
+    return $this->attributes()->getValue('data-start');
   }
 
-  /**
-   * Returns the maximum value of the slider
-   *
-   * @return int the maximum value of the slider
-   */
-  public function getMax(): int {
-    return $this->attrs()->getValue('data-end');
+  public function getMax(): float {
+    return $this->attributes()->getValue('data-end');
   }
 
   public function getSubmitValue() {
     return $this->getInput()->getSubmitValue();
   }
 
-  public function setValue($value) {
+  public function setSubmitValue($value) {
     if ($this->getMin() > $value || $this->getMax() < $value) {
-      throw new \InvalidArgumentException("value: '$value' is not in valid range ({$this->getMin()}-{$this->getMax()})");
+      throw new InvalidStateException("value: '$value' is not in valid range ({$this->getMin()}-{$this->getMax()})");
     }
-    $this->getInput()->setValue($value);
-    $this->attrs()->set('data-initial-start', $value);
+    $this->getInput()->setSubmitValue($value);
+    $this->attributes()->set('data-initial-start', $value);
     return $this;
   }
 
-  /**
-   * Sets whether the input must have a value or not before form submission
-   * 
-   * @param  boolean $required true if the input must have a value before form submission, otherwise false
-   * @return $this for a fluent interface
-   */
-  public function setRequired(bool $required = true) {
-    return $this->getInput()->setRequired($required);
-  }
-
-  /**
-   * Checks whether the input must have a value before form submission
-   *
-   * @return boolean true if the input must have a value before form submission, false otherwise
-   */
-  public function isRequired(): bool {
-    return $this->getInput()->isRequired();
-  }
-
   public function contentToString(): string {
-    return $this->handle . '<span class="slider-fill" data-slider-fill></span>' . $this->input;
+    return $this->handle . '<span class="slider-fill" data-slider-fill></span>';
+  }
+
+  /**
+   * Binds input component for the slider value
+   * 
+   * @param  InputField|null $input
+   * @return InputField
+   */
+  public function bindInput(InputField $input = null): InputField {
+    if ($input === null) {
+      $input = new NumberInput();
+    }
+    $this->input = $input;
+    $this->input->setName($this->getName());
+    $this->handle->attributes()->set('aria-controls', $input->identify());
+    return $input;
   }
 
 }

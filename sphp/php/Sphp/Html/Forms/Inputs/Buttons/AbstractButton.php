@@ -2,7 +2,8 @@
 
 /**
  * SubmitButton.php (UTF-8)
- * Copyright (c) 2013 Sami Holck <sami.holck@gmail.com>.
+ * Copyright (c) 2013 Sami Holck <sami.holck@gmail.com>
+ * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  */
 
 namespace Sphp\Html\Forms\Inputs\Buttons;
@@ -38,7 +39,7 @@ class AbstractButton extends EmptyTag implements ButtonInterface {
       throw new InvalidArgumentException("Illegal form button type '$type'");
     }
     parent::__construct('input');
-    $this->attrs()->protect('type', $type);
+    $this->attributes()->protect('type', $type);
     if ($content !== null) {
       $this->setContent($content);
     }
@@ -51,8 +52,17 @@ class AbstractButton extends EmptyTag implements ButtonInterface {
    * @return $this for a fluent interface
    */
   public function setContent(string $content) {
-    $this->attrs()->set('value', $content);
+    $this->attributes()->set('value', $content);
     return $this;
+  }
+
+  public function disable(bool $disabled = true) {
+    $this->attributes()->setBoolean('disabled', $disabled);
+    return $this;
+  }
+
+  public function isEnabled(): bool {
+    return !$this->attributes()->exists('disabled');
   }
 
 }

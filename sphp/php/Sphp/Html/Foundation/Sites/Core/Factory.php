@@ -1,25 +1,28 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * FaIcon.php (UTF-8)
+ * Copyright (c) 2017 Sami Holck <sami.holck@gmail.com>
  */
 
 namespace Sphp\Html\Foundation\Sites\Core;
-
-use Sphp\Html\Factory as HtmlFacctory;
 use Sphp\Html\Span;
 
 /**
- * Description of Factory
+ * Implements icon based on fonts and HTML tags
  *
- * @author samih
+ * @author  Sami Holck <sami.holck@gmail.com>
+ * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
+ * @filesource
  */
 class Factory {
 
-  //put your code here
-  public static function ScreenReaderLabel(string $text = null): Span {
+  /**
+   * 
+   * @param  string $text
+   * @return Span
+   */
+  public static function screenReaderLabel(string $text = null): Span {
     $label = new Span($text);
     $label->cssClasses()->protect('show-for-sr');
     return $label;

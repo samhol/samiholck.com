@@ -34,11 +34,10 @@ interface HyperlinkInterface {
    * * If the href attribute is not present, the {@link self} is not a hyperlink.
    *
    * @param  string $href the URL of the link
-   * @param  boolean $encode converts all applicable characters of the $url to HTML entities
    * @return $this for a fluent interface
    * @link   http://www.w3schools.com/tags/att_a_href.asp href attribute
    */
-  public function setHref($href, $encode = true);
+  public function setHref(string $href);
 
   /**
    * Returns the value of the href attribute
@@ -61,11 +60,11 @@ interface HyperlinkInterface {
    * * The target attribute specifies where to open the linked document.
    * * Only used if the href attribute is present.
    *
-   * @param  string $target the value of the target attribute
+   * @param  string|null $target optional target frame of the hyperlink
    * @return $this for a fluent interface
    * @link   http://www.w3schools.com/tags/att_a_target.asp target attribute
    */
-  public function setTarget($target);
+  public function setTarget(string $target = null);
 
   /**
    * Returns the value of the target attribute
@@ -79,4 +78,30 @@ interface HyperlinkInterface {
    * @link  http://www.w3schools.com/tags/att_a_target.asp target attribute
    */
   public function getTarget();
+
+  /**
+   * Sets the relationship between the current document and the linked document
+   *
+   * **Notes:**
+   *
+   * * Only used if the href attribute is present.
+   *
+   * @param  string|null $rel optional relationship between the current document and the linked document
+   * @return $this for a fluent interface
+   * @link  http://www.w3schools.com/tags/att_a_rel.asp rel attribute
+   */
+  public function setRel(string $rel = null);
+
+  /**
+   * Returns the relationship between the current document and the linked document
+   *
+   * **Notes:**
+   *
+   * * Only used if the `href` attribute is present.
+   *
+   * @return string the relationship between the current document and the linked document
+   * @link  http://www.w3schools.com/tags/att_a_rel.asp rel attribute
+   */
+  public function getRel();
+  
 }

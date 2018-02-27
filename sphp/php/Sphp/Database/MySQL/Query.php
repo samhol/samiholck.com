@@ -10,7 +10,7 @@ namespace Sphp\Database\MySQL;
 use Sphp\Database\AbstractQuery;
 
 /**
- * An implementation of a SQL SELECT statement
+ * MySQL implementation of `SELECT` statement
  *
  * @author  Sami Holck <sami.holck@gmail.com>
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
@@ -58,11 +58,11 @@ class Query extends AbstractQuery {
 
   public function statementToString(): string {
     $query = 'SELECT ';
-    $query .= " " . implode(', ', $this->getColumns());
+    $query .= implode(', ', $this->getColumns());
     $query .= $this->fromToString();
     $query .= $this->conditionsToString();
     $query .= $this->groupByToString();
-    
+
     $query .= $this->havingToString();
     $query .= $this->orderByToString();
     if ($this->hasLimit()) {

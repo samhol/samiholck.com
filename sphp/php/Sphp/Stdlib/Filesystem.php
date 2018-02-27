@@ -10,6 +10,7 @@ namespace Sphp\Stdlib;
 use Sphp\Exceptions\RuntimeException;
 use SplFileObject;
 use Sphp\Stdlib\Arrays;
+use Exception;
 
 /**
  * Tools to work with files and directories
@@ -40,7 +41,7 @@ abstract class Filesystem {
    * 
    * @param  string $path  relative path to file
    * @return string full path to file
-   * @throws \Sphp\Exceptions\RuntimeException
+   * @throws RuntimeException if the file path cannot be resolved
    */
   public static function getFullPath(string $path): string {
     $fullPath = stream_resolve_include_path($path);
@@ -55,7 +56,7 @@ abstract class Filesystem {
    *
    * @param  string $path the path to the file
    * @return string the result of the script execution
-   * @throws \Sphp\Exceptions\RuntimeException if the parsing fails for any reason
+   * @throws RuntimeException if the parsing fails for any reason
    */
   public static function toString(string $path): string {
     if (!static::isFile($path)) {
@@ -66,30 +67,28 @@ abstract class Filesystem {
         throw new RuntimeException("Parsing the file '$path' failed");
       }
     }
-    return file_get_contents($path, false);
+    return $data;
   }
 
   /**
    * Executes a PHP script and returns the result as a string
    *
-   * @param  string|string[] $paths the path to the executable PHP script
+   * @param  string|string[],... $paths the path to the executable PHP script
    * @return string the result of the script execution
-   * @throws \Sphp\Exceptions\Exception if the parsing fails for any reason
+   * @throws RuntimeException if the $paths points to no actual file
+   * @throws Exception 
    */
   public static function executePhpToString(...$paths): string {
     $content = '';
-    try {
-      ob_start();
-      foreach (Arrays::flatten($paths) as $path) {
-        if (!static::isFile($path)) {
-          throw new RuntimeException("The path '$path' contains no executable PHP script");
-        }
-        include($path);
+    ob_start();
+    foreach (Arrays::flatten($paths) as $path) {
+      if (!static::isFile($path)) {
+        throw new RuntimeException("The path '$path' contains no executable PHP script");
       }
-      $content .= ob_get_contents();
-    } catch (\Exception $e) {
-      throw new RuntimeException("PHP parsing failed " . $e->getFile() . " #" . $e->getLine(), 0, $e);
+      include($path);
     }
+    $content .= ob_get_contents();
+
     ob_end_clean();
     return $content;
   }
@@ -99,7 +98,7 @@ abstract class Filesystem {
    *
    * @param  string $path the path to the ASCII file
    * @return string[] rows of the ASCII file in an array
-   * @throws \Sphp\Exceptions\RuntimeException if the $path points to no actual file
+   * @throws RuntimeException if the $path points to no actual file
    */
   public static function getTextFileRows(string $path): array {
     $result = file($path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);

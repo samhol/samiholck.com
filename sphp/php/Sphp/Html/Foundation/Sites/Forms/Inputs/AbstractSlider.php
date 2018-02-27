@@ -8,8 +8,8 @@
 namespace Sphp\Html\Foundation\Sites\Forms\Inputs;
 
 use Sphp\Html\AbstractComponent;
-use Sphp\Html\Forms\Inputs\SliderInterface;
-use Sphp\Exceptions\InvalidArgumentException;
+use Sphp\Html\Forms\Inputs\RangeInput;
+use Sphp\Html\Exceptions\InvalidStateException;
 
 /**
  * Slider allows to drag a handle to select a specific value from a range
@@ -20,56 +20,59 @@ use Sphp\Exceptions\InvalidArgumentException;
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
-abstract class AbstractSlider extends AbstractComponent implements SliderInterface {
+abstract class AbstractSlider extends AbstractComponent implements RangeInput {
 
   /**
    * Constructs a new instance
    *
-   * @param int $start the start value of the slider
-   * @param int $end the end value of the slider
-   * @param int $step the length of a single step
+   * @param float $start the start value of the slider
+   * @param float $end the end value of the slider
+   * @param float $step the length of a single step
    */
-  public function __construct(int $start = 0, int $end = 100, int $step = 1) {
+  public function __construct(float $start = 0, float $end = 100, float $step = 1) {
     parent::__construct('div');
     $this->cssClasses()->protect('slider');
-    $this->attrs()
+    $this->attributes()
             ->demand('data-start')
-            ->set('data-start', $start)
             ->demand('data-end')
-            ->set('data-end', $end)
             ->demand('data-step')
-            ->set('data-step', $step)
             ->demand('data-initial-start')
             ->set('data-initial-start', $start)
             ->demand('data-slider');
-    $this->setStepLength($step);
+    $this->setRange($start, $end)->setStepLength($step);
   }
 
-  public function setStepLength(int $step = 1) {
+  public function setStepLength(float $step = 1) {
     if ($step <= 0) {
-      throw new InvalidArgumentException('The step value is not positive');
+      throw new InvalidStateException('The step value is not positive');
     }
     $length = $this->getMax() - $this->getMin();
     if ($step > $length) {
-      throw new InvalidArgumentException("The step value '$step' exceeds the maximun value '$length'");
+      throw new InvalidStateException("The step value '$step' exceeds the maximun value '$length'");
     }
-    $this->attrs()->set('data-step', $step);
+    $this->attributes()->set('data-step', $step);
     return $this;
   }
 
-  public function getMin(): int {
-    return (int) $this->attrs()->getValue('data-start');
+  public function setRange(float $min, float $max) {
+    $this->attributes()->set('data-start', $min);
+    $this->attributes()->set('data-end', $max);
+    return $this;
   }
 
-  public function getMax(): int {
-    return (int) $this->attrs()->getValue('data-end');
+  public function getMin(): float {
+    return (float) $this->attributes()->getValue('data-start');
+  }
+
+  public function getMax(): float {
+    return (float) $this->attributes()->getValue('data-end');
   }
 
   public function disable(bool $disabled = true) {
     if ($disabled) {
-      $this->removeCssClass('disabled');
+      $this->cssClasses()->set('disabled');
     } else {
-      $this->addCssClass('disabled');
+      $$this->cssClasses()->remove('disabled');
     }
     return $this;
   }

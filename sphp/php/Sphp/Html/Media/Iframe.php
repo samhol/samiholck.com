@@ -7,7 +7,7 @@
 
 namespace Sphp\Html\Media;
 
-use Sphp\Html\AbstractComponent;
+use Sphp\Html\EmptyTag;
 
 /**
  * Implements an HTML &lt;iframe&gt; tag (an inline frame).
@@ -20,7 +20,7 @@ use Sphp\Html\AbstractComponent;
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
-class Iframe extends AbstractComponent implements IframeInterface {
+class Iframe extends EmptyTag implements Embeddable, LazyMedia, SizeableMedia {
 
   use LazyMediaSourceTrait,
       SizeableTrait;
@@ -32,8 +32,8 @@ class Iframe extends AbstractComponent implements IframeInterface {
    * @param  string $name the value of the name attribute
    * @link   http://www.w3schools.com/TAGS/att_iframe_src.asp src attribute
    */
-  public function __construct($src = null, $name = null) {
-    parent::__construct('iframe');
+  public function __construct(string $src = null, string $name = null) {
+    parent::__construct('iframe', true);
     if ($src !== null) {
       $this->setSrc($src);
     }
@@ -50,7 +50,7 @@ class Iframe extends AbstractComponent implements IframeInterface {
    * @link   http://www.w3schools.com/tags/att_iframe_name.asp name attribute
    */
   public function setName(string $name) {
-    $this->attrs()->set('name', $name);
+    $this->attributes()->set('name', $name);
     return $this;
   }
 
@@ -61,7 +61,7 @@ class Iframe extends AbstractComponent implements IframeInterface {
    * @link   http://www.w3schools.com/tags/att_iframe_name.asp name attribute
    */
   public function getName() {
-    return $this->attrs()->getValue('name');
+    return $this->attributes()->getValue('name');
   }
 
   /**
@@ -75,7 +75,7 @@ class Iframe extends AbstractComponent implements IframeInterface {
    * @link   http://www.w3schools.com/tags/att_a_target.asp target attribute
    */
   public function setSeamless(bool $seamless = true) {
-    return $this->setAttr('seamless', $seamless);
+    return $this->setAttribute('seamless', $seamless);
   }
 
   /**
@@ -103,7 +103,7 @@ class Iframe extends AbstractComponent implements IframeInterface {
    * @link   http://www.w3schools.com/TAGS/att_iframe_sandbox.asp sandbox attribute
    */
   public function setSandbox(string $sandbox) {
-    return $this->setAttr('sandbox', $sandbox);
+    return $this->setAttribute('sandbox', $sandbox);
   }
 
   /**
@@ -130,11 +130,19 @@ class Iframe extends AbstractComponent implements IframeInterface {
    * @link   http://www.w3schools.com/TAGS/att_iframe_sandbox.asp sandbox attribute
    */
   public function getSandbox() {
-    return $this->getAttr('sandbox');
+    return $this->getAttribute('sandbox');
   }
 
-  public function contentToString(): string {
-    return '<p>Your browser does not support iframes.</p>';
+  /**
+   * Sets the title of the iframe
+   *
+   * @param  string $title the title of the iframe
+   * @return $this for a fluent interface
+   * @link   https://www.w3schools.com/tags/att_global_title.asp title attribute
+   */
+  public function setTitle(string $title = null) {
+    $this->attributes()->set('title', $title);
+    return $this;
   }
 
 }

@@ -7,7 +7,7 @@
 
 namespace Sphp\Html\Apps;
 
-use Sphp\Html\ContentInterface;
+use Sphp\Html\Content;
 use Sphp\Html\ComponentInterface;
 
 /**
@@ -22,7 +22,7 @@ use Sphp\Html\ComponentInterface;
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
-class ContentCopyController implements ContentInterface {
+class ContentCopyController implements Content {
 
   use \Sphp\Html\ContentTrait;
 
@@ -73,8 +73,8 @@ class ContentCopyController implements ContentInterface {
         $id = $target;
       }
       $this->target = $target;
-      $this->button->setAttr('data-clipboard-target', "#$id");
-      $this->button->setAttr('data-clipboard-action', 'copy');
+      $this->button->setAttribute('data-clipboard-target', "#$id");
+      $this->button->setAttribute('data-clipboard-action', 'copy');
     }
     return $this;
   }

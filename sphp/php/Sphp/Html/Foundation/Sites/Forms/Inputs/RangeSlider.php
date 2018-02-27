@@ -8,9 +8,10 @@
 namespace Sphp\Html\Foundation\Sites\Forms\Inputs;
 
 use Sphp\Html\Forms\Inputs\HiddenInput;
-use Sphp\Html\Forms\Label;
 use Sphp\Html\Span;
-use Sphp\Html\Adapters\VisibilityAdapter;
+use Sphp\Html\Forms\Inputs\InputField;
+use Sphp\Html\Forms\Inputs\NumberInput;
+use Sphp\Html\Exceptions\InvalidStateException;
 
 /**
  * Slider allows to drag a handle to select a specific value from a range
@@ -23,128 +24,84 @@ use Sphp\Html\Adapters\VisibilityAdapter;
  */
 class RangeSlider extends AbstractSlider {
 
+  /**
+   * @var string
+   */
   private $name;
 
   /**
-   *
    * @var Span
    */
   private $lowerHandle;
 
   /**
-   *
    * @var Span
    */
   private $upperHandle;
 
   /**
-   *
-   * @var HiddenInput
+   * @var InputField
    */
   private $lowerInput;
 
   /**
-   *
-   * @var HiddenInput
+   * @var InputField
    */
   private $upperInput;
 
   /**
    * Constructs a new instance
    *
-   * @param  string $name the name of the form input
-   * @param int $min the minimum value of the slider
-   * @param int $max the maximum value of the slider
-   * @param int $step the length of a single step
+   * @param string $name the name of the form input
+   * @param float $min the minimum value of the slider
+   * @param float $max the maximum value of the slider
+   * @param float $step the length of a single step
    */
-  public function __construct($name = null, int $min = 0, int $max = 100, int $step = 1) {
+  public function __construct(string $name = null, float $min = 0, float $max = 100, float $step = 1) {
     parent::__construct($min, $max, $step);
-    $this->attrs()->demand('data-initial-end')
+    $this->attributes()->demand('data-initial-end')
             ->set('data-initial-end', $max);
     $this->lowerHandle = new Span();
     $this->lowerHandle->cssClasses()->protect('slider-handle');
-    $this->lowerHandle->attrs()
+    $this->lowerHandle->attributes()
             ->demand('data-slider-handle')
             ->protect('role', 'slider')
             ->protect('tabindex', 1);
     $this->upperHandle = new Span();
     $this->upperHandle->cssClasses()->protect('slider-handle');
-    $this->upperHandle->attrs()
+    $this->upperHandle->attributes()
             ->demand('data-slider-handle')
             ->protect('role', 'slider')
             ->protect('tabindex', 1);
-    $this->lowerInput = (new HiddenInput())->setValue($min);
-    $this->upperInput = (new HiddenInput())->setValue($max);
+    $this->lowerInput = (new HiddenInput())->setSubmitValue($min);
+    $this->upperInput = (new HiddenInput())->setSubmitValue($max);
     if ($name !== null) {
       $this->setName($name);
     }
   }
 
   /**
-   * Returns the label of the slider
+   * Returns the form component containing the start value of the range
    * 
-   * @return Label the label describing the slider
+   * @return InputField the form component containing the start value of the range
    */
-  private function getInnerLabel() {
-    
-  }
-
-  /**
-   * Returns the actual (hidden) form element containg the value of the slider
-   * 
-   * @return HiddenInput the actual (hidden) form element containg the value of the slider
-   */
-  private function getStartInput() {
+  private function getStartInput(): InputField {
     return $this->lowerInput;
   }
 
   /**
-   * Returns the actual (hidden) form element containg the value of the slider
+   * Returns the form component containing the end value of the range
    * 
-   * @return HiddenInput the actual (hidden) form element containg the value of the slider
+   * @return InputField the form component containing the end value of the range
    */
-  private function getEndInput() {
+  private function getEndInput(): InputField {
     return $this->upperInput;
-  }
-
-  /**
-   * Sets the visibility of the current slider value
-   * 
-   * @param  boolean $valueVisible true for visible and false for hidden
-   * @return $this for a fluent interface
-   */
-  public function showValue(bool $valueVisible = true) {
-    $vis = new VisibilityAdapter($this->getInnerLabel());
-    $vis->setHidden(!$valueVisible);
-    return $this;
-  }
-
-  /**
-   * Sets the description text of the slider
-   * 
-   * @param  string $description the description text of the slider
-   * @return $this for a fluent interface
-   */
-  public function setDescription($description) {
-    $this->getInnerLabel()["description"] = "$description ";
-    return $this;
-  }
-
-  /**
-   * Sets the unit of the slider value
-   * 
-   * @param  string $unit the unit of the value
-   * @return $this for a fluent interface
-   */
-  public function setValueUnit($unit = '') {
-    $this->getInnerLabel()['unit'] = " $unit";
-    return $this;
   }
 
   public function disable(bool $disabled = true) {
     parent::disable($disabled);
     $this->getStartInput()->disable($disabled);
-    $this->getStopValue()->disable($disabled);
+    $this->getEndInput()->disable($disabled);
     return $this;
   }
 
@@ -166,16 +123,46 @@ class RangeSlider extends AbstractSlider {
   /**
    * Returns the start value of the slider
    *
-   * @return int the start value of the slider
+   * @return float the start value of the slider
    */
   public function getStartValue() {
     return $this->getStartInput()->getSubmitValue();
   }
 
   /**
+   * 
+   * @param  InputField $input
+   * @return InputField
+   */
+  public function bindStartValueInput(InputField $input = null): InputField {
+    if ($input === null) {
+      $input = new NumberInput();
+    }
+    $this->lowerInput = $input;
+    $this->lowerInput->setName($this->getName());
+    $this->lowerHandle->attributes()->set('aria-controls', $input->identify());
+    return $input;
+  }
+
+  /**
+   * 
+   * @param  InputField $input
+   * @return InputField
+   */
+  public function bindStopValueInput(InputField $input = null): InputField {
+    if ($input === null) {
+      $input = new NumberInput();
+    }
+    $this->upperInput = $input;
+    $this->upperInput->setName($this->getName());
+    $this->upperHandle->attributes()->set('aria-controls', $input->identify());
+    return $input;
+  }
+
+  /**
    * Returns the end value of the slider
    *
-   * @return int the end value of the slider
+   * @return float the end value of the slider
    */
   public function getStopValue() {
     return $this->getEndInput()->getSubmitValue();
@@ -188,32 +175,32 @@ class RangeSlider extends AbstractSlider {
     return $result;
   }
 
-  public function setStartValue(int $value) {
+  public function setStartValue(float $value) {
     if ($this->getMin() > $value || $this->getMax() < $value) {
-      throw new \InvalidArgumentException("Start value: '$value' is not in valid range ({$this->getMin()}-{$this->getMax()})");
+      throw new InvalidStateException("Start value: '$value' is not in valid range ({$this->getMin()}-{$this->getMax()})");
     }
-    $this->getStartInput()->setValue($value);
-    $this->attrs()->set("data-initial-start", $value);
+    $this->getStartInput()->setSubmitValue($value);
+    $this->attributes()->set("data-initial-start", $value);
     return $this;
   }
 
-  public function setStopValue(int $value) {
+  public function setStopValue(float $value) {
     if ($this->getMin() > $value || $this->getMax() < $value) {
-      throw new \InvalidArgumentException("Stop value: '$value' is not in valid range ({$this->getMin()}-{$this->getMax()})");
+      throw new InvalidStateException("Stop value: '$value' is not in valid range ({$this->getMin()}-{$this->getMax()})");
     }
-    $this->getEndInput()->setValue($value);
-    $this->attrs()->set("data-initial-stop", $value);
+    $this->getEndInput()->setSubmitValue($value);
+    $this->attributes()->set("data-initial-stop", $value);
     return $this;
   }
 
-  public function setValue($value) {
+  public function setSubmitValue($value) {
     $min = $this->getStartValue();
     $max = $this->getStopValue();
     if (is_array($value) && count($value) >= 2) {
-      $min = (int) array_shift($value);
-      $max = (int) array_shift($value);
+      $min = (float) array_shift($value);
+      $max = (float) array_shift($value);
     } else if ($value < $max) {
-      $min = (int) $value;
+      $min = (float) $value;
     } else {
       $max = $value;
     }

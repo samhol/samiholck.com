@@ -7,7 +7,7 @@
 
 namespace Sphp\Html\Forms\Inputs\Menus;
 
-use Sphp\Html\ContainerInterface;
+use Sphp\Html\TraversableContent;
 
 /**
  * Implements an HTML &lt;select&gt; tag
@@ -34,9 +34,6 @@ use Sphp\Html\ContainerInterface;
  */
 class Select extends AbstractOptionsContainer implements SelectMenuInterface {
 
-  use \Sphp\Html\Forms\Inputs\InputTrait,
-      \Sphp\Html\Forms\Inputs\ValidableInputTrait;
-
   /**
    * Constructs a new instance
    *
@@ -49,10 +46,10 @@ class Select extends AbstractOptionsContainer implements SelectMenuInterface {
    *    {@link Optgroup} components containing new {@link Option}($key, $val) objects
    * 
    * @param string|null $name name attribute
-   * @param SelectMenuContentInterface|mixed[] $opt the content of the menu
+   * @param MenuComponent|mixed[] $opt the content of the menu
    * @param string|string[] $selectedValues the option values selected
    */
-  public function __construct($name = null, $opt = null, $selectedValues = null) {
+  public function __construct(string $name = null, $opt = null, $selectedValues = null) {
     parent::__construct('select', $opt);
     if (isset($name)) {
       $this->setName($name);
@@ -62,21 +59,11 @@ class Select extends AbstractOptionsContainer implements SelectMenuInterface {
     }
   }
 
-  /**
-   * Returns all {@link Option} components in the component
-   * 
-   * @return ContainerInterface containing {@link Option} components
-   */
-  public function getOptions() {
+  public function getOptions(): TraversableContent {
     return $this->getComponentsByObjectType(Option::class);
   }
-
-  /**
-   * Returns all the selected {@link Option} components in the component
-   * 
-   * @return ContainerInterface containing selected {@link Option} components
-   */
-  public function getSelectedOptions() {
+  
+  public function getSelectedOptions(): TraversableContent {
     $isSelected = function($component) {
       if ($component instanceof Option) {
         return $component->isSelected();
@@ -87,12 +74,6 @@ class Select extends AbstractOptionsContainer implements SelectMenuInterface {
     return $this->getComponentsBy($isSelected);
   }
 
-  /**
-   * Sets the selected options of the menu object
-   *
-   * @param  scalar|scalar[] $selectedValues selected options of the menu object
-   * @return $this for a fluent interface
-   */
   public function setSelectedValues($selectedValues) {
     if (!is_array($selectedValues)) {
       $selectedValues = array($selectedValues);
@@ -115,34 +96,49 @@ class Select extends AbstractOptionsContainer implements SelectMenuInterface {
     return array_unique($selected);
   }
 
-  public function setValue($value) {
+  public function setSubmitValue($value) {
     return $this->setSelectedValues($value);
   }
 
-  /**
-   * Specifies that multiple options can or cannot be selected at once
-   * 
-   * @param  boolean $multiple true if multiple selections are allowed, 
-   *         otherwise false
-   * @return $this for a fluent interface
-   */
-  public function selectMultiple($multiple = true) {
-    $this->attrs()->set('multiple', $multiple);
+  public function selectMultiple(bool $multiple = true) {
+    $this->attributes()->set('multiple', $multiple);
     return $this;
   }
 
-  /**
-   * Sets the number of the visible {@link Option} components
-   * 
-   * **Note:** In Chrome and Safari, this attribute may not work as 
-   *  expected for size="2" and size="3".
-   * 
-   * @param  int $size the number of the visible {@link Option} components
-   * @return $this for a fluent interface
-   */
-  public function setSize($size) {
-    $this->attrs()->set('size', $size);
+  public function setSize(int $size = null) {
+    $this->attributes()->set('size', $size);
     return $this;
+  }
+
+  public function setRequired(bool $required = true) {
+    $this->attributes()->setBoolean('required', $required);
+    return $this;
+  }
+
+  public function isRequired(): bool {
+    return $this->attributeExists('required');
+  }
+
+  public function getName(): string {
+    return (string) $this->attributes()->getValue('name');
+  }
+
+  public function setName(string $name) {
+    $this->attributes()->set('name', $name);
+    return $this;
+  }
+
+  public function isNamed(): bool {
+    return $this->attributes()->exists('name');
+  }
+
+  public function disable(bool $disabled = true) {
+    $this->attributes()->setBoolean('disabled', $disabled);
+    return $this;
+  }
+
+  public function isEnabled(): bool {
+    return !$this->attributes()->exists('disabled');
   }
 
 }

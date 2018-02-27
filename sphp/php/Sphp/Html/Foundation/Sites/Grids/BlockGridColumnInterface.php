@@ -10,8 +10,14 @@ namespace Sphp\Html\Foundation\Sites\Grids;
 use Sphp\Html\ComponentInterface;
 
 /**
- * Defines a Block Grid Column
+ * Defines a Foundation framework based XY Block Grid Column
  *
+ * **Important!**
+ *
+ * This component is mobile-first. Code for small screens first,
+ * and larger devices will inherit those styles. Customize for
+ * larger screens as necessary
+ * 
  * @author  Sami Holck <sami.holck@gmail.com>
  * @link    http://foundation.zurb.com/ Foundation
  * @link    http://foundation.zurb.com/docs/components/block_grid.html Foundation Block Grid

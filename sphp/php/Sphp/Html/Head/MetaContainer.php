@@ -7,10 +7,10 @@
 
 namespace Sphp\Html\Head;
 
-use Sphp\Html\ContentInterface;
+use Sphp\Html\Content;
 use Iterator;
 use Sphp\Stdlib\Arrays;
-use Sphp\Html\TraversableInterface;
+use Sphp\Html\TraversableContent;
 use Sphp\Html\NonVisualContent;
 
 /**
@@ -26,7 +26,7 @@ use Sphp\Html\NonVisualContent;
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
-class MetaContainer implements ContentInterface, Iterator, TraversableInterface, NonVisualContent {
+class MetaContainer implements Content, Iterator, TraversableContent, NonVisualContent {
 
   use \Sphp\Html\ContentTrait,
       \Sphp\Html\TraversableTrait;
@@ -66,7 +66,7 @@ class MetaContainer implements ContentInterface, Iterator, TraversableInterface,
    * @return $this for a fluent interface
    */
   public function addMeta(MetaData $content) {
-    if ($content->attrExists('charset')) {
+    if ($content->attributeExists('charset')) {
       $this->metaData['charset'] = $content;
     } else if ($content->hasNamedContent()) {
       $this->metaData['name'][$content->getName()] = $content;

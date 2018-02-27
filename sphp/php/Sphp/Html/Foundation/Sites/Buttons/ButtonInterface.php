@@ -7,7 +7,7 @@
 
 namespace Sphp\Html\Foundation\Sites\Buttons;
 
-use Sphp\Html\ContentInterface;
+use Sphp\Html\CssClassifiableContent;
 use Sphp\Html\Foundation\Sites\Core\Colourable;
 
 /**
@@ -19,7 +19,7 @@ use Sphp\Html\Foundation\Sites\Core\Colourable;
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
-interface ButtonInterface extends ContentInterface, Colourable {
+interface ButtonInterface extends CssClassifiableContent, Colourable {
 
   /**
    * Sets the size of the button 
@@ -39,16 +39,6 @@ interface ButtonInterface extends ContentInterface, Colourable {
    */
   public function setSize(string $size);
 
-  /**
-   * Sets the button size to default
-   * 
-   *  Removes all specified size related CSS classes
-   * 
-   * @return $this for a fluent interface
-   * @link   http://foundation.zurb.com/sites/docs/button.html#sizing Button Sizing
-   */
-  public function setDefaultSize();
-  
   /**
    * Sets the button size to default
    * 

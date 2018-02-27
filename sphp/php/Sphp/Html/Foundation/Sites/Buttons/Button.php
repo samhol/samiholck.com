@@ -1,14 +1,14 @@
 <?php
 
 /**
- * ButtonAdapter.php (UTF-8)
+ * Button.php (UTF-8)
  * Copyright (c) 2017 Sami Holck <sami.holck@gmail.com>
  */
 
 namespace Sphp\Html\Foundation\Sites\Buttons;
 
 use Sphp\Html\Foundation\Sites\Core\AbstractLayoutManager;
-use Sphp\Html\CssClassifiedComponent;
+use Sphp\Html\CssClassifiableContent;
 use Sphp\Html\Forms\Buttons\Submitter;
 use Sphp\Html\Forms\Buttons\Resetter;
 use Sphp\Html\Forms\Buttons\Button as PushButton;
@@ -16,7 +16,7 @@ use Sphp\Html\Navigation\Hyperlink;
 use Sphp\Html\Span;
 
 /**
- * Implements button styling for Foundation Sites
+ * Implements button styling adapter for Foundation Sites
  *
  * @author  Sami Holck <sami.holck@gmail.com>
  * @link    http://foundation.zurb.com/ Foundation
@@ -24,18 +24,22 @@ use Sphp\Html\Span;
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
-Class Button extends AbstractLayoutManager implements ButtonInterface {
+Class Button extends AbstractLayoutManager implements \Sphp\Html\ComponentInterface, ButtonInterface {
 
-  use ButtonTrait;
+  use ButtonTrait,
+      \Sphp\Html\ComponentTrait;
 
   /**
    * Constructs a new instance
    * 
-   * @param CssClassifiedComponent $component
+   * @param CssClassifiableContent|scalar $component
    */
-  public function __construct(CssClassifiedComponent $component) {
+  public function __construct($component) {
+    if (!$component instanceof CssClassifiableContent) {
+      $component = new Span($component);
+    }
     parent::__construct($component);
-    $this->cssClasses()->set('button');
+    $this->cssClasses()->add('button');
   }
 
   public function setLayouts(...$layouts) {
@@ -43,23 +47,6 @@ Class Button extends AbstractLayoutManager implements ButtonInterface {
     foreach ($colors as $colorCandidate) {
       $this->setColor($colorCandidate);
     }
-  }
-
-  public function unsetLayouts() {
-    $this->disable(false)->isDropdown(false)->isDropdown(false);
-  }
-
-  /**
-   * Creates a new instance adapted from mixed content
-   *
-   * @param  string|null $from adaptee component or content of the button
-   * @return Button new instance
-   */
-  public static function create($from) {
-    if (!$from instanceof CssClassifiedComponent) {
-      $from = new Span($from);
-    }
-    return new static($from);
   }
 
   /**
@@ -77,7 +64,7 @@ Class Button extends AbstractLayoutManager implements ButtonInterface {
    * @link   http://www.w3schools.com/tags/att_a_href.asp href attribute
    * @link   http://www.w3schools.com/tags/att_a_target.asp target attribute
    */
-  public static function hyperlink($href = null, $content = null, $target = null) {
+  public static function hyperlink($href = null, $content = null, $target = null): Button {
     return new static(new Hyperlink($href, $content, $target));
   }
 
@@ -88,7 +75,7 @@ Class Button extends AbstractLayoutManager implements ButtonInterface {
    * @param  string|null $value optional
    * @return Button new instance
    */
-  public static function submitter(string $content = null, $name = null, $value = null) {
+  public static function submitter(string $content = null, $name = null, $value = null): Button {
     return new static(new Submitter($content, $name, $value));
   }
 
@@ -97,7 +84,7 @@ Class Button extends AbstractLayoutManager implements ButtonInterface {
    * @param  mixed $content
    * @return Button new instance for form resetting
    */
-  public static function resetter($content = null) {
+  public static function resetter($content = null): Button {
     return new static(new Resetter($content));
   }
 
@@ -106,8 +93,12 @@ Class Button extends AbstractLayoutManager implements ButtonInterface {
    * @param  mixed $content
    * @return Button new instance containing a push button
    */
-  public static function pushButton($content = null) {
+  public static function pushButton($content = null): Button {
     return new static(new PushButton($content));
+  }
+
+  public function attributes(): \Sphp\Html\Attributes\HtmlAttributeManager {
+    return $this->getCompoenet()->attributes();
   }
 
 }

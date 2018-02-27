@@ -10,8 +10,11 @@ namespace Sphp\Database\Doctrine;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use ArrayIterator;
-use Sphp\Db\EntityManagerFactory;
+use Sphp\Database\Doctrine\EntityManagerFactory;
 use Sphp\Stdlib\Datastructures\Collection;
+use Sphp\Database\Doctrine\Objects\DbObjectInterface;
+use Sphp\Database\Exceptions\DatabaseException;
+use Doctrine\Common\Persistence\ObjectRepository;
 
 /**
  * Abstract Implementation of a{@link DbObjectInterface} storage
@@ -20,7 +23,7 @@ use Sphp\Stdlib\Datastructures\Collection;
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
-abstract class AbstractObjectStorage implements ObjectStorageInterface {
+class AbstractObjectStorage implements \IteratorAggregate, \Sphp\Stdlib\Datastructures\Arrayable, \ArrayAccess {
 
   /**
    * the type name of the stored objects
@@ -30,13 +33,11 @@ abstract class AbstractObjectStorage implements ObjectStorageInterface {
   private $type;
 
   /**
-   *
    * @var EntityManagerInterface 
    */
   private $em;
 
   /**
-   *
    * @var ObjectManager
    */
   private $repository;
@@ -47,98 +48,116 @@ abstract class AbstractObjectStorage implements ObjectStorageInterface {
    * @param string $objectType
    * @param EntityManagerInterface $em
    */
-  public function __construct($objectType, EntityManagerInterface $em = null) {
+  public function __construct(string $objectType, EntityManagerInterface $em) {
     $this->type = $objectType;
-    if ($em === null) {
-      $em = EntityManagerFactory::get();
-    }
     $this->em = $em;
     $this->repository = $this->em->getRepository($this->type);
   }
 
   /**
-   * Returns the entity Nameger 
+   * Returns the entity manager
    * 
    * @return EntityManagerInterface
    */
-  public function getManager() {
+  public function getManager(): EntityManagerInterface {
     return $this->em;
   }
 
+  public function query(): \Doctrine\ORM\QueryBuilder {
+    return $this->em->createQueryBuilder();
+  }
+
   /**
-   * 
-   * @return ObjectManager
+   * Confirms the uniqueness of the location name in the repository
+   *
+   * @param  string $needle the location instance or the location name string
+   * @return boolean true, if field value is unique, false otherwise
    */
-  public function getRepository() {
+  public function propNotUsed(string $prop, $value): bool {
+    $query = $this->getManager()
+            ->createQuery("SELECT COUNT(u.$prop) FROM " . $this->getObjectType() . " u WHERE u.$prop = :value");
+    $query->setParameter('value', $value);
+    $result = $query->getSingleScalarResult() == 0;
+    return $result;
+  }
+
+  /**
+   * Gets the repository for classes
+   * 
+   * @return ObjectRepository
+   */
+  public function getRepository(): ObjectRepository {
     return $this->repository;
   }
 
-  public function getObjectType() {
+  /**
+   * Returns the class name of the object managed by the repository
+   * 
+   * @return string
+   */
+  public function getObjectType(): string {
     return $this->type;
   }
 
-  public function findByProperty($prop, $value, array $orderBy = null, $limit = null, $offset = null) {
-    return $this->findBy([$prop => $value], $orderBy, $limit, $offset);
-  }
-
-  public function findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null) {
-    return $this->getRepository()->findBy($criteria, $orderBy, $limit, $offset);
-  }
-
-  public function findAll() {
+  public function toArray(): array {
     return $this->getRepository()->findAll();
   }
 
-  public function getIterator() {
-    return new ArrayIterator($this->getRepository()->findAll());
+  /**
+   * Retrieves an external iterator
+   * 
+   * @return \Traversable an external iterator.
+   */
+  public function getIterator(): \Traversable {
+    return new Collection($this->getRepository()->findAll());
   }
 
-  public function getById($id) {
-    if ($id instanceof DbObjectInterface) {
-      $id = $id->getPrimaryKey();
-    }
-    return $this->getRepository()->find($id);
-  }
-  public function get($limit = null, $offset = null, array $orderBy = null) {
-    return new Collection($this->getRepository()->findBy([], $orderBy, $limit, $offset));
-  }
+  /**
+   * Counts objects of the repository
+   * 
+   * @return int number of objects of the repository
+   */
   public function count(): int {
-    $query = $this->em->createQuery("SELECT COUNT(t.id) FROM $this->type t");
-    $count = $query->getSingleScalarResult();
-    return (int) $count;
+    return $this->getRepository()->count();
   }
 
-  public function insertAsNew(DbObjectInterface $object) {
-    if (!$this->contains($object)) {
+  public function insertAsNew(DbObjectInterface $object): DbObjectInterface {
+    try {
       $this->em->persist($object);
+      $this->em->flush();
+    } catch (\Exception $ex) {
+      //echo 'foo';
+      throw new DatabaseException($ex->getMessage(), $ex->getCode(), $ex);
     }
+    return $object;
+  }
+
+  public function remove(DbObjectInterface $object) {
+    $this->em->remove($object);
     $this->em->flush();
-    return true;
-  }
-
-  public function merge(DbObjectInterface $object) {
-    $obj = $this->em->merge($object);
-    return $obj;
-  }
-
-  public function delete(DbObjectInterface $object) {
-    return $object->deleteFrom($this->em);
-  }
-
-  public function clear() {
-    foreach ($this->getRepository()->findAll() as $obj) {
-      $this->em->remove($obj);
-    }
-    $this->em->flush();
-    return $this;
-  }
-
-  public function contains(DbObjectInterface $object) {
-    return $this->em->contains($object);
   }
 
   public function flush() {
     return $this->em->flush();
+  }
+
+  public function offsetExists($id): bool {
+    return $this->getRepository()->find($id) !== null;
+  }
+
+  public function offsetGet($id) {
+    return $this->getRepository()->find($id);
+  }
+
+  public function offsetSet($offset, $value) {
+    throw new \Exception('fucked up!!!!!!');
+  }
+
+  public function offsetUnset($id) {
+    $obj = $this->getRepository()->find($id);
+    if ($obj !== null) {
+      $this->remove($obj);
+    }
   }
 
 }

@@ -17,8 +17,6 @@ namespace Sphp\Html\Forms\Inputs;
  */
 class TextualInput extends InputTag implements TextualInputInterface {
 
-  use PatternValidableTrait;
-
   /**
    * Constructs a new instance
    *
@@ -34,7 +32,7 @@ class TextualInput extends InputTag implements TextualInputInterface {
    * @link   http://www.w3schools.com/tags/att_input_maxlength.asp maxlength attribute
    * @link   http://www.w3schools.com/tags/att_input_size.asp size attribute
    */
-  function __construct($type = 'text', $name = null, $value = null, int $maxlength = null, int $size = null) {
+  function __construct(string $type = 'text', string $name = null, $value = null, int $maxlength = null, int $size = null) {
     parent::__construct($type, $name, $value);
     if ($maxlength > 0) {
       $this->setMaxlength($maxlength);
@@ -45,28 +43,36 @@ class TextualInput extends InputTag implements TextualInputInterface {
   }
 
   public function setSize(int $size) {
-    $this->attrs()->set('size', $size);
+    $this->attributes()->set('size', $size);
     return $this;
   }
 
-  public function getMaxlength() {
-    return $this->attrs()->getValue('maxlength');
-  }
-
   public function setMaxlength(int $maxlength) {
-    $this->attrs()->set('maxlength', $maxlength);
+    $this->attributes()->set('maxlength', $maxlength);
     return $this;
   }
 
   public function setPlaceholder(string $placeholder = null) {
-    $this->attrs()->set('placeholder', $placeholder);
+    $this->attributes()->set('placeholder', $placeholder);
     return $this;
   }
 
   public function autocomplete(bool $allow = true) {
-    $this->attrs()->set('autocomplete', $allow ? 'on' : 'off');
+    $this->attributes()->set('autocomplete', $allow ? 'on' : 'off');
     return $this;
   }
 
-}
+  public function setPattern(string $pattern) {
+    $this->attributes()->set('pattern', $pattern);
+    return $this;
+  }
 
+  public function getPattern(): string {
+    return (string) $this->attributes()->getValue('pattern');
+  }
+
+  public function hasPattern(): bool {
+    return $this->attributes()->exists('pattern');
+  }
+
+}

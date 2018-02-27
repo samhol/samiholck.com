@@ -9,7 +9,7 @@ namespace Sphp\Html\Tables;
 
 use IteratorAggregate;
 use Sphp\Html\AbstractComponent;
-use Sphp\Html\TraversableInterface;
+use Sphp\Html\TraversableContent;
 use Sphp\Html\Container;
 
 /**
@@ -20,7 +20,7 @@ use Sphp\Html\Container;
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
-class Table extends AbstractComponent implements IteratorAggregate, TraversableInterface {
+class Table extends AbstractComponent implements IteratorAggregate, TraversableContent {
 
   use \Sphp\Html\TraversableTrait;
 
@@ -92,7 +92,7 @@ class Table extends AbstractComponent implements IteratorAggregate, TraversableI
     if (is_object($this->tfoot)) {
       $this->tfoot = clone $this->tfoot;
     }
-    parent::__destruct();
+    parent::__clone();
   }
 
   public function contentToString(): string {
@@ -102,15 +102,15 @@ class Table extends AbstractComponent implements IteratorAggregate, TraversableI
   /**
    * Sets the caption text of the table
    * 
-   * @param  string|null $caption the caption text of the table
-   * @return $this for a fluent interface
+   * @param  Caption|string|null $caption the caption object or the content of the caption
+   * @return Caption table caption component
    */
-  public function setCaption($caption) {
-    if (!($caption instanceof Caption)) {
+  public function setCaption($caption): Caption {
+    if (!$caption instanceof Caption) {
       $caption = new Caption($caption);
     }
     $this->caption = $caption;
-    return $this;
+    return $this->caption;
   }
 
   /**
@@ -126,10 +126,10 @@ class Table extends AbstractComponent implements IteratorAggregate, TraversableI
   /**
    * Sets (replaces) a part of a table with the given {@link TableContentInterface} component
    *
-   * @param TableContentInterface $content the given part of a table
+   * @param TableContent $content the given part of a table
    * @return $this for a fluent interface
    */
-  public function setContent(TableContentInterface $content) {
+  public function setContent(TableContent $content) {
     if ($content instanceof Colgroup || $content instanceof Col) {
       $this->setCols($content);
     } else if ($content instanceof Caption) {
@@ -140,7 +140,7 @@ class Table extends AbstractComponent implements IteratorAggregate, TraversableI
       $this->tbody = $content;
     } else if ($content instanceof Tfoot) {
       $this->tfoot = $content;
-    } else if ($content instanceof Tr || $content instanceof Cell) {
+    } else if ($content instanceof Tr || $content instanceof AbstractCell) {
       $this->tbody->append($content);
     }
     return $this;
@@ -152,7 +152,7 @@ class Table extends AbstractComponent implements IteratorAggregate, TraversableI
    * @param  Colgroup $colgroup
    * @return Colgroup colgroup component
    */
-  public function colgroup(Colgroup $colgroup = null) {
+  public function colgroup(Colgroup $colgroup = null): Colgroup {
     if ($colgroup === null) {
       $colgroup = new Colgroup();
     }
@@ -173,10 +173,10 @@ class Table extends AbstractComponent implements IteratorAggregate, TraversableI
   /**
    * Returns the table header component
    *
-   * @param  Thead $head
+   * @param  Thead|null $head
    * @return Thead table header component
    */
-  public function thead(Thead $head = null) {
+  public function thead(Thead $head = null): Thead {
     if ($head === null) {
       $head = new Thead();
     }
@@ -200,7 +200,7 @@ class Table extends AbstractComponent implements IteratorAggregate, TraversableI
    * @param  Tbody $tbody
    * @return Tbody table body component
    */
-  public function tbody(Tbody $tbody = null) {
+  public function tbody(Tbody $tbody = null): Tbody {
     if ($tbody !== null) {
       $this->tbody = $tbody;
     } else if ($this->tbody === null) {
@@ -225,7 +225,7 @@ class Table extends AbstractComponent implements IteratorAggregate, TraversableI
    * @param  Tfoot $tfoot
    * @return Tfoot table footer component
    */
-  public function tfoot(Tfoot $tfoot = null) {
+  public function tfoot(Tfoot $tfoot = null): Tfoot {
     if ($tfoot === null) {
       $tfoot = new Tfoot();
     }

@@ -20,7 +20,7 @@ use Sphp\Html\Programming\SphpScriptsLoader;
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
-class Body extends ContainerTag implements ContentParserInterface {
+class Body extends ContainerTag implements ContentParser {
 
   use ContentParsingTrait;
 
@@ -34,7 +34,7 @@ class Body extends ContainerTag implements ContentParserInterface {
    *
    * **Important!**
    *
-   * Parameter `mixed $content` can basically be of any type that converts
+   * Parameter `$content` can basically be of any type that converts
    * to a string. So also an object of any class that implements magic method 
    * `__toString()` is allowed.
    *
@@ -56,7 +56,7 @@ class Body extends ContainerTag implements ContentParserInterface {
   }
 
   public function contentToString(): string {
-    return parent::contentToString().$this->scripts();
+    return parent::contentToString() . $this->scripts();
   }
 
   /**

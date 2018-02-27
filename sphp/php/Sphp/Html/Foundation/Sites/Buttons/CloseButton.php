@@ -10,7 +10,7 @@ namespace Sphp\Html\Foundation\Sites\Buttons;
 use Sphp\Html\AbstractComponent;
 
 /**
- * Implements Close Button
+ * Implements a Foundation framework based Close Button
  * 
  * The close button on its own doesn't close elements, but it can be use with 
  * Toggler, Reveal, Off-canvas, and other plugins that have open and close behaviors.
@@ -26,26 +26,27 @@ class CloseButton extends AbstractComponent {
   /**
    * Constructs a new instance
    * 
-   * @param string $text the screen reader-only text
+   * @param string $ariaLabel the screen reader-only text
+   * @link  https://www.w3.org/TR/WCAG20-TECHS/ARIA14.html aria-label
    */
-  public function __construct($text = 'close') {
+  public function __construct(string $ariaLabel = 'close') {
     parent::__construct('button');
-    $this->attrs()
+    $this->attributes()
             ->protect('type', 'button')
             ->demand('data-close');
     $this->cssClasses()->protect('close-button');
-    $this->setAccessibilityTextText($text);
+    $this->setAriaLabel($ariaLabel);
   }
 
   /**
    * Sets the screen reader-only text
    * 
-   * @param  string $text the screen reader-only text
+   * @param  string $label the screen reader-only text
    * @return $this for a fluent interface
    * @link   https://www.w3.org/TR/WCAG20-TECHS/ARIA14.html aria-label
    */
-  public function setAccessibilityTextText($text) {
-    $this->attrs()->setAria('label', $text);
+  public function setAriaLabel(string $label = null) {
+    $this->attributes()->setAria('label', $label);
     return $this;
   }
 

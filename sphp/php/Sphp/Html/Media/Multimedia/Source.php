@@ -34,7 +34,7 @@ class Source extends EmptyTag implements MultimediaSource, LazyMedia {
   /**
    * Constructs a new instance
    *
-   * @param  string|URL|null $src the URL of the media file or null for none
+   * @param  string|null $src the URL of the media file or null for none
    * @param  string|null $type the media type of the media resource or null for none
    * @param  boolean $lazy true for lazy loading and false otherwise
    * @link   http://www.w3schools.com/tags/att_source_src.asp src attribute
@@ -59,7 +59,7 @@ class Source extends EmptyTag implements MultimediaSource, LazyMedia {
    * @link   http://www.w3schools.com/tags/att_source_type.asp type attribute
    */
   public function setType(string $type) {
-    $this->attrs()->set('type', $type);
+    $this->attributes()->set('type', $type);
     return $this;
   }
 
@@ -70,7 +70,7 @@ class Source extends EmptyTag implements MultimediaSource, LazyMedia {
    * @link   http://www.w3schools.com/tags/att_source_type.asp type attribute
    */
   public function getType() {
-    return $this->attrs()->getValue('type');
+    return $this->attributes()->getValue('type');
   }
 
 }

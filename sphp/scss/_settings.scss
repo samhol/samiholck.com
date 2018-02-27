@@ -76,6 +76,8 @@ $foundation-palette: (
   success: #3adb76,
   warning: #ffae00,
   alert: #cc4b37,
+  devicon: #60be86,
+  fontawesome: #228ae6,
 );
 $light-gray: #e6e6e6;
 $medium-gray: #cacaca;
@@ -158,7 +160,7 @@ $header-styles: (
 );
 $header-text-rendering: optimizeLegibility;
 $small-font-size: 80%;
-$header-small-font-color: $medium-gray;
+$header-small-font-color: #444;
 $paragraph-lineheight: 1.6;
 $paragraph-margin-bottom: 1rem;
 $paragraph-text-rendering: optimizeLegibility;
@@ -342,14 +344,17 @@ $closebutton-position: right top;
 $closebutton-offset-horizontal: (
   small: 0.66rem,
   medium: 1rem,
+  large: 1.5rem,
 );
 $closebutton-offset-vertical: (
   small: 0.33em,
   medium: 0.5rem,
+  large: 0.7rem,
 );
 $closebutton-size: (
   small: 1.5em,
   medium: 2em,
+  large: 2.5rem,
 );
 $closebutton-lineheight: 1;
 $closebutton-color: $dark-gray;

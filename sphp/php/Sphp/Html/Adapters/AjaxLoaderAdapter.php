@@ -7,7 +7,7 @@
 
 namespace Sphp\Html\Adapters;
 
-use Sphp\Html\AjaxLoaderInterface;
+use Sphp\Html\AjaxLoader;
 use Sphp\Stdlib\Networks\URL;
 use Sphp\Html\ComponentInterface;
 
@@ -20,7 +20,7 @@ use Sphp\Html\ComponentInterface;
  * @filesource
  */
 
-class AjaxLoaderAdapter extends AbstractComponentAdapter implements AjaxLoaderInterface {
+class AjaxLoaderAdapter extends AbstractComponentAdapter implements AjaxLoader {
 
   /**
    * Constructs a new instance
@@ -44,8 +44,8 @@ class AjaxLoaderAdapter extends AbstractComponentAdapter implements AjaxLoaderIn
       $url = $url->getHtml();
     }
     $this->getComponent()
-            ->setAttr("data-sphp-ajax-op", $op)
-            ->setAttr("data-sphp-ajax-url", $url);
+            ->setAttribute("data-sphp-ajax-op", $op)
+            ->setAttribute("data-sphp-ajax-url", $url);
     return $this;
   }
 

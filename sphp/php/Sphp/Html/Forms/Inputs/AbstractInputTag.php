@@ -38,12 +38,12 @@ abstract class AbstractInputTag extends EmptyTag implements IdentifiableInput {
    */
   public function __construct(string $type, string $name = null, $value = null) {
     parent::__construct('input');
-    $this->attrs()->protect('type', $type);
+    $this->attributes()->protect('type', $type);
     if ($name !== null) {
       $this->setName($name);
     }
     if ($value !== null) {
-      $this->setValue($value);
+      $this->setSubmitValue($value);
     }
   }
 

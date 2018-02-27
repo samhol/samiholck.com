@@ -1,0 +1,103 @@
+---
+menu: Documentation
+items:
+    - link: Getting Started
+      __INDEX__:
+    - ruler: 
+    - link: Application configuration
+      href: Sphp.Config
+    - link: Error configuration
+      href: Sphp.Config.ErrorHandling
+    - link: Web application Security
+      href: Sphp.Security
+    - menu: Standard library
+      items:
+      - link: Introduction
+        href: Sphp.Stdlib
+        title: Standard library | Introduction
+      - ruler: 
+      - link: Events and Observers
+        href: Sphp.Stdlib.Observers.and.Events
+      - ruler: 
+      - link: Data filtering
+        href: Sphp.Filters
+      - ruler: 
+      - link: Data Structures
+        href: Sphp.Stdlib.Datastructures
+      - link: Types and Utlilities
+        href: Sphp.Stdlib.Types
+      - ruler: 
+      - link: Filesystem manipulation
+        href: Sphp.Stdlib.filemanipulation
+      - link: Database manipulation
+        href: Sphp.Database
+      - ruler: 
+      - link: I18n
+        href: Sphp.I18n
+    - link: Data validation
+      href: Sphp.Validators
+    - separator: HTML manipulation
+    - menu: HTML core
+      items:
+      - link: Introduction
+        href: Sphp.Html
+        title: HTML | Introduction
+      - link: Content creation
+        href: Sphp.Html.Content
+        title: HTML | Content
+      - ruler: 
+      - link: Component Factories
+        href: Sphp.Html.Document
+        title: HTML | Component Factories
+      - link: Attribute management
+        href: Sphp.Html.Attributes
+        title: HTML | Attribute management
+      - link: Meta data manipulation
+        href: Sphp.Html.Head
+      - link: Client side scripting 
+        href: Sphp.Html.Programming
+      - ruler: 
+      - link: Lists
+        href: Sphp.Html.Lists
+        title: HTML | Lists
+      - link: Tables
+        href: Sphp.Html.Tables
+        title: HTML | Tables
+      - ruler: 
+      - link: Forms
+        href: Sphp.Html.Forms
+        title: HTML | Forms
+    - menu: HTML media
+      items:
+      - link: Introduction
+        href: Sphp.Html.Media
+      - ruler: 
+      - link: Icons
+        href: Sphp.Html.Media.Icons
+      - link: Audio and Video 
+        href: Sphp.Html.Media.Multimedia
+    - menu: Foundation Sites
+      items:
+      - link: Introduction
+        href: Sphp.Html.Foundation
+        title: Foundation Introduction
+      - ruler: 
+      - link: Core components
+        href: Sphp.Html.Foundation.Sites.Core
+      - link: Grid systems
+        href: Sphp.Html.Foundation.Sites.Grids.XY
+      - link: General Containers
+        href: Sphp.Html.Foundation.Sites.Containers
+      - ruler: 
+      - link: Navigation bars
+        href: Sphp.Html.Foundation.Sites.Bars
+      - link: Navigation menus
+        href: Sphp.Html.Foundation.Sites.Navigation
+      - ruler: 
+      - link: Buttons 
+        href: Sphp.Html.Foundation.Sites.Buttons
+      - link: Media components
+        href: Sphp.Html.Foundation.Sites.Media
+      - link: Form components
+        href: Sphp.Html.Foundation.Sites.Forms
+    

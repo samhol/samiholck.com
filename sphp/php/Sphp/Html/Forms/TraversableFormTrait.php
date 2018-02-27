@@ -9,6 +9,7 @@ namespace Sphp\Html\Forms;
 
 use Sphp\Html\TraversableTrait;
 use Sphp\Html\ContainerInterface;
+use Sphp\Html\TraversableContent;
 
 /**
  * Trait implements parts of the {@link TraversableFormInterface}
@@ -32,13 +33,9 @@ trait TraversableFormTrait {
    *
    * @return ContainerInterface containing matching sub components
    */
-  public function getNamedInputComponents() {
+  public function getNamedInputComponents(): TraversableContent {
     $search = function($element) {
-      if ($element instanceof InputInterface && $element->isNamed()) {
-        return true;
-      } else {
-        return false;
-      }
+      $element instanceof InputInterface && $element->isNamed();
     };
     return $this->getComponentsBy($search);
   }
@@ -50,51 +47,9 @@ trait TraversableFormTrait {
    */
   public function getHiddenInputs(): Inputs\HiddenInputs {
     $search = function($element) {
-      if ($element instanceof HiddenInput) {
-        return true;
-      } else {
-        return false;
-      }
+      return $element instanceof HiddenInput;
     };
     return $this->getComponentsBy($search);
-  }
-
-  /**
-   * Sets the values to the input fields
-   *
-   * **Important:** Works only for single dimensional input names
-   * 
-   * @param  mixed[] $data
-   * @param  boolean $filter true for enabling the data filtering, ans false otherwise
-   * @return TraverableFormInterface for PHP Method Chaining
-   */
-  public function setData(array $data = [], $filter = true) {
-    if ($filter) {
-      $data = filter_var_array($data, \FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-      //print_r($data);
-    }
-    foreach ($this->getNamedInputComponents() as $input) {
-      $inputName = $input->getName();
-      if (array_key_exists($inputName, $data)) {
-        $input->setValue($data[$inputName]);
-      }
-    }
-    return $this;
-  }
-
-  /**
-   * Returns the data presented in the input fields of the form
-   * 
-   * @return mixed[] the data array
-   */
-  public function getData() {
-    $data = [];
-    foreach ($this->getNamedInputComponents() as $val) {
-      $a = [];
-      parse_str($val->getName() . "=" . $val->getValue(), $a);
-      $data = array_merge($data, $a);
-    }
-    return $data;
   }
 
 }

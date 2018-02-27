@@ -45,7 +45,7 @@ abstract class AbstractVideoPlayer extends AbstractComponent implements VideoPla
    * @param  string $videoId the id of the embedded video
    * @link   http://www.w3schools.com/tags/att_global_id.asp id attribute
    */
-  public function __construct( $url, string $videoId = null) {
+  public function __construct($url, string $videoId = null) {
     parent::__construct('iframe');
     $this->setUrl($url)->allowFullScreen(true);
     if ($videoId !== null) {
@@ -80,7 +80,7 @@ abstract class AbstractVideoPlayer extends AbstractComponent implements VideoPla
    */
   protected function setUrl($url) {
     $this->url = ($url instanceof URL) ? $url : new URL($url);
-    $this->setAttr('src', $this->url->getHtml());
+    $this->setAttribute('src', $this->url->getHtml());
     return $this;
   }
 
@@ -93,12 +93,12 @@ abstract class AbstractVideoPlayer extends AbstractComponent implements VideoPla
   public function setVideoId($videoId) {
     $this->videoId = $videoId;
     $this->url->setPath($this->url->getPath() . $videoId);
-    $this->setAttr('src', $this->url->getHtml());
+    $this->setAttribute('src', $this->url->getHtml());
     return $this;
   }
 
   public function allowFullScreen(bool $allow = true) {
-    $this->attrs()
+    $this->attributes()
             //->set('webkitallowfullscreen', $allow)
             //->set('mozallowfullscreen', $allow)
             ->set('allowfullscreen', $allow);
@@ -145,6 +145,18 @@ abstract class AbstractVideoPlayer extends AbstractComponent implements VideoPla
 
   public function contentToString(): string {
     return '';
+  }
+
+  /**
+   * Sets the title of the iframe
+   *
+   * @param  string $title the title of the iframe
+   * @return $this for a fluent interface
+   * @link   https://www.w3schools.com/tags/att_global_title.asp title attribute
+   */
+  public function setTitle(string $title = null) {
+    $this->attributes()->set('title', $title);
+    return $this;
   }
 
 }

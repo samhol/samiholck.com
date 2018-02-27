@@ -10,7 +10,6 @@ namespace Sphp\Html\Navigation;
 use Sphp\Html\AbstractComponent;
 use Sphp\Html\Media\ImgInterface;
 use Sphp\Html\Media\Img;
-use Sphp\Stdlib\Networks\URL;
 
 /**
  * Implements an image that acts as a hyperlink
@@ -58,12 +57,6 @@ class ImageLink extends AbstractComponent implements HyperlinkInterface, ImgInte
     }
   }
 
-  /**
-   * Destroys the instance
-   *
-   * The destructor method will be called as soon as there are no other references
-   * to a particular object, or in any order during the shutdown sequence.
-   */
   public function __destruct() {
     unset($this->img);
     parent::__destruct();
@@ -80,7 +73,7 @@ class ImageLink extends AbstractComponent implements HyperlinkInterface, ImgInte
    * **Important:** if {@link LazyLoaderInterface::isLazy()} this method sets the value of the 
    * `data-src` attribute instead of the `src` attribute
    *
-   * @param  string|URL $src the path to the image source (The URL of the image file)
+   * @param  string $src the path to the image source (The URL of the image file)
    * @return $this for a fluent interface
    */
   public function setSrc(string $src) {
@@ -117,7 +110,7 @@ class ImageLink extends AbstractComponent implements HyperlinkInterface, ImgInte
    *
    * @return Img the splitter component
    */
-  public function img() {
+  public function img(): Img {
     return $this->img;
   }
 

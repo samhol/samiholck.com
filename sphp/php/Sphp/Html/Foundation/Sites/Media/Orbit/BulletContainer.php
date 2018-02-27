@@ -7,7 +7,7 @@
 
 namespace Sphp\Html\Foundation\Sites\Media\Orbit;
 
-use Sphp\Html\AbstractContainerComponent;
+use Sphp\Html\AbstractComponent;
 
 /**
  * Implements a bullet container for Foundation Orbit
@@ -18,18 +18,23 @@ use Sphp\Html\AbstractContainerComponent;
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
-class BulletContainer extends AbstractContainerComponent {
+class BulletContainer extends AbstractComponent {
+
+  /**
+   *
+   * @var Bullet[]
+   */
+  private $bullets = [];
 
   /**
    * Constructs a new instance
    *
    * @param  int $count slide(s)
-   * @link   http://www.php.net/manual/en/language.oop5.magic.php#object.tostring __toString() method
    */
-  public function __construct($count = 0) {
+  public function __construct(int $count = 0) {
     parent::__construct('nav');
     for ($i = 0; $i < $count; $i++) {
-      $this->set($i);
+      $this->setBullet($i);
     }
     $this->cssClasses()->protect('orbit-bullets');
   }
@@ -40,14 +45,14 @@ class BulletContainer extends AbstractContainerComponent {
    * @param  int|Bullet $bullet
    * @return $this for a fluent interface
    */
-  public function set($bullet) {
+  public function setBullet($bullet) {
     if (!($bullet instanceof Bullet)) {
       $slideNo = $bullet;
       $bullet = new Bullet($slideNo);
     } else {
       $slideNo = $bullet->getSlideNo();
     }
-    $this->getInnerContainer()->set($slideNo, $bullet);
+    $this->bullets[$slideNo] = $bullet;
     return $this;
   }
 
@@ -57,9 +62,8 @@ class BulletContainer extends AbstractContainerComponent {
    * @param  int $slideNo
    * @return Bullet
    */
-  public function get($slideNo) {
-    $this->getInnerContainer()->get($slideNo);
-    return $this;
+  public function getBullet(int $slideNo): Bullet {
+    return $this->bullets[$slideNo];
   }
 
   /**
@@ -68,8 +72,8 @@ class BulletContainer extends AbstractContainerComponent {
    * @param  int $bulletNo
    * @return $this for a fluent interface
    */
-  public function setActive($bulletNo) {
-    foreach ($this->getInnerContainer() as $no => $bullet) {
+  public function setActive(int $bulletNo) {
+    foreach ($this->bullets as $no => $bullet) {
       if ($no == $bulletNo) {
         $bullet->setActive(true);
       } else {
@@ -77,6 +81,10 @@ class BulletContainer extends AbstractContainerComponent {
       }
     }
     return $this;
+  }
+
+  public function contentToString(): string {
+    return implode('', $this->bullets);
   }
 
 }

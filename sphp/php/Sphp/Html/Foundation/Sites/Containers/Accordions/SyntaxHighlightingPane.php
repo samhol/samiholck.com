@@ -8,9 +8,7 @@
 namespace Sphp\Html\Foundation\Sites\Containers\Accordions;
 
 use Sphp\Html\Apps\Syntaxhighlighting\SyntaxHighlighterInterface;
-use Sphp\Html\Apps\Syntaxhighlighting\SyntaxhighlighterContainerTrait;
 use Sphp\Html\Apps\Syntaxhighlighting\SyntaxHighlighter;
-use Sphp\Html\Foundation\Sites\Buttons\IconButton;
 
 /**
  * Implements an abstract base Pane for a Foundation Accordion
@@ -24,7 +22,7 @@ use Sphp\Html\Foundation\Sites\Buttons\IconButton;
  */
 class SyntaxHighlightingPane extends AbstractPane implements SyntaxHighlighterInterface {
 
-  use SyntaxhighlighterContainerTrait;
+  use \Sphp\Html\Apps\Syntaxhighlighting\SyntaxhighlighterContainerTrait;
 
   /**
    * @var SyntaxHighlighter
@@ -41,7 +39,7 @@ class SyntaxHighlightingPane extends AbstractPane implements SyntaxHighlighterIn
       $hl = new SyntaxHighlighter();
     }
     $this->hl = $hl;
-    $this->hl->setDefaultContentCopyController((new IconButton('fa-files-o', 'Copy'))
+    $this->hl->setDefaultContentCopyController(\Sphp\Html\Foundation\Sites\Buttons\Button::pushButton('Copy')
                     ->setSize('tiny'));
     // ->setTitle('Copy code to clipboard'));
     parent::__construct($title, $this->hl);
@@ -56,7 +54,7 @@ class SyntaxHighlightingPane extends AbstractPane implements SyntaxHighlighterIn
   /**
    * Returns the inner Syntax highlighting component
    * 
-   * @return SyntaxHighlighter the inner Syntax highlighting component
+   * @return SyntaxHighlighterInterface the inner Syntax highlighting component
    */
   public function getSyntaxHighlighter(): SyntaxHighlighterInterface {
     return $this->hl;

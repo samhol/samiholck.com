@@ -7,7 +7,7 @@
 
 namespace Sphp\Html\Forms\Inputs\Ion;
 
-use InvalidArgumentException;
+use Sphp\Html\Exceptions\InvalidStateException;
 
 /**
  * Implements jQuery range slider with skin support
@@ -26,11 +26,12 @@ class RangeSlider extends AbstractSlider {
    * @param  int $start the start value of the slider
    * @param  int $end the end value of the slider
    * @param  int $step the length of a single step
-   * @throws InvalidArgumentException if the $value is not between the range
+   * @throws InvalidStateException if the slider state is invalid
    */
-  public function __construct($name = null, int $start = 0, int $end = 100, int $step = 1) {
-    parent::__construct($name, $start, $end, $step, [$start, $end]);
-    $this->attrs()->protect('data-type', 'double');
+  public function __construct(string $name = null, int $start = 0, int $end = 100, int $step = 1) {
+    parent::__construct($name, $start, $end, $step);
+    $this->attributes()->protect('data-type', 'double');
+    $this->setInitialRange($start, $end);
   }
 
   /**
@@ -38,10 +39,10 @@ class RangeSlider extends AbstractSlider {
    * 
    * @return string separator for double values in input value property
    */
-  public function getInputValueSeparator() {
+  public function getInputValuesSeparator(): string {
     $separator = ';';
-    if ($this->attrs()->exists('data-input-values-separator')) {
-      $separator = $this->attrs()->getValue('data-input-values-separator');
+    if ($this->attributes()->exists('data-input-values-separator')) {
+      $separator = $this->attributes()->getValue('data-input-values-separator');
     }
     return $separator;
   }
@@ -52,57 +53,66 @@ class RangeSlider extends AbstractSlider {
    * @param  string $separator separator for double values in input value property
    * @return $this for a fluent interface
    */
-  public function setInputValueSeparator($separator) {
-    $this->attrs()->set('data-input-values-separator', $separator);
+  public function setInputValuesSeparator(string $separator) {
+    $this->attributes()->set('data-input-values-separator', $separator);
     return $this;
   }
 
   /**
-   * Sets the value of the value attribute
-   *
-   * @param  int|int[]|string $value the value of the value attribute
+   * Sets the initial selected range of the slider
+   * 
+   * @param  float $start start of the range
+   * @param  float $stop end of the range
    * @return $this for a fluent interface
-   * @throws InvalidArgumentException if parameter(s) are not suitable for range slider
+   * @throws InvalidStateException if the range given is invalid
    */
-  public function setValue($value) {
+  public function setInitialRange(float $start, float $stop) {
+    if ($start >= $stop) {
+      throw new InvalidStateException("Start of initial range is smaller than the end");
+    }
+    if ($this->getMin() > $start || $this->getMax() < $start) {
+      throw new InvalidStateException("Start value: '$start' is not in valid range ({$this->getMin()}-{$this->getMax()})");
+    }
+    if ($this->getMin() > $stop || $this->getMax() < $stop) {
+      throw new InvalidStateException("Stop value: '$stop' is not in valid range ({$this->getMin()}-{$this->getMax()})");
+    }
+    $this->attributes()->set('data-from', $start);
+    $this->attributes()->set('data-to', $stop);
+    return $this;
+  }
+
+  public function setSubmitValue($value) {
     if (func_num_args() == 2) {
       $value = func_get_args();
     } else if (is_string($value)) {
-      $value = explode($this->getInputValueSeparator(), $value, 2);
+      $value = explode($this->getInputValuesSeparator(), $value, 2);
     }
-    if (!is_array($value) || count($value) != 2) {
+    if (!is_array($value) || count($value) !== 2) {
       //var_dump($value);
-      throw new InvalidArgumentException('value is not suitable for range slider component');
+      throw new InvalidStateException('value is not suitable for range slider component');
     }
     $from = reset($value);
     $to = end($value);
-    $this->attrs()->set('data-from', $from);
-    $this->attrs()->set('data-to', $to);
-
-    parent::setValue($from . $this->getInputValueSeparator() . $to);
+    $this->setInitialRange($from, $to);
     return $this;
   }
 
   /**
-   * Returns the separator for double values in input value property
+   * Returns the start position for left handle
    * 
-   * @return string separator for double values in input value property
+   * @return float start position for left handle
    */
-  public function getFrom() {
-    $rawValue = $this->getValue();
-    $arr = explode($this->getInputValueSeparator(), $rawValue, 2);
-    return (int) reset($arr);
+  public function getFrom(): float {
+    return $this->attributes()->getValue('data-from');
   }
 
   /**
-   * Returns the separator for double values in input value property
+   * Returns the start position for right handle
    * 
-   * @return string separator for double values in input value property
+   * @return float start position for right handle
    */
-  public function getTo() {
-    $rawValue = $this->getValue();
-    $arr = explode($this->getInputValueSeparator(), $rawValue, 2);
-    return (int) end($arr);
+  public function getTo(): float {
+    return $this->attributes()->getValue('data-to');
   }
 
 }

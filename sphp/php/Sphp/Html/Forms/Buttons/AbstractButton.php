@@ -34,7 +34,16 @@ abstract class AbstractButton extends ContainerTag implements ButtonInterface {
       throw new InvalidArgumentException("Illegal form button type '$type'");
     }
     parent::__construct($tagname, $content);
-    $this->attrs()->protect('type', $type);
+    $this->attributes()->protect('type', $type);
+  }
+
+  public function disable(bool $disabled = true) {
+    $this->attributes()->setBoolean('disabled', $disabled);
+    return $this;
+  }
+
+  public function isEnabled(): bool {
+    return !$this->attributes()->exists('disabled');
   }
 
 }

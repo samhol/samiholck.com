@@ -1,17 +1,16 @@
 <?php
 
 /**
- * AbstractSimpleContainerTag.php (UTF-8)
+ * SimpleContainerTag.php (UTF-8)
  * Copyright (c) 2011 Sami Holck <sami.holck@gmail.com>
  */
 
 namespace Sphp\Html;
 
 use Sphp\Html\Attributes\HtmlAttributeManager;
-use Sphp\Stdlib\Strings;
 
 /**
- * Class is the base class for all HTML tag components acting as HTML component containers
+ * Base for all simple container tags
  *
  * **Notes:**
  *
@@ -38,9 +37,9 @@ class SimpleContainerTag extends AbstractTag {
    * 
    * **Important!**
    *
-   * 1. Parameter `mixed $content` can be of any type that converts to a string 
-   *    or to an array of strings. So also objects of any type that implement magic 
-   *    method `__toString()` are allowed.
+   * Parameter `mixed $content` can be of any type that converts to a string 
+   * or to an array of strings. So also objects of any type that implement magic 
+   * method `__toString()` are allowed.
    *
    * @param  string $tagName the name of the tag
    * @param  mixed $content the content of the component
@@ -55,7 +54,7 @@ class SimpleContainerTag extends AbstractTag {
       $this->setContent($content);
     }
   }
-  
+
   public function __destruct() {
     unset($this->content);
     parent::__destruct();
@@ -86,34 +85,13 @@ class SimpleContainerTag extends AbstractTag {
     return $this->content;
   }
 
-  /**
-   * Returns opening tag with its attributes
-   *
-   * @return string opening tag with attributes
-   */
-  protected function getOpeningTag(): string {
-    $attrs = '' . $this->attrs();
+  public function getHtml(): string {
+    $attrs = '' . $this->attributes();
     if ($attrs !== '') {
       $attrs = ' ' . $attrs;
     }
-    return '<' . $this->getTagName() . $attrs . '>';
-  }
-
-  public function contentToString(): string {
-    return Strings::toString($this->content);
-  }
-
-  /**
-   * Returns closing tag
-   *
-   * @return string closing tag
-   */
-  protected function getClosingTag(): string {
-    return '</' . $this->getTagName() . '>';
-  }
-
-  public function getHtml(): string {
-    return $this->getOpeningTag() . $this->contentToString() . $this->getClosingTag();
+    $output = '<' . $this->getTagName() . $attrs . '>';
+    return $output . $this->content . '</' . $this->getTagName() . '>';
   }
 
 }

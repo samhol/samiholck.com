@@ -14,7 +14,7 @@ namespace Sphp\Html\Forms\Inputs;
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
-class Choicebox extends InputTag implements ChoiceboxInterface {
+class Choicebox extends InputTag implements BooleanInput {
 
   /**
    * Constructs a new instance
@@ -41,7 +41,7 @@ class Choicebox extends InputTag implements ChoiceboxInterface {
    * @link   http://www.w3schools.com/tags/att_input_checked.asp checked attribute
    */
   public function setChecked(bool $checked = true) {
-    $this->attrs()->setBoolean('checked', $checked);
+    $this->attributes()->setBoolean('checked', $checked);
     return $this;
   }
 

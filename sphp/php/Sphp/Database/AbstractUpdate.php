@@ -7,16 +7,18 @@
 
 namespace Sphp\Database;
 
+use Sphp\Database\Parameters\ParameterHandler;
+use Sphp\Database\Parameters\SequentialParameterHandler;
 use PDO;
 
 /**
- * An implementation of an SQL UPDATE statement
+ * An abstract implementation of an `UPDATE` statement
  *
  * @author  Sami Holck <sami.holck@gmail.com>
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
-abstract class AbstractUpdate extends ConditionalStatement implements Update {
+abstract class AbstractUpdate extends AbstractConditionalStatement implements Update {
 
   /**
    * the table that are updated
@@ -47,7 +49,7 @@ abstract class AbstractUpdate extends ConditionalStatement implements Update {
    */
   public function __construct(PDO $db, Clause $where = null) {
     parent::__construct($db, $where);
-    $this->newData = new SequentialParameters();
+    $this->newData = new SequentialParameterHandler();
   }
 
   /**
@@ -68,7 +70,7 @@ abstract class AbstractUpdate extends ConditionalStatement implements Update {
    * @return $this for a fluent interface
    */
   public function set(array $data) {
-    $this->newData = new SequentialParameters($data);
+    $this->newData = new SequentialParameterHandler($data);
     $this->cols = array_keys($data);
     return $this;
   }

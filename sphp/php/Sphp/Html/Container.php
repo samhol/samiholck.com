@@ -9,6 +9,8 @@ namespace Sphp\Html;
 
 use IteratorAggregate;
 use Sphp\Stdlib\Arrays;
+use Traversable;
+use Sphp\Exceptions\InvalidArgumentException;
 
 /**
  * Implements a container for HTML components and other textual content
@@ -17,7 +19,7 @@ use Sphp\Stdlib\Arrays;
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
-class Container implements IteratorAggregate, ContainerInterface, ContentParserInterface {
+class Container implements IteratorAggregate, ContainerInterface, ContentParser {
 
   use ContentTrait,
       ContentParsingTrait,
@@ -64,13 +66,11 @@ class Container implements IteratorAggregate, ContainerInterface, ContentParserI
     $this->components = Arrays::copy($this->components);
   }
 
-  public function append($content) {
-    if (is_array($content)) {
-      foreach ($content as $cont) {
-        $this->append($cont);
-      }
+  public function append(...$content) {
+    foreach (Arrays::flatten($content) as $cont) {
+      $this->components[] = $cont;
     }
-    $this->components[] = $content;
+
     return $this;
   }
 
@@ -123,7 +123,7 @@ class Container implements IteratorAggregate, ContainerInterface, ContentParserI
    *
    * @param  mixed $offset the offset to assign the value to
    * @param  mixed $value the value to set
-   * @return $this for a fluent interface
+   * @return void
    */
   public function offsetSet($offset, $value) {
     if (is_null($offset)) {
@@ -131,14 +131,13 @@ class Container implements IteratorAggregate, ContainerInterface, ContentParserI
     } else {
       $this->components[$offset] = $value;
     }
-    return $this;
   }
 
   /**
    * Unsets an offset
    *
    * @param  mixed $offset offset to unset
-   * @return $this for a fluent interface
+   * @return void
    */
   public function offsetUnset($offset) {
     if ($this->offsetExists($offset)) {
@@ -167,7 +166,26 @@ class Container implements IteratorAggregate, ContainerInterface, ContentParserI
   }
 
   public function getHtml(): string {
-    return implode('', $this->components);
+    $output = '';
+    foreach ($this->components as $value) {
+      if (is_scalar($value) || $value === null) {
+        $output .= $value;
+      } else if (is_object($value)) {
+        if (method_exists($value, '__toString')) {
+          $output .= $value;
+        } else if ($value instanceof \Traversable) {
+          $arr = iterator_to_array($value);
+          $output .= Arrays::implode($arr);
+        } else {
+          throw new InvalidArgumentException('Object has no string representation');
+        }
+      } else if (is_array($value)) {
+        $output .= Arrays::implode($value);
+      } else {
+        throw new InvalidArgumentException('value has no string representation');
+      }
+    }
+    return $output;
   }
 
   public function exists($value): bool {
@@ -181,7 +199,12 @@ class Container implements IteratorAggregate, ContainerInterface, ContentParserI
     return $result;
   }
 
-  public function getIterator() {
+  /**
+   * Creates a new iterator to iterate through content
+   *
+   * @return Traversable iterator
+   */
+  public function getIterator(): Traversable {
     return new Iterator($this->components);
   }
 

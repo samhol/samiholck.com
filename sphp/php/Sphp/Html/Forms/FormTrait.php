@@ -7,7 +7,6 @@
 
 namespace Sphp\Html\Forms;
 
-use Sphp\Stdlib\Strings;
 use Sphp\Html\Attributes\HtmlAttributeManager;
 
 /**
@@ -29,7 +28,7 @@ trait FormTrait {
    * 
    * @return HtmlAttributeManager the attribute manager
    */
-  abstract public function attrs(): HtmlAttributeManager;
+  abstract public function attributes(): HtmlAttributeManager;
 
   /**
    * Sets the value of the method attribute
@@ -43,7 +42,7 @@ trait FormTrait {
    * @link   http://www.w3schools.com/tags/att_form_method.asp method attribute
    */
   public function setMethod(string $method = null) {
-    $this->attrs()->set('method', $method);
+    $this->attributes()->set('method', $method);
     return $this;
   }
 
@@ -57,7 +56,7 @@ trait FormTrait {
    * @link   http://www.w3schools.com/tags/att_form_method.asp method attribute
    */
   public function getMethod() {
-    return $this->attrs()->getValue("method");
+    return $this->attributes()->getValue("method");
   }
 
   /**
@@ -65,7 +64,7 @@ trait FormTrait {
    *
    * The action attribute specifies where to send the form-data when a form is submitted.
    *
-   * **Possible <var>$url</var> values:**
+   * **Possible `$url` values:**
    *
    * * An absolute URL - points to another web site 'http://www.example.com/example.htm'
    * * A relative URL - points to a file within a web site 'example.htm'
@@ -75,11 +74,7 @@ trait FormTrait {
    * @link   http://www.w3schools.com/tags/att_form_action.asp action attribute
    */
   public function setAction(string $url = null) {
-    //$this->actionParams = \Sphp\Tools\Url::getParams($url);
-    //	echo "<pre>";
-    //	print_r($this->actionParams);
-    //	echo "</pre>";
-    $this->attrs()->set('action', Strings::htmlEncode($url));
+    $this->attributes()->set('action', $url);
     return $this;
   }
 
@@ -90,7 +85,7 @@ trait FormTrait {
    * @link   http://www.w3schools.com/tags/att_form_action.asp action attribute
    */
   public function getAction() {
-    return $this->attrs()->getValue('action');
+    return $this->attributes()->getValue('action');
   }
 
   /**
@@ -103,7 +98,7 @@ trait FormTrait {
    * @link   http://www.w3schools.com/tags/att_form_enctype.asp enctype attribute
    */
   public function setEnctype(string $enctype = null) {
-    $this->attrs()->set('enctype', $enctype);
+    $this->attributes()->set('enctype', $enctype);
     return $this;
   }
 
@@ -116,7 +111,7 @@ trait FormTrait {
    * @link   http://www.w3schools.com/tags/att_form_enctype.asp enctype attribute
    */
   public function getEnctype() {
-    return $this->attrs()->getValue('enctype');
+    return $this->attributes()->getValue('enctype');
   }
 
   /**
@@ -131,7 +126,7 @@ trait FormTrait {
    * @link   http://www.w3schools.com/tags/att_form_name.asp name attribute
    */
   public function setName(string $name = null) {
-    $this->attrs()->set('name', $name);
+    $this->attributes()->set('name', $name);
     return $this;
   }
 
@@ -146,7 +141,7 @@ trait FormTrait {
    * @link   http://www.w3schools.com/tags/att_form_name.asp name attribute
    */
   public function getName() {
-    return $this->attrs()->getValue('name');
+    return $this->attributes()->getValue('name');
   }
 
   /**
@@ -162,7 +157,7 @@ trait FormTrait {
    * @link   http://www.w3schools.com/tags/att_form_autocomplete.asp autocomplete attribute
    */
   public function autocomplete(bool $allow = true) {
-    $this->attrs()->set('autocomplete', $allow ? 'on' : 'off');
+    $this->attributes()->set('autocomplete', $allow ? 'on' : 'off');
     return $this;
   }
 
@@ -172,7 +167,7 @@ trait FormTrait {
    * @return $this for a fluent interface
    */
   public function validation(bool $validate = true) {
-    $this->attrs()->set('novalidate', !$validate);
+    $this->attributes()->set('novalidate', !$validate);
     return $this;
   }
 
@@ -186,21 +181,21 @@ trait FormTrait {
    * target attribute defines a name of, or keyword for, a browsing context
    * (e.g. tab, window, or inline frame).
    *
-   * **<var>$target</var> values:**
+   * **`$target` values:**
    *
    * 
-   * * <var>_blank</var>: The response is displayed in a new window or tab
-   * * <var>_self</var>: The response is displayed in the same frame (this is default)
-   * * <var>_parent</var>: The response is displayed in the parent frame
-   * * <var>_top</var>: The response is displayed in the full body of the window
-   * * <var>framename</var>: The response is displayed in a named iframe
+   * * `_blank`: The response is displayed in a new window or tab
+   * * `_self`: The response is displayed in the same frame (this is default)
+   * * `_parent`: The response is displayed in the parent frame
+   * * `_top`: The response is displayed in the full body of the window
+   * * `framename`: The response is displayed in a named iframe
    * 
    * @param  string $target the value of the target attribute
    * @return $this for a fluent interface
    * @link   http://www.w3schools.com/tags/att_form_target.asp target attribute
    */
   public function setTarget(string $target = null) {
-    $this->attrs()->set('target', $target);
+    $this->attributes()->set('target', $target);
     return $this;
   }
 
@@ -218,7 +213,7 @@ trait FormTrait {
    * @link  http://www.w3schools.com/tags/att_form_target.asp target attribute
    */
   public function getTarget() {
-    return $this->attrs()->getValue('target');
+    return $this->attributes()->getValue('target');
   }
 
 }

@@ -8,26 +8,42 @@
 namespace Sphp\Html\Foundation\Sites\Grids;
 
 use IteratorAggregate;
-use Sphp\Html\AbstractContainerComponent;
-use Sphp\Html\TraversableInterface;
-use Sphp\Html\TraversableTrait;
-use Sphp\Html\WrappingContainer;
-use Sphp\Html\ContentParserInterface;
-use Sphp\Html\ContentParsingTrait;
+use Traversable;
+use Sphp\Html\AbstractComponent;
+use Sphp\Html\TraversableContent;
+use Sphp\Html\ContentParser;
+use Sphp\Html\Container;
 
 /**
- * Implements a Block Grid component
+ * Implements a Foundation framework based XY Block Grid
  *
+ * **Important!**
+ *
+ * This component is mobile-first. Code for small screens first,
+ * and larger devices will inherit those styles. Customize for
+ * larger screens as necessary.
+ *
+ * If you use the small block grid only, the grid will keep its spacing and
+ * configuration no matter the screen size. If you use large block grid
+ * only, the list items will stack on top of each other for small devices.
+ * If you use both of those classes combined, you can control the
+ * configuration and layout separately for each breakpoint.
+ * 
  * @author  Sami Holck <sami.holck@gmail.com>
  * @link    http://foundation.zurb.com/ Foundation
- * @link    http://foundation.zurb.com/docs/components/block_grid.html Foundation Block Grid
+ * @link    https://foundation.zurb.com/sites/docs/xy-grid.html#block-grids Block Grid
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
-class BlockGrid extends AbstractContainerComponent implements IteratorAggregate, ContentParserInterface, TraversableInterface {
+class BlockGrid extends AbstractComponent implements IteratorAggregate, ContentParser, TraversableContent {
 
-  use TraversableTrait,
-      ContentParsingTrait;
+  use \Sphp\Html\TraversableTrait,
+      \Sphp\Html\ContentParsingTrait;
+
+  /**
+   * @var Container
+   */
+  private $columns;
 
   /**
    * @var BlockGridLayoutManager 
@@ -35,46 +51,15 @@ class BlockGrid extends AbstractContainerComponent implements IteratorAggregate,
   private $layoutManager;
 
   /**
-   * The maximum block grid value (int 12)
-   */
-  const MAX_GRID = 8;
-
-  /**
-   * The block grid value is inherited from the smaller screen (int 0)
-   */
-  const INHERITED = 0;
-
-  /**
    * Constructs a new instance
    *
-   * **Important!**
-   *
-   * This component is mobile-first. Code for small screens first,
-   * and larger devices will inherit those styles. Customize for
-   * larger screens as necessary.
-   *
-   * If you use the small block grid only, the grid will keep its spacing and
-   * configuration no matter the screen size. If you use large block grid
-   * only, the list items will stack on top of each other for small devices.
-   * If you use both of those classes combined, you can control the
-   * configuration and layout separately for each breakpoint.
-   *
-   * @param  array $layout column layout parameters
-   * @param  mixed [] $blocks
+   * @param  string $layout,... block grid layout parameters
    */
-  public function __construct(array $layout = ['small-up-8'], array $blocks = null) {
-    $wrapper = function($c) {
-      if (!($c instanceof BlockGridColumnInterface)) {
-        $c = new BlockGridColumn($c);
-      }
-      return $c;
-    };
-    parent::__construct('div', null, new WrappingContainer($wrapper));
+  public function __construct(...$layout) {
+    $this->columns = new Container();
+    parent::__construct('div');
     $this->layoutManager = new BlockGridLayoutManager($this);
     $this->layout()->setLayouts($layout);
-    if ($blocks !== null) {
-      $this->setColumns($blocks);
-    }
   }
 
   public function layout(): BlockGridLayoutManager {
@@ -88,21 +73,29 @@ class BlockGrid extends AbstractContainerComponent implements IteratorAggregate,
    * @return $this for a fluent interface
    */
   public function setColumns(array $columns) {
-    $this->getInnerContainer()->clear();
+    $this->columns->clear();
     foreach ($columns as $column) {
+      if (!($column instanceof BlockGridColumnInterface)) {
+        $column = new BlockGridColumn($column);
+      }
       $this->append($column);
     }
     return $this;
   }
 
   /**
-   * Appends a new Column to the container
+   * Appends new Columns to the container
    * 
-   * @param  mixed $column column or column content
+   * @param  mixed,... $column column or column content
    * @return $this for a fluent interface
    */
-  public function append($column) {
-    $this->getInnerContainer()->append($column);
+  public function append(...$column) {
+    foreach ($column as $c) {
+      if (!($c instanceof BlockGridColumnInterface)) {
+        $c = new BlockGridColumn($column);
+      }
+      $this->columns->append($c);
+    }
     return $this;
   }
 
@@ -113,15 +106,19 @@ class BlockGrid extends AbstractContainerComponent implements IteratorAggregate,
    * @return BlockGridColumn|null
    */
   public function getColumn($index) {
-    return $this->getInnerContainer()->offsetGet($index);
+    return $this->columns->offsetGet($index);
   }
 
-  public function getIterator() {
-    return $this->getInnerContainer()->getIterator();
+  public function getIterator(): Traversable {
+    return $this->columns->getIterator();
   }
 
   public function count(): int {
-    return $this->getInnerContainer()->count();
+    return $this->columns->count();
+  }
+
+  public function contentToString(): string {
+    return $this->columns->getHtml();
   }
 
 }

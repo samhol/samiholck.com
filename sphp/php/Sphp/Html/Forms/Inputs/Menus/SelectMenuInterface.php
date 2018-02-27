@@ -7,9 +7,8 @@
 
 namespace Sphp\Html\Forms\Inputs\Menus;
 
-use Sphp\Html\Forms\Inputs\Validable;
-use Sphp\Html\TraversableInterface;
-use Sphp\Html\ContainerInterface;
+use Sphp\Html\Forms\Inputs\ValidableInput;
+use Sphp\Html\TraversableContent;
 
 /**
  * Defines properties for a select menu in HTML forms
@@ -34,21 +33,21 @@ use Sphp\Html\ContainerInterface;
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
-interface SelectMenuInterface extends Validable, TraversableInterface {
+interface SelectMenuInterface extends ValidableInput, TraversableContent {
 
   /**
-   * Returns all {@link Option} components in the component
+   * Returns all &lt;option&gt; components
    * 
-   * @return ContainerInterface containing {@link Option} components
+   * @return TraversableContent containing &lt;option&gt; components
    */
-  public function getOptions();
+  public function getOptions(): TraversableContent;
 
   /**
-   * Returns all the selected {@link Option} components in the component
+   * Returns all the selected &lt;option&gt; components
    * 
-   * @return ContainerInterface containing selected {@link Option} components
+   * @return TraversableContent containing selected &lt;option&gt; components
    */
-  public function getSelectedOptions();
+  public function getSelectedOptions(): TraversableContent;
 
   /**
    * Sets the selected options of the menu object
@@ -65,16 +64,16 @@ interface SelectMenuInterface extends Validable, TraversableInterface {
    *         otherwise false
    * @return $this for a fluent interface
    */
-  public function selectMultiple($multiple = true);
+  public function selectMultiple(bool $multiple = true);
 
   /**
-   * Sets the number of the visible {@link Option} components
+   * Sets the number of the visible &lt;option&gt; components
    * 
    * **Note:** In Chrome and Safari, this attribute may not work as 
    *  expected for size="2" and size="3".
    * 
-   * @param  int $size the number of the visible {@link Option} components
+   * @param  int|null $size optional number of visible &lt;option&gt; components
    * @return $this for a fluent interface
    */
-  public function setSize($size);
+  public function setSize(int $size = null);
 }

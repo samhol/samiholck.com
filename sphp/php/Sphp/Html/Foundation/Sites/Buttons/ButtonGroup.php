@@ -9,6 +9,8 @@ namespace Sphp\Html\Foundation\Sites\Buttons;
 
 use Sphp\Html\AbstractContainerComponent;
 use Sphp\Exceptions\InvalidArgumentException;
+use Sphp\Html\CssClassifiableContent;
+use Traversable;
 
 /**
  * Implements a Button Group
@@ -40,7 +42,7 @@ class ButtonGroup extends AbstractContainerComponent implements \IteratorAggrega
     parent::__construct('div');
     $this->cssClasses()->protect('button-group');
     if (is_array($buttons)) {
-      $this->appendButtons($buttons);
+      $this->appendButton($buttons);
     }
     if ($buttons instanceof ButtonInterface) {
       $this->appendButton($buttons);
@@ -56,14 +58,14 @@ class ButtonGroup extends AbstractContainerComponent implements \IteratorAggrega
    * * If the href attribute is not present, the implemented &lt;a&gt; tag is not a hyperlink in HTML5.
    * * If the $content is empty, the $href is also the content of the object.
    * 
-   * @param  string $href the URL of the link
-   * @param  string $content the content of the button
-   * @param  string $target the value of the target attribute
+   * @param  string|null $href the URL of the link
+   * @param  string|null $content the content of the button
+   * @param  string|null $target the value of the target attribute
    * @return $this for a fluent interface
    * @link   http://www.w3schools.com/tags/att_a_href.asp href attribute
    * @link   http://www.w3schools.com/tags/att_a_target.asp target attribute
    */
-  public function appendHyperlink(string $href, $content, string $target = '_self') {
+  public function appendHyperlink(string $href, $content, string $target = null) {
     $this->appendButton(Button::hyperlink($href, $content, $target));
     return $this;
   }
@@ -94,35 +96,25 @@ class ButtonGroup extends AbstractContainerComponent implements \IteratorAggrega
   }
 
   /**
-   * Appends a button to the group
+   * Appends a new button to the group
    *
-   * @param  ButtonInterface $button the appended button
+   * @param  CssClassifiableContent $button the appended button
    * @return $this for a fluent interface
    */
-  public function appendButton(ButtonInterface $button) {
+  public function appendButton(CssClassifiableContent $button) {
+    if (!$button->hasCssClass('button')) {
+      $button->addCssClass('button');
+    }
     $this->getInnerContainer()->append($button);
     return $this;
   }
 
   /**
-   * Appends aa array of buttons to the group
+   * Create a new iterator to iterate through content
    *
-   * @param  ButtonInterface[] $buttons the appended buttons
-   * @return $this for a fluent interface
+   * @return Traversable iterator
    */
-  public function appendButtons(array $buttons) {
-    foreach ($buttons as $button) {
-      $this->appendButton($button);
-    }
-    return $this;
-  }
-
-  /**
-   * Returns a new iterator to iterate through inserted {@link ButtonInterface} components
-   *
-   * @return \ArrayIterator iterator to iterate through inserted {@link ButtonInterface} components
-   */
-  public function getIterator() {
+  public function getIterator(): Traversable {
     return $this->getInnerContainer()->getIterator();
   }
 

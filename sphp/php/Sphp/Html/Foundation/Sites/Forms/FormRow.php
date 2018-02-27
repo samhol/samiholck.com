@@ -7,11 +7,11 @@
 
 namespace Sphp\Html\Foundation\Sites\Forms;
 
-use Sphp\Html\Foundation\Sites\Grids\XY\Row;
-use Sphp\Html\Forms\Inputs\InputInterface;
+use Sphp\Html\Foundation\Sites\Grids\Row;
+use Sphp\Html\Forms\Inputs\Input;
 use Sphp\Html\Foundation\Sites\Forms\Inputs\InputColumn;
 use Sphp\Html\NonVisualContent;
-use Sphp\Html\Foundation\Sites\Grids\XY\ColumnInterface;
+use Sphp\Html\Foundation\Sites\Grids\ColumnInterface;
 
 /**
  * Extends a Foundation Row for form components
@@ -22,6 +22,11 @@ use Sphp\Html\Foundation\Sites\Grids\XY\ColumnInterface;
  */
 class FormRow extends Row {
 
+  
+  public function __construct($columns = null, $sizes = null) {
+    parent::__construct($columns, $sizes);
+    $this->layout()->usePadding(true);
+  }
   public function appendColumn($content, array $layout = ['small-12']) {
     //echo "here " . $content;
     if ($content instanceof InputInterface) {
@@ -35,11 +40,11 @@ class FormRow extends Row {
   /**
    * Appends a new form input component to the row
    * 
-   * @param  InputInterface $input the appended input 
+   * @param  Input $input the appended input 
    * @param  array $layout
    * @return $this for a fluent interface
    */
-  public function appendInput(InputInterface $input, array $layout = ['small-12']) {
+  public function appendInput(Input $input, array $layout = ['small-12']) {
     if ($input instanceof NonVisualContent) {
       $this->append($input);
     } else if ($input instanceof ColumnInterface) {

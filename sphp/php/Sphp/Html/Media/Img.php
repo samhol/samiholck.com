@@ -10,7 +10,6 @@ namespace Sphp\Html\Media;
 use Sphp\Html\EmptyTag;
 use Sphp\Images\ImageScaler;
 use Sphp\Stdlib\Strings;
-use Sphp\Html\Media\ImageMap\Map;
 
 /**
  * Implements an HTML &lt;img&gt; tag
@@ -51,7 +50,7 @@ class Img extends EmptyTag implements ImgInterface {
    */
   public function __construct(string $src = '', string $alt = '') {
     parent::__construct('img');
-    $this->attrs()->demand('alt');
+    $this->attributes()->demand('alt');
     $this->setSrc($src)
             ->setAlt($alt);
   }
@@ -59,7 +58,7 @@ class Img extends EmptyTag implements ImgInterface {
   /**
    * Sets the image map used
    * 
-   * @param  string|Map $map the image map name or instance
+   * @param  string|ImageMap\Map $map the image map name or instance
    * @return $this for a fluent interface
    */
   public function useMap($map) {
@@ -69,7 +68,7 @@ class Img extends EmptyTag implements ImgInterface {
     if (!Strings::startsWith($map, '#')) {
       $map = "#$map";
     }
-    $this->attrs()->set('usemap', $map);
+    $this->attributes()->set('usemap', $map);
     return $this;
   }
 
@@ -93,7 +92,7 @@ class Img extends EmptyTag implements ImgInterface {
    * @link   http://www.w3schools.com/tags/att_img_alt.asp alt attribute
    */
   public function setAlt(string $alt) {
-    $this->attrs()->set('alt', $alt);
+    $this->attributes()->set('alt', $alt);
     return $this;
   }
 
@@ -106,7 +105,7 @@ class Img extends EmptyTag implements ImgInterface {
    * @link  http://www.w3schools.com/tags/att_img_alt.asp alt attribute
    */
   public function getAlt(): string {
-    return $this->attrs()->getValue('alt');
+    return $this->attributes()->getValue('alt');
   }
 
   /**

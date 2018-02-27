@@ -20,7 +20,8 @@ use Sphp\Exceptions\InvalidArgumentException;
  */
 abstract class AbstractTag implements TagInterface {
 
-  use IdentifiableComponentTrait;
+  use ContentTrait,
+      ComponentTrait;
 
   /**
    * the tag name of the component
@@ -48,7 +49,9 @@ abstract class AbstractTag implements TagInterface {
       throw new InvalidArgumentException("The tag name '$tagName' is malformed");
     }
     $this->tagName = $tagName;
-    $this->setAttributeManager($attrManager);
+    if ($attrManager !== null) {
+      $this->attrs = $attrManager;
+    }
   }
 
   /**
@@ -69,29 +72,19 @@ abstract class AbstractTag implements TagInterface {
    * @link http://www.php.net/manual/en/language.oop5.cloning.php#object.clone PHP Object Cloning
    */
   public function __clone() {
-    $this->attrs = clone $this->attrs;
+    if ($this->attrs !== null) {
+      $this->attrs = clone $this->attrs;
+    }
   }
 
   public function getTagName(): string {
     return $this->tagName;
   }
 
-  /**
-   * Sets the attribute manager attached to the component
-   *
-   * @param  HtmlAttributeManager $attrManager the attribute manager to set
-   * @return $this for a fluent interface
-   */
-  private function setAttributeManager(HtmlAttributeManager $attrManager = null) {
-    if ($attrManager === null) {
+  public function attributes(): HtmlAttributeManager {
+    if ($this->attrs === null) {
       $this->attrs = new HtmlAttributeManager();
-    } else {
-      $this->attrs = $attrManager;
     }
-    return $this;
-  }
-
-  public function attrs(): HtmlAttributeManager {
     return $this->attrs;
   }
 

@@ -11,7 +11,7 @@ use Sphp\Html\AbstractComponent;
 use Sphp\Html\Span;
 
 /**
- * Implements a bullet for Orbit
+ * Implements a bullet for Foundation framework based Orbit
  *
  * @author  Sami Holck <sami.holck@gmail.com>
  * @link    http://foundation.zurb.com/ Foundation
@@ -20,23 +20,20 @@ use Sphp\Html\Span;
  * @filesource
  */
 class Bullet extends AbstractComponent {
-  
+
   use ActivationTrait;
 
   /**
-   *
    * @var int
    */
   private $number;
 
   /**
-   *
    * @var Span
    */
   private $srDescriptor;
 
   /**
-   *
    * @var Span
    */
   private $currentDescriptor;
@@ -48,17 +45,17 @@ class Bullet extends AbstractComponent {
    * @param string $slideText
    * @param string $currentSlideText
    */
-  public function __construct($slideNo, $slideText = null, $currentSlideText = 'Current Slide') {
+  public function __construct(int $slideNo, $slideText = null, $currentSlideText = 'Current Slide') {
     $this->number = $slideNo;
     parent::__construct('button');
-    $this->attrs()->protect('data-slide', $slideNo);
+    $this->attributes()->protect('data-slide', $slideNo);
     $this->createSpans($slideText, $currentSlideText);
   }
 
   /**
    * 
-   * @param string $slideText
-   * @param type $currentSlideText
+   * @param  string $slideText
+   * @param  type $currentSlideText
    * @return $this for a fluent interface
    */
   private function createSpans($slideText, $currentSlideText) {
@@ -77,7 +74,7 @@ class Bullet extends AbstractComponent {
    * @param  string $description
    * @return $this for a fluent interface
    */
-  public function setSlideDescription($description) {
+  public function setSlideDescription(string $description) {
     $this->srDescriptor->replaceContent($description);
     return $this;
   }
@@ -97,7 +94,7 @@ class Bullet extends AbstractComponent {
    * 
    * @return int slide index
    */
-  public function getSlideNo():int {
+  public function getSlideNo(): int {
     return $this->number;
   }
 

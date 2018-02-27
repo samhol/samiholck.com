@@ -8,18 +8,9 @@
 namespace Sphp\Html\Navigation;
 
 use Sphp\Html\Attributes\HtmlAttributeManager;
-use Sphp\Stdlib\Strings;
 
 /**
  * Trait implements {@link HyperlinkInterface} for hyperlink functionality
- *
- * If a {@link HyperlinkInterface} component has an href attribute, then it
- * represents a hyperlink (a hypertext anchor). If the component has no href
- * attribute, then the component represents a placeholder for where a link might
- * otherwise have been placed, if it had been relevant.
- *
- * The `target`, `rel`, `media`, `hreflang`, and `type` attributes must be omitted if
- * the `href` attribute is not present.
  *
  * @author  Sami Holck <sami.holck@gmail.com>
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
@@ -32,7 +23,7 @@ trait HyperlinkTrait {
    *
    * @return HtmlAttributeManager the attribute manager
    */
-  abstract public function attrs(): HtmlAttributeManager;
+  abstract public function attributes(): HtmlAttributeManager;
 
   /**
    * Sets the value of the href attribute (The URL of the link)
@@ -43,17 +34,11 @@ trait HyperlinkTrait {
    * * If the href attribute is not present, the &lt;a&gt; tag is not a hyperlink.
    *
    * @param  string $href the URL of the link
-   * @param  boolean $encode converts all applicable characters of the $url to
-   *         HTML entities
-   * @return HyperlinkInterface for PHP Method Chaining
-   * @uses   Strings::htmlEncode()
+   * @return $this for a fluent interface
    * @link   http://www.w3schools.com/tags/att_a_href.asp href attribute
    */
-  public function setHref($href, $encode = true) {
-    if ($encode) {
-      $href = Strings::htmlEncode($href);
-    }
-    $this->attrs()->set('href', $href);
+  public function setHref(string $href) {
+    $this->attributes()->set('href', $href);
     return $this;
   }
 
@@ -69,7 +54,7 @@ trait HyperlinkTrait {
    * @link http://www.w3schools.com/tags/att_a_href.asp href attribute
    */
   public function getHref() {
-    return $this->attrs()->getValue('href');
+    return $this->attributes()->getValue('href');
   }
 
   /**
@@ -80,15 +65,14 @@ trait HyperlinkTrait {
    * * The target attribute specifies where to open the linked document.
    * * Only used if the href attribute is present.
    *
-   * @param  string $target the value of the target attribute
-   * @return HyperlinkInterface for PHP Method Chaining
+   * @param  string|null $target optional target frame of the hyperlink
+   * @return $this for a fluent interface
    * @link   http://www.w3schools.com/tags/att_a_target.asp target attribute
    */
-  public function setTarget($target) {
-    if (!Strings::isEmpty($target)) {
-      $this->attrs()->set('target', $target);
-    } else {
-      $this->attrs()->remove('target');
+  public function setTarget(string $target = null) {
+    $this->attributes()->set('target', $target);
+    if ($this->getTarget() === '_blank') {
+      $this->setRel('noopener noreferrer');
     }
     return $this;
   }
@@ -105,7 +89,7 @@ trait HyperlinkTrait {
    * @link  http://www.w3schools.com/tags/att_a_target.asp target attribute
    */
   public function getTarget() {
-    return $this->attrs()->getValue('target');
+    return $this->attributes()->getValue('target');
   }
 
   /**
@@ -115,8 +99,39 @@ trait HyperlinkTrait {
    * @return $this for a fluent interface
    * @link   http://www.w3schools.com/tags/att_global_title.asp title attribute
    */
-  public function setTitle($title) {
-    return $this->setAttr("title", $title);
+  public function setTitle(string $title) {
+    return $this->attributes()->set('title', $title);
+  }
+
+  /**
+   * Returns the value of the target attribute
+   *
+   * **Notes:**
+   *
+   * * The target attribute specifies where to open the linked document.
+   * * Only used if the href attribute is present.
+   *
+   * @return string the value of the target attribute
+   * @link  http://www.w3schools.com/tags/att_a_target.asp target attribute
+   */
+  public function getRel() {
+    return $this->attributes()->getValue('rel');
+  }
+
+  /**
+   * Sets the relationship between the current document and the linked document
+   *
+   * **Notes:**
+   *
+   * * Only used if the href attribute is present.
+   *
+   * @param  string|null $rel optional relationship between the current document and the linked document
+   * @return $this for a fluent interface
+   * @link  http://www.w3schools.com/tags/att_a_rel.asp rel attribute
+   */
+  public function setRel(string $rel = null) {
+     $this->attributes()->set('rel', $rel);
+     return $this;
   }
 
 }
