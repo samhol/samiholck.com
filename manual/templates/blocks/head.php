@@ -22,17 +22,15 @@ Document::head()
         //->useFoundationIcons()
         ->addCssSrc('https://cdn.rawgit.com/konpa/devicon/master/devicon.min.css')
         ->setBaseAddr(Path::get()->http(), '_self')
-        ->addShortcutIcon('http://playground.samiholck.com/manual/pics/S-logo.png')
-        ->add(Head\Link::create('http://playground.samiholck.com/manual/pics/apple-touch-icon.png', 'apple-touch-icon'))
+        ->addShortcutIcon('http://www.samiholck.com/manual/pics/S-logo.png')
+        ->add(Head\Link::create('http://www.samiholck.com/manual/pics/apple-touch-icon.png', 'apple-touch-icon'))
         ->addMeta(Meta::author('Sami Holck'))
-        ->addMeta(Meta::applicationName('SPHP framework'))
         ->addMeta(Meta::keywords([
                     'php',
                     'scss',
                     'css',
                     'html',
                     'html5',
-                    'framework',
                     'foundation',
                     'JavaScript',
                     'DOM',
@@ -42,9 +40,8 @@ Document::head()
                     'references',
                     'examples',
                     'source code',
-                    'demos',
                     'tips']))
-        ->addMeta(Meta::description('SPHP framework for web developement'));
+        ->addMeta(Meta::description('Personal homepage of Sami Holck'));
 Document::body()->addCssClass('manual');
 Document::html()->scripts()->appendSrc('manual/js/formTools.js');
 Document::html()->scripts()->appendSrc('manual/js/techs.js');

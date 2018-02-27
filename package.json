@@ -1,27 +1,41 @@
 {
-  "name": "samiholck.com",
-  "description": "Personal homepage of Sami Holck",
+  "name": "sphplayground-framework",
+  "description": "Multipurpose PHP framework for web applications",
   "author": "Sami Holck <sami.holck@gmail.com>",
   "version": "1.0.0",
   "main": "index.js",
   "dependencies": {
-    "clipboard": "^1.6.1",
-    "foundation-sites": "^6.3.1",
-    "ion-rangeslider": "^2.1.7",
-    "jquery": "^3.2.1",
-    "lazyloadxt": "^1.1.0"
+    "clipboard": ">=1.6.1",
+    "foundation-sites": "^6.4.3",
+    "ion-rangeslider": ">=2.1.7",
+    "jquery": ">=3.2.1",
+    "lazyloadxt": ">=1.1.0",
+    "slick-carousel": ">=1.8.1"
   },
   "devDependencies": {
-    "gulp": "^3.9.1",
+    "gulp": "^4.0.0",
+    "gulp-autoprefixer": "^4.0.0",
+    "gulp-cache": "^0.4.6",
+    "gulp-concat": "^2.6.1",
+    "gulp-cssnano": "^2.1.2",
+    "gulp-imagemin": "^3.3.0",
+    "gulp-jsdoc3": "^1.0.1",
     "gulp-jshint": "^2.0.4",
+    "gulp-livereload": "^3.8.1",
+    "gulp-notify": "^3.0.0",
+    "gulp-remove-use-strict": "0.0.2",
+    "gulp-rename": "^1.2.2",
+    "gulp-ruby-sass": "^2.1.1",
+    "gulp-uglify": "^3.0.0",
+    "jsdoc": "^3.5.5",
     "jshint": "^2.9.4",
     "jshint-stylish": "^2.2.1"
   },
   "scripts": {
     "postinstall": "gulp build",
-    "do": "gulp finalize",
+    "do": "gulp build",
     "test": "gulp test"
   },
   "license": "ISC",
-  "homepage": "http://www.samiholck.com/"
+  "homepage": "http://playground.samiholck.com/"
 }
