@@ -2,21 +2,21 @@
 
 namespace Sphp\Html\Foundation\Sites\Navigation;
 
-require_once('manual/settings.php');
+require_once('samiholck/settings.php');
 
 $redirect = filter_input(INPUT_SERVER, 'REDIRECT_URL', FILTER_SANITIZE_URL);
 
 $cacheSuffix = str_replace(['.', '/'], ['-', ''], $redirect) . "-cache";
 
 if ($outputCache->start("$cacheSuffix-head") === false) {
-  require_once('manual/templates/blocks/head.php');
+  require_once('samiholck/templates/blocks/head.php');
   $outputCache->end();
 }
 ?>
 <?php
 if ($outputCache->start("$cacheSuffix-topbar") === false) {
-  include('manual/templates/logo-area.php');
-  include('manual/templates/menus/topBar.php');
+  include('samiholck/templates/logo-area.php');
+  include('samiholck/templates/menus/topBar.php');
   $outputCache->end();
 }
 ?>
@@ -38,8 +38,8 @@ if ($outputCache->start("$cacheSuffix-topbar") === false) {
 </div>
 <?php
 if ($outputCache->start('footer') === false) {
-  include('manual/templates/blocks/footer.php');
-  include('manual/templates/backToTopButton.php');
+  include('samiholck/templates/blocks/footer.php');
+  include('samiholck/templates/backToTopButton.php');
   $outputCache->end();
 }
 ?>
