@@ -2,8 +2,8 @@
 
 namespace Sphp\Stdlib;
 
-$manualLinks = Parser::fromFile('manual/yaml/documentation_links.yaml');
-$dependenciesLinks = Parser::fromFile('manual/yaml/dependencies_links.yml');
-$externalApiLinks = Parser::fromFile('manual/yaml/apidocs_menu.yml');
+$manualLinks = Parser::fromFile('samiholck/yaml/documentation_links.yaml');
+$dependenciesLinks = Parser::fromFile('samiholck/yaml/dependencies_links.yml');
+$externalApiLinks = Parser::fromFile('samiholck/yaml/apidocs_menu.yml');
 
 

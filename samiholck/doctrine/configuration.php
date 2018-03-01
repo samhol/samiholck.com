@@ -9,7 +9,7 @@ $isDevMode = true;
 
 // the connection configuration
 
-$dbParams = \Sphp\Stdlib\Parser::fromFile('manual/config/db.yaml');
+$dbParams = \Sphp\Stdlib\Parser::fromFile('samiholck/config/db.yaml');
 //echo '<pre>';
 //var_dump($dbParams);
 //echo '</pre>';

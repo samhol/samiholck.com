@@ -19,7 +19,7 @@ MD
 );
 use Sphp\Stdlib\Parser;
 
-$data = Parser::getReaderFor('yml')->fromFile('manual/yaml/document_data.yml');
+$data = Parser::getReaderFor('yml')->fromFile('samiholck/yaml/document_data.yml');
 
 //print_r($data);
 

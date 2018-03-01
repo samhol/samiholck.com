@@ -2,7 +2,7 @@
 
 namespace Sphp\Html;
 
-require_once('manual/settings.php');
+require_once('samiholck/settings.php');
 
 $html = Document::html();
 
@@ -15,9 +15,9 @@ Document::head()
         //->enableSPHP()
         ->setBaseAddr('http://playground.samiholck.com/')
         ->setDocumentTitle('License | SPHPlayground framework')
-        ->addShortcutIcon('manual/pics/S-logo.png')
-        ->add(Head\Link::stylesheet('manual/css/license/license.css'))
-        ->add(Head\Link::create('http://playground.samiholck.com/manual/pics/apple-touch-icon.png', 'apple-touch-icon'))
+        ->addShortcutIcon('samiholck/pics/S-logo.png')
+        ->add(Head\Link::stylesheet('samiholck/license/license.css'))
+        ->add(Head\Link::create('http://playground.samiholck.com/samiholck/pics/apple-touch-icon.png', 'apple-touch-icon'))
         ->addMeta(Meta::author('Sami Holck'))
         ->addMeta(Meta::applicationName('SPHPlayground framework'))
         ->addMeta(Meta::keywords([

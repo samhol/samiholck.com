@@ -22,8 +22,8 @@ Document::head()
         //->useFoundationIcons()
         ->addCssSrc('https://cdn.rawgit.com/konpa/devicon/master/devicon.min.css')
         ->setBaseAddr(Path::get()->http(), '_self')
-        ->addShortcutIcon('http://www.samiholck.com/manual/pics/S-logo.png')
-        ->add(Head\Link::create('http://www.samiholck.com/manual/pics/apple-touch-icon.png', 'apple-touch-icon'))
+        ->addShortcutIcon('http://www.samiholck.com/samiholck/pics/S-logo.png')
+        ->add(Head\Link::create('http://www.samiholck.com/samiholck/pics/apple-touch-icon.png', 'apple-touch-icon'))
         ->addMeta(Meta::author('Sami Holck'))
         ->addMeta(Meta::keywords([
                     'php',
@@ -43,8 +43,7 @@ Document::head()
                     'tips']))
         ->addMeta(Meta::description('Personal homepage of Sami Holck'));
 Document::body()->addCssClass('manual');
-Document::html()->scripts()->appendSrc('manual/js/formTools.js');
-Document::html()->scripts()->appendSrc('manual/js/techs.js');
+Document::html()->scripts()->appendSrc('samiholck/js/techs.js');
 Document::html()->scripts()->appendSrc('sphp/javascript/dist/ss360.min.js');
 Document::html()->scripts()->appendSrc('https://sitesearch360.com/cdn/sitesearch360-v9.min.js');
 Document::html()->startBody();

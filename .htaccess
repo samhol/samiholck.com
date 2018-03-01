@@ -12,7 +12,7 @@ Options -MultiViews
     RewriteEngine On
     RewriteRule ^(API/sami) - [L]
     RewriteRule ^(API/jsdoc) - [L]
-    RewriteRule ^([a-z0-9]+).svg /manual/ajax/svg.php?id=$1 [QSA,L]
+    RewriteRule ^([a-z0-9]+).svg /samiholck/ajax/svg.php?id=$1 [QSA,L]
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [QSA,L]
 # compress text, html, javascript, css, xml:

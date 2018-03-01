@@ -7,13 +7,13 @@ use Sphp\Html\Foundation\Sites\Containers\ThrowableCallout;
 require_once('manual_helper_functions.php');
 
 $loadNotFound = function () {
-  include 'manual/templates/error.php';
+  include 'samiholck/templates/error.php';
 };
 $loadPage = function ($par, string $file = 'index') use($loadNotFound) {
   //var_dump(func_get_args());
   try {
     ob_start();
-    $page = "manual/pages/$file.php";
+    $page = "samiholck/pages/$file.php";
     if (is_file($page)) {
       include $page;
     } else {

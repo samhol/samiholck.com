@@ -6,7 +6,7 @@ use Zend\Cache\PatternFactory;
 use Sphp\Stdlib\Parser;
 $cache = new Adapter\Filesystem();
 
-$cache->setOptions(Parser::fromFile('manual/config/cache.yml'));
+$cache->setOptions(Parser::fromFile('samiholck/config/cache.yml'));
 
 $plugin = new Plugin\ExceptionHandler(['throw_exceptions' => true]);
 $cache->addPlugin($plugin);

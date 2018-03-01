@@ -8,7 +8,7 @@ $currentUrl = URL::getCurrentURL();
 
 <div class="engadget-footer sitemap-container">
   <footer class="sitemap">
-    <?php include 'manual/templates/blocks/footerLinks.php'; ?>
+    <?php include 'samiholck/templates/blocks/footerLinks.php'; ?>
   </footer>
 </div>
 <div class="engadget-footer social-container">

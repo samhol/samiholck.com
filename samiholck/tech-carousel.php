@@ -112,4 +112,4 @@
   </div>
 </div>
 
-<div class="package-def" id="ooo" data-sphp-ajax-append="manual/snippets/techs.php #sphp-info"></div>
+<div class="package-def" id="ooo" data-sphp-ajax-append="samiholck/snippets/techs.php #sphp-info"></div>
