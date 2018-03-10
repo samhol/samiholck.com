@@ -27,7 +27,7 @@ if ($outputCache->start("$cacheSuffix-topbar") === false) {
   <div class="grid-x grid-margin-x grid-padding-x medium-margin-uncollapse">
 
     <div class="mainContent small-auto cell"> 
-      <div class="container">
+      <main class="container">
         <?php
         $man_cache = "$cacheSuffix-content";
         if ($outputCache->start($man_cache) === false) {
@@ -35,7 +35,7 @@ if ($outputCache->start("$cacheSuffix-topbar") === false) {
           $outputCache->end();
         }
         ?>
-      </div>
+      </main>
     </div>
   </div>
 </div>

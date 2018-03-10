@@ -1,5 +1,5 @@
 <?php
-
+/*
 namespace Sphp\Html\Foundation\Sites\Navigation;
 
 use Sphp\Html\Foundation\Sites\Bars\TopBar;
@@ -34,3 +34,31 @@ try {
   echo new ThrowableCallout($e, true, true);
 }
 
+
+ */
+?>
+<div class="title-bar" data-responsive-toggle="responsive-menu" data-hide-for="medium">
+  <button class="menu-icon" type="button" data-toggle="responsive-menu"></button>
+  <div class="title-bar-title">Menu</div>
+</div>
+
+<div class="top-bar" id="responsive-menu">
+  <div class="top-bar-left">
+    <ul  class="vertical medium-horizontal menu" data-responsive-menu="drilldown medium-dropdown">
+      <li class="has-submenu">
+        <a href="">Projects</a>
+        <ul class="submenu menu vertical" data-submenu>
+          <li><a href="http://playground.samiholck.com">SPHPlaygound</a></li>
+          <li><a href="http://www.raisionveneseura.fi">Raision veneseura</a></li>
+          <li><a href="http::/www.samiholck.com/archive/keiju">Keijupäiväkodit</a></li>
+          <li><a href="http::/www.samiholck.com/archive/unikoris">Unikoris</a></li>
+        </ul>
+      </li>
+      <li><a href="#0">Who?</a></li>
+      <li><a href="#0">Why?</a></li>
+    </ul>
+  </div>
+  <div class="top-bar-right">
+   
+  </div>
+</div>

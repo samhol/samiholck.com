@@ -14,17 +14,13 @@ $currentUrl = URL::getCurrentURL();
 <div class="engadget-footer social-container">
   <footer class="social">
     <div class="footer-left">
-      <div class="newsletter">
-        <h6>Search the sites</h6>
-        <?php
-
-        use Sphp\Html\Apps\Forms\SiteSearch360Form;
-
-$form = new SiteSearch360Form('playground.samiholck.com');
-        $form->setLabelText(false);
-        $form->setPlaceholder('keywords in documentation');
-        $form->printHtml();
-        ?>
+      <div class="contact-details">
+        <ul>
+          <li class="photo"><img class="thumbnail" src="samiholck/pics/face.jpg" alt="Photo of Sami Holck"></li>
+          <li><?php FontAwesome::phone('phonenumber')->printHtml() ?> +358 44 298 6738</li>
+          <li><a data-toggle="animatedModal10"><?php FontAwesome::envelope('Email address')->printHtml() ?> sami.holck@gmail.com</a></li>
+          <li><i class="fa fa-map-marker fa-lg" aria-hidden="true"></i> Rakuunatie 59 A3, Turku, Finland</li>
+        </ul>
       </div>
     </div>
     <div class="footer-right">
@@ -51,14 +47,7 @@ $form = new SiteSearch360Form('playground.samiholck.com');
 <div class="engadget-footer contact-details-container">
   <footer class="contact-details">
     <div class="footer-left">
-      <div class="contact-details">
-        <ul>
-          <li class="photo"><img class="thumbnail" src="manual/pics/face.jpg" alt="Photo of Sami Holck"></li>
-          <li><?php FontAwesome::phone('phonenumber')->printHtml() ?> +358 44 298 6738</li>
-          <li><a data-toggle="animatedModal10"><?php FontAwesome::envelope('Email address')->printHtml() ?> sami.holck@gmail.com</a></li>
-          <li><i class="fa fa-map-marker fa-lg" aria-hidden="true"></i> Rakuunatie 59 A3, Turku, Finland</li>
-        </ul>
-      </div>
+      
     </div>
     <div class="footer-right">
       <ul class="tech-links-list">
@@ -112,8 +101,7 @@ $form = new SiteSearch360Form('playground.samiholck.com');
 
     use Sphp\Stdlib\StopWatch;
     ?>
-    Copyright &copy; 2007-<?php echo date('Y'); ?> Sami Holck. All rights reserved.
-    <a href="license.php" target="license">GNU license</a> ||
+    Copyright &copy; 2007-<?php echo date('Y'); ?> Sami Holck. All rights reserved ||
     <b>Script executed in:</b>
     <i><?php echo StopWatch::getEcecutionTime() ?> seconds</i>
     <b>PHP Peak memory:</b>

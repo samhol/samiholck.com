@@ -8,6 +8,7 @@
 namespace Sphp\Html\Attributes;
 
 use Sphp\Html\Attributes\Exceptions\InvalidAttributeException;
+use Sphp\Html\Attributes\Exceptions\ImmutableAttributeException;
 
 /**
  * Implements an integer attribute with optional valid range
@@ -16,7 +17,7 @@ use Sphp\Html\Attributes\Exceptions\InvalidAttributeException;
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
-class IntegerAttribute extends AbstractAttribute {
+class IntegerAttribute extends AbstractMutableAttribute {
 
   /**
    * @var array 
@@ -77,7 +78,7 @@ class IntegerAttribute extends AbstractAttribute {
   }
 
   public function isVisible(): bool {
-    return $this->isDemanded() || $this->getValue() !== false;
+    return $this->isDemanded() || $this->getValue() !== false || $this->getValue() !== null;
   }
 
   public function isEmpty(): bool {
@@ -92,4 +93,3 @@ class IntegerAttribute extends AbstractAttribute {
   }
 
 }
-

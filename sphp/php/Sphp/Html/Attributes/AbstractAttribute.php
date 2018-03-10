@@ -9,6 +9,7 @@ namespace Sphp\Html\Attributes;
 
 use Sphp\Stdlib\Strings;
 use Sphp\Html\Attributes\Exceptions\ImmutableAttributeException;
+use Sphp\Html\Attributes\Exceptions\InvalidAttributeException;
 
 /**
  * An abstract implementation of an HTML attribute object
@@ -17,7 +18,7 @@ use Sphp\Html\Attributes\Exceptions\ImmutableAttributeException;
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
-abstract class AbstractAttribute implements AttributeInterface {
+abstract class AbstractAttribute implements MutableAttributeInterface {
 
   /**
    * the name of the attribute
@@ -34,7 +35,7 @@ abstract class AbstractAttribute implements AttributeInterface {
   private $required = false;
 
   /**
-   * @var bool 
+   * @var boolean 
    */
   private $protected = false;
 
@@ -42,11 +43,11 @@ abstract class AbstractAttribute implements AttributeInterface {
    * Constructs a new instance
    *
    * @param  string $name the name of the attribute
-   * @throws AttributeException
+   * @throws InvalidAttributeException
    */
   public function __construct(string $name) {
     if (!Strings::match($name, '/^[a-zA-Z][\w:.-]*$/')) {
-      throw new AttributeException("Malformed Attribute name '$name'");
+      throw new InvalidAttributeException("Malformed Attribute name '$name'");
     }
     $this->name = $name;
   }
@@ -118,4 +119,3 @@ abstract class AbstractAttribute implements AttributeInterface {
   }
 
 }
-

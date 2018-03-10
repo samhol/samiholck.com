@@ -39,7 +39,7 @@ $error-bg: rgba(255,127,80, 0.40);
 @import "api-stuff";
 @import "form-submission-viewer";
 @import "footer";
-@import 'topbar';
+//@import 'topbar';
 @import 'gettext-form';
 @import "forms"; 
 @import 'icon-examples';
@@ -57,7 +57,9 @@ $error-bg: rgba(255,127,80, 0.40);
   margin: rem-calc(5 0 20 0); // top right bottom left
   @include box-shadow(#888 0px 3px 8px 4px);
   background: #eaeaea;
-  @include breakpoint(medium down) {  margin: rem-calc(5 0 20 0);}
+  @include breakpoint(medium down) {  
+    margin: rem-calc(5 0 20 0);
+  }
 }
 .mainContent .container  { 
 
@@ -93,6 +95,9 @@ $error-bg: rgba(255,127,80, 0.40);
   > p, > ul, > ol, > .sphp-single-accordion {
     margin-left: rem-calc(5);
     margin-right: rem-calc(5); 
+  }
+  > .button {
+    @include default-margin();
   }
 
   @import "callouts"; 
@@ -143,9 +148,4 @@ $error-bg: rgba(255,127,80, 0.40);
 
 @import "body";
 @import "pagination";
-.is-drilldown {
-  background-color: #fafafa;
-  ul, li {
-    background-color: #fafafa;
-  }
-}
+

@@ -13,7 +13,7 @@
 @import "../../vendor/zurb/foundation/scss/foundation";
 //@import "settings";
 //@import "compass/css3";  
-  
+
 
 @include foundation-everything($prototype: true);
 //@include foundation-grid;
@@ -62,8 +62,9 @@
 */
 @import "../../sphp/scss/vendor/vendors"; 
 @import "../../sphp/scss/app/apps";
-@import "../../sphp/scss/manual/manual";
+//@import "../../sphp/scss/manual/manual";
 
-
-
-
+@import "logo-area";
+@import "site/topbar";
+@import "site/main-content";
+@import "footer";

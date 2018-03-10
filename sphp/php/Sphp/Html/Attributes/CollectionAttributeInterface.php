@@ -12,13 +12,12 @@ use Traversable;
 use Sphp\Stdlib\Datastructures\Arrayable;
 
 /**
- * An implementation of a multi value HTML attribute
+ * Defines an HTML attribute with multiple values value
  *
  * @author  Sami Holck <sami.holck@gmail.com>
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
-interface CollectionAttributeInterface extends AttributeInterface, Countable, Traversable, Arrayable {
+interface CollectionAttributeInterface extends MutableAttributeInterface, Countable, Traversable, Arrayable {
   
 }
-

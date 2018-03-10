@@ -9,6 +9,7 @@ namespace Sphp\Html\Media\ImageMap;
 
 use Sphp\Html\EmptyTag;
 use Sphp\Html\Navigation\HyperlinkTrait;
+use Sphp\Html\Attributes\SequenceAttribute;
 
 /**
  * Implements an HTML &lt;area&gt; tag
@@ -30,6 +31,7 @@ abstract class AbstractArea extends EmptyTag implements Area {
    */
   public function __construct(string $shape, string $href = null, string $alt = null) {
     parent::__construct('area');
+    $this->attributes()->setInstance(new SequenceAttribute('coords'));
     $this->attributes()->protect('shape', $shape);
     if ($href !== null) {
       $this->setHref($href);
@@ -50,21 +52,13 @@ abstract class AbstractArea extends EmptyTag implements Area {
   }
 
   /**
-   * Returnsthe coordinates of the area
+   * Returns the coordinates of the area
    * 
-   * @return int[] the coordinates of the area
+   * @return SequenceAttribute the coordinates of the area
    * @link   http://www.w3schools.com/TAGS/att_area_coords.asp coords attribute
    */
-  public function getCoordinates(): array {
-    $coords = [];
-    if ($this->attributes()->exists('coords')) {
-      $rawCoords = $this->getAttribute('coords');
-      $toInt = function($coord) {
-        return (int) $coord;
-      };
-      $coords = array_map($toInt, explode(',', $rawCoords));
-    }
-    return $coords;
+  public function getCoordinates(): SequenceAttribute {
+    return $this->attributes()->getObject('coords');
   }
 
   /**
@@ -85,7 +79,7 @@ abstract class AbstractArea extends EmptyTag implements Area {
    * @return string the shape of the area
    */
   public function getRelationship() {
-    return $this->getAttribute('shape');
+    return $this->getAttribute('rel');
   }
 
   /**

@@ -79,7 +79,7 @@ class MetaContainer implements Content, Iterator, TraversableContent, NonVisualC
   }
 
   public function getHtml(): string {
-    return implode('', Arrays::flatten($this->metaData));
+    return implode(Arrays::flatten($this->metaData));
   }
 
   public function count(): int {

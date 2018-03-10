@@ -9,9 +9,7 @@ use Sphp\Config\Config;
   <div class="cell small-12 medium-6">
     <ul class="logo">
       <li>
-        <a href="<?php echo Config::instance('manual')->get('ROOT_URL') ?>" target="_self" title="Navigate back to frontpage" data-sphp-qtip>
-          <img src="resources/img/logo.png" alt="samiholck.com logo">
-        </a>
+        <img src="samiholck/pics/samiholck.com.png" alt="samiholck.com logo">
       </li>
     </ul>
   </div>

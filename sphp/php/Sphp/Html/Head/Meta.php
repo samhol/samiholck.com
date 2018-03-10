@@ -27,11 +27,11 @@ class Meta extends EmptyTag implements MetaData {
   /**
    * Constructs a new instance
    * 
-   * @param  string[] $attrs an array of attribute name value pairs
+   * @param  string[] $meta an array of attribute name value pairs
    */
-  public function __construct(array $attrs = []) {
+  public function __construct(array $meta = []) {
     parent::__construct('meta');
-    $this->attributes()->merge($attrs);
+    $this->attributes()->merge($meta);
   }
 
   public function hasNamedContent(): bool {
@@ -51,15 +51,20 @@ class Meta extends EmptyTag implements MetaData {
   }
 
   public function hasHttpEquiv(string $http_equiv): bool {
-    return $this->hasHttpEquivContent() && $this->get('http_equiv') == $http_equiv;
+    return $this->hasHttpEquivContent() && $this->attributes()->get('http-equiv') === $http_equiv;
   }
 
   public function getHttpEquiv() {
-    return $this->getAttribute('http_equiv');
+    return $this->attributes()->getValue('http-equiv');
   }
 
   public function hasPropertyContent(): bool {
     return $this->attributeExists('property');
+  }
+
+  public function overlaps(MetaData $meta): bool {
+    $same = array_intersect_assoc($this->metaToArray(), $meta->metaToArray());
+    return array_key_exists('name', $same) || array_key_exists('charset', $same) || array_key_exists('http-equiv', $same);
   }
 
   /**
@@ -86,6 +91,19 @@ class Meta extends EmptyTag implements MetaData {
    */
   public function getProperty() {
     return $this->getAttribute('property');
+  }
+
+  /**
+   * Returns the value of the property attribute
+   *
+   * @return string|null the value of the property attribute or null if the 
+   *         attribute is not set
+   * @link   http://ogp.me/ The Open Graph protocol
+   * @link   https://developers.facebook.com/docs/concepts/opengraph/ Open Graph Concepts (Facebook)
+   * @link   http://en.wikipedia.org/wiki/RDFa RDFa (Wikipedia)
+   */
+  public function metaToArray(): array {
+    return $this->attributes()->toArray();
   }
 
   /**
@@ -128,7 +146,7 @@ class Meta extends EmptyTag implements MetaData {
   }
 
   /**
-   * Creates a name attribute and the corresponding content attribute
+   * Creates a named content meta data object
    *
    * **Notes:**
    * 
@@ -137,13 +155,17 @@ class Meta extends EmptyTag implements MetaData {
    * * **Note:** If the http-equiv attribute is set, the name attribute should not be set.
    * 
    * @param  string $name specifies a name for the metadata
-   * @param  string $content the value of the content attribute
+   * @param  string|array $content the value of the content attribute
    * @return Meta new meta data object
    * @link   http://www.w3schools.com/tags/att_meta_name.asp name attribute
    * @link   http://www.w3schools.com/tags/att_meta_content.asp content attribute
    */
-  public static function namedContent(string $name, string $content): Meta {
-    return new static(['name' => $name, 'content' => $content]);
+  public static function namedContent(string $name, $content): Meta {
+    if ($name === 'keywords') {
+      return static::keywords($content);
+    } else {
+      return new static(['name' => $name, 'content' => $content]);
+    }
   }
 
   /**
@@ -224,7 +246,7 @@ class Meta extends EmptyTag implements MetaData {
    * Specifies a comma-separated list of keywords - relevant to the page 
    * (Informs search engines what the page is about).
    * 
-   * @param  string|string[],... $keywords a list of keywords
+   * @param  string[]|string,... $keywords a list of keywords
    * @return Meta new meta data object
    * @link   http://www.w3schools.com/tags/att_meta_name.asp name attribute
    * @link   http://www.w3schools.com/tags/att_meta_content.asp content attribute
@@ -233,7 +255,7 @@ class Meta extends EmptyTag implements MetaData {
     if (is_array($keywords)) {
       $keywords = implode(', ', \Sphp\Stdlib\Arrays::flatten($keywords));
     }
-    return static::namedContent('keywords', $keywords);
+    return new static(['name' => 'keywords', 'content' => $keywords]);
   }
 
   /**

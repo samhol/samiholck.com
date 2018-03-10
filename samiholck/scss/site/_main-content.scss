@@ -1,0 +1,34 @@
+.manual .mainContent {
+  border: solid 1px #888;
+  @include border-radius(4px);
+  //@include box-shadow(#888 3px 0px 8px 4px);
+  padding: rem-calc(0 10 0 10);// top right bottom left
+  margin: rem-calc(5 0 20 0); // top right bottom left
+  @include box-shadow(#888 0px 3px 8px 4px);
+  background: #eaeaea;
+  @include breakpoint(medium down) {  
+    margin: rem-calc(5 0 20 0);
+  }
+}
+.mainContent .container  { 
+
+  border-left: solid 1px #ccc;
+  border-right: solid 1px #ccc;
+  //@include border-radius(4px);
+  //@include box-shadow(#888 3px 0px 8px 4px);
+  //@include box-shadow(#888 0px 3px 8px 4px);
+  padding: rem-calc(0 3 40 3);// top right bottom left
+  //margin: rem-calc(5 0 20 0); // top right bottom left
+  background: #fafafa;
+
+
+  > p:not([class]), > blockquote:not([class]) {
+    //margin: rem-calc(5 25 15 35); // top right bottom left
+    text-align: justify;
+    padding: 0;
+  }
+
+}
+main {
+  @import "skills-carousel";
+}

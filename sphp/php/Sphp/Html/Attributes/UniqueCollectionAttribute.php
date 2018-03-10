@@ -9,9 +9,7 @@ namespace Sphp\Html\Attributes;
 
 use Iterator;
 use Sphp\Stdlib\Strings;
-use Sphp\Html\Attributes\Utils\UniqueCollectionAttributeUtils;
 use Sphp\Html\Attributes\Exceptions\ImmutableAttributeException;
-use Sphp\Html\Attributes\Utils\Factory;
 
 /**
  * An implementation of a multi value HTML attribute
@@ -20,59 +18,10 @@ use Sphp\Html\Attributes\Utils\Factory;
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
-class UniqueCollectionAttribute extends AbstractAttribute implements Iterator, CollectionAttributeInterface {
+class UniqueCollectionAttribute extends MultiValueAttribute {
 
-  /**
-   * stored individual values
-   *
-   * @var array
-   */
-  private $values = [];
 
-  /*
-   * locked individual values
-   *
-   * @var array
-   */
-  private $locked = [];
 
-  /**
-   * @var UniqueCollectionAttributeUtils
-   */
-  private $filter;
-
-  /**
-   * Constructs a new instance
-   *
-   * @param string $name the name of the attribute
-   * @param UniqueCollectionAttributeUtils $u
-   */
-  public function __construct(string $name, UniqueCollectionAttributeUtils $u = null) {
-    if ($u === null) {
-      $u = Factory::instance()->getUtil(UniqueCollectionAttributeUtils::class);
-    }
-    $this->filter = $u;
-    parent::__construct($name);
-  }
-
-  /**
-   * Destroys the instance
-   * 
-   * The destructor method will be called as soon as there are no other references 
-   * to a particular object, or in any order during the shutdown sequence.
-   */
-  public function __destruct() {
-    unset($this->values, $this->locked);
-    parent::__destruct();
-  }
-
-  /**
-   * 
-   * @return MultiValueAttributeUtils
-   */
-  public function getValueFilter(): MultiValueAttributeUtils {
-    return $this->filter;
-  }
 
   /**
    * Sets new atomic values to the attribute removing old non locked ones
@@ -107,7 +56,7 @@ class UniqueCollectionAttribute extends AbstractAttribute implements Iterator, C
    */
   public function add(...$values) {
     $parsed = $this->getValueFilter()->parse($values, true);
-    $this->values = array_unique(array_merge($this->values, $parsed));
+    parent::add(array_unique(array_merge($this->toArray(), $parsed)));
     return $this;
   }
 
@@ -126,7 +75,7 @@ class UniqueCollectionAttribute extends AbstractAttribute implements Iterator, C
     if ($values === null) {
       return !empty($this->locked);
     } else {
-      $parsed = $this->getValueFilter()->parse($values, true);
+      $parsed = $this->parse($values, true);
       return empty(array_diff($parsed, $this->locked));
     }
   }
