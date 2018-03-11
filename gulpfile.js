@@ -10,9 +10,9 @@ function build_js() {
     './node_modules/jquery/dist/jquery.js',
     './node_modules/slick-carousel/slick/slick.min.js',
     './node_modules/foundation-sites/dist/js/foundation.js',
-    './node_modules/clipboard/dist/clipboard.js',
+  //  './node_modules/clipboard/dist/clipboard.js',
     './node_modules/lazyloadxt/dist/jquery.lazyloadxt.extra.js',
-    './node_modules/ion-rangeslider/js/ion.rangeSlider.js',
+  //  './node_modules/ion-rangeslider/js/ion.rangeSlider.js',
     './sphp/javascript/vendor/*.js',
     './sphp/javascript/app/modules/*.js',
     './sphp/javascript/app/sphp.js'
@@ -56,7 +56,7 @@ function doc(cb) {
 //exports.build_js = build_js;
 //exports.doc = doc;
 
-build = gulp.series(build_js, build_ss360);
+build = gulp.series(build_js);
 build_docs = gulp.series(build, doc);
 copy_scss_and_fonts = gulp.series(copy_scss, copy_fonts);
 

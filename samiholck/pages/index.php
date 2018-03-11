@@ -8,6 +8,6 @@ md(<<<MD
 ...some Things I know and have worked with...
 MD
 );
-loadPage('tech-carousel');
-
+loadPage('tech-carousel.php');
+ 
 //loadPage('Sphp-intro/orbit.php');

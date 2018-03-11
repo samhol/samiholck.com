@@ -1,12 +1,5 @@
-<?php
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-?>
 
-<div class="grid-x sphp-slick-container">
+<div class="grid-x sphp-slick-container"> 
   <div class="cell auto">
     <div class="sphp-tech-slick">
 
@@ -116,13 +109,13 @@
         </svg>
       </div>
 
-      <div class="sphp-info-button c" data-tech="c-info" data-toggle="animatedModal10">
+      <div class="sphp-info-button c" data-toggle="animatedModal10">
         <svg viewBox="0 0 128 128">
         <path d="M116.5 32.3c-.6-1.1-1.4-2.1-2.3-2.6l-48.1-27.8c-.8-.5-1.9-.7-3.1-.7-1.2 0-2.3.3-3.1.7l-48.5 27.8c-1.7 1-3.4 3.5-3.4 5.4v55.7c0 1.1.7 2.3 1.4 3.4l.1.1c.5.8 1.3 1.5 2 1.9l48.3 27.9c.8.5 2 .7 3.2.7 1.2 0 2.3-.3 3.1-.7l47.5-27.9c1.7-1 2.4-3.5 2.4-5.4v-55.7c0-.8.4-1.8 0-2.6l.5-.2zm-4.2 2.1c0 .3-.3.5-.3.7v55.7c0 .8-.2 1.7-.4 2l-47.6 27.8c-.1.1-.5.2-1.1.2-.6 0-1-.1-1.1-.2l-48.2-27.8s-.1-.1-.2-.1l-.6-.6c-.4-.7.2-1.1-.8-1.2v-55.7c1-.5.9-1.7 1.4-1.9l48.3-27.9c.1 0 .6-.2 1.2-.2s1 .1 1.1.2l48 27.7.4.9c.1.1-.1.3-.1.4zM63 38.5c9.1 0 17.1 5 21.3 12.5l13-7.5c-6.8-11.9-19.6-20-34.3-20-21.8 0-39.5 17.7-39.5 39.5s17.7 39.5 39.5 39.5c14.6 0 27.4-8 34.2-19.8l-12.9-7.6c-4.2 7.4-12.2 12.4-21.3 12.4-13.5 0-24.5-11-24.5-24.5s11-24.5 24.5-24.5z"></path>
         </svg>
       </div>
 
-      <div class="sphp-info-button photoshop" data-tech="photoshop-info" data-toggle="photoshop-info">
+      <div class="sphp-info-button photoshop" data-toggle="animatedModal10">
         <svg viewBox="0 0 128 128">
         <path fill-rule="evenodd" clip-rule="evenodd" fill="#80B5E2" d="M126.216.727c-36.223-.011-72.284-.01-108.508-.01-5.181 0-10.451-.004-15.632.011-.328.001-1.076.153-1.076.236v126.036h126v-126.036c0-.083-.414-.237-.784-.237zm-12.736 113.939c-32.641-.038-65.271-.03-97.912-.03-1.576 0-1.569-.003-1.569-1.627v-97.797c.001-1.607-.015-1.212 1.578-1.212h97.798c1.638 0 1.625-.396 1.625 1.291v48.837c0 16.32-.007 32.64.036 48.959.004 1.243-.289 1.58-1.556 1.579zM56.82 39.644c-6.668-1.563-13.38-.792-20.085-.107-1.423.146-1.695.755-1.691 2.018.043 15.207-.044 30.414-.044 45.621v.824h9v-17.861c5 .375 9.576.286 14.049-1.31 7.169-2.558 10.752-8.111 10.365-16.219-.313-6.548-4.426-11.286-11.594-12.966zm-1.953 22.344c-3.194 1.557-6.59 1.52-10.005 1.058-.266-.036-.675-.511-.677-.784-.04-5.331-.03-10.661-.03-16.138 3.131-.488 6.1-.726 9.062.018 3.673.923 5.804 3.319 6.201 6.917.436 3.954-1.247 7.319-4.551 8.929zM88.168 69.094c-1.469-.805-3.08-1.347-4.606-2.053-1.41-.653-2.833-1.296-4.174-2.076-.935-.543-1.36-1.492-1.36-2.611 0-1.892 1.294-3.417 3.504-3.598 1.649-.135 3.361.035 4.994.34 1.376.256 2.681.899 4.082 1.395l1.767-6.269c-3.345-1.624-6.749-2.235-10.285-2.11-3.006.105-5.814.871-8.352 2.599-4.743 3.229-7.057 11.807.051 16.416 1.805 1.171 3.893 1.905 5.851 2.841 1.218.583 2.489 1.079 3.641 1.772 1.452.874 1.946 2.297 1.694 3.94-.247 1.615-1.33 2.638-2.836 2.874-1.68.264-3.466.435-5.118.144-2.339-.411-4.599-1.281-6.974-1.979-.426 1.59-.831 3.349-1.384 5.06-.303.938-.125 1.401.795 1.768 5.617 2.231 11.334 2.69 17.082.717 4.296-1.475 6.915-4.524 7.256-9.169.332-4.527-1.708-7.851-5.628-10.001z"></path>
         </svg>
@@ -132,14 +125,19 @@
   </div>
 </div>
 
-
+<p>
+  <span class=" button " data-toggle="animatedModal10">eagrwe</span>
+  <span class=" button " data-toggle="animatedModal10">eagrwe</span>
+  <span class=" button " data-toggle="animatedModal10">eagrwe</span>
+  <span class=" button " data-toggle="animatedModal10">eagrwe</span>
+</p>
 <div class="medium reveal"
-     id="animatedModal10" data-reveal data-close-on-click="true"  data-overlay="false"
+     id="animatedModal10" data-reveal data-close-on-click="true"
      data-animation-in="fade-in" data-animation-out="fade-out">
-  <!-- ... -->
+ 
+  ertherthrsetjthr srtss r rsts tresrt s ters trestr ts st  tsste tsy ty ss ys tst s tyst st ysey tsty esey tseyr ersy er syey ssey 
 
-  <div class="package-def" id="ooo" data-sphp-ajax-append="samiholck/snippets/techs.php #sphp-info"></div>
   <button class="close-button" data-close aria-label="Close reveal" type="button">
     <span aria-hidden="true">&times;</span>
-  </button>
+  </button> 
 </div>

@@ -50,11 +50,11 @@ try {
         <ul class="submenu menu vertical" data-submenu>
           <li><a href="http://playground.samiholck.com">SPHPlaygound</a></li>
           <li><a href="http://www.raisionveneseura.fi">Raision veneseura</a></li>
-          <li><a href="http::/www.samiholck.com/archive/keiju">Keijupäiväkodit</a></li>
-          <li><a href="http::/www.samiholck.com/archive/unikoris">Unikoris</a></li>
+          <li><a href="http://www.samiholck.com/archive/keiju">Keijupäiväkodit</a></li>
+          <li><a href="http://www.samiholck.com/archive/unikoris">Unikoris</a></li>
         </ul>
       </li>
-      <li><a href="#0">Who?</a></li>
+      <li><a href="#0" data-toggle="animatedModal10">Who?</a></li>
       <li><a href="#0">Why?</a></li>
     </ul>
   </div>
