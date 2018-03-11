@@ -20,6 +20,7 @@ $html->enableSPHP()->useVideoJS()->setViewport('width=device-width, initial-scal
 Document::head()
         ->addMeta(Meta::charset('UTF-8'))
         ->addCssSrc('css/styles.all.css')
+        ->addCssSrc('https://cdnjs.cloudflare.com/ajax/libs/motion-ui/1.1.1/motion-ui.min.css')
        // ->useFontAwesome()
         //->useFoundationIcons()
         //->addCssSrc('css/styles.all.css')
