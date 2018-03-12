@@ -1,14 +1,15 @@
 $(function () {
   //$('.sphp-tech-slick').children('svg').hide();
 
-  $('.sphp-tech-slick').slick({
+  var $slick = $('.sphp-tech-slick').slick({
     dots: true,
     infinite: true,
     speed: 300,
+    autoplay: true,
     slidesToShow: 4,
     slidesToScroll: 1,
-    //autoplay: true,
-    //autoplaySpeed: 2000,
+    //centerMode: true,
+    //variableWidth: true,
     responsive: [
       {
         breakpoint: 1024,
@@ -38,12 +39,14 @@ $(function () {
   });
   var $output = $("#ooo");
   $(".sphp-tech-slick .sphp-info-button").on("click", function () {
-    var $this = $(this),
+    var $this = $(this), $div,
             $obj = $this.attr("data-tech");
     $output.load("samiholck/snippets/techs.php #" + $obj);
     $this.addClass('sphp-is-active');
     console.log('sphp-is-active : ' + $obj);
     $this.siblings().removeClass('sphp-is-active');
+    //$div = $('#info-modal');
+    //$div.centerTo($('body main'), true);
   });
 });
 

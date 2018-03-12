@@ -24,7 +24,7 @@ if ($outputCache->start("$cacheSuffix-topbar") === false) {
 }
 ?>
 <div class="grid-container">
-  <div class="grid-x grid-margin-x grid-padding-x medium-margin-uncollapse">
+  <div class="grid-x">
 
     <div class="mainContent small-auto cell"> 
       <main class="container">
