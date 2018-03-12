@@ -37,7 +37,7 @@ $(function () {
     ]
   });
   var $output = $("#ooo");
-  $(".sphp-tech-slick .sphp-info-button svg").on("click", function () {
+  $(".sphp-tech-slick .sphp-info-button").on("click", function () {
     var $this = $(this),
             $obj = $this.attr("data-tech");
     $output.load("samiholck/snippets/techs.php #" + $obj);
