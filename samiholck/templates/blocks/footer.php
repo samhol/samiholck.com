@@ -101,7 +101,7 @@ $currentUrl = URL::getCurrentURL();
 
     use Sphp\Stdlib\StopWatch;
     ?>
-    Copyright &copy; 2007-<?php echo date('Y'); ?> Sami Holck. All rights reserved ||
+    Copyright &copy; <?php echo date('Y'); ?> <b>Sami Holck</b>. All rights reserved ||
     <b>Script executed in:</b>
     <i><?php echo StopWatch::getEcecutionTime() ?> seconds</i>
     <b>PHP Peak memory:</b>

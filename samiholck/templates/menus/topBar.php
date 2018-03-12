@@ -55,7 +55,7 @@ try {
         </ul>
       </li>
       <li><a href="#0" data-toggle="animatedModal10">Who?</a></li>
-      <li><a href="#0">Why?</a></li>
+      <li><a href="http://www.samiholck.com/why">Why?</a></li>
     </ul>
   </div>
   <div class="top-bar-right">
