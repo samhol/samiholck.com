@@ -25,13 +25,13 @@
 }
 > h1, > h2, > h3, > h4, > h5, > h6 {
   &:first-child {
-    background-color: #eee;
+    background-color: rgba(230, 230, 230, .7);
     &.error {
       background-color: $error-bg;
     }
     //margin: rem-calc(0 0 5 0);
     padding: rem-calc(5 15 5 15);
-    border: solid 1px #666;
+    border: solid 1px #bbb;
     border-top: none;
     @include border-bottom-radius(4px);
     text-transform: uppercase;
