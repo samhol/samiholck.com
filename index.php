@@ -20,8 +20,9 @@ if ($outputCache->start("$cacheSuffix-head") === false) {
 if ($outputCache->start("$cacheSuffix-topbar") === false) {
   include('samiholck/templates/logo-area.php');
   include('samiholck/templates/menus/topBar.php');
-  $outputCache->end();
+  $outputCache->end(); 
 }
+$class = 'index';
 if (\Sphp\Config\Config::instance()->get('CURRENT_URL') === 'http://www.samiholck.com/why') {
   $class= 'why';
 }
