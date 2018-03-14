@@ -20,27 +20,20 @@ if ($outputCache->start("$cacheSuffix-head") === false) {
 if ($outputCache->start("$cacheSuffix-topbar") === false) {
   include('samiholck/templates/logo-area.php');
   include('samiholck/templates/menus/topBar.php');
-  $outputCache->end(); 
-}
-$class = 'index';
-if (\Sphp\Config\Config::instance()->get('CURRENT_URL') === 'http://www.samiholck.com/why') {
-  $class= 'why';
+  $outputCache->end();
 }
 ?>
 <div class="grid-container"> 
   <div class="grid-x">
 
     <div class="mainContent small-auto cell"> 
-      <main class="container <?php echo $class; ?>">
-        <?php
-        $man_cache = "$cacheSuffix-content";
-        if ($outputCache->start($man_cache) === false) {
-          $router->execute();
-          $outputCache->end();
-        }
-        include 'samiholck/templates/menus/siteNav.php';
-        ?>
-      </main>
+      <?php
+      $man_cache = "$cacheSuffix-content";
+      if ($outputCache->start($man_cache) === false) {
+        $router->execute();
+        $outputCache->end();
+      }
+      ?>
     </div>
   </div>
 </div>

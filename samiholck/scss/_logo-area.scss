@@ -17,7 +17,7 @@
     div.sphp-brand-links {
       float:right;
     }
-    a.sphp-brand-icon {
+    a.sphp-brand-link {
       border: solid 1px #000;
       @include border-radius(8px);
       @include opacity(.8);
@@ -29,16 +29,15 @@
       }
 
       @include breakpoint(small) {
-        font-size: rem-calc(20);
-        width: rem-calc(30);
-        height: rem-calc(30);
-        line-height: rem-calc(30);
+        display: none;
       }
       @include breakpoint(medium) {
+        display: inline-block;
         font-size: rem-calc(30);
         width: rem-calc(50);
         height: rem-calc(50);
         line-height: rem-calc(50);
+        margin-right: 5px;
       }
     } 
   }

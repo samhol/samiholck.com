@@ -64,3 +64,10 @@
 @import "site/topbar";
 @import "site/main-content";
 @import "footer";
+
+body {
+  background-color: $white;
+  background-image: url('../samiholck/pics/parquet_dim_white.jpg');
+  background-repeat: repeat;
+  background-position: top left;
+}

@@ -6,18 +6,18 @@ use Sphp\Html\Foundation\Sites\Containers\ThrowableCallout;
 
 require_once('manual_helper_functions.php');
 
-$loadNotFound = function () {
-  include 'samiholck/templates/error.php';
-};
-$loadPage = function ($par, string $file = 'index') use($loadNotFound) {
+$loadPage = function ($par, string $file = 'index') {
   //var_dump(func_get_args());
   try {
     ob_start();
     $page = "samiholck/pages/$file.php";
     if (is_file($page)) {
+      $class = $file;
       include $page;
+      include 'samiholck/templates/menus/siteNav.php';
     } else {
-      $loadNotFound($par);
+      $class = 'error';
+      include "samiholck/pages/error.php";
     }
     $content = ob_get_contents();
   } catch (\Throwable $e) {
@@ -26,7 +26,11 @@ $loadPage = function ($par, string $file = 'index') use($loadNotFound) {
     $content .= (new ThrowableCallout($e))->showInitialFile()->showTrace();
   }
   ob_end_clean();
-  echo $content;
+  echo "<main class=\"container $class\">$content</main>";
+};
+
+$loadNotFound = function () {
+  include "samiholck/pages/error.php";
 };
 $loadIndex = function () use ($loadPage) {
   $loadPage('index');

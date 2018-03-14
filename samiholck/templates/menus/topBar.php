@@ -51,8 +51,10 @@
           <li><a href="http://playground.samiholck.com">SPHPlayground</a></li>
           <li class="menu-ruler"></li> 
           <li><a href="http://www.raisionveneseura.fi">Raision veneseura</a></li>
+          <li class="menu-text">past</li>
           <li><a href="http://www.samiholck.com/archive/keiju" target="keiju">Keijupäiväkodit</a></li>
           <li><a href="http://www.samiholck.com/archive/unikoris" target="unikoris">Unikoris</a></li>
+          <li><a href="http://www.samiholck.com/archive/dvdlabra" target="unikoris">DVD lab</a></li>
         </ul>
       </li>
       <li><a href="http://www.samiholck.com/who">Who?</a></li>

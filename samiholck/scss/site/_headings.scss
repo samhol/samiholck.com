@@ -1,17 +1,17 @@
 /**
  * _headings.scss (UTF-8)
  *
- * Copyright (c) 2016 Sami Holck <sami.holck@gmail.com>
+ * Copyright (c) 2018 Sami Holck <sami.holck@gmail.com>
  */
 
-
+$heading-background-color: rgba(230, 230, 230, .5);
 > h2, > h3 {
   padding: rem-calc(0 5 0 10); // top right bottom left
   border: solid 1px #aaa;
   @include border-radius(2px);
 }
 > h1, > h2, > h3 {
-  background-color: #eee;
+  background-color: $heading-background-color;
   &.error {
     background-color: $error-bg;
   }
@@ -22,15 +22,13 @@
   //font-weight: 600;
   margin: rem-calc(0 5 15 5);  // top right bottom left
   padding: rem-calc(3 5 3 10); // top right bottom left
-}
-> h1, > h2, > h3, > h4, > h5, > h6 {
   &:first-child {
     background-color: rgba(230, 230, 230, .7);
     &.error {
       background-color: $error-bg;
     }
     //margin: rem-calc(0 0 5 0);
-    padding: rem-calc(5 15 5 15);
+    padding: rem-calc(10 15 5 15);
     border: solid 1px #bbb;
     border-top: none;
     @include border-bottom-radius(4px);

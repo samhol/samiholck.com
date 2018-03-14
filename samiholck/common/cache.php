@@ -4,6 +4,7 @@ namespace Zend\Cache\Storage;
 
 use Zend\Cache\PatternFactory;
 use Sphp\Stdlib\Parser;
+
 $cache = new Adapter\Filesystem();
 
 $cache->setOptions(Parser::fromFile('samiholck/config/cache.yml'));

@@ -1,3 +1,8 @@
+@include breakpoint(medium down) {
+      border-left: solid 1px #ccc;
+      border-right: solid 1px #ccc;
+      padding: rem-calc(0 3 40 3);// top right bottom left
+    }
 .manual .mainContent {
   border: solid 1px #888;
   @include border-radius(4px);
@@ -7,7 +12,8 @@
   @include box-shadow(#888 0px 3px 8px 4px);
   background: #eaeaea;
   @include breakpoint(medium down) {  
-    margin: rem-calc(5 0 20 0);
+    padding: 0;
+    margin: 0;
   }
   .container  { 
     @include breakpoint(medium) {
@@ -18,13 +24,17 @@
     padding: rem-calc(0 3 40 3);// top right bottom left
     //margin: rem-calc(5 0 20 0); // top right bottom left
     background: #fafafa;
-
-
-
   }
   main {
     @import "headings";
+    @import "error";
     @import "skills-carousel";
+    a:not([class]) {
+      text-decoration: underline;
+      &:hover {
+        text-decoration: none;
+      }
+    }
     > p:not([class]), > blockquote:not([class]) {
       text-align: justify;
     }

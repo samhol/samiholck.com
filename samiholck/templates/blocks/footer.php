@@ -26,15 +26,20 @@ $currentUrl = URL::getCurrentURL();
             <ul>
               <li><?php FontAwesome::phone('phonenumber')->printHtml() ?> +358 44 298 6738</li>
               <li><a data-toggle="animatedModal10"><?php FontAwesome::envelope('Email address')->printHtml() ?> sami.holck@gmail.com</a></li>
-              <li><i class="fa fa-map-marker-alt fa-lg" aria-hidden="true"></i> Rakuunatie 59 A3, Turku, Finland</li>
+              <li data-toggle="home-google-maps"><i class="fa fa-map-marker-alt fa-lg" aria-hidden="true"></i> Rakuunatie 59 A3, Turku, Finland</li>
             </ul> 
+            <div class="dropdown-pane" data-position="top" data-alignment="center" id="home-google-maps" data-dropdown data-auto-focus="true">
+              <div class="responsive-embed">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d984.3160109190327!2d22.30153791486299!3d60.434781241681705!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x468c7727a6466e41%3A0xa7ad26a37594a821!2sRakuunatie+59%2C+20720+Turku!5e0!3m2!1sen!2sfi!4v1521028808379" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
     <div class="footer-right">
       <h6>Follow</h6>
-      <a href="https://github.com/samhol/SPHP-framework">
+      <a href="https://www.facebook.com/sami.holck">
         <i class="fab fa-github-square fa-4x" aria-hidden="true"></i>
         <span class="show-for-sr">GitHub repository</span>
       </a>
@@ -100,17 +105,17 @@ $currentUrl = URL::getCurrentURL();
       </li>
     </ul>
 
-<p>
-  <?php
+    <p>
+      <?php
 
-  use Sphp\Stdlib\StopWatch;
-  ?>
-  Copyright &copy; <?php echo date('Y'); ?> by <b>Sami Holck</b>.
-  <span class="separator">||</span>
-  <b>Script executed in:</b>
-  <i><?php echo StopWatch::getEcecutionTime() ?> seconds</i>
-  <span class="separator">||</span> <b>PHP Peak memory:</b>
-  <i><?php echo number_format(memory_get_usage(true) / 1048576, 2) . " MB\n" ?></i>
-</p>
-</footer>
+      use Sphp\Stdlib\StopWatch;
+      ?>
+      Copyright &copy; <?php echo date('Y'); ?> by <b>Sami Holck</b>.
+      <span class="separator">||</span>
+      <b>Script executed in:</b>
+      <i><?php echo StopWatch::getEcecutionTime() ?> seconds</i>
+      <span class="separator">||</span> <b>PHP Peak memory:</b>
+      <i><?php echo number_format(memory_get_usage(true) / 1048576, 2) . " MB\n" ?></i>
+    </p>
+  </footer>
 </div>
