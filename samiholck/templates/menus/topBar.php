@@ -1,14 +1,14 @@
 <?php
 /*
-namespace Sphp\Html\Foundation\Sites\Navigation;
+  namespace Sphp\Html\Foundation\Sites\Navigation;
 
-use Sphp\Html\Foundation\Sites\Bars\TopBar;
-use Sphp\Html\Foundation\Sites\Navigation\MenuBuilder;
-use Sphp\Html\Apps\Forms\SiteSearch360Form;
-use Sphp\Html\Adapters\QtipAdapter;
-use Sphp\Html\Foundation\Sites\Containers\ThrowableCallout;
+  use Sphp\Html\Foundation\Sites\Bars\TopBar;
+  use Sphp\Html\Foundation\Sites\Navigation\MenuBuilder;
+  use Sphp\Html\Apps\Forms\SiteSearch360Form;
+  use Sphp\Html\Adapters\QtipAdapter;
+  use Sphp\Html\Foundation\Sites\Containers\ThrowableCallout;
 
-try {
+  try {
   $navi = new TopBar();
   $navi->stackFor('medium');
   $navi->addCssClass('sphp-manual');
@@ -30,9 +30,9 @@ try {
   $navi->right()->setContent('<ul class="menu"><li>' . $form . '</li></ul>');
 
   $navi->printHtml();
-} catch (\Exception $e) {
+  } catch (\Exception $e) {
   echo new ThrowableCallout($e, true, true);
-}
+  }
 
 
  */
@@ -48,17 +48,18 @@ try {
       <li class="has-submenu">
         <a href="">Projects</a>
         <ul class="submenu menu vertical" data-submenu>
-          <li><a href="http://playground.samiholck.com">SPHPlaygound</a></li>
+          <li><a href="http://playground.samiholck.com">SPHPlayground</a></li>
+          <li class="menu-ruler"></li> 
           <li><a href="http://www.raisionveneseura.fi">Raision veneseura</a></li>
-          <li><a href="http://www.samiholck.com/archive/keiju">Keijupäiväkodit</a></li>
-          <li><a href="http://www.samiholck.com/archive/unikoris">Unikoris</a></li>
+          <li><a href="http://www.samiholck.com/archive/keiju" target="keiju">Keijupäiväkodit</a></li>
+          <li><a href="http://www.samiholck.com/archive/unikoris" target="unikoris">Unikoris</a></li>
         </ul>
       </li>
-      <li><a href="#0" data-toggle="animatedModal10">Who?</a></li>
+      <li><a href="http://www.samiholck.com/who">Who?</a></li>
       <li><a href="http://www.samiholck.com/why">Why?</a></li>
     </ul>
   </div>
   <div class="top-bar-right">
-   
+
   </div>
 </div>

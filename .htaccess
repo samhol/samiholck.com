@@ -10,9 +10,8 @@ Header set Cache-Control "max-age=2628000, public"
 </filesMatch>
 Options -MultiViews
     RewriteEngine On
-    RewriteRule ^(archive/keiju) - [L]
-    RewriteRule ^(archive/unikoris) - [L]
-    RewriteRule ^(API/jsdoc) - [L]
+    RewriteRule ^(archive) - [L]
+    RewriteRule ^(archive) - [L]
     RewriteRule ^([a-z0-9]+).svg /samiholck/ajax/svg.php?id=$1 [QSA,L]
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [QSA,L]
