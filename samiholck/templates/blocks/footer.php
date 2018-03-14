@@ -15,12 +15,21 @@ $currentUrl = URL::getCurrentURL();
   <footer class="social">
     <div class="footer-left">
       <div class="contact-details">
-        <ul>
-          <li class="photo"><img class="thumbnail" src="samiholck/pics/face.jpg" alt="Photo of Sami Holck"></li>
-          <li><?php FontAwesome::phone('phonenumber')->printHtml() ?> +358 44 298 6738</li>
-          <li><a data-toggle="animatedModal10"><?php FontAwesome::envelope('Email address')->printHtml() ?> sami.holck@gmail.com</a></li>
-          <li><i class="fa fa-map-marker fa-lg" aria-hidden="true"></i> Rakuunatie 59 A3, Turku, Finland</li>
-        </ul>
+        <div class="media-object">
+          <div class="media-object-section">
+            <div class="thumbnail">
+              <img src="samiholck/pics/face.jpg" alt="Photo of Sami Holck">
+            </div>
+          </div>
+          <div class="media-object-section main-section">
+            <h4>Contact information:</h4>
+            <ul>
+              <li><?php FontAwesome::phone('phonenumber')->printHtml() ?> +358 44 298 6738</li>
+              <li><a data-toggle="animatedModal10"><?php FontAwesome::envelope('Email address')->printHtml() ?> sami.holck@gmail.com</a></li>
+              <li><i class="fa fa-map-marker fa-lg" aria-hidden="true"></i> Rakuunatie 59 A3, Turku, Finland</li>
+            </ul> 
+          </div>
+        </div>
       </div>
     </div>
     <div class="footer-right">
@@ -47,7 +56,7 @@ $currentUrl = URL::getCurrentURL();
 <div class="engadget-footer contact-details-container">
   <footer class="contact-details">
     <div class="footer-left">
-      
+
     </div>
     <div class="footer-right">
       <ul class="tech-links-list">
