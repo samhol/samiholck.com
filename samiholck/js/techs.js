@@ -36,12 +36,12 @@ $(function () {
       // settings: "unslick"
       // instead of a settings object
     ]
-  });
+  }); 
   var $output = $("#ooo");
   $(".sphp-tech-slick .sphp-info-button").on("click", function () {
     var $this = $(this), $div,
             $obj = $this.attr("data-tech");
-    $output.load("samiholck/snippets/techs.php #" + $obj);
+    $output.load("samiholck/templates/carousels/content/skills-parsed.php #" + $obj);
     $this.addClass('sphp-is-active');
     console.log('sphp-is-active : ' + $obj);
     $this.siblings().removeClass('sphp-is-active');

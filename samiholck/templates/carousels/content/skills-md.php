@@ -1,3 +1,10 @@
+<?php
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+?>
 <div id="sphp-info" markdown="1">
   ##SPHPlayground framework
   SPHPlayground is an open source framework for developing interactive web 
@@ -40,10 +47,10 @@
 </div>
 <div id="css-info" markdown="1"> 
   ##CSS
-  CSS (Cascading Style Sheets) is a declarative language that controls how 
-  webpages look in the browser. The browser applies CSS style declarations to 
-  selected elements to display them properly. A style declaration contains the 
-  properties and their values, which determine how a webpage looks.
+  Cascading Style Sheets (CSS) is a stylesheet language used to describe the 
+  presentation of a document written in HTML or XML (including XML dialects such 
+  as SVG or XHTML). CSS describes how elements should be rendered on screen, 
+  on paper, in speech, or on other media.
   <hr>
   <ul class="menu align-right">
     <li><a href="https://www.w3.org/Style/CSS/Overview.en.html">W3C</a></li>
@@ -161,7 +168,7 @@
 </div>
 
 <div id="mysql-info" markdown="1">
-  ##MySQL
+  ##MySQL 
   MySQL is an open-source relational database management system (RDBMS).
   <hr>
   <ul class="menu align-right">
@@ -186,84 +193,79 @@
   </ul>
 </div>
 
-<div id="gulp-info" markdown="1">
-  ##Grid components:
-  The $core namespace includes Foundation based multi-device nestable 12-column $grid implementation and a
-  Foundation $blockGrid to evenly split contents of a list within the grid...
+<div id="java-info" markdown="1">
+  ##Java
+  Java is a general-purpose computer-programming language that is concurrent, class-based, 
+  object-oriented,[15] and specifically designed to have as few implementation dependencies as possible.
+
   <hr>
   <ul class="menu align-right">
-    <li><a href="https://gulpjs.com/">Official site</a></li>
-    <li><a href="https://github.com/gulpjs/gulp">GitHub</a></li>
-    <li><a href="https://github.com/gulpjs/gulp/blob/master/docs/API.md">Docs</a></li>
-    <li><a href="https://www.npmjs.com/package/gulp">Gulp - npm</a></li>
+    <li><a href="https://www.postgresql.org/">Official site</a></li>
+    <li><a href="https://www.postgresql.org/docs/">Docs</a></li>
+    <li><a href="https://www.postgresql.org/download/">Downloads</a></li>
   </ul>
 </div>
 
-<div id="foundation-typography-info" markdown="1">
-  ##Typography:
 
-  Framework's typography is based on a golden ratio modular scale that creates relationships between the elements.
-  Typography is easily updated using Scss.
+<div id="apache-info" markdown="1">
+  ##Apache HTTP Server
+  The Apache HTTP Server is a free and open-source cross-platform web server. It 
+  is developed and maintained by an open community of developers under the 
+  auspices of the Apache Software Foundation.
+  
+  * https://en.wikipedia.org/wiki/Apache_HTTP_Server
+
   <hr>
   <ul class="menu align-right">
-    <li><a href="https://gulpjs.com/">Official site</a></li>
-    <li><a href="https://github.com/gulpjs/gulp">GitHub</a></li>
-    <li><a href="https://github.com/gulpjs/gulp/blob/master/docs/API.md">Docs</a></li>
-    <li><a href="https://www.npmjs.com/package/gulp">Gulp - npm</a></li>
+    <li><a href="https://httpd.apache.org/">Official site</a></li>
+    <li><a href="https://httpd.apache.org/docs/">Docs</a></li>
+    <li><a href="https://httpd.apache.org/download.cgi">Downloads</a></li>
   </ul>
+  
 </div>
 
-<div id="gulp-info" markdown="1">
-  ##Buttons
+<div id="photoshop-info" markdown="1">
+##Adobe Photoshop
 
-  Buttons in $btn_ns namespace are interactive elements that can be used for many purposes. 
-  A basic Foundation styled button can be based on almost any HTML tag that has one CSS-class. 
+Adobe Photoshop is a raster graphics editor developed and published by Adobe 
+Systems for macOS and Windows. It has become the de facto industry standard in 
+raster graphics editing, such that the word "photoshop" has become a verb as in "to Photoshop an image.
+
   <hr>
   <ul class="menu align-right">
-    <li><a href="https://gulpjs.com/">Official site</a></li>
-    <li><a href="https://github.com/gulpjs/gulp">GitHub</a></li>
-    <li><a href="https://github.com/gulpjs/gulp/blob/master/docs/API.md">Docs</a></li>
-    <li><a href="https://www.npmjs.com/package/gulp">Gulp - npm</a></li>
+    <li><a href="https://www.adobe.com/fi/products/photoshop.html">Official site</a></li>
+    <li><a href="https://helpx.adobe.com/fi/photoshop/user-guide.html">Docs</a></li>
   </ul>
+  
 </div>
 
-<div id="gulp-info" markdown="1">
-  ##Navigation:
-  $navi_ns namespace includes a complex top bar that supports dropdown navigation, 
-  sidebars and many other menu structures.
+<div id="c-info" markdown="1">
+##C (programming language)
+
+C (/siː/, as in the letter c) is a general-purpose, imperative computer programming language, supporting structured programming, lexical variable scope and recursion, while a static type system prevents many unintended operations. By design, C provides constructs that map efficiently to typical machine instructions, and therefore it has found lasting use in applications that had formerly been coded in assembly language, including operating systems, as well as various application software for computers ranging from supercomputers to embedded systems.
+
   <hr>
   <ul class="menu align-right">
-    <li><a href="https://gulpjs.com/">Official site</a></li>
-    <li><a href="https://github.com/gulpjs/gulp">GitHub</a></li>
-    <li><a href="https://github.com/gulpjs/gulp/blob/master/docs/API.md">Docs</a></li>
-    <li><a href="https://www.npmjs.com/package/gulp">Gulp - npm</a></li>
+    <li><a href="https://www.adobe.com/fi/products/photoshop.html">Official site</a></li>
+    <li><a href="https://helpx.adobe.com/fi/photoshop/user-guide.html">Docs</a></li>
   </ul>
+  
 </div>
 
-<div id="foundation-forms-info" markdown="1">
-  ##Forms:
 
-  The $forms_ns namespace includes Foundation based forms layouts and client-side form components.
-  Visual presentation of Foundation based Forms are built with the Grid. These forms 
-  extend basic SPHP forms.
+<div id="cpp-info" markdown="1">
+##C++ (programming language)
+C++  is a general-purpose programming language. It has imperative, object-oriented 
+and generic programming features, while also providing facilities for low-level 
+memory manipulation.
+
+C++ is standardized by the International Organization for Standardization (ISO).
+
+
   <hr>
   <ul class="menu align-right">
-    <li><a href="https://gulpjs.com/">Official site</a></li>
-    <li><a href="https://github.com/gulpjs/gulp">GitHub</a></li>
-    <li><a href="https://github.com/gulpjs/gulp/blob/master/docs/API.md">Docs</a></li>
-    <li><a href="https://www.npmjs.com/package/gulp">Gulp - npm</a></li>
+    <li><a href="https://www.adobe.com/fi/products/photoshop.html">Official site</a></li>
+    <li><a href="https://helpx.adobe.com/fi/photoshop/user-guide.html">Docs</a></li>
   </ul>
-</div>
-<div id="foundation-container-info" markdown="1">
-  ##Containers:
-
-  The $cont_ns namespace includes PHP implementations of useful container elements 
-  like Accordions, Tabs and Dropdowns for HTML presentation.
-  <hr>
-  <ul class="menu align-right">
-    <li><a href="https://gulpjs.com/">Official site</a></li>
-    <li><a href="https://github.com/gulpjs/gulp">GitHub</a></li>
-    <li><a href="https://github.com/gulpjs/gulp/blob/master/docs/API.md">Docs</a></li>
-    <li><a href="https://www.npmjs.com/package/gulp">Gulp - npm</a></li>
-  </ul>
+  
 </div>

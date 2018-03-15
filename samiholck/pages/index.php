@@ -8,4 +8,4 @@ md(<<<MD
 ...some Things I know and have worked with...
 MD
 );
-loadPage('tech-carousel.php');
+loadPage('samiholck/templates/carousels/skills.php');
