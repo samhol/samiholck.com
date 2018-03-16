@@ -11,7 +11,6 @@ Header set Cache-Control "max-age=2628000, public"
 Options -MultiViews
     RewriteEngine On
     RewriteRule ^(archive) - [L]
-    RewriteRule ^([a-z0-9]+).svg /samiholck/ajax/svg.php?id=$1 [QSA,L]
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [QSA,L]
 # compress text, html, javascript, css, xml:

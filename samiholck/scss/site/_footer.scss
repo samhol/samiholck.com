@@ -51,6 +51,14 @@ $sitemap-border-highlight-color: rgba(70, 70, 70, 0.5);
                 margin-left: rem-calc(-20);
                 margin-right: rem-calc(5);
                 @include opacity(0.7);
+                &.local {
+                  height: 1em;
+                  vertical-align: -.125em;
+                  display: inline-block;
+                  path {
+                    fill: #e6e6e6;
+                  }
+                }
               }
             }
             &.menu-text {

@@ -1,8 +1,7 @@
-@include breakpoint(medium down) {
-      border-left: solid 1px #ccc;
-      border-right: solid 1px #ccc;
-      padding: rem-calc(0 3 40 3);// top right bottom left
-    }
+
+@import "logo-area";
+@import "topbar";
+@import "footer";
 .manual .mainContent {
   border: solid 1px #888;
   @include border-radius(4px);

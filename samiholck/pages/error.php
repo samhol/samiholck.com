@@ -2,15 +2,14 @@
 
 namespace Sphp\Manual;
 
-use Sphp\Html\Foundation\Sites\Media\ResponsiveEmbed;
-
 md(<<<TEXT
 
-<h1 class="error-404">404 <small>Error</small></h1>
-Take me back to samiholck.com
+<h1 class="error-404">404 <small>PAGE NOT FOUND</small></h1>
+        
+<p class="large">Keep on looking....</p>
+        
+Double check the URL or head back to the homepage. If you continue to get this page, email me at sami.holck@samiholck.com.
+Take me back to samiholck.com 
 
 TEXT
 );
-
-$video1 = ResponsiveEmbed::youtube('GY8PkikQ8ZE')->setAspectRatio('widescreen');
-echo $video1;
