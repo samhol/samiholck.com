@@ -39,6 +39,18 @@
     > p:not([class]), > blockquote:not([class]), > .button { 
       margin: rem-calc(5 25 15 25);
     }
+    > .button-group {
+      margin: 0 auto; 
+      //width: 180px;  
+      display: flex; 
+      justify-content: center; 
+      a:first-child {
+        @include border-left-radius(3px);
+      }
+      a:last-child {
+        @include border-right-radius(3px);
+      }
+    }
     hr {
       border: 0;
       height: 1px;
