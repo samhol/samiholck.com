@@ -37,7 +37,7 @@ $(function () {
       // instead of a settings object
     ]
   }); 
-  var $output = $("#ooo");
+  var $output = $("#explanation");
   $(".sphp-tech-slick .sphp-info-button").on("click", function () {
     var $this = $(this), $div,
             $obj = $this.attr("data-tech");

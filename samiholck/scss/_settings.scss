@@ -302,13 +302,16 @@ $button-sizes: (
 $button-palette: map-merge($foundation-palette, (
 
 //sphp: #333,
+w3schools: #183817,
+w3c: #110088,
+mdn: #000066,
 html5: #E44D26,
 gulp: #EB4A4B,
 css3: #1572B6,
-js: #fc1,
+js: #28251a,
 postgresql: #336791,
 mysql: #00618A,
-node-js: #83CD29,
+nodejs: #294804,
 doctrine: #F56D39,
 symfony: #1A171B,
 zend: #68B604,
@@ -319,6 +322,7 @@ sass: #CB6699,
 github: #222,
 java: #ea2d2e,
 apache: #303284,
+docs: #941,
 )) !default;
 $button-opacity-disabled: 0.25;
 $button-background-hover-lightness: -20%;

@@ -2,7 +2,6 @@
 require_once '../../../settings.php';
 
 use Sphp\Html\Media\Icons\SVGLoader;
-
 ?>
 <div id="sphp-info" markdown="1">
   <h2>SPHPlayground framework</h2>
@@ -14,16 +13,16 @@ use Sphp\Html\Media\Icons\SVGLoader;
     <a class="button" href="http://playground.samiholck.com/">
       <i class="fas fa-home"></i> Official site
     </a>
-    <a class="button" href="https://github.com/samhol/SPHP-framework" target="_blank">
+    <a class="button" href="https://github.com/samhol/SPHP-framework">
       <i class="fab fa-github-square"></i> GitHub
     </a>
     <a class="button" href="http://playground.samiholck.com/API/sami/">
       <i class="fab fa-php"></i> PHP API
     </a>
     <a class="button" href="http://playground.samiholck.com/API/jsdocs/">
-      <i class="fab fa-js-square"></i> JS API
+      <i class="fab fa-js-square"></i> JavaScript <span class="API">API</span>
     </a>
-</div>
+  </div>
 </div>
 <div id="html5-info" markdown="1">
   ##HTML5
@@ -32,10 +31,10 @@ use Sphp\Html\Media\Icons\SVGLoader;
   World Wide Web. It is the fifth and current major version of the HTML standard.
   <hr>
   <div class="button-group small align-right">
-    <a class="button html5" href="https://www.w3.org/TR/2010/WD-html5-20100624/">w3.org</a>
-    <a class="button" href="https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5">MDN</a>
-    <a class="button" href="https://www.w3schools.com/html/default.asp">w3schools</a>
-</div>
+    <a class="button w3c" href="https://www.w3.org/TR/2010/WD-html5-20100624/"><i class="fas fa-book"></i> w3.org</a>
+    <a class="button mdn" href="https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5"><i class="fas fa-book"></i> MDN</a>
+    <a class="button w3schools" href="https://www.w3schools.com/html/default.asp"><i class="fas fa-book"></i> w3schools<span class="com">.com</span></a>
+  </div>
 
 </div>
 <div id="js-info" markdown="1">
@@ -48,10 +47,10 @@ use Sphp\Html\Media\Icons\SVGLoader;
 
   <hr>
   <div class="button-group small align-right">
-    <a class="button js" href="https://www.javascript.com/"><i class="fab fa-js-square"></i> javascript.com</a>
-    <a class="button" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/About_JavaScript"><i class="fas fa-book"></i> MDN</a>
-    <a class="button" href="https://www.w3schools.com/js/"><i class="fas fa-book"></i> w3schools</a>
-</div>
+    <a class="button js" href="https://www.javascript.com/"><i class="fab fa-js-square"></i> JavaScript<span class="com">.com</span></a>
+    <a class="button mdn" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/About_JavaScript"><i class="fas fa-book"></i> MDN</a>
+    <a class="button w3schools" href="https://www.w3schools.com/js/"><i class="fas fa-book"></i> w3schools<span class="com">.com</span></a>
+  </div>
 </div>
 <div id="css-info" markdown="1"> 
   ##CSS
@@ -61,10 +60,10 @@ use Sphp\Html\Media\Icons\SVGLoader;
   on paper, in speech, or on other media.
   <hr>
   <div class="button-group small align-right">
-    <a class="button" href="https://www.w3.org/Style/CSS/Overview.en.html"><i class="fas fa-book"></i> W3C</a>
-    <a class="button" href="https://developer.mozilla.org/en-US/docs/Web/CSS"><i class="fas fa-book"></i> MDN</a>
-    <a class="button" href="https://www.w3schools.com/css/default.asp"><i class="fas fa-book"></i> w3schools</a>
-</div>
+    <a class="button w3c" href="https://www.w3.org/Style/CSS/Overview.en.html"><i class="fas fa-book"></i> W3C</a>
+    <a class="button mdn" href="https://developer.mozilla.org/en-US/docs/Web/CSS"><i class="fas fa-book"></i> MDN</a>
+    <a class="button w3schools" href="https://www.w3schools.com/css/default.asp"><i class="fas fa-book"></i> w3schools<span class="com">.com</span></a>
+  </div>
 </div>
 <div id="sass-info" markdown="1">
   ##Sass (stylesheet language)
@@ -78,7 +77,7 @@ use Sphp\Html\Media\Icons\SVGLoader;
     <a class="button sass" href="http://sass-lang.com/"><i class="fas fa-home"></i> Sass home</a>
     <a class="button github" href="https://github.com/sass/sass"><i class="fab fa-github-square"></i> GitHub</a>
     <a class="button" href="http://sass-lang.com/documentation/file.SASS_REFERENCE.html"><i class="fas fa-book"></i> Docs</a>
-</div>
+  </div>
 </div>
 
 <div id="foundation-info" markdown="1">
@@ -91,7 +90,7 @@ use Sphp\Html\Media\Icons\SVGLoader;
     <a class="button foundation" href="https://foundation.zurb.com/"><i class="fas fa-home"></i> Official site</a>
     <a class="button github" href="https://github.com/zurb/foundation-sites"><i class="fab fa-github-square"></i> GitHub</a>
     <a class="button" href="https://foundation.zurb.com/frameworks-docs.html"><i class="fas fa-book"></i> Docs</a>
-</div>
+  </div>
 </div>
 
 <div id="php-info" markdown="1">
@@ -104,7 +103,7 @@ use Sphp\Html\Media\Icons\SVGLoader;
     <a class="button php" href="https://secure.php.net"><i class="fas fa-home"></i> Official site</a>
     <a class="button gihub" href="https://github.com/php"><i class="fab fa-github-square"></i> GitHub</a>
     <a class="button" href="https://secure.php.net/docs.php"><i class="fas fa-book"></i> Docs</a>
-</div>
+  </div>
 </div>
 
 
@@ -118,7 +117,7 @@ use Sphp\Html\Media\Icons\SVGLoader;
     <a class="button" href="https://symfony.com/"><i class="fas fa-home"></i> Official site</a>
     <a class="button" href="https://github.com/symfony/symfony"><i class="fab fa-github-square"></i> GitHub</a>
     <a class="button" href="https://symfony.com/doc/current/index.html"><i class="fas fa-book"></i> Docs</a>
-</div>
+  </div>
 </div>
 
 <div id="zend-info" markdown="1">
@@ -126,13 +125,13 @@ use Sphp\Html\Media\Icons\SVGLoader;
   Zend is an open source PHP framework. It is pure object-oriented and built 
   around the MVC design pattern. Zend framework contains collection of PHP 
   packages which can be used to develop web applications and services. 
-  
+
   <hr>
   <div class="button-group small align-right">
     <a class="button" href="https://framework.zend.com/"><i class="fas fa-home"></i> Official site</a>
     <a class="button" href="https://github.com/zendframework/zendframework"><i class="fab fa-github-square"></i> GitHub</a>
     <a class="button" href="https://framework.zend.com/learn"><i class="fas fa-book"></i> Docs</a>
-</div>
+  </div>
 </div>
 
 <div id="doctrine-info" markdown="1">
@@ -146,7 +145,7 @@ use Sphp\Html\Media\Icons\SVGLoader;
     <a class="button github" href="https://github.com/doctrine"><i class="fab fa-github-square"></i> GitHub</a>
     <a class="button doctrine" href="http://www.doctrine-project.org/projects/orm.html">ORM</a>
     <a class="button doctrine" href="http://www.doctrine-project.org/projects/dbal.html">DBAL</a>
-</div>
+  </div>
 </div>
 
 
@@ -158,7 +157,7 @@ use Sphp\Html\Media\Icons\SVGLoader;
   real-time applications that run across distributed devices.
   <hr>
   <div class="button-group small align-right">
-    <a class="button" href="https://nodejs.org/"><i class="fas fa-home"></i> Official site</a>
+    <a class="button nodejs" href="https://nodejs.org/"><i class="fas fa-home"></i> Official site</a>
     <a class="button github" href="https://github.com/nodejs"><i class="fab fa-github-square"></i> GitHub</a>
     <a class="button" href="https://nodejs.org/en/docs/"><i class="fas fa-book"></i> Docs</a>
   </div>
@@ -201,14 +200,14 @@ use Sphp\Html\Media\Icons\SVGLoader;
   to requests from other software applications. 
   <hr>
   <div class="button-group small align-right">
-    <a class="button" href="https://www.postgresql.org/"><i class="fas fa-home"></i> Official site</a>
-    <a class="button" href="https://www.postgresql.org/docs/"><i class="fas fa-book"></i> Docs</a>
-    <a class="button" href="https://www.postgresql.org/download/"><i class="fas fa-download"></i> Downloads</a>
+    <a class="button postgresql" href="https://www.postgresql.org/"><i class="fas fa-home"></i> Official site</a>
+    <a class="button docs" href="https://www.postgresql.org/docs/"><i class="fas fa-book"></i> Docs</a>
+    <a class="button download" href="https://www.postgresql.org/download/"><i class="fas fa-download"></i> Downloads</a>
   </div>
 </div>
 
 <div id="java-info" markdown="1">
-  ##Java (programming language)
+  ##Java <small>(programming language)</small>
   Java is a general-purpose computer-programming language that is concurrent, class-based, 
   object-oriented, and specifically designed to have as few implementation dependencies as possible.
 
@@ -249,6 +248,21 @@ use Sphp\Html\Media\Icons\SVGLoader;
   Systems for macOS and Windows. It has become the de facto industry standard in 
   raster graphics editing, such that the word "photoshop" has become a verb as in "to Photoshop an image.
 
+  I have worked with **Photoshop** for nearly two decades now and I have atleast some experience with following versions:
+
+  * 5.0, 5.5, 6.0, 7.0
+  * CS (8.0), CS2 (9.0), CS3 (10.0),  CS6 (13.0)
+
+  I have worked with **Photoshop** for nearly two decades now and I have atleast some experience with following versions:
+
+  ###Graphic design software
+  Adobe Photoshop, Lightroom, Illustrator and Acrobat
+  ###Web design programs
+  Adobe Dreamweaver, Adobe Flash
+  ###Video editing and visual effects
+  Adobe Premiere Pro and Adobe After Effects
+
+
   <hr>
   <div class="button-group small align-right">
     <a class="button" href="https://www.adobe.com/fi/products/photoshop.html"><i class="fas fa-home"></i> Official site</a>
@@ -270,7 +284,7 @@ use Sphp\Html\Media\Icons\SVGLoader;
 
   <hr>
   <div class="button-group small align-right">
-    <a class="button" href="https://www.adobe.com/fi/products/photoshop.html">Official site</a>
+    <a class="button" href="https://www.adobe.com/fi/products/photoshop.html"><i class="fas fa-home"></i>Official site</a>
     <a class="button" href="https://helpx.adobe.com/fi/photoshop/user-guide.html"><i class="fas fa-book"></i> Docs</a>
   </div>
 

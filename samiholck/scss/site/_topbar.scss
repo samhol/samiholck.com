@@ -42,11 +42,11 @@ $sphp6-root-border-color: #333;
         &:last-of-type {
           border-right: 1px solid $sphp6-root-border-color;
         }
-        min-width: rem-calc(130);
+        //min-width: rem-calc(130);
       }
       //height: rem-calc(40);
       ul {
-        z-index: 11; 
+        //z-index: 11; 
       }
       // border-top: 1px solid $sphp6-root-border-color;
       // border-bottom: 1px solid $sphp6-root-border-color;
@@ -76,6 +76,14 @@ $sphp6-root-border-color: #333;
       }
     }
     a {
+      .years {
+        float: right;
+        font-family: 'Roboto', sans-serif;
+        font-size: rem-calc(10);
+        font-weight: bold;
+        color: #fff;
+        @include text-shadow(rgba(#FF8000, 0.2) 1px 1px 0, rgba(#FF8000, 0.2) 2px 2px 0, rgba(#FF8000, 0.2) 2px 3px 0);
+      }
       color: smart-scale($sphp6-topbar-font-color, 5%);   
       @include background-image(linear-gradient(to right, #333, #111));
       &:hover {

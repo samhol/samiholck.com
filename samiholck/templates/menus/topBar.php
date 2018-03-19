@@ -53,9 +53,9 @@
           <li class="menu-ruler"></li> 
           <li><a href="http://www.raisionveneseura.fi">Raision veneseura</a></li>
           <li class="menu-text">Past:</li>
-          <li><a href="http://www.samiholck.com/archive/keiju" target="keiju">Keijupäiväkodit</a></li>
-          <li><a href="http://www.samiholck.com/archive/unikoris" target="unikoris">Unikoris</a></li>
-          <li><a href="http://www.samiholck.com/archive/dvdlabra" target="unikoris">DVD lab</a></li>
+          <li><a href="http://www.samiholck.com/archive/keiju">Keijupäiväkodit <span class="years">2008-09</span></a></li>
+          <li><a href="http://www.samiholck.com/archive/unikoris">Unikoris <span class="years">2003-08</span></a></li>
+          <li><a href="http://www.samiholck.com/archive/dvdlabra">DVD lab <span class="years">2000-01</span></a></li>
         </ul>
       </li>
       <li><a href="http://www.samiholck.com/who">Who?</a></li>

@@ -59,6 +59,9 @@
     margin: rem-calc(1);  // top right bottom left
     padding: rem-calc(3 5 3 10); // top right bottom left
   }
+  h3 {
+    margin: rem-calc(10 20);
+  }
   p {
     margin: rem-calc(10 20);
   }
@@ -70,11 +73,29 @@
 
   .button-group {
     margin: rem-calc(10 20);
-    a:first-child {
-      @include border-left-radius(4px);
+    a {
+      font-family: 'Roboto', sans-serif;
+      font-weight: bold;
+      &:first-child {
+        @include border-left-radius(4px);
+      }
+      &:last-child {
+        @include border-right-radius(4px);
+      } 
     }
-    a:last-child {
-      @include border-right-radius(4px);
+    .API {
+      font-weight: bolder;
+    }
+    .w3schools {
+      .com {
+        color: #22bb11;
+      }
+    }
+    .js {
+      color: #fc1;
+      .com {
+        color: #fff;
+      }
     }
   }
 }
