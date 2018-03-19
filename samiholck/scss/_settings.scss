@@ -297,7 +297,29 @@ $button-sizes: (
   default: 0.9rem,
   large: 1.25rem,
 );
-$button-palette: $foundation-palette;
+//$button-palette: $foundation-palette;
+
+$button-palette: map-merge($foundation-palette, (
+
+//sphp: #333,
+html5: #E44D26,
+gulp: #EB4A4B,
+css3: #1572B6,
+js: #fc1,
+postgresql: #336791,
+mysql: #00618A,
+node-js: #83CD29,
+doctrine: #F56D39,
+symfony: #1A171B,
+zend: #68B604,
+foundation: #008CBA,
+php: #6181B6,
+photoshop: #80B5E2,
+sass: #CB6699,
+github: #222,
+java: #ea2d2e,
+apache: #303284,
+)) !default;
 $button-opacity-disabled: 0.25;
 $button-background-hover-lightness: -20%;
 $button-hollow-hover-lightness: -50%;

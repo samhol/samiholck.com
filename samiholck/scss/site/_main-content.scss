@@ -27,7 +27,7 @@
     @import "headings";
     @import "error";
     @import "skills-carousel";
-    a:not([class]) {
+    p a:not([class]) {
       text-decoration: underline;
       &:hover {
         text-decoration: none;

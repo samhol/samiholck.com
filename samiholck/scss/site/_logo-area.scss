@@ -18,8 +18,6 @@
       float:right;
     }
     a.sphp-brand-link {
-      padding-top: rem-calc(3);
-      padding-left: rem-calc(3);
       border: solid 1px #000;
       @include border-radius(8px);
       @include opacity(.8);

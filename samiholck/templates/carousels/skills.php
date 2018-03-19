@@ -26,6 +26,14 @@ use Sphp\Html\Media\Icons\SVGLoader;
         <?php echo SVGLoader::fromFile('samiholck/svg/js-logo.svg') ?>
       </div>
 
+      <div class="sphp-info-button js" data-tech="nodejs-info">
+        <?php echo SVGLoader::fromFile('samiholck/svg/nodejs-logo.svg') ?>
+      </div>
+
+      <div class="sphp-info-button js" data-tech="gulp-info">
+        <?php echo SVGLoader::fromFile('samiholck/svg/gulp-logo.svg') ?>
+      </div>
+
       <div class="sphp-info-button foundation" data-tech="foundation-info">
         <?php echo SVGLoader::fromFile('samiholck/svg/foundation-logo.svg') ?>
       </div>
@@ -61,14 +69,6 @@ use Sphp\Html\Media\Icons\SVGLoader;
 
       <div class="sphp-info-button apache" data-tech="apache-info">
         <?php echo SVGLoader::fromFile('samiholck/svg/apache-logo.svg') ?>
-      </div>
-
-      <div class="sphp-info-button c" data-tech="c-info">
-        <?php echo SVGLoader::fromFile('samiholck/svg/c-logo.svg') ?>
-      </div>
-
-      <div class="sphp-info-button cpp" data-tech="cpp-info">
-        <?php echo SVGLoader::fromFile('samiholck/svg/cpp-logo.svg') ?>
       </div>
 
       <div class="sphp-info-button photoshop" data-tech="photoshop-info">
