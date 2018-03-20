@@ -6,8 +6,8 @@
 .sphp-slick-container {
   padding: rem-calc(1 10);
 }
-
 .sphp-tech-slick {
+  border-top: solid 1px #aaa;
   div.sphp-info-button {
     outline : none;
     cursor: pointer;
@@ -20,26 +20,14 @@
     @include transition-timing-function(ease-in-out);
     svg {
       height: rem-calc(200);
-      path {
-        //@include opacity(.7);
-        @include transition-property(all);
-        @include transition-duration(1s);
-        @include transition-timing-function(ease-in-out);
-        //fill: #888;
-      }
-
     }
-    &:hover, &.sphp-is-active {
-      //padding: rem-calc(8 28);
+    &:hover, &.slick-current {
       @include opacity(1);
-      svg path.sphp-left, svg path.sphp-right {
-        fill: #ce752d;
-      }
     }
   }
 }
 
-.package-def {
+#skill-info {
   //@include box-shadow(#ccc 3px 0px 8px 4px);
   // @include box-shadow(#ccc 0px 3px 8px 4px);
   border-top: solid 1px #aaa;
@@ -82,19 +70,37 @@
       &:last-child {
         @include border-right-radius(4px);
       } 
-    }
-    .API {
-      font-weight: bolder;
-    }
-    .w3schools {
-      .com {
-        color: #22bb11;
+      i, svg {
+        margin-right: rem-calc(6);
       }
-    }
-    .js {
-      color: #fc1;
-      .com {
+      &.zend {
+        i {
+          color: #8be912;
+        } 
+        path {
+          fill: #8be912;
+        }
+      }
+      &.API {
+        font-weight: bolder;
+      }
+      &.w3schools {
+        path {
+          fill: #22bb11;
+        }
+        .com {
+          color: #22bb11;
+        }
+      }
+      &.js {
+
+        path {
+          fill: #fc1;
+        }
         color: #fff;
+        .com {
+          color: #fc1;
+        }
       }
     }
   }

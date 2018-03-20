@@ -10,6 +10,7 @@ namespace Sphp\Html\Apps\Slick;
 use Sphp\Html\AbstractComponent;
 use Sphp\Html\Media\VideoPlayerInterface;
 use Sphp\Html\Foundation\Sites\Media\ResponsiveEmbed;
+use Sphp\Html\Attributes\JsonAttribute;
 
 /**
  * Description of Carousel
@@ -26,15 +27,18 @@ class Carousel extends AbstractComponent {
   /**
    * Constructs a new instance
    *
-   * @param  string|null $ariaLabel optional Aria label text
+   * @param  array|null $properties optional carousel properties
    */
-  public function __construct() {
+  public function __construct(array $properties = null) {
     parent::__construct('div');
     $this->slides = [];
     $this->attributes()
-            ->setInstance(new \Sphp\Html\Attributes\JsonAttribute('data-slick'))->demand('data-slick');
+            ->setInstance(new JsonAttribute('data-slick'))->demand('data-slick');
+    if ($properties !== null) {
+      $this->setProperty($properties);
+    }
   }
-  
+
   public function setProperty(array $props) {
     $this->attributes()->getObject('data-slick')->set($props);
     return $this;
@@ -61,6 +65,7 @@ class Carousel extends AbstractComponent {
     }
     return $this;
   }
+
   /**
    * Appends a new HTML slide component
    *

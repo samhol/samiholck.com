@@ -39,9 +39,9 @@ class TitleGenerator {
 
   public function createTitleFor(string $page): string {
     if ($page === '') {
-      $title = 'Introduction | SPHPlayground';
+      $title = 'Introduction | Samiholck.com';
     } else {
-    $title = 'SPHPlayground';
+    $title = 'Samiholck.com';
     foreach ($this->titleData as $pair) {
       if ($pair['href'] === $page) {
         if (isset($pair['title'])) {

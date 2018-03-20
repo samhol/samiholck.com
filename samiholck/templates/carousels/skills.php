@@ -4,7 +4,7 @@ use Sphp\Html\Media\Icons\SVGLoader;
 ?>
 <div class="grid-x sphp-slick-container"> 
   <div class="cell auto">
-    <div class="sphp-tech-slick">
+    <div class="sphp-tech-slick" id="skill-icons">
 
       <div class="sphp-info-button" data-tech="sphp-info">
         <?php echo SVGLoader::fromFile('samiholck/svg/s-logo.svg') ?>
@@ -54,10 +54,6 @@ use Sphp\Html\Media\Icons\SVGLoader;
         <?php echo SVGLoader::fromFile('samiholck/svg/doctrine-logo.svg') ?>
       </div>
 
-      <div class="sphp-info-button" data-tech="java-info">
-        <?php echo SVGLoader::fromFile('samiholck/svg/java-logo.svg') ?>
-      </div>
-
       <div class="sphp-info-button" data-tech="mysql-info">
         <?php echo SVGLoader::fromFile('samiholck/svg/mysql-logo.svg') ?>
       </div>
@@ -65,9 +61,13 @@ use Sphp\Html\Media\Icons\SVGLoader;
       <div class="sphp-info-button" data-tech="postgresql-info">
         <?php echo SVGLoader::fromFile('samiholck/svg/postgresql.svg') ?>
       </div>
-      
+
       <div class="sphp-info-button" data-tech="sqlite-info">
         <?php echo SVGLoader::fromFile('samiholck/svg/sqlite-logo.svg') ?>
+      </div>
+
+      <div class="sphp-info-button" data-tech="java-info">
+        <?php echo SVGLoader::fromFile('samiholck/svg/java-logo.svg') ?>
       </div>
 
       <div class="sphp-info-button" data-tech="apache-info">
@@ -79,7 +79,12 @@ use Sphp\Html\Media\Icons\SVGLoader;
       </div>
 
     </div>
+
+
   </div>
 </div>
 
-<div class="package-def" id="explanation"></div>
+
+<div class="info-carousel" id="skill-info">
+  <?php include('content/skills-parsed.php') ?>
+</div>

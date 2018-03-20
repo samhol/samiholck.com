@@ -6,12 +6,12 @@
   @include border-radius(4px);
   //@include box-shadow(#888 3px 0px 8px 4px);
   padding: rem-calc(0 10 0 10);// top right bottom left
-  margin: rem-calc(10 0 20 0); // top right bottom left
+  margin: rem-calc(20 0 20 0); // top right bottom left
   @include box-shadow(#888 0px 3px 8px 4px);
   background: #eaeaea;
   @include breakpoint(medium down) {  
-    padding: 0;
-    margin: 0;
+    padding: rem-calc(0 10 0 10);// top right bottom left
+    margin: rem-calc(20 0 20 0); // top right bottom left
   }
   .container  { 
     @include breakpoint(medium) {
