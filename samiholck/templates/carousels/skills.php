@@ -65,6 +65,10 @@ use Sphp\Html\Media\Icons\SVGLoader;
       <div class="sphp-info-button" data-tech="postgresql-info">
         <?php echo SVGLoader::fromFile('samiholck/svg/postgresql.svg') ?>
       </div>
+      
+      <div class="sphp-info-button" data-tech="sqlite-info">
+        <?php echo SVGLoader::fromFile('samiholck/svg/sqlite-logo.svg') ?>
+      </div>
 
       <div class="sphp-info-button" data-tech="apache-info">
         <?php echo SVGLoader::fromFile('samiholck/svg/apache-logo.svg') ?>

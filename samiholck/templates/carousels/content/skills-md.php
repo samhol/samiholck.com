@@ -66,12 +66,15 @@ use Sphp\Html\Media\Icons\SVGLoader;
   </div>
 </div>
 <div id="sass-info" markdown="1">
-  ##Sass (stylesheet language)
-  Sass is an extension of CSS that adds power and elegance to the basic 
-  language. It allows you to use variables, nested rules, mixins, inline 
-  imports, and more, all with a fully CSS-compatible syntax. Sass helps keep 
-  large stylesheets well-organized, and get small stylesheets up and running 
-  quickly, particularly with the help of the Compass style library.
+  ##Sass (Syntactically Awesome Stylesheet)
+  SASS is a CSS pre-processor, which helps to reduce repetition with CSS and 
+  saves time. It is stable and powerful CSS extension language that describes 
+  the style of document structurally. 
+  
+  SASS makes it possible to use variables, nested rules, mixins, inline 
+  imports. Sass helps keep large stylesheets well-organized, and get small 
+  stylesheets up and running quickly, particularly with the help of the 
+  Compass style library.
   <hr>
   <div class="button-group small align-right">
     <a class="button sass" href="http://sass-lang.com/"><i class="fas fa-home"></i> Sass home</a>

@@ -46,7 +46,7 @@ Document::head()
                     'source code',
                     'tips']))
         ->addMeta(Meta::description('Personal homepage of Sami Holck'));
-
+Document::body()->inlineStyles()->setProperty('visibility', 'hidden');
 Document::html()->scripts()->appendSrc('samiholck/js/techs.js');
 Document::html()->startBody();
 
