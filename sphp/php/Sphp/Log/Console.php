@@ -19,7 +19,33 @@ use Sphp\Html\Programming\ScriptCode;
  */
 class Console {
 
+  const LOG = 'log';
+  const INFO = 'info';
+  const WARN = 'warn';
+  const ERROR = 'error';
+
+  private static $types = [self::LOG, self::INFO, self::WARN, self::ERROR];
   private $rows = [];
+
+  /**
+   * Creates a HTML object
+   *
+   * @param  string $name the name of the component
+   * @param  array $arguments
+   * @throws BadMethodCallException
+   */
+  public static function __callStatic(string $name, array $arguments) {
+    if (!isset(static::$types[$name])) {
+      throw new BadMethodCallException("Method $name does not exist");
+    }
+    $message = array_shift($arguments);
+    if ($message === null) {
+      throw new \Sphp\Exceptions\InvalidArgumentException("Method $name does not exist");
+    }
+    $obj = new static();
+    $obj->add($name, $message);
+    $obj->run()->clear();
+  }
 
   /**
    * Logs messages/variables/data to browser console from within php
@@ -32,43 +58,7 @@ class Console {
    * @author Sarfraz
    */
   public static function log($name, $data = NULL, $jsEval = FALSE) {
-    if (!$name)
-      return false;
-
-    $isevaled = false;
-    $type = ($data || gettype($data)) ? 'Type: ' . gettype($data) : '';
-
-    if ($jsEval && (is_array($data) || is_object($data))) {
-      $data = 'eval(' . preg_replace('#[\s\r\n\t\0\x0B]+#', '', json_encode($data)) . ')';
-      $isevaled = true;
-    } else {
-      $data = json_encode($data);
-    }
-
-    # sanitalize
-    $data = $data ? $data : '';
-    $search_array = array("#'#", '#""#', "#''#", "#\n#", "#\r\n#");
-    $replace_array = array('"', '', '', '\\n', '\\n');
-    $data = preg_replace($search_array, $replace_array, $data);
-    $data = ltrim(rtrim($data, '"'), '"');
-    $data = $isevaled ? $data : ($data[0] === "'") ? $data : "'" . $data . "'";
-
-    $js = <<<JSCODE
-\n<script>
- // fallback - to deal with IE (or browsers that don't have console)
- if (! window.console) console = {};
- console.log = console.log || function(name, data){};
- // end of fallback
-
- console.log('$name');
- console.log('------------------------------------------');
- console.log('$type');
- console.log($data);
- console.log('\\n');
-</script>
-JSCODE;
-
-    echo $js;
+    
   }
 
   protected function createLog(string $type, string $data) {
@@ -78,11 +68,17 @@ JSCODE;
     $replace_array = array('"', '', '', '\\n', '\\n');
     $data = preg_replace($search_array, $replace_array, $data);
     $data = ltrim(rtrim($data, '"'), '"');
-    return "console.$type('$data')";
+
+    return "console.$type('$data');";
+  }
+
+  public function add(string $type, string $logText) {
+    $this->rows[] = ['type' => $type, 'message' => $logText];
+    return $this;
   }
 
   public function addLog(string $logText) {
-    $this->rows[] = ['type' => 'log', 'message' => $logText];
+    $this->add(self::LOG, $logText);
     return $this;
   }
 
@@ -90,13 +86,23 @@ JSCODE;
     if (empty($this->rows)) {
       return $this;
     }
-    $js = "if(!window.console) console = {};console.log=console.log || function(name,data){};";
+    $js = 'if (!window.console) console = {};';
+    $js .= 'console.log = console.log || function(){};';
+    $js .= 'console.warn = console.warn || function(){};';
+    $js .= 'console.error = console.error || function(){};';
+    $js .= 'console.info = console.info || function(){};';
+    $js .= 'console.debug = console.debug || function(){};';
     $scriptTag = new ScriptCode();
     $scriptTag->append($js);
     foreach ($this->rows as $row) {
       $scriptTag->append($this->createLog($row['type'], $row['message']));
     }
     echo $scriptTag;
+    return $this;
+  }
+
+  public function clear() {
+    $this->rows = [];
     return $this;
   }
 
