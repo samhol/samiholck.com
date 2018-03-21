@@ -6,7 +6,7 @@ use Sphp\Stdlib\Path;
 
 $html = Document::html();
 
-$titleGenerator = new \Sphp\Manual\MVC\TitleGenerator($manualLinks);
+$titleGenerator = new \Sphp\Manual\MVC\TitleGenerator($titles);
 
 //echo '<pre>';
 //echo \Sphp\MVC\Router::getCleanUrl();

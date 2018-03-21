@@ -8,7 +8,8 @@
 .sphp-exception-callout {
   border: solid 2px rgba(70, 70, 70, 0.9); 
   @include border-radius(4px);
-  background: url("../pics/diagonals.png") 50% 50% repeat;
+  background-color: #640000;
+  //background: url("../pics/diagonals.png") 50% 50% repeat;
   margin: rem-calc(3);
   padding: 0;
   color: #eee;

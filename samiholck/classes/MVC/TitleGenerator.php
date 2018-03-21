@@ -16,42 +16,20 @@ namespace Sphp\Manual\MVC;
  */
 class TitleGenerator {
 
+  private $titleData = [];
+
   public function __construct(array $data) {
-    $this->data = $data;
-    $this->titleData = $this->parseTitles();
-    $this->parseTitles();
+    $this->titleData = $data;
+    \Sphp\Log\Console::log('titles', $data);
   }
 
-  public function parseTitles(): array {
-    // print_r($this->data);
-    $arrIt = new \RecursiveIteratorIterator(new \RecursiveArrayIterator($this->data));
-
-    $outputArray = [];
-    foreach ($arrIt as $sub) {
-      $subArray = $arrIt->getSubIterator();
-      if ($subArray->key() === 'href') {
-        $outputArray[] = iterator_to_array($subArray);
-      }
-    }
-    // print_r($outputArray);
-    return $outputArray;
-  }
-
-  public function createTitleFor(string $page): string {
-    if ($page === '') {
-      $title = 'Introduction | Samiholck.com';
+  public function createTitleFor(string $url): string {
+    \Sphp\Log\Console::log('url', $url);
+    if (array_key_exists($url, $this->titleData)) {
+      $title = (string) $this->titleData[$url];
     } else {
-    $title = 'Samiholck.com';
-    foreach ($this->titleData as $pair) {
-      if ($pair['href'] === $page) {
-        if (isset($pair['title'])) {
-          $title = $pair['title'] . ' | ' . $title;
-        } else {
-          $title = $pair['link'] . ' | ' . $title;
-        }
-        break;
-      }
-    }
+      $title = '404 | samiholck.com';
+      
     }
     return $title;
   }
