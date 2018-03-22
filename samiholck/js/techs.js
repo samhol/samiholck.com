@@ -68,5 +68,5 @@ $(function () {
 $(window).bind("load", function () {
   "use strict";
   $('body').css('visibility', 'visible');
-
+  console.table(["Audi", "Volvo", "Ford"]);
 });

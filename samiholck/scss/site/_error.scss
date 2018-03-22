@@ -1,6 +1,4 @@
-
-
-h1.error-404 {
+h1.error {
   text-align: center;
   font-size: rem-calc(100);
   @include breakpoint(medium down) {  
@@ -11,8 +9,9 @@ h1.error-404 {
   }
 }
 p {
+  text-align: center;
+  font-size: rem-calc(30);
   &.large {
-    text-align: center;
     font-size: rem-calc(60);
   }
 }

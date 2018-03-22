@@ -25,7 +25,6 @@
   }
   main {
     @import "headings";
-    @import "error";
     @import "skills-carousel";
     p a:not([class]) {
       text-decoration: underline;
@@ -40,8 +39,7 @@
       margin: rem-calc(5 25 15 25);
     }
     > .button-group {
-      margin: 0 auto; 
-      //width: 180px;  
+      margin: 0 auto;
       display: flex; 
       justify-content: center; 
       a:first-child {
@@ -56,11 +54,18 @@
       height: 1px;
       background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
     }
-    &.why {
-      background-image: url('../samiholck/pics/crossbones.svg');
+    &.why, &.error {
       background-repeat: no-repeat;
       background-position: center 5%;
       @include background-size(90% 90%);
+    }
+    &.why {
+      background-image: url('../samiholck/svg/crossbones.php?color=ddd');
+    }
+    &.error {
+      background-position: center center;
+      background-image: url('../samiholck/svg/crossbones.php?color=eedcdc');
+      @import "error";
     }
     blockquote {
       //background: #f9f9f9;

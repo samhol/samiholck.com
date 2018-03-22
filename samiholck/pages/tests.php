@@ -4,11 +4,13 @@ namespace Sphp\Html\Foundation\Sites\Bars;
 ?>
 <pre>
 <?php
-
-$console = new \Sphp\Log\Console();
+use Sphp\Log\Console;
+$console = new Console();
 $console->addLog('perkele\''."'saaataanaa'");
 $console->run();
-\Sphp\Log\Console::error('boo');
+Console::error('error');
+Console::log('log');
+Console::table(range('a', 'e'));
 ?>
 </pre>
 

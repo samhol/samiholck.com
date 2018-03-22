@@ -8,9 +8,15 @@
 namespace Sphp\Log;
 
 use Sphp\Html\Programming\ScriptCode;
+use Sphp\Exceptions\BadMethodCallException;
 
 /**
- * Description of Console
+ * Implements PHP message outputting To Browser Console
+ * 
+ * @method void log(mixed $message) Logs error message to browser console
+ * @method void info(mixed $message) Logs error message to browser console
+ * @method void warn(mixed $message) Logs error message to browser console
+ * @method void error(mixed $message) Logs error message to browser console
  *
  * @author  Sami Holck <sami.holck@gmail.com>
  * @since   2018-03-21
@@ -23,8 +29,9 @@ class Console {
   const INFO = 'info';
   const WARN = 'warn';
   const ERROR = 'error';
+  const TABLE = 'table';
 
-  private static $types = [self::LOG, self::INFO, self::WARN, self::ERROR];
+  private static $types = [self::LOG, self::INFO, self::WARN, self::ERROR, self::TABLE];
   private $rows = [];
 
   /**
@@ -35,7 +42,7 @@ class Console {
    * @throws BadMethodCallException
    */
   public static function __callStatic(string $name, array $arguments) {
-    if (!isset(static::$types[$name])) {
+    if (!in_array($name, static::$types)) {
       throw new BadMethodCallException("Method $name does not exist");
     }
     $message = array_shift($arguments);
@@ -57,22 +64,21 @@ class Console {
    * @return none
    * @author Sarfraz
    */
-  public static function log($name, $data = NULL, $jsEval = FALSE) {
+  public static function log1($name, $data = NULL, $jsEval = FALSE) {
     
   }
 
-  protected function createLog(string $type, string $data) {
-
-    $data = $data ? $data : '';
-    $search_array = array("#'#", '#""#', "#''#", "#\n#", "#\r\n#");
-    $replace_array = array('"', '', '', '\\n', '\\n');
-    $data = preg_replace($search_array, $replace_array, $data);
-    $data = ltrim(rtrim($data, '"'), '"');
-
-    return "console.$type('$data');";
+  protected function createLog(string $type, $data) {
+    if (is_array($data)) {
+      $data = \Sphp\Stdlib\Parser::json()->encode($data);
+      echo "console.$type($data);";
+    } else if (is_string($data)) {
+      $data = "'$data'";
+    }
+    return "console.$type($data);";
   }
 
-  public function add(string $type, string $logText) {
+  public function add(string $type, $logText) {
     $this->rows[] = ['type' => $type, 'message' => $logText];
     return $this;
   }
