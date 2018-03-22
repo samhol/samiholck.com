@@ -1,11 +1,27 @@
+<?php
+
+namespace Sphp\Stdlib;
+
+require_once(__DIR__.'/../settings.php');
+
+header('Content-type: image/svg+xml');
+
+//error_reporting(E_ALL);
+//ini_set("display_errors", 1);
+
+$showDefs = filter_input(INPUT_GET, 'defs', FILTER_VALIDATE_BOOLEAN);
+
+?>
 <svg class="local" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg"
      xmlns:xlink="http://www.w3.org/1999/xlink">
+  <?php if (isset($_GET['defs'])): ?>
   <defs>
     <linearGradient id="s-logo-gradient" x1="0%" y1="0%" x2="0%" y2="100%" spreadMethod="pad">
       <stop offset="0%"   stop-color="#FF8000" stop-opacity="1"/>
       <stop offset="100%" stop-color="#333" stop-opacity="1"/>
     </linearGradient>
   </defs>
+  <?php endif; ?>
   <g transform="translate(0.000000,100.000000) scale(0.100000,-0.100000)" style="fill:url(#s-logo-gradient);
             stroke: #005000;
             stroke-width: 3;">

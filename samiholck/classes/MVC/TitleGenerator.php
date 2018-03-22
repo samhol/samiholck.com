@@ -20,15 +20,13 @@ class TitleGenerator {
 
   public function __construct(array $data) {
     $this->titleData = $data;
-    \Sphp\Log\Console::log('titles', $data);
   }
 
   public function createTitleFor(string $url): string {
-    \Sphp\Log\Console::log('url', $url);
     if (array_key_exists($url, $this->titleData)) {
       $title = (string) $this->titleData[$url];
     } else {
-      $title = '404 | samiholck.com';
+      $title = "'$url' | samiholck.com";
       
     }
     return $title;

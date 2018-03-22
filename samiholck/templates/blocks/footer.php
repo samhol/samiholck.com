@@ -30,7 +30,7 @@ $currentUrl = URL::getCurrentURL();
             </ul> 
             <div class="dropdown-pane large" data-position="top" data-alignment="center" id="home-google-maps" data-dropdown data-auto-focus="true" data-close-on-click="true">
               <div class="responsive-embed">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d984.3160109190327!2d22.30153791486299!3d60.434781241681705!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x468c7727a6466e41%3A0xa7ad26a37594a821!2sRakuunatie+59%2C+20720+Turku!5e0!3m2!1sen!2sfi!4v1521028808379" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d984.3160109190327!2d22.30153791486299!3d60.434781241681705!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x468c7727a6466e41%3A0xa7ad26a37594a821!2sRakuunatie+59%2C+20720+Turku!5e0!3m2!1sen!2sfi!4v1521028808379" width="600" height="450" allowfullscreen></iframe>
               </div>
             </div>
           </div>

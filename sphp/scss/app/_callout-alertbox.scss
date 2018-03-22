@@ -7,7 +7,7 @@ $error-bg: rgba(255,127,80, 0.40);
   &.#{$type} {
     color: smart-scale($color, 60%);
     border: 3px solid $color;
-    background-color: rgba($color, 0.2);
+    background-color: #fff;
     .type {
       border-bottom: solid $color;
       .icon {

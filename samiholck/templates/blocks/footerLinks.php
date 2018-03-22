@@ -6,14 +6,14 @@ use Sphp\Html\Media\Icons\FontAwesome;
 use Sphp\Html\Media\Icons\DevIcons;
 use Sphp\Html\Foundation\Sites\Navigation\Menu;
 use Sphp\Html\Foundation\Sites\Grids\BlockGrid;
-use Sphp\Html\Media\Icons\SVGLoader;
+use Sphp\Html\Media\Icons\Svg;
 $fa = FontAwesome::instance();
 $grid = (new BlockGrid('small-up-1', 'medium-up-2', 'large-up-4'));
 $grid->append((new Menu())->vertical()
                 ->appendText('Projects' . $fa->users()->pull('right'))
                 ->appendLink('http://raisionveneseura.fi', 'Raisionveneseura.fi')
                 ->appendLink('http://samiholck.com', '&lt;samiholck.com&gt;')
-                ->appendLink('http://playground.samiholck.com/', new SVGLoader('samiholck/svg/s-logo.svg').'SPHPlayground framework')
+                ->appendLink('http://playground.samiholck.com/', Svg::fromUrl('http://www.samiholck.com/samiholck/svg/s-logo.php').'SPHPlayground framework')
                 ->appendText('Framework APIs' . $fa->book()->pull('right'))
                 ->appendLink('http://playground.samiholck.com/API/sami/', $fa->php() . 'PHP API')
                 ->appendLink('http://playground.samiholck.com/API/jsdoc/', $fa->js() . 'JavaScript API'));
