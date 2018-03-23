@@ -1,11 +1,40 @@
 <?php
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+namespace Sphp\Html\Foundation\Sites\Forms\Inputs;
 
+use Sphp\Html\Foundation\Sites\Forms\GridForm;
+use Sphp\Html\Foundation\Sites\Buttons\Button;
+
+$form = (new GridForm('get'))
+        ->validation(true)
+        ->setTarget("outputFrame");
+$fnameField = InputColumn::text("fname")->setLabel('First name')->setPlaceholder("First name");
+$form->append($fnameField);
+$lnameField = InputColumn::text("lname")->setLabel('Last name')->setPlaceholder("Last name");
+$form->append($lnameField);
+$emailField = InputColumn::email("email")
+        ->setRequired()
+        ->setErrorField('You need to give your Email address')
+        ->setLabel('Email address')
+        ->setPlaceholder("Email address");
+$form->append($emailField);
+$messageField = InputColumn::textarea("message", null, 5)
+        ->setLabel('Contact message')
+        ->setRequired()
+        ->setPlaceholder("Message")
+        ->setErrorField("Yuo need to write a message");
+$form->append($messageField);
+
+$form->append(Button::submitter("Submit form", "submit"));
+
+use Sphp\Html\Foundation\Sites\Grids\Row;
+use Sphp\Html\Foundation\Sites\Media\ResponsiveEmbed;
+
+$map = ResponsiveEmbed::iframe('https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1968.7082546795589!2d22.300856632547603!3d60.43352261303713!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x468c7727a6466e41%3A0xa7ad26a37594a821!2sRakuunatie+59%2C+20720+Turku!5e0!3m2!1sen!2sfi!4v1521810129616');
+$g = new Row();
+$g->append($map)->layout()->setLayouts('small-12', 'large-6');
+$g->append($form)->layout()->setLayouts('small-12', 'large-6');
+echo $g;
 ?>
 
 
@@ -40,20 +69,3 @@
     </div>
   </div>
 </div>
-
-<script>
-// Initialize google maps
-function myMap() {
-  var myCenter = new google.maps.LatLng(51.508742,-0.120850);
-  var mapCanvas = document.getElementById("map");
-  var mapOptions = {center: myCenter, zoom: 12};
-  var map = new google.maps.Map(mapCanvas, mapOptions);
-  var marker = new google.maps.Marker({position:myCenter});
-  marker.setMap(map);
-}
-</script>
-
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBu-916DdpKAjTmJNIgngS6HL_kDIKU0aU&callback=myMap"></script>
-<!--
-To use this code on your website, get a free API key from Google.
-Read more at: https://www.w3schools.com/graphics/google_maps_basic.asp
