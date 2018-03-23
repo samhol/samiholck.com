@@ -30,5 +30,7 @@ is based on the Novel by [Irvine Welsh](http://www.irvinewelsh.net/), published 
 <hr>
 MD
 );
+
+include 'samiholck/templates/carousels/videos.php';
 ?>
 
