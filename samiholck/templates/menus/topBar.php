@@ -46,19 +46,19 @@
   <div class="top-bar-left">
     <ul  class="vertical medium-horizontal menu" data-responsive-menu="drilldown medium-dropdown">
       <li class="has-submenu">
-        <a href="">Projects</a>
+        <a href="#">Projects</a>
         <ul class="submenu menu vertical" data-submenu>
           <li class="menu-text">Current:</li>
           <li><a href="http://playground.samiholck.com">SPHPlayground</a></li>
           <li class="menu-ruler"></li> 
           <li><a href="http://www.raisionveneseura.fi">Raision veneseura</a></li>
-          <li class="menu-text">Past:</li>
-          <li><a href="http://www.samiholck.com/archive/keiju">Keijupäiväkodit <span class="years">2008-09</span></a></li>
-          <li><a href="http://www.samiholck.com/archive/unikoris">Unikoris <span class="years">2003-08</span></a></li>
-          <li><a href="http://www.samiholck.com/archive/dvdlabra">DVD lab <span class="years">2000-01</span></a></li>
+          <li class="menu-text">Past: <i class="fas fa-ban fa-pull-right"></i></li>
+          <li><a href="http://www.samiholck.com/archive/keiju">Keijupäiväkodit</i></a></li>
+          <li><a href="http://www.samiholck.com/archive/unikoris">Unikoris</i></a></li>
+          <li><a href="http://www.samiholck.com/archive/dvdlabra">DVD laboratorio</a></li>
         </ul>
       </li>
-      <li><a href="http://www.samiholck.com/who">Who?</a></li>
+      <li><a href="http://www.samiholck.com/who">Who am I</a></li>
       <li><a href="http://www.samiholck.com/why">Why?</a></li>
     </ul>
   </div>

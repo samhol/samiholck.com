@@ -396,7 +396,7 @@ $drilldown-nested-margin: 0;
 $drilldown-background: $white;
 $drilldown-submenu-padding: $drilldown-padding;
 $drilldown-submenu-background: $white;
-$drilldown-arrow-color: $primary-color;
+$drilldown-arrow-color: $main-border;
 $drilldown-arrow-size: 6px;
 
 // 17. Dropdown
@@ -419,7 +419,7 @@ $dropdown-sizes: (
 // -----------------
 
 $dropdownmenu-arrows: true;
-$dropdownmenu-arrow-color: $anchor-color;
+$dropdownmenu-arrow-color: $main-border;
 $dropdownmenu-arrow-size: 6px;
 $dropdownmenu-arrow-padding: 1.5rem;
 $dropdownmenu-min-width: 200px;
