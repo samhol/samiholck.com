@@ -1,25 +1,31 @@
-/**
- * _technologies.scss (UTF-8)
- *
- * Copyright (c) 2016 Sami Holck <sami.holck@gmail.com>
- */
+
 .sphp-slick-container {
   padding: rem-calc(1 10);
 }
 .sphp-tech-slick {
   border-top: solid 1px #aaa;
   div.sphp-info-button {
-    outline : none;
+    //outline : none;
     cursor: pointer;
-    padding: rem-calc(10 30);
-    text-align:center;
+    //padding: rem-calc(10 30);
+    //text-align:center;
 
     @include opacity(.5);
     @include transition-property(all);
     @include transition-duration(1s);
     @include transition-timing-function(ease-in-out);
-    svg {
-      height: rem-calc(200);
+    .svg-container {
+      min-width:  rem-calc(220);
+      margin: rem-calc(5);
+      padding: rem-calc(5);
+      height: rem-calc(220);
+      //border: solid 1px #aaa;
+      
+      svg {
+        display: block;
+        margin: auto;
+        height: rem-calc(200);
+      }
     }
     &:hover, &.slick-current {
       @include opacity(1);

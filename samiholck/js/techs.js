@@ -10,7 +10,15 @@ $(function () {
     adaptiveHeight: true,
     asNavFor: '#skill-icons'
   });
-
+/**
+$breakpoints: (
+  small: 0,
+  medium: 640px,
+  large: 1024px,
+  xlarge: 1200px,
+  xxlarge: 1440px,
+);
+ */
   var $slick = $('#skill-icons').slick({
     dots: true,
     infinite: true,
@@ -23,24 +31,31 @@ $(function () {
     focusOnSelect: true,
     centerPadding: '60px',
     //centerMode: true,
-    //variableWidth: true,
+    variableWidth: true,
     responsive: [
       {
-        breakpoint: 1024,
+        breakpoint: 1440,
         settings: {
-          slidesToShow: 3,
+          slidesToShow: 5,
           dots: true
         }
       },
       {
-        breakpoint: 600,
+        breakpoint: 1200,
         settings: {
-          slidesToShow: 1,
+          slidesToShow: 4,
+          dots: true
+        }
+      },
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
           dots: false,
         }
       },
       {
-        breakpoint: 480,
+        breakpoint: 640,
         settings: {
           slidesToShow: 1,
           dots: false,
@@ -64,9 +79,3 @@ $(function () {
   });
 });
 
-
-$(window).bind("load", function () {
-  "use strict";
-  $('body').css('visibility', 'visible');
-  console.table(["Audi", "Volvo", "Ford"]);
-});

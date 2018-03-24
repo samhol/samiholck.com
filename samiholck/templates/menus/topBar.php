@@ -38,8 +38,7 @@
  */
 ?>
 <div class="title-bar" data-responsive-toggle="responsive-menu" data-hide-for="medium">
-  <button class="menu-icon" type="button" data-toggle="responsive-menu"></button>
-  <div class="title-bar-title">Menu</div>
+  <button class="menu-icon" type="button" data-toggle="responsive-menu"><span class="show-for-sr">Menu navigation</span></button>
 </div>
 
 <div class="top-bar" id="responsive-menu">

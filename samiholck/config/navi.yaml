@@ -5,6 +5,6 @@
 - text: Who am I?
   path: who
   icon: fas fa-info-circle
-- text: home
+- text: Why all this?
   path: why
   icon: fas fa-info-circle

@@ -16,7 +16,9 @@ Document::html()->setLanguage('en')->setDocumentTitle($title);
 
 use Sphp\Html\Head\Meta;
 
-$html->enableSPHP()->useVideoJS()->setViewport('width=device-width, initial-scale=1.0')->useFontAwesome();
+$html->enableSPHP()
+        ->setViewport('width=device-width, initial-scale=1.0')
+        ->useFontAwesome();
 Document::head()
         ->addMeta(Meta::charset('UTF-8'))
         ->addCssSrc('css/styles.all.css')
@@ -46,7 +48,7 @@ Document::head()
                     'source code',
                     'tips']))
         ->addMeta(Meta::description('Personal homepage of Sami Holck'));
-Document::body()->inlineStyles()->setProperty('visibility', 'hidden');
+//Document::body()->inlineStyles()->setProperty('visibility', 'hidden');
 Document::html()->scripts()->appendSrc('samiholck/js/techs.js');
 Document::html()->startBody();
 
