@@ -30,7 +30,9 @@ $loadPage = function ($par, string $file = 'index') {
 };
 
 $loadNotFound = function () {
+  echo '<main class="container error">';
   include "samiholck/pages/error.php";
+  echo '</main>';
 };
 $loadIndex = function () use ($loadPage) {
   $loadPage('index');

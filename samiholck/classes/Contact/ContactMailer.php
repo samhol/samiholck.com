@@ -54,7 +54,7 @@ class ContactMailer {
     $mail->setEncoding('UTF-8');
     $transport = new Sendmail();
     $transport->send($mail);
-    $this->sendToApplicant($data);
+    $this->replyTo($data);
     return $this;
   }
 
@@ -63,7 +63,7 @@ class ContactMailer {
    * @param  ContactData $data
    * @return self for a fluent interface
    */
-  public function sendToApplicant(ContactData $data) {
+  public function replyTo(ContactData $data) {
     $mail = new Message();
     $mail->setFrom($this->formAddress);
     $mail->addTo($data->getEmail());

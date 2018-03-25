@@ -73,6 +73,19 @@ class CRSFToken {
   }
 
   /**
+   * Unsets the given CRSF token
+   * 
+   * @param  string $tokenName the CRSF token name
+   * @return $this for a fluent interface
+   */
+  public function unsetToken(string $tokenName) {
+    if (array_key_exists($tokenName, $_SESSION)) {
+      unset( $_SESSION[$tokenName . '_token']);
+    }
+    return $this;
+  }
+
+  /**
    * Verifies a named CRSF token from the input data
    * 
    * @param  string $tokenName the CRSF token name
