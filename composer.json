@@ -1,9 +1,9 @@
 {
-  "name": "sami_holck/sphp_framework",
-  "homepage": "http://www.playground.samiholck.com/",
-  "description": "Multipurpose PHP framework for web applications",
+  "name": "sami_holck/samiholck",
+  "homepage": "http://www.samiholck.com/",
+  "description": "Homepage",
   "keywords": ["HTML5", "WEB 2.0", "UI"],
-  "license": "GNU",
+  "license": "MIT",
   "authors": [
     {
       "name": "Sami Holck",
@@ -26,17 +26,12 @@
   ],
   "require": {
     "php": ">=7.0",
-    "doctrine/orm": ">=2.5",
-    "sepia/po-parser": ">=4.2",
     "imagine/imagine": ">=0.7",
     "erusev/parsedown-extra": ">=0.7.0",
     "tovic/parsedown-extra-plugin": "*",
-    "geshi/geshi": "^1",
-    "jdorn/sql-formatter": ">=1.2",
     "gajus/dindent": ">=2.0",
     "zendframework/zend-cache": "*",
     "zendframework/zend-config": "*",
-    "zendframework/zend-i18n": "*",
     "zendframework/zend-paginator": "*",
     "zendframework/zend-mail": "*",
     "zurb/foundation": ">=6.4",

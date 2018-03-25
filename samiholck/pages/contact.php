@@ -11,7 +11,7 @@ $newToken = CRSFToken::instance()->generateToken('contact-form');
 
 $form = (new GridForm())
         ->setMethod('post')
-        ->setAction('contact-submitter.php')
+        ->setAction('contact-form/contact-submitter.php')
         ->useValidation(true);
 
 $form->appendHiddenVariable('contact-form', $newToken);
@@ -32,6 +32,13 @@ $emailField = InputColumn::email('email')
         ->setLabel('Email address')
         ->setPlaceholder('Email address');
 $form->append($emailField);
+
+$subjectField = InputColumn::text('subject')
+        ->setRequired()
+        ->setErrorField('You need to set a subject')
+        ->setLabel('Message subject')
+        ->setPlaceholder('subject');
+$form->append($subjectField);
 
 $messageField = InputColumn::textarea('message', null, 5)
         ->setLabel('Contact message')

@@ -4,7 +4,7 @@ namespace Sphp\Config;
 
 error_reporting(E_ALL);
 ini_set("display_errors", 1);
-session_start();
+
 require_once(__DIR__ . '/../sphp/settings.php');
 
 $includePaths = [
@@ -22,6 +22,11 @@ $includePaths = [
 
 require_once 'common/all.php';
 
+
+//$handler = new \Sphp\Sessions\FileSessionHandler();
+//session_set_save_handler($handler, true);
+session_start();
+$_SESSION['foo'] = 'bar';
 namespace Sphp\I18n;
 
 Translators::instance()->store('validation', new Gettext\Translator('Sphp.Validation', 'sphp/locale'));

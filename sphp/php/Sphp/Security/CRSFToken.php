@@ -76,7 +76,7 @@ class CRSFToken {
    * Verifies a named CRSF token from the input data
    * 
    * @param  string $tokenName the CRSF token name
-   * @param  int $type
+   * @param  int $type input type
    * @return boolean true if the token value matches
    */
   public function verifyInputToken(string $tokenName, int $type): bool {
