@@ -10,8 +10,8 @@ $titleGenerator = new \Sphp\Manual\MVC\TitleGenerator($titles);
 
 //echo '<pre>';
 //echo \Sphp\MVC\Router::getCleanUrl();
-$redirect = filter_input(INPUT_SERVER, 'REDIRECT_URL', FILTER_SANITIZE_URL);
-$title = $titleGenerator->createTitleFor(trim($redirect, '/'));
+$redirect = trim(filter_input(INPUT_SERVER, 'REDIRECT_URL', FILTER_SANITIZE_URL), '/');
+$title = $titleGenerator->createTitleFor($redirect);
 Document::html()->setLanguage('en')->setDocumentTitle($title);
 
 use Sphp\Html\Head\Meta;
@@ -48,6 +48,10 @@ Document::head()
                     'source code',
                     'tips']))
         ->addMeta(Meta::description('Personal homepage of Sami Holck'));
+if ($redirect === 'who') {
+   Document::head()->appendScriptSrc('https://www.google.com/recaptcha/api.js')->setAsync()->setDefer();
+}
+  
 //Document::body()->inlineStyles()->setProperty('visibility', 'hidden');
 Document::html()->scripts()->appendSrc('samiholck/js/techs.js');
 Document::html()->startBody();

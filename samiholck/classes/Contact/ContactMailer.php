@@ -7,9 +7,6 @@
 
 namespace Sphp\Manual\Contact;
 
-use Zend\Mail\Message;
-use Zend\Mail\Transport\Sendmail;
-
 /**
  * 
  *
@@ -23,7 +20,7 @@ class ContactMailer {
   /**
    * @var string 
    */
-  private $formAddress;
+  private $sender;
 
   /**
    * @var string 
@@ -31,13 +28,19 @@ class ContactMailer {
   private $receiver;
 
   /**
+   * @var Mailer 
+   */
+  private $mailer;
+
+  /**
    * Constructs a new instance
    * 
    * @param string $receiver
    */
-  public function __construct(string $receiver = null, string $formAddress = null) {
-    $this->formAddress = $formAddress;
+  public function __construct(string $sender, string $receiver) {
+    $this->sender = $sender;
     $this->receiver = $receiver;
+    $this->mailer = new Mailer();
   }
 
   /**
@@ -45,16 +48,13 @@ class ContactMailer {
    * @param  ContactData $data
    * @return self for a fluent interface
    */
-  public function send(ContactData $data) {
-    $mail = new Message();
-    $mail->setFrom($this->formAddress);
-    $mail->addTo($this->receiver);
-    $mail->setSubject($data->getSubject());
-    $mail->setBody($this->createMailBody($data));
-    $mail->setEncoding('UTF-8');
-    $transport = new Sendmail();
-    $transport->send($mail);
-    $this->replyTo($data);
+  public function sendContactData(ContactData $data) {
+    $this->mailer
+            ->setFrom($this->sender)
+            ->setTo($this->receiver)
+            ->setSubject($data->getSubject())
+            ->setBody($this->createMailBody($data))
+            ->send();
     return $this;
   }
 
@@ -64,14 +64,12 @@ class ContactMailer {
    * @return self for a fluent interface
    */
   public function replyTo(ContactData $data) {
-    $mail = new Message();
-    $mail->setFrom($this->formAddress);
-    $mail->addTo($data->getEmail());
-    $mail->setSubject("Thank you for your message");
-    $mail->setBody('I will get back to you as soon as possible');
-    $mail->setEncoding('UTF-8');
-    $transport = new Sendmail();
-    $transport->send($mail);
+    $this->getMessage()->setFrom($this->sender);
+    $this->getMessage()->addTo($data->getEmail());
+    $this->getMessage()->setSubject("Thank you for your message");
+    $this->getMessage()->setBody('I will get back to you as soon as possible');
+    $this->getMessage()->setEncoding('UTF-8');
+    $this->send();
     return $this;
   }
 
@@ -81,7 +79,8 @@ class ContactMailer {
    * @return string mail body as a string
    */
   protected function createMailBody(ContactData $data): string {
-    $mailBody = $data->getMessage();
+    $mailBody = "Message:\n";
+    $mailBody .= $data->getMessage();
     $mailBody .= "\n\n----------------------\n";
     $mailBody .= "Sender:\n\n";
     $mailBody .= "Name: \t{$data->getFname()} {$data->getLname()}\n";

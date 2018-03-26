@@ -46,7 +46,8 @@ $messageField = InputColumn::textarea('message', null, 5)
         ->setPlaceholder('Message text')
         ->setErrorField('You need to write a message');
 $form->append($messageField);
-
+$form->append(\Sphp\Manual\Contact\ReCaptha::createImage('6Lfh6U4UAAAAADLo3tCgAn27Zqam37ZsOBx41yt-'));
+//$form->append('<div class="g-recaptcha" data-sitekey="6Lfh6U4UAAAAADLo3tCgAn27Zqam37ZsOBx41yt-"></div><br/>');
 $form->append(Button::submitter('Submit form', 'submit'));
 
 use Sphp\Html\Foundation\Sites\Grids\Row; 
@@ -56,6 +57,11 @@ $map = ResponsiveEmbed::iframe('https://www.google.com/maps/embed?pb=!1m18!1m12!
 $g = new Row();
 $g->append($map)->layout()->setLayouts('small-12', 'large-6');
 $g->append($form)->layout()->setLayouts('small-12', 'large-6');
+
+if (array_key_exists('contact-form-submitted', $_SESSION) && $_SESSION['contact-form-submitted'] === true) {
+   echo '<h2>Thank you for your contact request</h2>';
+   unset($_SESSION['contact-form-submitted']);
+}
 ?>
 
 <h2>Contact Me</h2>

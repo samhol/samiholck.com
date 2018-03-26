@@ -37,6 +37,11 @@ class ContactData {
   private $phone;
 
   /**
+   * @var Person 
+   */
+  private $contacter;
+
+  /**
    * @var mixed 
    */
   private $subject;

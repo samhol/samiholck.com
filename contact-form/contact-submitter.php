@@ -15,15 +15,6 @@ require_once('../samiholck/settings.php');
   } */
 unset($_SESSION['invalid-contact-form']);
 
-function printVar(array $var) {
-  foreach ($var as $key => $value) {
-    if (is_array($value)) {
-      $value = var_export($value, true);
-    }
-    echo "<b>$key</b>: $value\n";
-  }
-}
-
 use Sphp\Security\CRSFToken;
 use Sphp\Config\Config;
 use Sphp\Validators\FormValidator;
@@ -34,6 +25,8 @@ use Sphp\Manual\Contact\ContactData;
 if (!CRSFToken::instance()->verifyPostToken('contact-form')) {
   CRSFToken::instance()->unsetToken('contact-form');
   $_SESSION['invalid-contact-form'] = 'Form is rejected by the server';
+  $_SESSION['contact-form-submitted'] = false;
+  echo "ebregrea";
 } else {
   CRSFToken::instance()->unsetToken('contact-form');
   $args = [
@@ -52,22 +45,24 @@ if (!CRSFToken::instance()->verifyPostToken('contact-form')) {
   $validator->set('subject', new RequiredValueValidator());
   $validator->set('message', new RequiredValueValidator());
   if ($validator->isValid($vals)) {
-
-   /* echo "Valid form<pre>";
-    printVar($vals);
-    echo "</pre>";*/
+    include 'verifyRecaptha.php';
+    echo "ebra";
+    /* echo "Valid form<pre>";
+      printVar($vals);
+      echo "</pre>"; */
     $data = new ContactData($vals);
-    $mailer = new ContactMailer('sami.holck@gmail.com', 'sami.holck@samiholck.com');
-    $mailer->send($data);
+    $mailer = new ContactMailer('sami.holck@samiholck.com', 'sami.holck@gmail.com');
+    $mailer->sendContactData($data);
+    $_SESSION['contact-form-submitted'] = true;
   }
 }
-/* echo "<pre>";
-  echo '<h1>$_POST</h1>';
-  printVar($_POST);
-  echo '<h1>$_SESSION</h1>';
-  printVar($_SESSION);
-  echo "</pre>"; */
+echo "<pre>";
+echo '<h1>$_POST</h1>';
+print_r($_POST);
+echo '<h1>$_SESSION</h1>';
+print_r($_SESSION);
+echo "</pre>";
 
 use Sphp\Http\Headers\Location;
 
-(new Location(Config::instance()->get('HTTP_ROOT') . "who"))->execute();
+//(new Location(Config::instance()->get('ROOT_URL') . "who"))->execute();
