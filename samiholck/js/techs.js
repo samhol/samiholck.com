@@ -10,26 +10,26 @@ $(function () {
     adaptiveHeight: true,
     asNavFor: '#skill-icons'
   });
-/**
-$breakpoints: (
-  small: 0,
-  medium: 640px,
-  large: 1024px,
-  xlarge: 1200px,
-  xxlarge: 1440px,
-);
- */
+  /**
+   $breakpoints: (
+   small: 0,
+   medium: 640px,
+   large: 1024px,
+   xlarge: 1200px,
+   xxlarge: 1440px,
+   );
+   */
   var $slick = $('#skill-icons').slick({
     dots: true,
     infinite: true,
-    speed: 5000,
-    autoplay: true,
+    //speed: 5000,
+    //autoplay: true,
     slidesToShow: 3,
     slidesToScroll: 1,
     asNavFor: '#skill-info',
     centerMode: true,
     focusOnSelect: true,
-    centerPadding: '60px',
+    //centerPadding: '60px',
     //centerMode: true,
     variableWidth: true,
     responsive: [
@@ -66,7 +66,7 @@ $breakpoints: (
       // instead of a settings object
     ]
   });
-  var $output = $("#explanation");
+  /*var $output = $("#explanation");
   $(".sphp-tech-slick .sphp-info-button").on("click", function () {
     var $this = $(this), $div,
             $obj = $this.attr("data-tech");
@@ -76,5 +76,6 @@ $breakpoints: (
     $this.siblings().removeClass('sphp-is-active');
     //$div = $('#info-modal');
     //$div.centerTo($('body main'), true);
-  });
+  });*/
+
 });

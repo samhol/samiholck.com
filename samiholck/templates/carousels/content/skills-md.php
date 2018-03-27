@@ -1,12 +1,22 @@
 <?php
-//require_once '../../../settings.php';
 
+//require_once '../../../settings.php';
+use Sphp\Html\Foundation\Sites\Foundation;
+use Samiholck\skillLevelBar as bar;
 ?>
 <div id="sphp-info" markdown="1">
   <h2>SPHPlayground framework</h2>
+
+  <?php echo Samiholck\skillLevelBar(100); ?>
+
+  SPHPlayground is my own personal 'pet' project. 
+  This framework saw first daylight in 2009 or so. It was first only a small 
+  sample of tools for creating HTML components with PHP language.
+
   SPHPlayground is an open source framework for developing interactive web 
-  applications and services in object oriented PHP. SPHPlayground can be a part 
-  of full stack Web application development.   
+  applications and services in object oriented PHP. SPHPlayground is used as 
+  in all my latest PHP related projects.  
+
   <hr> 
   <div class="button-group small align-right">
     <a class="button" href="http://playground.samiholck.com/">
@@ -26,8 +36,11 @@
 <div id="html5-info" markdown="1">
   ##HTML5
 
+  <?php echo Samiholck\skillLevelBar(98); ?>
+
   HTML5 is a markup language used for structuring and presenting content on the 
   World Wide Web. It is the fifth and current major version of the HTML standard.
+
   <hr>
   <div class="button-group small align-right">
     <a class="button w3c" href="https://www.w3.org/TR/2010/WD-html5-20100624/"><i class="fas fa-book"></i> w3.org</a>
@@ -36,9 +49,11 @@
   </div>
 
 </div>
-<div id="css-info" markdown="1"> 
+<div id="css-sass-info" markdown="1"> 
   ##CSS <small>Cascading Style Sheets</small>
-  
+
+  <?php echo Samiholck\skillLevelBar(98); ?>
+
   CSS is a stylesheet language used to describe the 
   presentation of a document written in HTML or XML (including XML dialects such 
   as SVG or XHTML). CSS describes how elements should be rendered on screen, 
@@ -49,18 +64,19 @@
     <a class="button mdn" href="https://developer.mozilla.org/en-US/docs/Web/CSS"><i class="fas fa-book"></i> MDN</a>
     <a class="button w3schools" href="https://www.w3schools.com/css/default.asp"><i class="fas fa-book"></i> w3schools<span class="com">.com</span></a>
   </div>
-</div>
-<div id="sass-info" markdown="1">
   ##SASS <small>Syntactically Awesome Stylesheet</small>
+
+  <?php echo Samiholck\skillLevelBar(94); ?>
+
   SASS is a CSS pre-processor, which helps to reduce repetition with CSS and 
   saves time. It is stable and powerful CSS extension language that describes 
   the style of document structurally. 
-  
+
   SASS makes it possible to use variables, nested rules, mixins, inline 
   imports. It helps keep large stylesheets well-organized, and get small 
   stylesheets up and running quickly, particularly with the help of the 
   [Compass](http://compass-style.org/) style library.
-  
+
   <hr>
   <div class="button-group small align-right">
     <a class="button sass" href="http://sass-lang.com/"><i class="fas fa-home"></i> Sass home</a>
@@ -71,6 +87,8 @@
 
 <div id="js-info" markdown="1">
   ##JavaScript <small>programming language</small>
+
+  <?php echo Samiholck\skillLevelBar(80); ?>
 
   JavaScript (often shortened to JS) is a lightweight, interpreted, 
   object-oriented language with first-class functions, and is best known as the 
@@ -87,7 +105,9 @@
 
 <div id="nodejs-info" markdown="1">
   ##Node.js <small>a JavaScript run-time environment</small>
-  
+
+  <?php echo Samiholck\skillLevelBar(47); ?>
+
   Node.js is a platform built on Chrome's JavaScript runtime for building fast, 
   scalable network applications. Node.js uses an event-driven, non-blocking 
   I/O model that makes it lightweight and efficient, perfect for data-intensive 
@@ -102,6 +122,9 @@
 
 <div id="gulp-info" markdown="1">
   ##gulp <small>toolkit</small>
+
+  <?php echo Samiholck\skillLevelBar(52); ?>
+
   gulp is a toolkit for automating painful or time-consuming tasks in 
   developmental workflow, so you can stop messing around and build something.
   <hr>
@@ -114,7 +137,10 @@
 </div>
 
 <div id="foundation-info" markdown="1">
-  ##Foundation for sites (framework)
+  ##Foundation <small>framework</small>
+
+  <?php echo Samiholck\skillLevelBar(90); ?>
+
   Foundation is a responsive HTML front-end framework. Foundation provides a 
   responsive grid and HTML and CSS UI components, templates, and code snippets, 
   as well as optional functionality provided by JavaScript extensions.
@@ -128,6 +154,9 @@
 
 <div id="php-info" markdown="1">
   ##PHP <small>programming language</small>
+
+  <?php echo Samiholck\skillLevelBar(95); ?>
+
   PHP (recursive acronym for PHP: Hypertext Preprocessor) is a open source 
   general-purpose scripting language that is especially suited for web 
   development and can be embedded into HTML.
@@ -141,7 +170,10 @@
 
 
 <div id="symfony-info" markdown="1">
-  ##Symfony framework
+  ##Symfony <small>framework</small>
+
+  <?php echo Samiholck\skillLevelBar(45); ?>
+
   Symfony is a PHP web application framework and a set of reusable PHP 
   components/libraries. Symfony was published as free software on October 18, 
   2005 and released under the MIT license.
@@ -154,7 +186,10 @@
 </div>
 
 <div id="zend-info" markdown="1">
-  ##Zend framework
+  ##Zend <small>framework</small>
+
+  <?php echo Samiholck\skillLevelBar(63); ?>
+
   Zend is an open source PHP framework. It is pure object-oriented and built 
   around the MVC design pattern. Zend framework contains collection of PHP 
   packages which can be used to develop web applications and services. 
@@ -168,7 +203,10 @@
 </div>
 
 <div id="doctrine-info" markdown="1">
-  ##Doctrine (PHP)
+  ##Doctrine <small>framework</small>
+
+  <?php echo Samiholck\skillLevelBar(45); ?>
+
   The Doctrine Project is the home to several PHP libraries primarily focused 
   on database storage and object mapping. The core projects are a Object 
   Relational Mapper (ORM) and the Database Abstraction Layer (DBAL)
@@ -183,11 +221,13 @@
 
 <div id="mysql-info" markdown="1">
   ##MySQL 
-  MySQL is an open-source relational database management system (RDBMS).
 
-  MySQL is a central component of the LAMP open-source web application software stack 
+  <?php echo Samiholck\skillLevelBar(59); ?>
+
+  MySQL is an open-source relational database management system (RDBMS).
+  It is a central component of the LAMP open-source web application software stack 
   (and other "AMP" stacks). LAMP is an acronym for "Linux, Apache, MySQL, 
-  Perl/PHP/Python". Applications that use the MySQL database 
+  Perl/PHP/Python".
   <hr>
   <div class="button-group small align-right">
     <a class="button" href="https://www.mysql.com/"><i class="fas fa-home"></i> Official site</a>
@@ -198,6 +238,9 @@
 
 <div id="postgresql-info" markdown="1">
   ##PostgreSQL
+
+  <?php echo Samiholck\skillLevelBar(55); ?>
+
   PostgreSQL is an object-relational database management 
   system (ORDBMS) with an emphasis on extensibility and standards compliance. Its 
   primary functions are to store data securely and return that data in response 
@@ -212,15 +255,18 @@
 
 <div id="sqlite-info" markdown="1">
   ##SQLite
-SQLite is a relational database management system. SQLite is not a client–server 
-database engine. Rather, it is embedded into the end program. SQLite is ACID-compliant 
-and implements most of the SQL standard.
 
-SQLite is a popular choice as embedded database software for local/client storage 
-in application software such as web browsers. It is arguably the most widely 
-deployed database engine, as it is used today by several widespread browsers, 
-operating systems, and embedded systems (such as mobile phones), among others. 
-SQLite has bindings to many programming languages.
+  <?php echo Samiholck\skillLevelBar(55); ?>
+
+  SQLite is a relational database management system. SQLite is not a client–server 
+  database engine. Rather, it is embedded into the end program. SQLite is ACID-compliant 
+  and implements most of the SQL standard.
+
+  SQLite is a popular choice as embedded database software for local/client storage 
+  in application software such as web browsers. It is arguably the most widely 
+  deployed database engine, as it is used today by several widespread browsers, 
+  operating systems, and embedded systems (such as mobile phones), among others. 
+  SQLite has bindings to many programming languages.
 
   <hr>
   <div class="button-group small align-right">
@@ -232,6 +278,9 @@ SQLite has bindings to many programming languages.
 
 <div id="java-info" markdown="1">
   ##Java <small>programming language</small>
+
+  <?php echo Samiholck\skillLevelBar(54); ?>
+
   Java is a general-purpose computer-programming language that is concurrent, class-based, 
   object-oriented, and specifically designed to have as few implementation dependencies as possible.
 
@@ -250,6 +299,9 @@ SQLite has bindings to many programming languages.
 
 <div id="apache-info" markdown="1">
   ##Apache HTTP Server
+
+  <?php echo Samiholck\skillLevelBar(56); ?>
+
   The Apache HTTP Server is a free and open-source cross-platform web server. It 
   is developed and maintained by an open community of developers under the 
   auspices of the Apache Software Foundation.
@@ -268,43 +320,59 @@ SQLite has bindings to many programming languages.
 <div id="photoshop-info" markdown="1">
   ##Adobe Photoshop
 
+  <?php echo Samiholck\skillLevelBar(79); ?>
+
   Adobe Photoshop is a raster graphics editor developed and published by Adobe 
   Systems for macOS and Windows. It has become the de facto industry standard in 
   raster graphics editing, such that the word "photoshop" has become a verb as in "to Photoshop an image.
 
-  I have worked with **Photoshop** for nearly two decades now and I have atleast some experience with following versions:
+  I have worked with many releases of **Photoshop** for nearly two decades now.
 
-* 5.0, 5.5, 6.0, 7.0
-* CS (8.0), CS2 (9.0), CS3 (10.0),  CS6 (13.0)
-
-<hr>
+  <hr>
   <div class="button-group small align-right">
     <a class="button" href="https://www.adobe.com/fi/products/photoshop.html"><i class="fas fa-home"></i> Official site</a>
     <a class="button" href="https://helpx.adobe.com/fi/photoshop/user-guide.html"><i class="fas fa-book"></i> Docs</a>
   </div>
 
 </div>
-<!--
+
 <div id="c-info" markdown="1">
-  ##C <small>programming language</small>
+  ##C <small>language</small>
+
+  <?php echo Samiholck\skillLevelBar(30, 'C skills: %d%%'); ?>
 
   C is a general-purpose, imperative computer programming language, supporting 
   structured programming, lexical variable scope and recursion, while a static 
-  type system prevents many unintended operations. By design, C provides constructs 
-  that map efficiently to typical machine instructions, and therefore it has found 
-  lasting use in applications that had formerly been coded in assembly language, 
-  including operating systems, as well as various application software for computers 
+  type system prevents many unintended operations. C is used in many operating 
+  systems, as well as various application software for computers 
   ranging from supercomputers to embedded systems.
+  
+  <div class="button-group small align-right">
+    <a class="button" href="https://www.adobe.com/fi/products/photoshop.html"><i class="fas fa-home"></i>C language</a>
+    <a class="button" href="https://helpx.adobe.com/fi/photoshop/user-guide.html"><i class="fas fa-book"></i> Docs</a>
+    <a class="button" href="https://www.adobe.com/fi/products/photoshop.html">Official site</a>
+    <a class="button" href="https://helpx.adobe.com/fi/photoshop/user-guide.html"><i class="fas fa-book"></i> Docs</a>
+  </div>
+  
+  ##C++ <small>language</small>
 
+  <?php echo Samiholck\skillLevelBar(35, 'C++ skills: %d%%'); ?>
+
+
+  C++ is a general-purpose programming language. It has imperative, object-oriented 
+  and generic programming features, while also providing facilities for low-level 
+  memory manipulation.
   <hr>
   <div class="button-group small align-right">
-    <a class="button" href="https://www.adobe.com/fi/products/photoshop.html"><i class="fas fa-home"></i>Official site</a>
+    <a class="button" href="https://www.adobe.com/fi/products/photoshop.html"><i class="fas fa-home"></i>C language</a>
+    <a class="button" href="https://helpx.adobe.com/fi/photoshop/user-guide.html"><i class="fas fa-book"></i> Docs</a>
+    <a class="button" href="https://www.adobe.com/fi/products/photoshop.html">Official site</a>
     <a class="button" href="https://helpx.adobe.com/fi/photoshop/user-guide.html"><i class="fas fa-book"></i> Docs</a>
   </div>
 
 </div>
 
-
+<!--
 <div id="cpp-info" markdown="1">
   ##C++ <small>programming language</small>
   C++  is a general-purpose programming language. It has imperative, object-oriented 

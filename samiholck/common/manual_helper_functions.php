@@ -145,3 +145,19 @@ function codeModal($trigger, string $path, $title = 'Source code'): Modal {
   $m->getPopup()->layout()->setSize('large');
   return $m;
 }
+
+namespace Samiholck;
+
+use Sphp\Html\Foundation\Sites\Media\ProgressBar;
+
+/**
+ * Return the skill level bar
+ * 
+ * @return ProgressBar 
+ */
+function skillLevelBar(int $level, string $pattern = "Experience: %s%%"): ProgressBar {
+  $skillBar = new ProgressBar($level);
+  $text = sprintf($pattern, $level);
+  $skillBar->setProgressText($text);
+  return $skillBar;
+}

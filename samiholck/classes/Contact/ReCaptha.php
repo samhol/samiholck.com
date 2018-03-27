@@ -7,6 +7,8 @@
 
 namespace Sphp\Manual\Contact;
 
+use Sphp\Html\Programming\ScriptSrc;
+
 /**
  * Description of ReCaptha
  *
@@ -16,8 +18,18 @@ namespace Sphp\Manual\Contact;
  */
 class ReCaptha {
 
-  public static function createImage(string $sitekey) {
-    return '<div class="g-recaptcha" data-sitekey="' . $sitekey . '"></div>';
+  /**
+   * 
+   * @param string $sitekey
+   * @param bool $loadScript
+   * @return type
+   */
+  public static function createImage(string $sitekey, bool $loadScript = true) {
+    $output = '<div class="g-recaptcha" data-sitekey="' . $sitekey . '"></div>';
+    if ($loadScript) {
+      $output .= (new ScriptSrc('https://www.google.com/recaptcha/api.js'))->setAsync()->setDefer();
+    }
+    return $output;
   }
 
   /**

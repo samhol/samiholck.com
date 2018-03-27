@@ -48,9 +48,9 @@ Document::head()
                     'source code',
                     'tips']))
         ->addMeta(Meta::description('Personal homepage of Sami Holck'));
-if ($redirect === 'who') {
-   Document::head()->appendScriptSrc('https://www.google.com/recaptcha/api.js')->setAsync()->setDefer();
-}
+/*if ($redirect === 'contactTest') {
+   Document::html()->scripts()->appendSrc('https://www.google.com/recaptcha/api.js')->setAsync()->setDefer();
+}*/
   
 //Document::body()->inlineStyles()->setProperty('visibility', 'hidden');
 Document::html()->scripts()->appendSrc('samiholck/js/techs.js');

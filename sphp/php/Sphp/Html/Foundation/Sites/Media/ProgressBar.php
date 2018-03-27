@@ -103,6 +103,20 @@ class ProgressBar extends AbstractComponent implements Colourable {
     return $this;
   }
 
+  /**
+   * Sets the current progress text
+   * 
+   * @param  string $progressText the optional screen reader text describing the current progress
+   * @return $this for a fluent interface
+   */
+  public function setProgressText(string $progressText) {
+    $this->attributes()
+            ->set('aria-valuetext', $progressText);
+    $this->attributes()->set('title', $progressText);
+    $this->progressMeter['progress-meter-text']->replaceContent($progressText);
+    return $this;
+  }
+
   public function contentToString(): string {
     return $this->progressMeter->getHtml();
   }

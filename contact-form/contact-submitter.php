@@ -4,16 +4,8 @@ error_reporting(E_ALL);
 ini_set("display_errors", "1");
 
 require_once('../samiholck/settings.php');
-//use Sphp\Sessions\FileSessionHandler;
-//$s = new FileSessionHandler();
-//session_save_path (__DIR__.'/sess');
-//$_SESSION['a'] = 'b';
-//echo "path: ".session_save_path ( );
-//session_write_close();
-/* if ($s->getSessionId()) {
-  $_SESSION['invalid-contact-form']
-  } */
-unset($_SESSION['invalid-contact-form']);
+
+//unset($_SESSION['contact-form']);
 
 use Sphp\Security\CRSFToken;
 use Sphp\Config\Config;
@@ -21,6 +13,7 @@ use Sphp\Validators\FormValidator;
 use Sphp\Validators\RequiredValueValidator;
 use Sphp\Manual\Contact\ContactMailer;
 use Sphp\Manual\Contact\ContactData;
+use Sphp\Security\ReCaptha;
 
 $args = [
     'fname' => FILTER_SANITIZE_STRING,
@@ -37,10 +30,9 @@ $vals = filter_input_array(INPUT_POST, $args);
 $_SESSION['contact-form']['form-data'] = $vals;
 if (!CRSFToken::instance()->verifyPostToken('contact-form')) {
   CRSFToken::instance()->unsetToken('contact-form');
-  $_SESSION['contact-form']['error'] = 'CRSF fail';
-} else if (!Sphp\Manual\Contact\ReCaptha::isValid('6Lfh6U4UAAAAAADk_T1MpBhlLy72QTMES2z_I9QB')) {
-  $_SESSION['contact-form']['error'] = 'Robot';
-  $_SESSION['contact-form']['error'] = 'CRSF fail';
+  $_SESSION['contact-form']['error'] = 'CRSF';
+} else if (!ReCaptha::isValid('6Lfh6U4UAAAAAADk_T1MpBhlLy72QTMES2z_I9QB')) {
+  $_SESSION['contact-form']['error'] = 'ROBOT';
 } else {
 
   $validator = new FormValidator();
@@ -69,4 +61,4 @@ CRSFToken::instance()->unsetToken('contact-form');
 
 use Sphp\Http\Headers\Location;
 
-(new Location(Config::instance()->get('ROOT_URL') . "who"))->execute();
+(new Location(Config::instance()->get('ROOT_URL') . "contactTest"))->execute();

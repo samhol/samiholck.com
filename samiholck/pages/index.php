@@ -3,7 +3,7 @@
 namespace Sphp\Manual;
 
 md(<<<MD
-#Sami Holck's <small>personal homepage</small>
+#Sami Holck <small>a FullStack Web Developer</small>
       
 ...some Things I know and have worked with...
 MD

@@ -20,11 +20,26 @@
       padding: rem-calc(5);
       height: rem-calc(220);
       //border: solid 1px #aaa;
-      
+      display: inline-block;
+
       svg {
         display: block;
         margin: auto;
         height: rem-calc(200);
+      }
+
+    }
+    .small-svg-container  {
+      display: inline-block;
+      width: rem-calc(80);
+      .cell {
+        display: inlime-block;
+        width: rem-calc(40);
+        svg {
+          display: block;
+          margin: auto;
+          height: rem-calc(30);
+        }
       }
     }
     &:hover, &.slick-current {

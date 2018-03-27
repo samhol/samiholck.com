@@ -22,9 +22,6 @@ use Sphp\Html\Media\Icons\Svg;
         <div class="svg-container">
           <?php echo Svg::fromFile('samiholck/svg/css3-logo.svg') ?>
         </div>
-      </div>
-
-      <div class="sphp-info-button" data-tech="sass-info">
         <div class="svg-container">
           <?php echo Svg::fromFile('samiholck/svg/sass-logo.svg') ?>
         </div>
@@ -111,6 +108,14 @@ use Sphp\Html\Media\Icons\Svg;
       <div class="sphp-info-button" data-tech="photoshop-info">
         <div class="svg-container">
           <?php echo Svg::fromFile('samiholck/svg/photoshop-logo.svg') ?>
+        </div>
+      </div>
+      <div class="sphp-info-button" data-tech="c-info">
+        <div class="svg-container">
+          <?php echo Svg::fromFile('samiholck/svg/c-logo.svg') ?>
+        </div>
+        <div class="svg-container">
+          <?php echo Svg::fromFile('samiholck/svg/cpp-logo.svg') ?>
         </div>
       </div>
 
