@@ -78,4 +78,3 @@ $breakpoints: (
     //$div.centerTo($('body main'), true);
   });
 });
-

@@ -19,7 +19,6 @@ Contact me if you do...
 <hr>
 MD
 );
-loadPage('contact');
+//oadPage('contact');
 //include 'samiholck/templates/carousels/videos.php';
 ?>
-<hr>

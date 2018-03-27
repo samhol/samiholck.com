@@ -90,7 +90,7 @@ class ContactData {
    * 
    * @return boolean
    */
-  public function hasPhoneNumber() {
+  public function hasPhoneNumber():bool {
     return !empty($this->phone);
   }
 
