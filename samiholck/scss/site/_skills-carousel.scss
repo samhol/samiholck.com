@@ -51,7 +51,7 @@
 #skill-info {
   //@include box-shadow(#ccc 3px 0px 8px 4px);
   // @include box-shadow(#ccc 0px 3px 8px 4px);
-  border-top: solid 1px #aaa;
+ // border-top: solid 1px #aaa;
   min-height: 350px;
   //@include border-radius(5px);
   //margin: rem-calc(5 30);
@@ -60,6 +60,7 @@
   h2 {
     background-color: rgba(230, 230, 230, .7);
     font-size: rem-calc(30);
+    border-top: solid 1px #aaa;
     border-bottom: solid 1px #aaa;
     margin: rem-calc(1);  // top right bottom left
     padding: rem-calc(3 5 3 10); // top right bottom left
@@ -67,6 +68,7 @@
   h3 {
     margin: rem-calc(10 20);
   }
+  
   p {
     margin: rem-calc(10 20);
   }
@@ -74,9 +76,16 @@
     margin: rem-calc(10 20);
     list-style-position: inside;
   }
-
+  .progress.skill {
+    .progress-meter {
+      background-color: #111;
+      .progress-meter-text {
+        color: $highlight-color;
+      }
+    }
+  }
   .button-group {
-    margin: rem-calc(10 20);
+    margin: rem-calc(10 20 30 20);
     a {
       font-family: 'Roboto', sans-serif;
       font-weight: bold;

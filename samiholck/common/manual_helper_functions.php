@@ -158,6 +158,6 @@ use Sphp\Html\Foundation\Sites\Media\ProgressBar;
 function skillLevelBar(int $level, string $pattern = "Experience: %s%%"): ProgressBar {
   $skillBar = new ProgressBar($level);
   $text = sprintf($pattern, $level);
-  $skillBar->setProgressText($text);
+  $skillBar->setProgressText($text)->addCssClass('skill');
   return $skillBar;
 }
