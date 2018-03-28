@@ -51,7 +51,7 @@
 #skill-info {
   //@include box-shadow(#ccc 3px 0px 8px 4px);
   // @include box-shadow(#ccc 0px 3px 8px 4px);
- // border-top: solid 1px #aaa;
+  // border-top: solid 1px #aaa;
   min-height: 350px;
   //@include border-radius(5px);
   //margin: rem-calc(5 30);
@@ -68,7 +68,7 @@
   h3 {
     margin: rem-calc(10 20);
   }
-  
+
   p {
     margin: rem-calc(10 20);
   }
@@ -124,6 +124,14 @@
         color: #fff;
         .com {
           color: #fc1;
+        }
+      }
+      &.wikibooks {
+        path {
+          fill: #0033cc;
+        }
+        .books {
+          color:  #0033cc;
         }
       }
     }

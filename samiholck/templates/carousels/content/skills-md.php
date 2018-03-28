@@ -86,7 +86,7 @@ use Samiholck\skillLevelBar as bar;
 </div>
 
 <div id="js-info" markdown="1">
-  ##JavaScript <small>programming language</small>
+  ##JavaScript <small>language</small>
 
   <?php echo Samiholck\skillLevelBar(80); ?>
 
@@ -153,7 +153,7 @@ use Samiholck\skillLevelBar as bar;
 </div>
 
 <div id="php-info" markdown="1">
-  ##PHP <small>programming language</small>
+  ##PHP <small>language</small>
 
   <?php echo Samiholck\skillLevelBar(95); ?>
 
@@ -232,7 +232,7 @@ use Samiholck\skillLevelBar as bar;
   <div class="button-group small align-right">
     <a class="button" href="https://www.mysql.com/"><i class="fas fa-home"></i> Official site</a>
     <a class="button docs" href="https://dev.mysql.com/doc/"><i class="fas fa-book"></i> Docs</a>
-    <a class="button" href="https://dev.mysql.com/downloads/"><i class="fas fa-download"></i> Downloads</a>
+    <a class="button download" href="https://dev.mysql.com/downloads/"><i class="fas fa-download"></i> Downloads</a>
   </div>
 </div>
 
@@ -277,7 +277,7 @@ use Samiholck\skillLevelBar as bar;
 </div>
 
 <div id="java-info" markdown="1">
-  ##Java <small>programming language</small>
+  ##Java <small>language</small>
 
   <?php echo Samiholck\skillLevelBar(54); ?>
 
@@ -285,6 +285,7 @@ use Samiholck\skillLevelBar as bar;
   object-oriented, and specifically designed to have as few implementation dependencies as possible.
 
   ###JDK (Java Development Kit)
+  
   The JDK forms an extended subset of a software development kit (SDK). It 
   includes tools for developing, debugging, and monitoring Java applications.
   <hr>
@@ -348,45 +349,23 @@ use Samiholck\skillLevelBar as bar;
   ranging from supercomputers to embedded systems.
   
   <div class="button-group small align-right">
-    <a class="button" href="https://www.adobe.com/fi/products/photoshop.html"><i class="fas fa-home"></i>C language</a>
-    <a class="button" href="https://helpx.adobe.com/fi/photoshop/user-guide.html"><i class="fas fa-book"></i> Docs</a>
-    <a class="button" href="https://www.adobe.com/fi/products/photoshop.html">Official site</a>
-    <a class="button" href="https://helpx.adobe.com/fi/photoshop/user-guide.html"><i class="fas fa-book"></i> Docs</a>
+    <a class="button" href="http://www.open-std.org/jtc1/sc22/wg14/"><i class="fas fa-book"></i>JTC1/SC22/WG14 - C</a>
+    <a class="button wikibooks" href="https://en.wikibooks.org/wiki/C_Programming"><i class="fas fa-book"></i> WIKI<span class="books">BOOKS</span></a>
+    <a class="button tutorialspoint" href="https://www.tutorialspoint.com/cprogramming/index.htm"><i class="fas fa-book"></i> tutorialspoint</a>
   </div>
   
   ##C++ <small>language</small>
 
   <?php echo Samiholck\skillLevelBar(35, 'C++ skills: %d%%'); ?>
 
-
   C++ is a general-purpose programming language. It has imperative, object-oriented 
   and generic programming features, while also providing facilities for low-level 
   memory manipulation.
   <hr>
   <div class="button-group small align-right">
-    <a class="button" href="https://www.adobe.com/fi/products/photoshop.html"><i class="fas fa-home"></i>C language</a>
-    <a class="button" href="https://helpx.adobe.com/fi/photoshop/user-guide.html"><i class="fas fa-book"></i> Docs</a>
-    <a class="button" href="https://www.adobe.com/fi/products/photoshop.html">Official site</a>
-    <a class="button" href="https://helpx.adobe.com/fi/photoshop/user-guide.html"><i class="fas fa-book"></i> Docs</a>
+    <a class="button" href="http://www.cplusplus.com/"><i class="fas fa-book"></i> cplusplus.com</a>
+    <a class="button wikibooks" href="https://en.wikibooks.org/wiki/C++_Programming"><i class="fas fa-book"></i> WIKI<span class="books">BOOKS</span></a>
+    <a class="button tutorialspoint" href="https://www.tutorialspoint.com/cplusplus/index.htm"><i class="fas fa-book"></i> tutorialspoint</a>
   </div>
 
 </div>
-
-<!--
-<div id="cpp-info" markdown="1">
-  ##C++ <small>programming language</small>
-  C++  is a general-purpose programming language. It has imperative, object-oriented 
-  and generic programming features, while also providing facilities for low-level 
-  memory manipulation.
-
-  C++ is standardized by the International Organization for Standardization (ISO).
-
-
-  <hr>
-  <div class="button-group small align-right">
-    <a class="button" href="https://www.adobe.com/fi/products/photoshop.html">Official site</a>
-    <a class="button" href="https://helpx.adobe.com/fi/photoshop/user-guide.html"><i class="fas fa-book"></i> Docs</a>
-  </div>
-
-</div>
--->

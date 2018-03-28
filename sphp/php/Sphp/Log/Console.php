@@ -19,7 +19,6 @@ use Sphp\Exceptions\BadMethodCallException;
  * @method void error(mixed $message) Logs error message to browser console
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @since   2018-03-21
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
