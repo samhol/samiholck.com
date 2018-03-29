@@ -119,6 +119,17 @@ $clean-hero-slider-accent: $warning-color;
         font-weight: normal;
       }
     }
+    .button-group {
+      margin: 0 auto;
+      display: flex; 
+      justify-content: center; 
+      a:first-child {
+        @include border-left-radius(3px);
+      }
+      a:last-child {
+        @include border-right-radius(3px);
+      }
+    }
   }
 
   .orbit-slide {

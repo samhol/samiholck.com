@@ -2,7 +2,6 @@
 
 namespace Sphp\Html;
 
-
 error_reporting(E_ALL);
 ini_set("display_errors", "1");
 
@@ -31,7 +30,7 @@ Document::head()
         ->addMeta(Meta::charset('UTF-8'))
         ->addCssSrc('css/intro/styles.all.css')
         ->addCssSrc('https://cdnjs.cloudflare.com/ajax/libs/motion-ui/1.1.1/motion-ui.min.css')
-       // ->useFontAwesome()
+        // ->useFontAwesome()
         //->useFoundationIcons()
         //->addCssSrc('css/styles.all.css')
         //->addCssSrc('https://cdn.rawgit.com/konpa/devicon/master/devicon.min.css')
@@ -56,10 +55,10 @@ Document::head()
                     'source code',
                     'tips']))
         ->addMeta(Meta::description('Personal homepage of Sami Holck'));
-/*if ($redirect === 'contactTest') {
-   Document::html()->scripts()->appendSrc('https://www.google.com/recaptcha/api.js')->setAsync()->setDefer();
-}*/
-  
+/* if ($redirect === 'contactTest') {
+  Document::html()->scripts()->appendSrc('https://www.google.com/recaptcha/api.js')->setAsync()->setDefer();
+  } */
+
 //Document::body()->inlineStyles()->setProperty('visibility', 'hidden');
 //Document::html()->scripts()->appendSrc('samiholck/js/techs.js');
 Document::html()->startBody();
@@ -67,11 +66,9 @@ Document::html()->startBody();
 
 
 $cacheSuffix = str_replace(['.', '/'], ['-', ''], $redirect) . "-cache";
-
-
 ?>
 
-<div class="orbit clean-hero-slider" role="region" aria-label="Favorite Space Pictures" data-orbit>
+<div class="orbit clean-hero-slider" role="region" aria-label="Who is Sami Holck" data-orbit>
   <div class="orbit-wrapper">
     <div class="orbit-controls">
       <button class="orbit-previous"><span class="show-for-sr">Previous Slide</span>&#9664;&#xFE0E;</button>
@@ -83,31 +80,39 @@ $cacheSuffix = str_replace(['.', '/'], ['-', ''], $redirect) . "-cache";
           <img class="orbit-image" src="intro/burning.jpg" alt="Falmes in Mellilä">
           <figcaption class="orbit-caption">
             <h3>Burning desire</h3>
-            <p>Etiam porta sem malesuada magna mollis euismod. Vestibulum id ligula porta felis euismod semper.</p>
+            <p>I do WEB desing related things almost every day. Web is my passion 
+              and hobby and hopefully also a work soon!</p>
             <a href="#" class="button yellow">Mattis Elit</a>
           </figcaption>
         </figure>
       </li>
       <li class="orbit-slide">
         <figure class="orbit-figure">
-          <img class="orbit-image" src="intro/summer_night.jpg" alt="Summer night in Mellilä">
+          <img class="orbit-image" src="intro/fullstack.jpg" alt="Summer night in Mellilä">
           <figcaption class="orbit-caption">
             <h3>Full Stack Web developer</h3>
-            <p>Nullam quis risus eget urna mollis ornare vel eu leo. Donec ullamcorper nulla non metus auctor fringilla. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-            <a href="#" class="button yellow">Egestas Amet</a>
+            <p>I am comfortable working with all the technologies required to get 
+              a WEB application to a finished product. I am familiar with all the 
+              layers of WEB development... and I have fair knowledge of Networking, 
+              Database, User Interface , API, Security etc.</p>
+            <div class="button-group">
+              <a href="#" class="button yellow">php.net</a>
+              <a href="#" class="button yellow">w3c.org</a>
+              <a href="#" class="button yellow">javascript.com</a>
+            </div>
           </figcaption>
-        </figure>
+        </figure> 
       </li>
       <li class="orbit-slide">
         <figure class="orbit-figure">
           <img class="orbit-image" src="intro/project.jpg" alt="Painting the barn">
           <figcaption class="orbit-caption">
             <h3>Projects</h3>
-            <p>Fusce dapibus, tellus ac cursus commodo, sit amet risus. Cras mattis consectetur purus sit amet fermentum. Maecenas sed diam sit amet non magna.</p>
+            <p>I have been working with several WEB sites and WEB related projects.</p>
             <div class="button-group">
-            <a href="#" class="button yellow">samiholck.com</a>
-            <a href="#" class="button yellow">SPHPlayground</a>
-            <a href="#" class="button yellow">Raision veneseura</a>
+              <a href="http:www.samiholck.com/" class="button yellow">samiholck.com</a>
+              <a href="http:playground.samiholck.com/" class="button yellow">SPHPlayground</a>
+              <a href="#" class="button yellow">Raision veneseura</a>
             </div>
           </figcaption>
         </figure>
@@ -122,5 +127,4 @@ $cacheSuffix = str_replace(['.', '/'], ['-', ''], $redirect) . "-cache";
 </div>
 
 <?php
-
 $html->documentClose();
