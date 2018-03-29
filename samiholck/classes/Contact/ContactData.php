@@ -5,7 +5,7 @@
  * Copyright (c) 2017 Sami Holck <sami.holck@gmail.com>
  */
 
-namespace Sphp\Manual\Contact;
+namespace Sphp\Samiholck\Contact;
 
 /**
  *
@@ -60,6 +60,7 @@ class ContactData {
     foreach ($data as $k => $v) {
       $this->{$k} = $v;
     }
+    $this->contacter = new \Sphp\Data\Human\Person($data);
   }
 
   /**
@@ -90,7 +91,7 @@ class ContactData {
    * 
    * @return boolean
    */
-  public function hasPhoneNumber():bool {
+  public function hasPhoneNumber(): bool {
     return !empty($this->phone);
   }
 

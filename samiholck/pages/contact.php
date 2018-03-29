@@ -5,6 +5,7 @@ namespace Sphp\Html\Foundation\Sites\Forms\Inputs;
 use Sphp\Html\Foundation\Sites\Forms\GridForm;
 use Sphp\Html\Foundation\Sites\Buttons\Button;
 use Sphp\Security\CRSFToken;
+use Sphp\Security\ReCaptha;
 
 $newToken = CRSFToken::instance()->generateToken('contact-form');
 
@@ -45,7 +46,7 @@ $messageField = InputColumn::textarea('message', null, 5)
         ->setPlaceholder('Message text')
         ->setErrorField('You need to write a message');
 $form->append($messageField);
-$form->append(\Sphp\Manual\Contact\ReCaptha::createImage('6Lfh6U4UAAAAADLo3tCgAn27Zqam37ZsOBx41yt-'));
+$form->append(ReCaptha::createImage('6Lfh6U4UAAAAADLo3tCgAn27Zqam37ZsOBx41yt-'));
 //$form->append('<div class="g-recaptcha" data-sitekey="6Lfh6U4UAAAAADLo3tCgAn27Zqam37ZsOBx41yt-"></div><br/>');
 $form->append(Button::submitter('Submit form', 'submit'));
 

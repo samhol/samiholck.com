@@ -11,8 +11,8 @@ use Sphp\Security\CRSFToken;
 use Sphp\Config\Config;
 use Sphp\Validators\FormValidator;
 use Sphp\Validators\RequiredValueValidator;
-use Sphp\Manual\Contact\ContactMailer;
-use Sphp\Manual\Contact\ContactData;
+use Sphp\Samiholck\Contact\ContactMailer;
+use Sphp\Samiholck\Contact\ContactData;
 use Sphp\Security\ReCaptha;
 
 $args = [
@@ -58,7 +58,4 @@ CRSFToken::instance()->unsetToken('contact-form');
   print_r($_SESSION);
   echo "</pre>";
  */
-
-use Sphp\Http\Headers\Location;
-
-(new Location(Config::instance()->get('ROOT_URL') . "contactTest"))->execute();
+include 'contact-form/back-to-referer.php';

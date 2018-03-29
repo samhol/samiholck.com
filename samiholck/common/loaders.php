@@ -4,8 +4,6 @@ namespace Sphp\MVC;
 
 use Sphp\Html\Foundation\Sites\Containers\ThrowableCallout;
 
-require_once('manual_helper_functions.php');
-
 $loadPage = function ($par, string $file = 'index') {
   //var_dump(func_get_args());
   try {

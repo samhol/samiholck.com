@@ -27,5 +27,3 @@ try {
   $currentUser = null;
   $currentPermissions = new Permissions();
 }
-
-//$sessionHandler->setLocale(LC_MESSAGES, "fi_FI")->useTextDomain("Sphp.Validation");
