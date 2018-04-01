@@ -1,8 +1,14 @@
- $(function () {
-    var $cont = $('#form-container');
-      console.log("Loading....");
+$(function () {
+  var $cont = $('#form-container'), abideForm;
+
+
+  //$cont.foundation();
+  loadAbide = function () {
+    console.log("Loading....");
     $cont.load('http://www.samiholck.com/contact-form/form-html.php', function () {
-      console.log("Load was performed.");
+      abideForm = new Foundation.Abide($cont.find('form'));
     });
-    $cont.foundation();
-  });
+  };
+
+  loadAbide();
+});
