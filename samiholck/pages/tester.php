@@ -18,3 +18,10 @@ echo "<pre>";
 var_dump($person->toArray());
 $c = new ContactData($data);
 echo "</pre>";
+
+?>
+
+
+<div class="centerer" >
+  <span class="popuptext" id="myPopup">A Simple Popup!</span>
+</div>

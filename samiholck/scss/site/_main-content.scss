@@ -51,7 +51,7 @@
       }
     }
     .page-navi {
-      
+
     }
     hr {
       border: 0;
@@ -94,3 +94,15 @@
 }
 
 @import "footer";
+
+.simple-popup {
+  z-index: 10000;
+  position: fixed;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: solid 1px #666;
+  background-color: #fafafa;
+  padding: rem-calc(10);
+  @include border-radius(3px);
+}

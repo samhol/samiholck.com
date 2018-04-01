@@ -16,8 +16,7 @@ use Sphp\Samiholck\Contact\ContactData;
 use Sphp\Security\ReCaptha;
 
 $args = [
-    'fname' => FILTER_SANITIZE_STRING,
-    'lname' => FILTER_SANITIZE_STRING,
+    'name' => FILTER_SANITIZE_STRING,
     'email' => FILTER_SANITIZE_STRING,
     'phone' => FILTER_SANITIZE_STRING,
     'subject' => FILTER_SANITIZE_STRING,
@@ -25,14 +24,17 @@ $args = [
 ];
 
 $_SESSION['contact-form']['submitted'] = false;
+$response['contact-form']['submitted'] = false;
 $vals = filter_input_array(INPUT_POST, $args);
-
+$response['contact-form']['raw_data'] = $vals;
 $_SESSION['contact-form']['form-data'] = $vals;
 if (!CRSFToken::instance()->verifyPostToken('contact-form')) {
   CRSFToken::instance()->unsetToken('contact-form');
   $_SESSION['contact-form']['error'] = 'CRSF';
+  $response['contact-form']['error'] = 'CRSF';
 } else if (!ReCaptha::isValid('6Lfh6U4UAAAAAADk_T1MpBhlLy72QTMES2z_I9QB')) {
   $_SESSION['contact-form']['error'] = 'ROBOT';
+  $response['contact-form']['error'] = 'ROBOT';
 } else {
 
   $validator = new FormValidator();
@@ -51,6 +53,11 @@ if (!CRSFToken::instance()->verifyPostToken('contact-form')) {
   }
 }
 CRSFToken::instance()->unsetToken('contact-form');
+
+use Sphp\Stdlib\Parsers\Json;
+
+$json = new Json();
+echo json_encode($response);
 /* echo "<pre>";
   echo '<h1>$_POST</h1>';
   print_r($_POST);
@@ -58,4 +65,4 @@ CRSFToken::instance()->unsetToken('contact-form');
   print_r($_SESSION);
   echo "</pre>";
  */
-include 'contact-form/back-to-referer.php';
+//include 'contact-form/back-to-referer.php';

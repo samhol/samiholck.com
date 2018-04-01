@@ -30,6 +30,7 @@ include_once 'contact-form/form.php';
 
 $modal = new Modal('<i class="far fa-envelope"></i> Contact form', $form);
 $modal->getPopup()->prepend('<h2>Contact Form</h2>');
+\Sphp\Html\Document::body()->scripts()->appendSrc('samiholck/js/contact-form.js');
 $modal->getTrigger()->addCssClass('button radius');
 echo $modal;
 

@@ -37,16 +37,16 @@
 
  */
 ?>
-<div class="title-bar" data-responsive-toggle="responsive-menu" data-hide-for="medium">
+<div class="title-bar sphp-hide-fouc-on-load" data-responsive-toggle="responsive-menu" data-hide-for="medium">
   <button class="menu-icon" type="button" data-toggle="responsive-menu"><span class="show-for-sr">Menu navigation</span></button>
 </div>
 
-<div class="top-bar" id="responsive-menu">
+<div class="top-bar sphp-hide-fouc-on-load" id="responsive-menu">
   <div class="top-bar-left">
     <ul  class="vertical medium-horizontal menu" data-responsive-menu="drilldown medium-dropdown">
       <li class="has-submenu">
         <a href="#">Projects</a>
-        <ul class="submenu menu vertical" data-submenu>
+        <ul class="submenu menu vertical sphp-hide-fouc-on-load" data-submenu>
           <li class="menu-text">Current:</li>
           <li><a href="http://playground.samiholck.com">SPHPlayground</a></li>
           <li class="menu-ruler"></li> 

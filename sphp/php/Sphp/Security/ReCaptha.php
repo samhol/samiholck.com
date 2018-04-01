@@ -8,7 +8,7 @@
 namespace Sphp\Security;
 
 use Sphp\Html\Programming\ScriptSrc;
-
+use Sphp\Html\Div;
 /**
  * Description of ReCaptha
  *
@@ -24,8 +24,12 @@ class ReCaptha {
    * @param bool $loadScript
    * @return type
    */
-  public static function createImage(string $sitekey, bool $loadScript = true) {
-    $output = '<div class="g-recaptcha" data-sitekey="' . $sitekey . '"></div>';
+  public static function createImage(string $sitekey, string $callbackName = null, bool $loadScript = true) {
+    $div = new Div();
+    $div->addCssClass('g-recaptcha');
+    $div->setAttribute('data-sitekey', $sitekey);
+    $div->setAttribute('data-callback', $callbackName);  
+    $output = $div->getHtml();
     if ($loadScript) {
       $output .= (new ScriptSrc('https://www.google.com/recaptcha/api.js'))->setAsync()->setDefer();
     }

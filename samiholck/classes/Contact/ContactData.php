@@ -19,12 +19,7 @@ class ContactData {
   /**
    * @var mixed 
    */
-  private $fname;
-
-  /**
-   * @var mixed 
-   */
-  private $lname;
+  private $name;
 
   /**
    * @var mixed 
@@ -67,17 +62,10 @@ class ContactData {
    * 
    * @return mixed
    */
-  public function getFname() {
-    return $this->fname;
+  public function getName() {
+    return $this->name;
   }
 
-  /**
-   * 
-   * @return mixed
-   */
-  public function getLname() {
-    return $this->lname;
-  }
 
   /**
    * 

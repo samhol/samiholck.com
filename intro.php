@@ -6,14 +6,14 @@ error_reporting(E_ALL);
 ini_set("display_errors", "1");
 
 require_once('samiholck/settings.php');
-
+use Sphp\Samiholck\MVC\TitleGenerator;
 $redirect = filter_input(INPUT_SERVER, 'REDIRECT_URL', FILTER_SANITIZE_URL);
 
 use Sphp\Stdlib\Path;
 
 $html = Document::html();
 
-$titleGenerator = new \Sphp\Manual\MVC\TitleGenerator($titles);
+$titleGenerator = new TitleGenerator($titles);
 
 //echo '<pre>';
 //echo \Sphp\MVC\Router::getCleanUrl();

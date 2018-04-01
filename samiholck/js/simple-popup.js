@@ -1,6 +1,4 @@
-<?php
-
-/*
+/* 
  * The MIT License
  *
  * Copyright 2018 Sami Holck <sami.holck@gmail.com>.
@@ -24,19 +22,30 @@
  * THE SOFTWARE.
  */
 
-namespace Sphp\Http\Headers;
 
-/**
- * Location header
- *
- * @author  Sami Holck <sami.holck@gmail.com>
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
- * @filesource
- */
-class Location extends GenericHeader {
-
-  public function __construct($value) {
-    parent::__construct($name, $value);
-  }
-
-}
+(function ($) {
+  'use strict';
+  /**
+   * The jQuery plugin namespace.
+   * @external "jQuery.fn"
+   * @see {@link http://learn.jquery.com/plugins/|jQuery Plugins}
+   */
+  /**
+   * Loads the data from the server pointed on the data attribute 'data-sph-load' using 
+   * jQuery's Ajax capabilities and places the returned HTML into the object.
+   * 
+   * @function external:"jQuery.fn".sphpAjaxPrepend
+   * @returns  {jQuery.fn} object for method chaining
+   */
+  $.fn.sphpSimplePopup = function ($content) {
+    return this.each(function () {
+      var $this = $(this),
+              $url = $this.attr("data-sphp-ajax-prepend"),
+              $popper = $('<div class="simple-popup">');
+      console.log("initializing simple popup");
+      $popper.html("<p>" + $content + "</p>");
+      $this.append($popper);
+      $popper.toggle();
+    });
+  };
+}(jQuery));
