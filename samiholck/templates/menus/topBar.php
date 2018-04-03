@@ -44,12 +44,14 @@
 <div class="top-bar sphp-hide-fouc-on-load" id="responsive-menu">
   <div class="top-bar-left">
     <ul  class="vertical medium-horizontal menu" data-responsive-menu="drilldown medium-dropdown">
+      <li><a href="http://www.samiholck.com/who">Who am I</a></li>
+      <li><a href="http://www.samiholck.com/why">Why?</a></li>
       <li class="has-submenu">
         <a href="#">Projects</a>
         <ul class="submenu menu vertical sphp-hide-fouc-on-load" data-submenu>
           <li class="menu-text">Current:</li>
           <li><a href="http://playground.samiholck.com">SPHPlayground</a></li>
-          <li class="menu-ruler"></li> 
+          <li class="menu-ruler"></li>
           <li><a href="http://www.raisionveneseura.fi">Raision veneseura</a></li>
           <li class="menu-text">Past: <i class="fas fa-ban fa-pull-right"></i></li>
           <li><a href="http://www.samiholck.com/archive/keiju">Keijupäiväkodit</i></a></li>
@@ -57,8 +59,6 @@
           <li><a href="http://www.samiholck.com/archive/dvdlabra">DVD laboratorio</a></li>
         </ul>
       </li>
-      <li><a href="http://www.samiholck.com/who">Who am I</a></li>
-      <li><a href="http://www.samiholck.com/why">Why?</a></li>
     </ul>
   </div>
   <div class="top-bar-right">

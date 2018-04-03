@@ -9,6 +9,8 @@ namespace Sphp\Security;
 
 use Sphp\Html\Programming\ScriptSrc;
 use Sphp\Html\Div;
+use Sphp\Html\Content;
+
 /**
  * Description of ReCaptha
  *
@@ -16,7 +18,66 @@ use Sphp\Html\Div;
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
-class ReCaptha {
+class ReCaptha implements Content {
+
+  use \Sphp\Html\ContentTrait;
+
+  /**
+   *
+   * @var Div
+   */
+  private $obj;
+
+  public function __construct(string $sitekey) {
+    $this->obj = new Div();
+    $this->obj->cssClasses()->protect('g-recaptcha');
+    $this->obj->setAttribute('data-sitekey', $sitekey);
+  }
+
+  public function __destruct() {
+    unset($this->obj);
+  }
+
+  public function getHtml(): string {
+    return $this->obj->getHtml();
+  }
+
+  /**
+   * Sets the JavaScript callback function
+   * 
+   * **Optional:** The name of the callback function, executed when the user 
+   * submits a successful response. The g-recaptcha-response token is passed 
+   * to the callback.
+   * 
+   * @param string|null $callbackName the JavaScript callback function ()null for none)
+   * @return $this for a fluent interface
+   */
+  public function setCallback(string $callbackName = null) {
+    $this->obj->setAttribute('data-callback', $callbackName);
+    return $this;
+  }
+
+  public function setExpiredCallback(string $callbackName = null) {
+    $this->obj->setAttribute('data-expired-callback', $callbackName);
+    return $this;
+  }
+
+  public function setErrorCallback(string $callbackName = null) {
+    $this->obj->setAttribute('data-error-callback', $callbackName);
+    return $this;
+  }
+
+  /**
+   * 
+   * @param  string $sitekey
+   * @param  string $callbackName
+   * @return ReCaptha
+   */
+  public static function createObject(string $sitekey, string $callbackName = null): ReCaptha {
+    $div = new static($sitekey);
+    $div->setCallback($callbackName);
+    return $div;
+  }
 
   /**
    * 
@@ -28,7 +89,7 @@ class ReCaptha {
     $div = new Div();
     $div->addCssClass('g-recaptcha');
     $div->setAttribute('data-sitekey', $sitekey);
-    $div->setAttribute('data-callback', $callbackName);  
+    $div->setAttribute('data-callback', $callbackName);
     $output = $div->getHtml();
     if ($loadScript) {
       $output .= (new ScriptSrc('https://www.google.com/recaptcha/api.js'))->setAsync()->setDefer();

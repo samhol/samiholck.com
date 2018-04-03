@@ -11,7 +11,6 @@ use Sphp\Html\AbstractComponent;
 use Sphp\Html\Foundation\Sites\Core\Colourable;
 use Sphp\Html\Foundation\Sites\Core\ColourableTrait;
 use Sphp\Html\Span;
-use Sphp\Html\Flow\Paragraph;
 
 /**
  * Implements a Progress Bar
@@ -43,7 +42,7 @@ class ProgressBar extends AbstractComponent implements Colourable {
     $this->progressMeter->cssClasses()->protect('progress-meter');
     $this->progressMeter['progress-meter-text'] = new Span();
     $this->progressMeter["progress-meter-text"]->cssClasses()->protect('progress-meter-text');
-    $this->identify();
+    //$this->identify();
     $this->attributes()
             ->set('data-sphp-progressbar', 'blaa')
             ->protect('tabindex', 0)
