@@ -13,14 +13,14 @@
    * @function external:"jQuery.fn".sphpAjaxPrepend
    * @returns  {jQuery.fn} object for method chaining
    */
-  $.fn.sphpSimplePopup = function (options) {
+  $.fn.sphpSimplePopup = function (content, options) {
     var opts = $.extend({}, $.fn.sphpSimplePopup.defaults, options);
     return this.each(function () {
       var $this = $(this), $o, $popper;
       $o = $.meta ? $.extend({}, opts, $this.data()) : opts;
       $popper = $('<div class="simple-popup">');
       console.log("initializing simple popup");
-      $popper.html("<p>" + $o.content + "</p>");
+      $popper.html("<p>" + content + "</p>");
       //$this.append($popper);
       $popper.appendTo($this)
               .css({
