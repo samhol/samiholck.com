@@ -7,8 +7,10 @@ require_once('../samiholck/settings.php');
 
 use Sphp\Html\Foundation\Sites\Forms\GridForm;
 use Sphp\Security\CRSFToken;
-use Sphp\Security\ReCaptha;
+use Sphp\Security\ReCaptcha;
 use Sphp\Html\Foundation\Sites\Forms\Inputs\InputColumn;
+use Sphp\Html\Foundation\Sites\Buttons\ButtonGroup;
+use Sphp\Html\Media\Icons\FontAwesome;
 
 $newToken = CRSFToken::instance()->generateToken('contact-form');
 
@@ -16,6 +18,7 @@ $form = (new GridForm())
         ->addCssClass('contact-form')
         ->setMethod('post')
         ->useValidation()
+        ->setFormErrorMessage(FontAwesome::ban() . ' There are errors in your submission')
         ->setAction('contact-form/send.php');
 // ->validateOnBlur()
 // ->liveValidate();
@@ -27,32 +30,37 @@ $fnameField = InputColumn::text('name')
         ->setLabel('Name')
         ->setPlaceholder('your name');
 $form->append($fnameField);
-$emailField = InputColumn::email('email')->setSubmitValue('sami.holck@gmail.com')
+$emailField = InputColumn::email('email')
+        //->setSubmitValue('sami.holck@gmail.com')
         ->setRequired()
         ->setErrorField('You need to give your Email address')
         ->setLabel('Email address')
         ->setPlaceholder('Email address');
 $form->append($emailField);
 
-$subjectField = InputColumn::text('subject', 'f')
+$subjectField = InputColumn::text('subject')
+        //->setSubmitValue('sami.holck@gmail.com')
         ->setRequired()
         ->setErrorField('You need to set a subject')
         ->setLabel('Message subject')
         ->setPlaceholder('subject');
 $form->append($subjectField);
 
-$messageField = InputColumn::textarea('message', null, 5)->setSubmitValue(' df')
+$messageField = InputColumn::textarea('message', null, 5)
+        //->setSubmitValue(' df')
         ->setLabel('Contact message')
         ->setRequired()
         ->setPlaceholder('Message text')
         ->setErrorField('You need to write a message');
 $form->append($messageField);
+$reCaptcha = ReCaptcha::createObject('6Lfh6U4UAAAAADLo3tCgAn27Zqam37ZsOBx41yt-');
+$form->append($reCaptcha);
 
-$form->append(ReCaptha::createImage('6Lfh6U4UAAAAADLo3tCgAn27Zqam37ZsOBx41yt-', 'correctCaptcha'));
-$bGroup = new \Sphp\Html\Foundation\Sites\Buttons\ButtonGroup;
-$bGroup->appendSubmitter('<i class="far fa-envelope"></i> Submit form')->setColor('success');
-$bGroup->appendResetter('<i class="fas fa-eraser"></i> Reset form')->setColor('alert');
+$bGroup = new ButtonGroup;
+
+$bGroup->appendSubmitter(FontAwesome::envelope() . ' Submit form')->setColor('success');
+$bGroup->appendResetter(FontAwesome::eraser() . ' Reset form')->setColor('alert');
 $form->append($bGroup);
 
 $form->setAttribute('data-validators', 'capV.setValid');
-echo $form;
+echo $form. ReCaptcha::createScripts();

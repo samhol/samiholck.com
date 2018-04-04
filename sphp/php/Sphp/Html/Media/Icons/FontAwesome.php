@@ -87,6 +87,10 @@ class FontAwesome {
       'database' => 'fas fa-database',
       'search' => 'fas fa-search',
       'ban' => 'fas fa-ban',
+      'eraser' => 'fas fa-eraser',
+      /**
+       * Brands
+       */
       'apple' => 'fab fa-apple',
       'android' => 'fab fa-android',
       'angular' => 'fab fa-angular',

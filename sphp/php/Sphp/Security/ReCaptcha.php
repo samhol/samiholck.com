@@ -12,13 +12,14 @@ use Sphp\Html\Div;
 use Sphp\Html\Content;
 
 /**
- * Description of ReCaptha
+ * Implements Google reCAPTCHA HTML component
  *
  * @author  Sami Holck <sami.holck@gmail.com>
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
+ * @link    https://developers.google.com/recaptcha/ Google reCAPTCHA
  * @filesource
  */
-class ReCaptha implements Content {
+class ReCaptcha implements Content {
 
   use \Sphp\Html\ContentTrait;
 
@@ -71,12 +72,20 @@ class ReCaptha implements Content {
    * 
    * @param  string $sitekey
    * @param  string $callbackName
-   * @return ReCaptha
+   * @return ReCaptcha
    */
-  public static function createObject(string $sitekey, string $callbackName = null): ReCaptha {
+  public static function createObject(string $sitekey, string $callbackName = null): ReCaptcha {
     $div = new static($sitekey);
     $div->setCallback($callbackName);
     return $div;
+  }
+
+  /**
+   * 
+   * @return ScriptSrc
+   */
+  public static function createScripts(): ScriptSrc {
+    return (new ScriptSrc('https://www.google.com/recaptcha/api.js'))->setAsync()->setDefer();
   }
 
   /**

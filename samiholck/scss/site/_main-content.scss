@@ -105,4 +105,7 @@
   background-color: #fafafa;
   padding: rem-calc(10);
   @include border-radius(3px);
+  &.error {
+    border-color: #f00;
+  }
 }

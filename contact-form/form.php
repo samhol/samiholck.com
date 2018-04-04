@@ -4,7 +4,7 @@ namespace Sphp\Html\Foundation\Sites\Forms\Inputs;
 
 use Sphp\Html\Foundation\Sites\Forms\GridForm;
 use Sphp\Security\CRSFToken;
-use Sphp\Security\ReCaptha;
+use Sphp\Security\ReCaptcha;
 
 $newToken = CRSFToken::instance()->generateToken('contact-form');
 
@@ -44,7 +44,7 @@ $messageField = InputColumn::textarea('message', null, 5)->setSubmitValue(' df')
         ->setErrorField('You need to write a message');
 $form->append($messageField);
 
-$form->append(ReCaptha::createImage('6Lfh6U4UAAAAADLo3tCgAn27Zqam37ZsOBx41yt-', 'correctCaptcha'));
+$form->append(ReCaptcha::createImage('6Lfh6U4UAAAAADLo3tCgAn27Zqam37ZsOBx41yt-', 'correctCaptcha'));
 $bGroup = new \Sphp\Html\Foundation\Sites\Buttons\ButtonGroup;
 $bGroup->appendSubmitter('<i class="far fa-envelope"></i> Submit form')->setColor('success');
 $bGroup->appendResetter('<i class="fas fa-eraser"></i> Reset form')->setColor('alert');

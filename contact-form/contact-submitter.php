@@ -13,7 +13,7 @@ use Sphp\Validators\FormValidator;
 use Sphp\Validators\RequiredValueValidator;
 use Sphp\Samiholck\Contact\ContactMailer;
 use Sphp\Samiholck\Contact\ContactData;
-use Sphp\Security\ReCaptha;
+use Sphp\Security\ReCaptcha;
 
 $args = [
     'name' => FILTER_SANITIZE_STRING,
@@ -32,7 +32,7 @@ if (!CRSFToken::instance()->verifyPostToken('contact-form')) {
   CRSFToken::instance()->unsetToken('contact-form');
   $_SESSION['contact-form']['error'] = 'CRSF';
   $response['contact-form']['error'] = 'CRSF';
-} else if (!ReCaptha::isValid('6Lfh6U4UAAAAAADk_T1MpBhlLy72QTMES2z_I9QB')) {
+} else if (!ReCaptcha::isValid('6Lfh6U4UAAAAAADk_T1MpBhlLy72QTMES2z_I9QB')) {
   $_SESSION['contact-form']['error'] = 'ROBOT';
   $response['contact-form']['error'] = 'ROBOT';
 } else {
