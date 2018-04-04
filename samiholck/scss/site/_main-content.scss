@@ -2,6 +2,13 @@
 @import "logo-area";
 @import "topbar";
 //@import "circle-graph/circle-graph";
+
+hr {
+  border: 0;
+  height: 1px;
+  @include background-image(linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0)));
+  //background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+}
 .mainContent {
   border: solid 1px #888;
   @include border-radius(4px);
@@ -53,12 +60,6 @@
     .page-navi {
 
     }
-    hr {
-      border: 0;
-      height: 1px;
-      @include background-image(linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0)));
-      //background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
-    }
     &.why, &.error {
       background-repeat: no-repeat;
       background-position: center 5%;
@@ -93,6 +94,7 @@
   }
 }
 
+@import "contact-form";
 @import "footer";
 
 .simple-popup {

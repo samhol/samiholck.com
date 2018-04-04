@@ -25,20 +25,28 @@ MD
 );
 
 use Sphp\Html\Foundation\Sites\Containers\Modal;
+use Sphp\Html\Document;
 
-include_once 'contact-form/form.php';
+use Sphp\Html\Foundation\Sites\Grids\Row;
+use Sphp\Html\Foundation\Sites\Media\ResponsiveEmbed;
 
-$modal = new Modal('<i class="far fa-envelope"></i> Contact form', $form);
-$modal->getPopup()->prepend('<h2>Contact Form</h2>');
-\Sphp\Html\Document::body()->scripts()->appendSrc('samiholck/js/contact-form.js');
-$modal->getTrigger()->addCssClass('button radius');
+$map = ResponsiveEmbed::iframe('https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1968.7082546795589!2d22.300856632547603!3d60.43352261303713!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x468c7727a6466e41%3A0xa7ad26a37594a821!2sRakuunatie+59%2C+20720+Turku!5e0!3m2!1sen!2sfi!4v1521810129616');
+$g = new Row();
+$g->layout()->usePadding();
+$g->append($map)->layout()->setLayouts('small-12', 'large-6');
+$g->append('foooo')->layout()->setLayouts('small-12', 'large-6');
+echo $g;
+$modal = new Modal('<i class="far fa-envelope"></i> Contact form', '<div id="form-container"></div>');
+$modal->getPopup()->addCssClass('contact-form-container')->prepend('<h2>Contact Form</h2>');
+$contact = $modal->getTrigger()->addCssClass('button radius');
 echo $modal;
 
 
 $myContacts = new Modal('<i class="far fa-envelope"></i> Contact form', '<h2>Contact Form</h2>');
-$myContacts->getPopup()->appendPhpFile('contact-form/contacts.php');
+$myContacts->getPopup()->append('<div id="form-container"></div>');
 $myContacts->getTrigger()->addCssClass('button radius');
 echo $myContacts;
+Document::body()->scripts()->appendSrc('contact-form/form.js');
 //oadPage('contact');
 //include 'samiholck/templates/carousels/videos.php';
 ?>

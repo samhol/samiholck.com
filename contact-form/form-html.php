@@ -55,12 +55,14 @@ $messageField = InputColumn::textarea('message', null, 5)
 $form->append($messageField);
 $reCaptcha = ReCaptcha::createObject('6Lfh6U4UAAAAADLo3tCgAn27Zqam37ZsOBx41yt-');
 $form->append($reCaptcha);
+$form->append('<hr>');
 
 $bGroup = new ButtonGroup;
-
 $bGroup->appendSubmitter(FontAwesome::envelope() . ' Submit form')->setColor('success');
 $bGroup->appendResetter(FontAwesome::eraser() . ' Reset form')->setColor('alert');
-$form->append($bGroup);
+$row = new Sphp\Html\Foundation\Sites\Grids\Row();
+$row->append($bGroup)->addCssClass('text-center');
+$form->append($row);
 
 $form->setAttribute('data-validators', 'capV.setValid');
 echo $form. ReCaptcha::createScripts();

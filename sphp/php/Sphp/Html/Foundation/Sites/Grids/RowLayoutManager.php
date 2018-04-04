@@ -35,7 +35,7 @@ class RowLayoutManager extends AlingmentAdapter {
   public function setLayouts(...$layout) {
     foreach (is_array($layout) ? $layout : [$layout] as $width) {
       $parts = explode('-', $width);
-      $this->setGrid($parts[2], $parts[0]);
+
     }
     return $this;
   }

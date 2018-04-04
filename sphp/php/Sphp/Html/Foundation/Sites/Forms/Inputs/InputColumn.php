@@ -72,7 +72,7 @@ class InputColumn extends AbstractComponent implements InputColumnInterface {
    * @param  Input $input the actual input component
    * @param  string[] $layout the layout parameters
    */
-  public function __construct(Input $input, array $layout = ['small-12']) {
+  public function __construct(Input $input, array $layout = ['auto']) {
     parent::__construct('div');
     $this->layoutManager = new ColumnLayoutManager($this);
     $this->layout()->setLayouts($layout);
