@@ -8,6 +8,7 @@
 namespace Sphp\Data;
 
 use Sphp\Stdlib\Datastructures\Arrayable;
+use Sphp\Stdlib\Strings;
 
 /**
  * Implements a geographical address
@@ -21,28 +22,28 @@ class Address implements GeographicalAddress, Arrayable {
   /**
    * @var string|null
    */
-  private $street;
+  protected $street;
 
   /**
    * @var string|null
    */
-  private $zipcode;
+  protected $zipcode;
 
   /**
    *
    * @var string|null
    */
-  private $city;
+  protected $city;
 
   /**
    * @var string|null
    */
-  private $country;
+  protected $country;
 
   /**
    * @var string|null
    */
-  private $maplink;
+  protected $maplink = [];
 
   public function __construct(array $data = []) {
     $this->fromArray($data);
@@ -57,6 +58,10 @@ class Address implements GeographicalAddress, Arrayable {
     return $this;
   }
 
+  public function hasZipcode(): bool {
+    return Strings::isEmpty($this->zipcode);
+  }
+
   public function getZipcode() {
     return $this->zipcode;
   }
@@ -64,6 +69,10 @@ class Address implements GeographicalAddress, Arrayable {
   public function setZipcode(string $zipcode = null) {
     $this->zipcode = $zipcode;
     return $this;
+  }
+
+  public function hasCity(): bool {
+    return Strings::isEmpty($this->zipcode);
   }
 
   public function getCity() {
@@ -130,7 +139,9 @@ class Address implements GeographicalAddress, Arrayable {
    */
   public function __toString(): string {
     $address = $this->getStreet();
-    $address .= ', ' . $this->getZipcode();
+    if ($this->hasZipcode()) {
+      $address .= ', ' . $this->getZipcode();
+    }
     $address .= ' ' . $this->getCity();
     $address .= ', ' . $this->getCountry();
     return $address;

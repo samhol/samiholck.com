@@ -94,19 +94,6 @@ class Person implements Arrayable {
   }
 
   /**
-   * Returns the last (family) name
-   *
-   * @return string the last (family) name
-   */
-  public function getFullname():string {
-    if (!empty($this->fname) && !empty($this->lname)) {
-      return "$this->fname $this->lname";
-    } else {
-      return "$this->fname$this->lname";
-    }
-  }
-
-  /**
    * Sets the last (family) name
    *
    * @param  string $lname the last (family) name
@@ -115,6 +102,19 @@ class Person implements Arrayable {
   public function setLname(string $lname = null) {
     $this->lname = $lname;
     return $this;
+  }
+
+  /**
+   * Returns the full name
+   *
+   * @return string the full name
+   */
+  public function getFullname(): string {
+    if (!empty($this->fname) && !empty($this->lname)) {
+      return "$this->fname $this->lname";
+    } else {
+      return "$this->fname$this->lname";
+    }
   }
 
   public function getDateOfBirth() {
@@ -203,7 +203,7 @@ class Person implements Arrayable {
             ->setAddress(new Address($raw));
     if (isset($person['dob'])) {
       $this->setDateOfBirth(date_create_from_format('Y-m-d', $person['dob']));
-    }if (isset($raw['location'])) {
+    } if (isset($raw['location'])) {
       $this->setAddress(new Address($raw['location']));
     }
     return $this;
@@ -216,6 +216,11 @@ class Person implements Arrayable {
       $arr = array_merge($arr, $this->address->toArray());
     }
     return $arr;
+  }
+  
+  public function __toString(): string {
+    
+    ;
   }
 
 }
