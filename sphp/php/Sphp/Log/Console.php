@@ -70,7 +70,7 @@ class Console {
   protected function createLog(string $type, $data) {
     if (is_array($data)) {
       $data = \Sphp\Stdlib\Parser::json()->encode($data);
-      echo "console.$type($data);";
+      //echo "console.$type($data);";
     } else if (is_string($data)) {
       $data = "'$data'";
     }

@@ -1,6 +1,5 @@
 # prevent mime based attacks
 Header set X-Content-Type-Options "nosniff"
-# One year for image files
 
 Options -MultiViews
     RewriteEngine On

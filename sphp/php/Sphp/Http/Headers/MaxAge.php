@@ -27,21 +27,16 @@
 namespace Sphp\Http\Headers;
 
 /**
- * Location header
+ * Description of MaxAge
  *
  * @author  Sami Holck <sami.holck@gmail.com>
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
-class Location extends GenericHeader {
+class MaxAge extends GenericHeader {
 
-  /**
-   * Constructor
-   * 
-   * @param string $value
-   */
-  public function __construct(string $value) {
-    parent::__construct('Location', $value);
+  public function __construct(int $value) {
+    parent::__construct('Access-Control-Max-Age', $value);
   }
 
 }

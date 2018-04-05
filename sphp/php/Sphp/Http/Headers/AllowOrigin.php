@@ -35,8 +35,14 @@ namespace Sphp\Http\Headers;
  * @filesource
  */
 class AllowOrigin extends GenericHeader {
-  
+
+  /**
+   * Constructor
+   * 
+   * @param string $value
+   */
   public function __construct(string $value) {
     parent::__construct('Access-Control-Allow-Origin', $value);
   }
+
 }

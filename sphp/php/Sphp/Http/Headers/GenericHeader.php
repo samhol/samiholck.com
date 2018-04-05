@@ -68,7 +68,7 @@ class GenericHeader implements Header {
   }
 
   public function toString() {
-    return $this->getName() . ": " . $this->getValue();
+    return $this->getName() . ': ' . $this->getValue();
   }
 
   public function __toString(): string {

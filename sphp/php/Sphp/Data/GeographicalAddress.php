@@ -77,17 +77,17 @@ interface GeographicalAddress {
   public function setCountry(string $country = null);
 
   /**
-   * Returns the maplink pointing to the location
+   * Returns the map links pointing to the location
    *
-   * @return string the maplink pointing to the location
+   * @return array the map links pointing to the location
    */
-  public function getMaplink();
+  public function getMaplinks(): array;
 
   /**
-   * Sets the maplink to the location
+   * Sets the map links
    *
-   * @param  string $maplink the maplink to the location
+   * @param  array $maplinks map links
    * @return $this for a fluent interface
    */
-  public function setMaplink(string $maplink = null);
+  public function setMaplinks(array $maplinks = []);
 }

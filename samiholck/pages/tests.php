@@ -16,13 +16,19 @@ $console = new Console();
 
   use Sphp\Html\Media\Icons\Svg;
 
-var_dump(\Sphp\Stdlib\Networks\RemoteResource::getMimeType('http://www.samiholck.com/samiholck/svg/s-logo.php'));
+//var_dump(\Sphp\Stdlib\Networks\RemoteResource::getMimeType('http://www.samiholck.com/samiholck/svg/s-logo.php'));
 //echo "\n".Svg::fromUrl('http://www.samiholck.com/samiholck/svg/s-logo.php');
 //echo "\n".Svg::fromFile('./samiholck/svg/js-logo.svg');
 //echo "\n".Svg::fromFile('./samiholck/svg/js-logo.svg');
-  var_dump(mime_content_type('./samiholck/svg/js-logo.svg'));
+  //var_dump(mime_content_type('./samiholck/svg/js-logo.svg'));
 //echo Svg::fromFile('http://www.samiholck.com/samiholck/svg/s-lo3go.php');
 //use Sphp\Html\Media\Icons\Svg;
+  use Sphp\Data\Human\Person;
+  use Sphp\Stdlib\Parser;
+  $data = Parser::json()->decodeFromFile('http://www.samiholck.com/data/');
+  print_r($data);
+  $person = new Person($data);
+  print_r($person->toArray());
   ?>
 </pre>
 <div style="width: 150px;">

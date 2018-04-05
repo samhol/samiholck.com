@@ -53,5 +53,39 @@ class Json extends AbstractReader {
 
     return $serialized;
   }
+  
+  /**
+   * processConfig(): defined by AbstractWriter.
+   *
+   * @param  string $config
+   * @return array
+   * @throws RuntimeException if decoding errors occur.
+   */
+  public function decode(string $config): array {
+    $serialized = json_decode($config);
 
+    if (false === $serialized) {
+      throw new RuntimeException(json_last_error_msg());
+    }
+
+    return $serialized;
+  }
+
+  /**
+   * processConfig(): defined by AbstractWriter.
+   *
+   * @param  string $path
+   * @return array
+   * @throws RuntimeException if decoding errors occur.
+   */
+  public function decodeFromFile(string $path): array {
+    $raw = file_get_contents($path);
+    $serialized = json_decode($raw, true);
+    //var_dump($raw);
+    if (false === $serialized) {
+      throw new RuntimeException(json_last_error_msg());
+    }
+
+    return $serialized;
+  }
 }

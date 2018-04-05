@@ -7,6 +7,7 @@
 
 namespace Sphp\Data\Human;
 
+use DateTimeInterface;
 use Sphp\Data\Address;
 use Sphp\Stdlib\Datastructures\Arrayable;
 
@@ -36,7 +37,7 @@ class Person implements Arrayable {
   /**
    * The last name of the user
    * 
-   * @var string 
+   * @var \DateTimeInterface 
    */
   private $dob;
 
@@ -93,6 +94,19 @@ class Person implements Arrayable {
   }
 
   /**
+   * Returns the last (family) name
+   *
+   * @return string the last (family) name
+   */
+  public function getFullname():string {
+    if (!empty($this->fname) && !empty($this->lname)) {
+      return "$this->fname $this->lname";
+    } else {
+      return "$this->fname$this->lname";
+    }
+  }
+
+  /**
    * Sets the last (family) name
    *
    * @param  string $lname the last (family) name
@@ -100,6 +114,15 @@ class Person implements Arrayable {
    */
   public function setLname(string $lname = null) {
     $this->lname = $lname;
+    return $this;
+  }
+
+  public function getDateOfBirth() {
+    return $this->dob;
+  }
+
+  public function setDateOfBirth(DateTimeInterface $dob = null) {
+    $this->dob = $dob;
     return $this;
   }
 
@@ -138,7 +161,7 @@ class Person implements Arrayable {
    * @param  string $phonenumber the phone number
    * @return $this for a fluent interface
    */
-  public function setPhonenumbers(string $phonenumber = null) {
+  public function setPhonenumber(string $phonenumber = null) {
     $this->phonenumber = $phonenumber;
     return $this;
   }
@@ -167,16 +190,22 @@ class Person implements Arrayable {
     $args = [
         'fname' => \FILTER_SANITIZE_STRING,
         'lname' => \FILTER_SANITIZE_STRING,
+        'dob' => \FILTER_SANITIZE_STRING,
         'email' => \FILTER_SANITIZE_STRING,
-        'phonenumber' => \FILTER_SANITIZE_STRING,
+        'phone' => \FILTER_SANITIZE_STRING,
     ];
     $person = filter_var_array($raw, $args, true);
     //print_r($person);
     $this->setFname($person['fname'])
             ->setLname($person['lname'])
             ->setEmail($person['email'])
-            ->setPhonenumbers($person['phonenumber'])
+            ->setPhonenumber($person['phone'])
             ->setAddress(new Address($raw));
+    if (isset($person['dob'])) {
+      $this->setDateOfBirth(date_create_from_format('Y-m-d', $person['dob']));
+    }if (isset($raw['location'])) {
+      $this->setAddress(new Address($raw['location']));
+    }
     return $this;
   }
 

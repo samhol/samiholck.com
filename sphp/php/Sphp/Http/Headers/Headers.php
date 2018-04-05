@@ -38,6 +38,7 @@ use Sphp\Exceptions\InvalidArgumentException;
  * @method \Sphp\Http\Headers\Location location(string $content = null) creates nd inserts a header object
  * @method \Sphp\Http\Headers\AllowOrigin allowOrigin(string $content = null) creates nd inserts a header object
  * @method \Sphp\Http\Headers\AllowMethods allowMethods(string $content = null) creates nd inserts a header object
+ * @method \Sphp\Http\Headers\MaxAge maxAge(int $maxAge) creates nd inserts a header object
  * 
  * @author  Sami Holck <sami.holck@gmail.com>
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
@@ -58,6 +59,7 @@ class Headers implements Iterator {
       'allowOrigin' => AllowOrigin::class,
       'contentType' => ContentType::class,
       'allowMethods' => AllowMethods::class,
+      'maxAge' => MaxAge::class,
   );
 
   /**

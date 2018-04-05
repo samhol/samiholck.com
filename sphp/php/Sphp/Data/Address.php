@@ -84,11 +84,11 @@ class Address implements GeographicalAddress, Arrayable {
     return $this;
   }
 
-  public function getMaplink() {
+  public function getMaplinks(): array {
     return $this->maplink;
   }
 
-  public function setMaplink(string $maplink = null) {
+  public function setMaplinks(array $maplink = []) {
     $this->maplink = $maplink;
     return $this;
   }
@@ -96,22 +96,31 @@ class Address implements GeographicalAddress, Arrayable {
   public function fromArray(array $raw = []) {
     $args = [
         'street' => \FILTER_SANITIZE_STRING,
-        'zipcode' => \FILTER_SANITIZE_STRING,
+        'zip' => \FILTER_SANITIZE_STRING,
         'city' => \FILTER_SANITIZE_STRING,
         'country' => \FILTER_SANITIZE_STRING,
-        'maplink' => \FILTER_SANITIZE_URL,
+        'maplinks' => array(
+            'filter' => FILTER_REQUIRE_ARRAY,
+            'flags' => FILTER_FORCE_ARRAY,
+        )
     ];
     $address = filter_var_array($raw, $args, true);
     $this->setStreet($address['street']);
-    $this->setZipcode($address['zipcode']);
+    $this->setZipcode($address['zip']);
     $this->setCity($address['city']);
     $this->setCountry($address['country']);
-    $this->setMaplink($address['maplink']);
+    if ($address['maplinks'] !== null) {
+      $this->setMaplinks($address['maplinks']);
+    }
     return $this;
   }
 
   public function toArray(): array {
     return get_object_vars($this);
+  }
+
+  public function toJson(): string {
+    return json_encode($this->toArray());
   }
 
   /**
