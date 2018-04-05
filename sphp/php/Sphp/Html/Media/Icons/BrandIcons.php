@@ -176,7 +176,7 @@ class BrandIcons extends \Sphp\Html\AbstractComponent implements Content, Iterat
   }
 
   public function contentToString(): string {
-    return implode('', $this->icons);
+    return implode($this->icons);
   }
 
 }

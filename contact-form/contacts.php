@@ -3,26 +3,24 @@
 use Sphp\Html\Media\Icons\FontAwesome;
 ?>
 
-<div class="footer-left">
-  <div class="contact-details">
-    <div class="media-object">
-      <div class="media-object-section">
-        <div class="thumbnail">
-          <img style="height:100px" src="samiholck/pics/face.jpg" alt="Photo of Sami Holck">
-        </div>
+<div class="contacts">
+  <div class="media-object">
+    <div class="media-object-section">
+      <div class="thumbnail">
+        <img style="height:100px" src="samiholck/pics/face.jpg" alt="Photo of Sami Holck">
       </div>
-      <div class="media-object-section main-section">
-        <h6>Contact information:</h6>
-        <ul class="fa-ul">
-          <li><span class="fa-li"><?php FontAwesome::phone('phonenumber')->printHtml() ?></span> +358 44 298 6738</li>
-          <li><span class="fa-li"><?php FontAwesome::envelope('Email address')->printHtml() ?></span> sami.holck@gmail.com</li>
-          <li><span class="fa-li"><?php FontAwesome::get('fa fa-map-marker-alt','Email address')->printHtml() ?></span> Rakuunatie 59 A3, Turku, Finland</li>
-        </ul>
-      </div>
+    </div>
+    <div class="media-object-section main-section">
+      <h6>Contact information:</h6>
+      <ul class="fa-ul">
+        <li><span class="fa-li"><?php FontAwesome::phone('phonenumber')->printHtml() ?></span> +358 44 298 6738</li>
+        <li><span class="fa-li"><?php FontAwesome::envelope('Email address')->printHtml() ?></span> sami.holck@gmail.com</li>
+        <li><span class="fa-li"><?php FontAwesome::get('fa fa-map-marker-alt', 'Email address')->printHtml() ?></span> Rakuunatie 59 A3, Turku, Finland</li>
+      </ul>
     </div>
   </div>
 </div>
-<div class="footer-right">
+<div class="social">
   <h6>Follow</h6>
   <a href="https://www.facebook.com/sami.holck">
     <i class="fab fa-github-square fa-4x" aria-hidden="true"></i>
