@@ -29,6 +29,7 @@ namespace Sphp\Data;
 use Sphp\Stdlib\Datastructures\Arrayable;
 use Sphp\Stdlib\Strings;
 use Sphp\Exceptions\BadMethodCallException;
+use Sphp\Database\Exceptions\InvalidArgumentException;
 
 /**
  * Description of DataObject
@@ -40,7 +41,7 @@ use Sphp\Exceptions\BadMethodCallException;
 class DataObject implements \ArrayAccess, Arrayable, \IteratorAggregate {
 
   private $reflector;
-
+  protected $foo;
   public function __construct() {
     $this->reflector = new \ReflectionClass($this);
   }
@@ -92,16 +93,31 @@ class DataObject implements \ArrayAccess, Arrayable, \IteratorAggregate {
   }
 
   public function offsetGet($offset) {
-    if () {
-      
+    if ($this->offsetExists($offset)) {
+      return $this->{$offset};
+    } else {
+      throw new InvalidArgumentException;
     }
   }
 
-  public function offsetSet($offset, $value): void {
-    
+  public function offsetSet($offset, $value) {
+    $methodName = 'set' . ucfirst($offset);
+    if ($this->reflector->hasMethod($methodName)) {
+      try {
+        $this->reflector->getMethod($methodName)->invoke($this, $value);
+      } catch (\Exception $ex) {
+        throw new InvalidArgumentException;
+      }
+
+      //$this->reflector->{$methodName}($value);
+    } else if ($this->offsetExists($offset)) {
+      $this->$offset = $value;
+    } else {
+      throw new InvalidArgumentException;
+    }
   }
 
-  public function offsetUnset($offset): void {
+  public function offsetUnset($offset) {
     
   }
 

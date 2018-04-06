@@ -10,8 +10,10 @@ namespace Sphp\Html\Foundation\Sites\Bars;
   use Sphp\Stdlib\Parser;
 
 $do = new DataObject();
-$do->hasFoo();
-var_dump($do->offsetExists('reflector'));
+  $do->hasFoo();
+  $do['foo'] = 'bar';
+  echo "do[foo]: ".$do['foo'];
+  var_dump($do->offsetExists('reflector'));
   $data = Parser::json()->decodeFromFile('http://www.samiholck.com/data/');
   // print_r($data);
   $person = new Person($data);
@@ -23,7 +25,7 @@ var_dump($do->offsetExists('reflector'));
 </pre>
 <ul class="fa-ul">
   <li>
-    <span class="fa-li"><?php FontAwesome::phone('phonenumber')->printHtml() ?></span> 
+    <span class="fa-li"><?php FontAwesome::user('Name')->printHtml() ?></span> 
     <?php echo $person->getFullname() ?></li>
   <li>
     <span class="fa-li"><?php FontAwesome::phone('phonenumber')->printHtml() ?></span> 
@@ -33,5 +35,5 @@ var_dump($do->offsetExists('reflector'));
     <?php echo $person->getEmail() ?></li>
   <li>
     <span class="fa-li"><?php FontAwesome::get('fa fa-map-marker-alt', 'Email address')->printHtml() ?></span> 
-<?php echo $person->getAddress() ?></li>
+    <?php echo $person->getAddress() ?></li>
 </ul>

@@ -82,6 +82,7 @@ class FontAwesome {
        */
       'phone' => 'fas fa-phone',
       'envelope' => 'far fa-envelope',
+      'user' => 'far fa-user',
       'users' => 'fas fa-users',
       'book' => 'fas fa-book',
       'database' => 'fas fa-database',
