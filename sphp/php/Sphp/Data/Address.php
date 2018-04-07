@@ -7,7 +7,6 @@
 
 namespace Sphp\Data;
 
-use Sphp\Stdlib\Datastructures\Arrayable;
 use Sphp\Stdlib\Strings;
 
 /**
@@ -17,7 +16,7 @@ use Sphp\Stdlib\Strings;
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
-class Address implements GeographicalAddress, Arrayable {
+class Address extends AbstractDataObject implements GeographicalAddress {
 
   /**
    * @var string|null
@@ -44,10 +43,6 @@ class Address implements GeographicalAddress, Arrayable {
    * @var string|null
    */
   protected $maplink = [];
-
-  public function __construct(array $data = []) {
-    $this->fromArray($data);
-  }
 
   public function getStreet() {
     return $this->street;
@@ -124,13 +119,6 @@ class Address implements GeographicalAddress, Arrayable {
     return $this;
   }
 
-  public function toArray(): array {
-    return get_object_vars($this);
-  }
-
-  public function toJson(): string {
-    return json_encode($this->toArray());
-  }
 
   /**
    * Returns the string representation of the object

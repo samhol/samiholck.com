@@ -27,6 +27,7 @@
 namespace Sphp\Data;
 
 use Sphp\Stdlib\Datastructures\Arrayable;
+use ReflectionClass;
 use Sphp\Stdlib\Strings;
 use Sphp\Exceptions\BadMethodCallException;
 use Sphp\Database\Exceptions\InvalidArgumentException;
@@ -40,27 +41,55 @@ use Sphp\Database\Exceptions\InvalidArgumentException;
  */
 class DataObject implements \ArrayAccess, Arrayable, \IteratorAggregate {
 
+  /**
+   * @var array 
+   */
+  protected $data = [];
+
+  /**
+   * @var ReflectionClass 
+   */
   private $reflector;
-  protected $foo;
-  public function __construct() {
-    $this->reflector = new \ReflectionClass($this);
+
+  public function __construct(array $vars) {
+    $this->data = $vars;
+    $this->reflector = new ReflectionClass($this);
   }
 
   /**
-   * Creates a HTML object
+   * Calls a method
    *
-   * @param  string $name the name of the component
+   * @param  string $name the name of the method
    * @param  array $arguments 
-   * @return TagInterface the corresponding component
+   * @return bool|mixed
    * @throws BadMethodCallException
    */
   public function __call(string $name, array $arguments) {
-    if (Strings::match($name, '/^(has|get|set)/')) {
-      var_dump($name = preg_replace('/^(has|get|set)/', '', $name));
-      echo lcfirst($name);
+    $varName = lcfirst(preg_replace('/^(has|get|set)/', '', $name));
+    if (!$this->validateMethodName($name, $arguments)) {
+      //throw new BadMethodCallException("Method $name does not exist");
+    } else if (Strings::startsWith($name, 'get')) {
+      return $this->data[$varName];
+    } else if (Strings::startsWith($name, 'set') && count($arguments) > 0) {
+      $this->data[$varName] = $arguments[0];
+      return $this;
+    } else if (Strings::startsWith($name, 'has')) {
+      //$this->data[$varName] = $arguments[0];
+      return $this->offsetExists($varName);
+    }
+  }
+
+  protected function validateMethodName(string $name, array $arguments): bool {
+    if (Strings::startsWith($name, 'has')) {
       return true;
     } else {
-      throw new BadMethodCallException("Method $name does not exist");
+      $varName = lcfirst(preg_replace('/^(get|set)/', '', $name));
+      if (Strings::startsWith($name, 'get')) {
+        return array_key_exists($varName, $this->data);
+      } else if (Strings::startsWith($name, 'set')) {
+        return array_key_exists($varName, $this->data) && count($arguments) > 0;
+      }
+      return false;
     }
   }
 
@@ -89,32 +118,20 @@ class DataObject implements \ArrayAccess, Arrayable, \IteratorAggregate {
   }
 
   public function offsetExists($offset): bool {
-    return $this->reflector->hasProperty($offset);
+    return array_key_exists($offset, $this->data);
   }
 
   public function offsetGet($offset) {
     if ($this->offsetExists($offset)) {
-      return $this->{$offset};
+      return $this->data[$offset];
     } else {
       throw new InvalidArgumentException;
     }
   }
 
-  public function offsetSet($offset, $value) {
-    $methodName = 'set' . ucfirst($offset);
-    if ($this->reflector->hasMethod($methodName)) {
-      try {
-        $this->reflector->getMethod($methodName)->invoke($this, $value);
-      } catch (\Exception $ex) {
-        throw new InvalidArgumentException;
-      }
-
-      //$this->reflector->{$methodName}($value);
-    } else if ($this->offsetExists($offset)) {
-      $this->$offset = $value;
-    } else {
-      throw new InvalidArgumentException;
-    }
+  public function offsetSet($offset, $value) { 
+    $method  = 'set'.ucfirst($offset);
+    $this->$method($value);
   }
 
   public function offsetUnset($offset) {
