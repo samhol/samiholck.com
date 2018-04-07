@@ -8,6 +8,7 @@
 namespace Sphp\Data;
 
 use DateTimeInterface;
+use DateTime;
 use Sphp\Data\Address;
 
 /**
@@ -22,35 +23,35 @@ class Person extends AbstractDataObject {
   /**
    * The first name of the user
    *
-   * @var string 
+   * @var string|null
    */
   private $fname;
 
   /**
    * The last name of the user
    * 
-   * @var string 
+   * @var string|null
    */
   private $lname;
 
   /**
    * The last name of the user
    * 
-   * @var \DateTimeInterface 
+   * @var DateTimeInterface|null
    */
   private $dob;
 
   /**
    * The geographical address of the user
    * 
-   * @var Address 
+   * @var Address|null
    */
   private $address;
 
   /**
    * the email address of the user
    * 
-   * @var string
+   * @var string|null
    */
   private $email;
 
@@ -164,9 +165,9 @@ class Person extends AbstractDataObject {
   /**
    * Returns the geographical address
    * 
-   * @return Address the geographical address
+   * @return Address|null the geographical address
    */
-  public function getAddress(): Address {
+  public function getAddress() {
     return $this->address;
   }
 
@@ -197,20 +198,31 @@ class Person extends AbstractDataObject {
             ->setPhonenumber($person['phone'])
             ->setAddress(new Address($raw));
     if (isset($person['dob'])) {
-      $this->setDateOfBirth(date_create_from_format('Y-m-d', $person['dob']));
-    } if (isset($raw['location'])) {
-      $this->setAddress(new Address($raw['location']));
+      if (is_int($person['dob'])) {
+        $dob = new DateTime();
+        $dob->setTimestamp($person['dob']);
+        $this->setDateOfBirth($dob);
+      } else {
+        $dob = DateTime::createFromFormat(DATE_ATOM, $person['dob']);
+        if ($dob instanceof DateTimeInterface) {
+          $this->setDateOfBirth($dob);
+        }
+      }
+    } if (isset($raw['address'])) {
+      $this->setAddress(new Address($raw['address']));
     }
     return $this;
   }
 
   public function toArray(): array {
-    $arr = get_object_vars($this);
-    if ($this->address !== null) {
-      $arr['address'] = $this->address->toArray();
+    $raw = get_object_vars($this);
+    if ($raw['dob'] instanceof DateTimeInterface) {
+      $raw['dob'] = $this->getDateOfBirth()->format(DATE_ATOM);
     }
-    return $arr;
+    if ($raw['address'] instanceof Address) {
+      $raw['address'] = $raw['address']->toArray();
+    }
+    return $raw;
   }
-
 
 }

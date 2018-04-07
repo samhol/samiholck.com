@@ -5,8 +5,7 @@ namespace Sphp\Html\Foundation\Sites\Bars;
 <pre>
   <?php
 
-  use Sphp\Data\DataObject;
-  use Sphp\Data\Human\Person;
+  use Sphp\Data\Person;
   use Sphp\Stdlib\Parser;
 
 $u = new \Sphp\Data\Person(['lname' => 'foo']);
@@ -16,7 +15,7 @@ $u = new \Sphp\Data\Person(['lname' => 'foo']);
   unset($u['dateOfBirth']);
 
   try {
-    unset($u['foo']);
+    //unset($u['foo']);
   } catch (\Exception $ex) {
     echo $ex;
   }

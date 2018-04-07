@@ -73,20 +73,6 @@ abstract class AbstractDataObject implements ArrayAccess, Arrayable, IteratorAgg
    */
   public abstract function fromArray(array $data);
 
-  public function toArray(): array {
-    $raw = get_object_vars($this);
-    $result = [];
-    foreach ($raw as $prop => $val) {
-      if ($val instanceof Arrayable) {
-        $result[$prop] = $val->toArray();
-      } else if ($val instanceof \Iterator) {
-        $result[$prop] = array_merge($result, iterator_to_array($val));
-      } else {
-        $result[$prop] = $val;
-      }
-    }
-    return $result;
-  }
 
   public function toJson(): string {
     return json_encode($this->toArray(), JSON_PRETTY_PRINT);

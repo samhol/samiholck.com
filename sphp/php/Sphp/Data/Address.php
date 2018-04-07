@@ -119,6 +119,9 @@ class Address extends AbstractDataObject implements GeographicalAddress {
     return $this;
   }
 
+  public function toArray(): array {
+    return get_object_vars($this);
+  }
 
   /**
    * Returns the string representation of the object
