@@ -7,6 +7,7 @@
 
 namespace Sphp\Html\Media\Icons;
 
+use Sphp\Html\AbstractComponent;
 use Sphp\Html\Content;
 use Sphp\Html\Lists\Ul;
 use Iterator;
@@ -19,7 +20,7 @@ use Sphp\Html\Navigation\Hyperlink;
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
-class BrandIcons extends \Sphp\Html\AbstractComponent implements Content, Iterator {
+class BrandIcons extends AbstractComponent implements Content, Iterator {
 
   /**
    * @var Ul
