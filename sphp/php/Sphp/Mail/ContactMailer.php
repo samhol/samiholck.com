@@ -5,9 +5,7 @@
  * Copyright (c) 2017 Sami Holck <sami.holck@gmail.com>
  */
 
-namespace Sphp\Samiholck\Contact;
-
-use Sphp\Data\ContactMessage;
+namespace Sphp\Mail;
 
 /**
  * 
@@ -93,10 +91,10 @@ class ContactMailer {
       $person = $data->getContacter();
       $output .= "\n\n----------------------\n";
       $output .= "Contacter:\n";
-      $output .= "\n".$person->getFullname();
-      $output .= "\nemail:   ".$person->getEmail();
-      $output .= "\nphone:   ".$person->getPhonenumber();
-      $output .= "\naddress: ".$person->getAddress();
+      $output .= "\n" . $person->getFullname();
+      $output .= "\nemail:   " . $person->getEmail();
+      $output .= "\nphone:   " . $person->getPhonenumber();
+      $output .= "\naddress: " . $person->getAddress();
       $output .= "\n----------------------\n";
     }
     return $output;

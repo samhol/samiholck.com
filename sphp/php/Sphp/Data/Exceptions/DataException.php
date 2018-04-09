@@ -35,6 +35,6 @@ use Sphp\Exceptions\Exception;
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  * @filesource
  */
-class DataAttributeException extends Exception {
+class DataException extends Exception {
   
 }

@@ -1,27 +1,11 @@
 <?php
 
-/*
- * The MIT License
+/**
+ * SPHPlayground Framework (http://playgound.samiholck.com/)
  *
- * Copyright 2018 Sami Holck <sami.holck@gmail.com>.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
+ * @link      https://github.com/samhol/SPHP-framework for the source repository
+ * @copyright Copyright (c) 2007-2018 Sami Holck <sami.holck@gmail.com>
+ * @license   https://opensource.org/licenses/MIT The MIT License
  */
 
 namespace Sphp\Data;
@@ -30,11 +14,11 @@ use Sphp\Stdlib\Datastructures\Arrayable;
 use ArrayAccess;
 use IteratorAggregate;
 use ReflectionClass;
-use Sphp\Data\Exceptions\DataAttributeException;
+use Sphp\Data\Exceptions\DataException;
 use Traversable;
 
 /**
- * Description of DataObject
+ * Abstract implementation of a Data object
  *
  * @author  Sami Holck <sami.holck@gmail.com>
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
@@ -73,7 +57,6 @@ abstract class AbstractDataObject implements ArrayAccess, Arrayable, IteratorAgg
    */
   public abstract function fromArray(array $data);
 
-
   public function toJson(): string {
     return json_encode($this->toArray(), JSON_PRETTY_PRINT);
   }
@@ -97,7 +80,7 @@ abstract class AbstractDataObject implements ArrayAccess, Arrayable, IteratorAgg
       $methodName = 'get' . ucfirst($offset);
       return $this->$methodName();
     } else {
-      throw new DataAttributeException("Offset '$offset' does not exist");
+      throw new DataException("Offset '$offset' does not exist");
     }
   }
 
@@ -105,28 +88,28 @@ abstract class AbstractDataObject implements ArrayAccess, Arrayable, IteratorAgg
    * 
    * @param  string $offset
    * @param  mixed $value
-   * @throws DataAttributeException
+   * @throws DataException
    */
   public function offsetSet($offset, $value) {
     if ($this->offsetExists($offset)) {
       $methodName = 'set' . ucfirst($offset);
       $f = $this->reflector->getMethod($methodName);
-      if ($f->getNumberOfParameters() > 0 && $f->getNumberOfRequiredParameters() <= 1) {
+      if ($f->getNumberOfParameters() === 1) {
         $pars = $f->getParameters();
         var_dump($pars[0]->hasType());
         $f->invoke($this, $value);
       } else {
-        throw new DataAttributeException("Offset '$offset' does not exist");
+        throw new DataException("Offset '$offset' does not exist");
       }
     } else {
-      throw new DataAttributeException("Setting member variable failed: '$offset' does not exist");
+      throw new DataException("Setting member variable failed: '$offset' does not exist");
     }
   }
 
   /**
    * 
    * @param  mixed $offset
-   * @throws DataAttributeException
+   * @throws DataException
    */
   public function offsetUnset($offset) {
     if ($this->offsetExists($offset)) {
@@ -137,10 +120,10 @@ abstract class AbstractDataObject implements ArrayAccess, Arrayable, IteratorAgg
         //echo 'unsetting';
         $reflectionFunc->invoke($this, null);
       } else {
-        throw new DataAttributeException("Unsetting member variable failed: '$offset' cannot be NULL");
+        throw new DataException("Unsetting member variable failed: '$offset' cannot be NULL");
       }
     } else {
-      throw new DataAttributeException("Unsetting member variable failed: '$offset' does not exist");
+      throw new DataException("Unsetting member variable failed: '$offset' does not exist");
     }
   }
 

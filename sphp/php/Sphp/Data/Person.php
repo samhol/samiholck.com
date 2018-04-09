@@ -1,8 +1,11 @@
 <?php
 
 /**
- * Person.php (UTF-8)
- * Copyright (c) 2013 Sami Holck <sami.holck@gmail.com>
+ * SPHPlayground Framework (http://playgound.samiholck.com/)
+ *
+ * @link      https://github.com/samhol/SPHP-framework for the source repository
+ * @copyright Copyright (c) 2007-2018 Sami Holck <sami.holck@gmail.com>
+ * @license   https://opensource.org/licenses/MIT The MIT License
  */
 
 namespace Sphp\Data;
@@ -182,7 +185,7 @@ class Person extends AbstractDataObject {
     return $this;
   }
 
-  public function fromArray(array $raw = []) {
+  public function fromArray(array $raw) {
     $args = [
         'fname' => \FILTER_SANITIZE_STRING,
         'lname' => \FILTER_SANITIZE_STRING,
@@ -191,12 +194,10 @@ class Person extends AbstractDataObject {
         'phone' => \FILTER_SANITIZE_STRING,
     ];
     $person = filter_var_array($raw, $args, true);
-    //print_r($person);
     $this->setFname($person['fname'])
             ->setLname($person['lname'])
             ->setEmail($person['email'])
-            ->setPhonenumber($person['phone'])
-            ->setAddress(new Address($raw));
+            ->setPhonenumber($person['phone']);
     if (isset($person['dob'])) {
       if (is_int($person['dob'])) {
         $dob = new DateTime();
@@ -208,9 +209,13 @@ class Person extends AbstractDataObject {
           $this->setDateOfBirth($dob);
         }
       }
-    } if (isset($raw['address'])) {
+    } 
+    if (isset($raw['address'])) {
       $this->setAddress(new Address($raw['address']));
+    } else {
+      $this->setAddress(new Address($raw));
     }
+    
     return $this;
   }
 
@@ -223,6 +228,21 @@ class Person extends AbstractDataObject {
       $raw['address'] = $raw['address']->toArray();
     }
     return $raw;
+  }
+
+  /**
+   * Serializes to string
+   *
+   * @return string the string representation of the object
+   */
+  public function __toString(): string {
+    $output = "name: $this->fname $this->lname";
+    $dob = ($this->dob instanceof \DateTimeInterface) ? $this->dob->format(DATE_ATOM) : '';
+    $output .= "\ndate of birth: $dob";
+    $output .= "\naddress: $this->address";
+    $output .= "\nphonenumber: $this->phonenumber";
+    $output .= "\nemail: $this->email";
+    return $output;
   }
 
 }

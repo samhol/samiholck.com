@@ -55,7 +55,7 @@ class ContactData {
     foreach ($data as $k => $v) {
       $this->{$k} = $v;
     }
-    $this->contacter = new \Sphp\Data\Human\Person($data);
+    $this->contacter = new \Sphp\Data\Person($data);
   }
 
   /**
@@ -65,7 +65,6 @@ class ContactData {
   public function getName() {
     return $this->name;
   }
-
 
   /**
    * 

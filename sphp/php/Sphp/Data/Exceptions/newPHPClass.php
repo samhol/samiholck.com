@@ -8,24 +8,15 @@
  * @license   https://opensource.org/licenses/MIT The MIT License
  */
 
-namespace Sphp\Filters;
-
-use SqlFormatter;
+namespace Sphp\Data\Exceptions;
 
 /**
- * Filter formats an SQL string
+ * Description of newPHPClass
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
+ * @license https://opensource.org/licenses/MIT The MIT License
  * @filesource
  */
-class SQLFormatter extends AbstractFilter {
-
-  public function filter($variable) {
-    if (is_string($variable)) {
-      return SqlFormatter::format($variable, false);
-    }
-    return $variable;
-  }
-
+class newPHPClass {
+  
 }

@@ -24,7 +24,7 @@ $u = new \Sphp\Data\Person(['lname' => 'foo']);
   // print_r($data);
   $person = new Person($data);
   print_r($person->toArray());
-
+echo $person;
   use Sphp\Html\Lists\Ul;
   use Sphp\Html\Media\Icons\FontAwesome;
   ?>

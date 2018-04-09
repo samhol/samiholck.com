@@ -5,7 +5,7 @@
  * Copyright (c) 2017 Sami Holck <sami.holck@gmail.com>
  */
 
-namespace Sphp\Samiholck\Contact;
+namespace Sphp\Mail;
 
 use Zend\Mail\Message;
 use Zend\Mail\Transport\Sendmail;

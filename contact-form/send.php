@@ -22,9 +22,10 @@ use Sphp\Security\CRSFToken;
 use Sphp\Config\Config;
 use Sphp\Validators\FormValidator;
 use Sphp\Validators\RequiredValueValidator;
-use Sphp\Samiholck\Contact\ContactMailer;
-use Sphp\Samiholck\Contact\ContactData;
+use Sphp\Mail\ContactMailer;
+use Sphp\Data\ContactMessage;
 use Sphp\Security\ReCaptcha;
+use Sphp\Data\Person;
 
 $args = [
     'name' => FILTER_SANITIZE_STRING,
@@ -52,7 +53,10 @@ if (!CRSFToken::instance()->verifyPostToken('contact-form')) {
 } else if (!$validator->isValid($vals)) {
   $response['error'] = 'FORM-DATA';
 } else {
-  $data = new ContactData($vals);
+  $data = new ContactMessage();
+  $data->setSubject($vals['subject']);
+  $data->setMessage($vals['message']);
+  $data->setContacter(new Sphp\Data\Person($vals));
   //$mailer = new ContactMailer('sami.holck@samiholck.com', 'sami.holck@gmail.com');
   //$mailer->sendContactData($data);
   // $_SESSION['contact-form']['submitted'] = true;

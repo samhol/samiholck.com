@@ -1,9 +1,10 @@
 <?php
 
-use Sphp\Samiholck\Contact\ContactData;
-use Sphp\Data\Human\Person;
-
+use Sphp\Mail\ContactMessage;
+use Sphp\Mail\ContactMailer;
 $data = [
+    'subject' => 'Hello foo',
+    'message' => 'Foo is foo-ish',
     'fname' => 'Sami',
     'lname' => 'Holck',
     'email' => 'sami.holck@gmail.com',
@@ -13,15 +14,14 @@ $data = [
     'country' => 'Finland',
     'phonenumber' => '+358 44 298 6738'
 ];
-$person = new Person($data);
+$message = new ContactMessage($data);
 echo "<pre>";
-var_dump($person->toArray());
-$c = new ContactData($data);
+print_r($message->toArray());
+$mailer = new ContactMailer('sami.holck@samiholck.com', 'sami.holck@gmail.com');
+echo $message->getSubject()."\nmessage:";
+echo $mailer->createMailBody($message);
 echo "</pre>";
-\Sphp\Html\Document::body()->scripts()->appendSrc('contact-form/form.js');
 ?>
 
 
-<div id="form-container">
-</div>
 
