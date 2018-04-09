@@ -11,7 +11,7 @@ namespace Sphp\Html\Apps\Forms;
  * Implements a Sami PHP API search form
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
+ * @license https://opensource.org/licenses/MIT The MIT License
  * @filesource
  */
 class SiteSearch360Form extends AbstractSearchForm {

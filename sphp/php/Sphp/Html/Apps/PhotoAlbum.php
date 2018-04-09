@@ -24,7 +24,7 @@ use Sphp\Html\Media\Img;
  * A photo album application
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
+ * @license https://opensource.org/licenses/MIT The MIT License
  * @filesource
  */
 class PhotoAlbum extends AbstractContainerComponent {

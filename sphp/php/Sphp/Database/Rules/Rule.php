@@ -15,7 +15,7 @@ use Sphp\Database\Utils;
  * Implements a single rule for comparison operations in SQL queries
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
+ * @license https://opensource.org/licenses/MIT The MIT License
  * @filesource
  */
 class Rule implements RuleInterface {

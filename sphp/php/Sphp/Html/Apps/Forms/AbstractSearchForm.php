@@ -20,7 +20,7 @@ use Sphp\Html\AbstractComponent;
  * Implements a Freefind search form
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
+ * @license https://opensource.org/licenses/MIT The MIT License
  * @filesource
  */
 abstract class AbstractSearchForm extends AbstractComponent implements FormInterface {

@@ -17,7 +17,7 @@ use Sphp\Html\Foundation\Sites\Navigation\BreadCrumbs;
  *
  * @author  Sami Holck <sami.holck@gmail.com>
  * @link    http://www.apigen.org/ ApiGen
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
+ * @license https://opensource.org/licenses/MIT The MIT License
  * @filesource
  * @see Hyperlink
  */

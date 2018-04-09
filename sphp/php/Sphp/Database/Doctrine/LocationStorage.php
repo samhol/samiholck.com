@@ -16,7 +16,7 @@ use Sphp\Database\Doctrine\Objects\DbObjectInterface;
  * Implements a {@link Location} storage
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
+ * @license https://opensource.org/licenses/MIT The MIT License
  * @filesource
  */
 class LocationStorage extends AbstractObjectStorage implements \IteratorAggregate {

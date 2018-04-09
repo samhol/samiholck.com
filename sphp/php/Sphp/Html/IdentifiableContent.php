@@ -11,7 +11,7 @@ namespace Sphp\Html;
  * Defines the basic functionality of an identifiable HTML component
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
+ * @license https://opensource.org/licenses/MIT The MIT License
  * @link    http://www.w3schools.com/tags/att_global_id.asp id attribute
  * @filesource
  */

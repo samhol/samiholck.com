@@ -20,7 +20,7 @@ use Sphp\Html\Attributes\HtmlAttributeManager;
  * 2. The type of the content in such container depends solely on the container's purpose of use.
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
+ * @license https://opensource.org/licenses/MIT The MIT License
  * @filesource
  */
 class SimpleContainerTag extends AbstractTag {

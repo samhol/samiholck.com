@@ -15,7 +15,7 @@ use Sphp\Exceptions\OutOfBoundsException;
  *
  * @author  Sami Holck <sami.holck@gmail.com>
  * @since   2018-03-06
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
+ * @license https://opensource.org/licenses/MIT The MIT License
  * @filesource
  */
 class Sequence implements Iterator {

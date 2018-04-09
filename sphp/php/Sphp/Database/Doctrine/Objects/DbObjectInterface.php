@@ -11,7 +11,7 @@ namespace Sphp\Database\Doctrine\Objects;
  * Defines common features for all database objects.
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
+ * @license https://opensource.org/licenses/MIT The MIT License
  * @filesource
  */
 interface DbObjectInterface extends ObjectInterface {

@@ -14,7 +14,7 @@ use Sphp\Html\Navigation\Hyperlink;
  * Implements a hyperlink type menu item
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
+ * @license https://opensource.org/licenses/MIT The MIT License
  * @filesource
  */
 class HyperlinkListItem extends HyperlinkContainer implements LiInterface {

@@ -15,7 +15,7 @@ use Sphp\Html\Content;
  * Implements Google reCAPTCHA HTML component
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
+ * @license https://opensource.org/licenses/MIT The MIT License
  * @link    https://developers.google.com/recaptcha/ Google reCAPTCHA
  * @filesource
  */

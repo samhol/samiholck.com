@@ -13,7 +13,7 @@ use OutOfBoundsException as SplOutOfBoundsException;
  * SPHP-specific out of bounds exception
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
+ * @license https://opensource.org/licenses/MIT The MIT License
  * @filesource
  */
 class OutOfBoundsException extends SplOutOfBoundsException implements SphpException {

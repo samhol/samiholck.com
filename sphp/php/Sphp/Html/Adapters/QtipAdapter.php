@@ -15,7 +15,7 @@ use Sphp\Html\IdentifiableContent;
  *
  * @author  Sami Holck <sami.holck@gmail.com>
  * @link    http://qtip2.com/ qTip 2
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
+ * @license https://opensource.org/licenses/MIT The MIT License
  * @filesource
  */
 class QtipAdapter extends AbstractComponentAdapter {

@@ -19,7 +19,7 @@ use Sphp\Html\ComponentInterface;
  * using an invisible Adobe Flash movie and a JavaScript interface.
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
+ * @license https://opensource.org/licenses/MIT The MIT License
  * @filesource
  */
 class ContentCopyController implements Content {

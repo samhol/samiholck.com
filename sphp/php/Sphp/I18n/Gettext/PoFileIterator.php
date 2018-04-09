@@ -18,7 +18,7 @@ use Sphp\Stdlib\Datastructures\Collection;
  *
  * @author  Sami Holck <sami.holck@gmail.com>
  * @uses    https://github.com/raulferras/PHP-po-parser Po Parser
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
+ * @license https://opensource.org/licenses/MIT The MIT License
  * @filesource
  */
 class PoFileIterator implements \Iterator {

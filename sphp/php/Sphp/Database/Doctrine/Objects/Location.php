@@ -13,7 +13,7 @@ use Doctrine\ORM\EntityManagerInterface;
  * Implements a geographical location
  *
  * @author Sami Holck <sami.holck@gmail.com>
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
+ * @license https://opensource.org/licenses/MIT The MIT License
  * @filesource
  * @Entity
  * @Table(name="locations",uniqueConstraints={@UniqueConstraint(name="unique_name", columns={"name"})})

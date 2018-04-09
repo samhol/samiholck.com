@@ -13,7 +13,7 @@ use Sphp\Html\Navigation\Hyperlink;
  * Defines a Hyperlink object generator pointing to an online PHP API
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
+ * @license https://opensource.org/licenses/MIT The MIT License
  * @filesource
  */
 interface ClassLinkerInterface extends LinkerInterface {

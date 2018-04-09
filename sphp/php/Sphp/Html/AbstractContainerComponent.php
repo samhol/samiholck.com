@@ -16,7 +16,7 @@ use Sphp\Html\Attributes\HtmlAttributeManager;
  * of other existing HTML components.
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
+ * @license https://opensource.org/licenses/MIT The MIT License
  * @filesource
  */
 abstract class AbstractContainerComponent extends AbstractComponent {

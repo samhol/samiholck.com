@@ -17,7 +17,7 @@ use Sphp\Database\Rules\Clause;
  * An abstract implementation of a `SELECT` statement
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
+ * @license https://opensource.org/licenses/MIT The MIT License
  * @filesource
  */
 abstract class AbstractQuery extends AbstractConditionalStatement implements IteratorAggregate, Query {

@@ -13,7 +13,7 @@ use InvalidArgumentException as SplInvalidArgumentException;
  * SPHP-specific invalid argument exception
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
+ * @license https://opensource.org/licenses/MIT The MIT License
  * @filesource
  */
 class InvalidArgumentException extends SplInvalidArgumentException implements SphpException {

@@ -14,7 +14,7 @@ use Throwable;
  *
  * @author  Sami Holck <sami.holck@gmail.com>
  * $link    http://php.net/manual/en/function.set-exception-handler.php
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
+ * @license https://opensource.org/licenses/MIT The MIT License
  * @filesource
  */
 interface ExceptionListener {

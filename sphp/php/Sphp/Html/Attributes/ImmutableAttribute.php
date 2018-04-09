@@ -12,7 +12,7 @@ namespace Sphp\Html\Attributes;
  *
  * @author  Sami Holck <sami.holck@gmail.com>
  * @since   2018-03-07
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
+ * @license https://opensource.org/licenses/MIT The MIT License
  * @filesource
  */
 class ImmutableAttribute implements AttributeInterface {

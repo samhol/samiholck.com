@@ -14,7 +14,7 @@ use RuntimeException as SplRuntimeException;
  * Exception thrown if an error which can only be found on runtime occurs
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
+ * @license https://opensource.org/licenses/MIT The MIT License
  * @filesource
  */
 class RuntimeException extends SplRuntimeException implements SphpException {

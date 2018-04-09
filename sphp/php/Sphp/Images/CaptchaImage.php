@@ -18,7 +18,7 @@ use Imagine\Gd\Imagine,
  * Implements a captha image
  *
  * @author  Sami Holck <sami.holck@gmail.com>, Simon Jarvis
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
+ * @license https://opensource.org/licenses/MIT The MIT License
  * @filesource
  */
 class CaptchaImage {

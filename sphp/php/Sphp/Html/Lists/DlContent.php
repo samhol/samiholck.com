@@ -13,7 +13,7 @@ use Sphp\Html\ComponentInterface;
  * The common Interface for both of the content tag types of an definition list
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
+ * @license https://opensource.org/licenses/MIT The MIT License
  * @filesource
  */
 interface DlContent extends ComponentInterface {

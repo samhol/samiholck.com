@@ -15,7 +15,7 @@ use Symfony\Component\Yaml\Yaml as SymfonyYaml;
  * Implements a YAML to array reader
  * 
  * @author  Sami Holck <sami.holck@gmail.com>
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
+ * @license https://opensource.org/licenses/MIT The MIT License
  * @filesource
  */
 class Yaml extends AbstractReader {

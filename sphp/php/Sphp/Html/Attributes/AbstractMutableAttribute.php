@@ -15,7 +15,7 @@ use Sphp\Html\Attributes\Exceptions\InvalidAttributeException;
  * An abstract implementation of an HTML attribute object
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
+ * @license https://opensource.org/licenses/MIT The MIT License
  * @filesource
  */
 abstract class AbstractMutableAttribute implements MutableAttributeInterface {

@@ -22,7 +22,7 @@ use Sphp\Exceptions\BadMethodCallException;
  *
  * @author  Sami Holck <sami.holck@gmail.com>
  * @link    https://zendframework.github.io/zend-i18n/translation/
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
+ * @license https://opensource.org/licenses/MIT The MIT License
  * @filesource
  */
 class Translator extends AbstractTranslator {

@@ -13,7 +13,7 @@ use Sphp\Database\AbstractInsert;
  * MySQL implementation of `INSERT` statement
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
+ * @license https://opensource.org/licenses/MIT The MIT License
  * @filesource
  */
 class Insert extends AbstractInsert {

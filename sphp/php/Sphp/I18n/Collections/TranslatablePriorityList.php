@@ -19,7 +19,7 @@ use Sphp\Stdlib\Datastructures\StablePriorityQueue;
  * Implements a list that holds {@link Translatable} objects in a reusable priority queue
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
+ * @license https://opensource.org/licenses/MIT The MIT License
  * @filesource
  */
 class TranslatablePriorityList implements IteratorAggregate, TranslatableCollectionInterface, Arrayable {

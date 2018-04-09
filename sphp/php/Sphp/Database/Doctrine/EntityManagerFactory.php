@@ -18,7 +18,7 @@ use Doctrine\ORM\EntityManager;
  *
  * @author  Sami Holck <sami.holck@gmail.com>
  * @update  2016-03-08
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
+ * @license https://opensource.org/licenses/MIT The MIT License
  * @filesource
  */
 class EntityManagerFactory {

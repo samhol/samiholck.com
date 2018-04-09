@@ -13,7 +13,7 @@ use Sphp\Html\Attributes\ClassAttribute;
  * Defines the basic functionality of a HTML content having CSS classes as attributes
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
+ * @license https://opensource.org/licenses/MIT The MIT License
  * @filesource
  */
 interface CssClassifiableContent extends Content {

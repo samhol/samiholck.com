@@ -15,7 +15,7 @@ use Sphp\Html\Apps\Manual\ApiUrlGeneratorInterface;
  *
  * @author  Sami Holck <sami.holck@gmail.com>
  * @link    http://www.apigen.org/ ApiGen
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
+ * @license https://opensource.org/licenses/MIT The MIT License
  * @filesource
  */
 class ApiGenUrlGenerator extends UrlGenerator implements ApiUrlGeneratorInterface {

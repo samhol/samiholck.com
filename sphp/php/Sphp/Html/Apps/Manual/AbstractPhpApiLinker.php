@@ -14,7 +14,7 @@ use Sphp\Html\Apps\Manual\ClassLinkerInterface;
  * Hyperlink generator pointing to an online PHP API documentation
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
+ * @license https://opensource.org/licenses/MIT The MIT License
  * @filesource
  */
 abstract class AbstractPhpApiLinker extends AbstractLinker {

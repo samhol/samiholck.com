@@ -16,7 +16,7 @@ use Sphp\Database\Doctrine\Objects\DbObjectInterface;
  * Defines required properties for a {@link DbObjectInterface} storage
  * 
  * @author  Sami Holck <sami.holck@gmail.com>
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
+ * @license https://opensource.org/licenses/MIT The MIT License
  * @filesource
  */
 interface ObjectStorageInterface extends Traversable, Countable {

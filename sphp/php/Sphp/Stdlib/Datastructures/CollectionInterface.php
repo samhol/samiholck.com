@@ -16,7 +16,7 @@ use Traversable;
  *
  * @author  Sami Holck <sami.holck@gmail.com>
  * @link    http://www.php.net/manual/en/arrayobject.php The ArrayObject class
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
+ * @license https://opensource.org/licenses/MIT The MIT License
  * @filesource
  */
 interface CollectionInterface extends Arrayable, ArrayAccess, Countable, Traversable {

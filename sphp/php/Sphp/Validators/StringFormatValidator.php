@@ -16,7 +16,7 @@ use Sphp\I18n\Message;
  *  data is valid.
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
+ * @license https://opensource.org/licenses/MIT The MIT License
  * @filesource
  */
 class StringFormatValidator extends AbstractValidator {

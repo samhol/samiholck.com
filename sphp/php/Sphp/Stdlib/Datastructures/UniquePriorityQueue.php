@@ -21,7 +21,7 @@ use UnderflowException;
  * 
  * @author  Sami Holck <sami.holck@gmail.com>
  * @link    http://php.net/manual/en/class.splpriorityqueue.php the SplPriorityQueue class
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
+ * @license https://opensource.org/licenses/MIT The MIT License
  * @filesource
  */
 class UniquePriorityQueue implements IteratorAggregate, Countable, QueueInterface, Arrayable {

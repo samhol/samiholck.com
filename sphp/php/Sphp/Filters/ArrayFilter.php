@@ -15,7 +15,7 @@ namespace Sphp\Filters;
  *
  * @author  Sami Holck <sami.holck@gmail.com>
  * @link    http://php.net/manual/en/filter.filters.php filter_var
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
+ * @license https://opensource.org/licenses/MIT The MIT License
  * @filesource
  */
 class ArrayFilter extends AbstractFilter {

@@ -15,7 +15,7 @@ use Sphp\Stdlib\Datastructures\Arrayable;
  * Defines an HTML attribute with multiple values value
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
+ * @license https://opensource.org/licenses/MIT The MIT License
  * @filesource
  */
 interface CollectionAttributeInterface extends MutableAttributeInterface, Countable, Traversable, Arrayable {

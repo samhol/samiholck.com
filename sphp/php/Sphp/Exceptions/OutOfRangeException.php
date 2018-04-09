@@ -15,7 +15,7 @@ use OutOfRangeException as SplOutOfRangeException;
  * This represents errors that should be detected at compile time.
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
+ * @license https://opensource.org/licenses/MIT The MIT License
  * @filesource
  */
 class OutOfRangeException extends SplOutOfRangeException implements SphpException {

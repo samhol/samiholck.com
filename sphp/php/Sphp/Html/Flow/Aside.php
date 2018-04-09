@@ -18,7 +18,7 @@ use Sphp\Html\Flow\Headings\HeadingInterface;
  * 
  * @author Sami Holck <sami.holck@gmail.com>
  * @link    http://www.w3schools.com/tags/tag_aside.asp w3schools HTML API
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
+ * @license https://opensource.org/licenses/MIT The MIT License
  * @filesource
  */
 class Aside extends ContainerTag {

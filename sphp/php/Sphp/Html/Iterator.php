@@ -15,7 +15,7 @@ use Sphp\Stdlib\Arrays;
  * Implements a basic iterator for HTML content
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
+ * @license https://opensource.org/licenses/MIT The MIT License
  * @filesource
  */
 class Iterator implements NativeIterator, Content, TraversableContent {

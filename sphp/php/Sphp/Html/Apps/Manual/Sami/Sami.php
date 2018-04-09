@@ -19,7 +19,7 @@ use Sphp\Html\Adapters\QtipAdapter;
  *
  * @author  Sami Holck <sami.holck@gmail.com>
  * @link    https://github.com/FriendsOfPHP/Sami Sami: an API documentation generator
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
+ * @license https://opensource.org/licenses/MIT The MIT License
  * @filesource
  * @see Hyperlink
  */

@@ -16,7 +16,7 @@ use DateTimeImmutable;
  * Implements a HTML based stamp-element that describes a {@link DateTimeInterface} object
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
+ * @license https://opensource.org/licenses/MIT The MIT License
  * @filesource
  */
 class DateStamp extends AbstractComponent implements TimeTagInterface {

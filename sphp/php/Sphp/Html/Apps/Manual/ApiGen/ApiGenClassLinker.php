@@ -16,7 +16,7 @@ use Sphp\Html\Foundation\Sites\Navigation\BreadCrumb;
  * Hyperlink object generator pointing to an existing ApiGen documentation about a class
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
+ * @license https://opensource.org/licenses/MIT The MIT License
  * @filesource
  */
 class ApiGenClassLinker extends AbstractClassLinker {

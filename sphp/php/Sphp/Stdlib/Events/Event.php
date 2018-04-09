@@ -14,7 +14,7 @@ namespace Sphp\Stdlib\Events;
  * to these events and get notified when they trigger.
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
+ * @license https://opensource.org/licenses/MIT The MIT License
  * @filesource
  */
 class Event implements EventInterface {

@@ -17,7 +17,7 @@ use Sphp\Html\Attributes\Exceptions\ImmutableAttributeException;
  * This models an actual HTML component and supports HTML attribute manipulation.
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
+ * @license https://opensource.org/licenses/MIT The MIT License
  * @filesource
  */
 interface ComponentInterface extends IdentifiableContent, CssClassifiableContent {

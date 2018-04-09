@@ -30,7 +30,7 @@ namespace Sphp\Exceptions;
  * SPHP-specific exception 
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
+ * @license https://opensource.org/licenses/MIT The MIT License
  * @filesource
  */
 class Exception extends \Exception implements SphpException {

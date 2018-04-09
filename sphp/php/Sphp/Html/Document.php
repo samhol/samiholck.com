@@ -13,7 +13,7 @@ use Sphp\Html\Head\Head;
  * Document class contains basic Sphp HTML tag component creation and HTML version handing
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
+ * @license https://opensource.org/licenses/MIT The MIT License
  * @filesource
  */
 class Document {

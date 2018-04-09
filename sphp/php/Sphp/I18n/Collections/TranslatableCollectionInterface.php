@@ -14,7 +14,7 @@ use Sphp\I18n\Translatable;
  * Defines properties for a collection that holds {@link Translatable} objects
  *
  * @author  Sami Holck <sami.holck@gmail.com>
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
+ * @license https://opensource.org/licenses/MIT The MIT License
  * @filesource
  */
 interface TranslatableCollectionInterface extends Traversable, Translatable {
