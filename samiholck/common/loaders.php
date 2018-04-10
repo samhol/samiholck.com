@@ -12,7 +12,6 @@ $loadPage = function ($par, string $file = 'index') {
     if (is_file($page)) {
       $class = $file;
       include $page;
-      include 'samiholck/templates/menus/siteNav.php';
     } else {
       $class = 'error';
       include "samiholck/pages/error.php";

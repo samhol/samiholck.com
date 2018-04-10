@@ -13,7 +13,7 @@ $grid->append((new Menu())->vertical()
                 ->appendText('Projects' . $fa->users()->pull('right'))
                 ->appendLink('http://raisionveneseura.fi', 'Raisionveneseura.fi')
                 ->appendLink('http://samiholck.com', '&lt;samiholck.com&gt;')
-                ->appendLink('http://playground.samiholck.com/', Svg::fromUrl('http://www.samiholck.com/samiholck/svg/s-logo.php').'SPHPlayground framework')
+                ->appendLink('http://playground.samiholck.com/', Svg::fromUrl('http://data.samiholck.com/svg/s-logo.php').'SPHPlayground framework')
                 ->appendText('Framework APIs' . $fa->book()->pull('right'))
                 ->appendLink('http://playground.samiholck.com/API/sami/', $fa->php() . 'PHP API')
                 ->appendLink('http://playground.samiholck.com/API/jsdoc/', $fa->js() . 'JavaScript API'));

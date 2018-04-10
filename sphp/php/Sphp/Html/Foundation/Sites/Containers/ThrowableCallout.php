@@ -177,7 +177,7 @@ class ThrowableCallout extends Callout {
    * @return string the information about the method described in a trace row or null
    */
   private function parseFunction(array $trRow): string {
-    echo "<pre>foo:::";
+    echo "<pre>";
     echo $this->throwable->getTraceAsString();
     echo "</pre>";
     $methodStr = "while executing ";

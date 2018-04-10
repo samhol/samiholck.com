@@ -21,7 +21,7 @@ $sitemap-border-highlight-color: rgba(70, 70, 70, 0.5);
     background-color: #000;
     border-top: 2px solid $highlight-color;
     border-bottom: 1px solid $highlight-color;
-    background-image: url('../samiholck/pics/footer_skull.png'), url('../samiholck/pics/parquet_black.jpg');
+    background-image: url('http:/data.samiholck.com/images/footer-skull.png'), url('http:/data.samiholck.com/images/parquet/black.jpg');
     background-repeat: no-repeat,repeat;
     background-position: center center,0 0;
     .sitemap { 
@@ -138,7 +138,7 @@ $sitemap-border-highlight-color: rgba(70, 70, 70, 0.5);
   &.copyright-details-container {
     border-top: 1px solid #222;
     background-color: $white;
-    background-image: url('../samiholck/pics/parquet_dim_white.jpg');
+    background-image: url('http://data.samiholck.com/images/parquet/dim-white.jpg');
     background-repeat: repeat;
     background-position: top left;
     color:$dark-gray !important;

@@ -27,9 +27,9 @@ Document::head()
         //->useFoundationIcons()
         //->addCssSrc('css/styles.all.css')
         ->addCssSrc('https://cdn.rawgit.com/konpa/devicon/master/devicon.min.css')
-        ->setBaseAddr(Path::get()->http(), '_self')
-        ->addShortcutIcon('http://www.samiholck.com/samiholck/pics/S-logo.png')
-        ->add(Head\Link::create('http://www.samiholck.com/samiholck/pics/apple-touch-icon.png', 'apple-touch-icon'))
+        //->setBaseAddr(Path::get()->http(), '_self')
+        ->addShortcutIcon('http://data.samiholck.com/images/S-logo.png')
+        ->add(Head\Link::create('http://data.samiholck.com/images/apple-touch-icon.png', 'apple-touch-icon'))
         ->addMeta(Meta::author('Sami Holck'))
         ->addMeta(Meta::keywords([
                     'php',

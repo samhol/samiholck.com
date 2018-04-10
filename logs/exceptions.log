@@ -1,0 +1,220 @@
+
+Date: Tue, 10 Apr 2018 13:40:54 +0300 Zend\Cache\Exception\InvalidArgumentException was thrown
+With message: Cache directory '/home/int48291/public_html/cache' not found or not a directory, (code 0)
+----------------------
+on line 129 of file 'C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-cache\src\Storage\Adapter\FilesystemOptions.php'
+----------------------
+Trace:
+#0 C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-stdlib\src\AbstractOptions.php(106): Zend\Cache\Storage\Adapter\FilesystemOptions->setCacheDir('/home/int48291/...')
+#1 C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-stdlib\src\AbstractOptions.php(64): Zend\Stdlib\AbstractOptions->__set('cache_dir', '/home/int48291/...')
+#2 C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-cache\src\Storage\Adapter\AdapterOptions.php(339): Zend\Stdlib\AbstractOptions->setFromArray(Array)
+#3 C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-stdlib\src\AbstractOptions.php(34): Zend\Cache\Storage\Adapter\AdapterOptions->setFromArray(Array)
+#4 C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-cache\src\Storage\Adapter\FilesystemOptions.php(115): Zend\Stdlib\AbstractOptions->__construct(Array)
+#5 C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-cache\src\Storage\Adapter\Filesystem.php(73): Zend\Cache\Storage\Adapter\FilesystemOptions->__construct(Array)
+#6 C:\xampp\htdocs\samiholck.com\samiholck\common\cache.php(10): Zend\Cache\Storage\Adapter\Filesystem->setOptions(Array)
+#7 C:\xampp\htdocs\samiholck.com\samiholck\common\all.php(8): require_once('C:\\xampp\\htdocs...')
+#8 C:\xampp\htdocs\samiholck.com\samiholck\settings.php(23): require_once('C:\\xampp\\htdocs...')
+#9 C:\xampp\htdocs\samiholck.com\index.php(8): require_once('C:\\xampp\\htdocs...')
+#10 {main}
+----------------------
+
+
+Date: Tue, 10 Apr 2018 13:41:06 +0300 Zend\Cache\Exception\InvalidArgumentException was thrown
+With message: Cache directory '/home/int48291/public_html/cache' not found or not a directory, (code 0)
+----------------------
+on line 129 of file 'C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-cache\src\Storage\Adapter\FilesystemOptions.php'
+----------------------
+Trace:
+#0 C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-stdlib\src\AbstractOptions.php(106): Zend\Cache\Storage\Adapter\FilesystemOptions->setCacheDir('/home/int48291/...')
+#1 C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-stdlib\src\AbstractOptions.php(64): Zend\Stdlib\AbstractOptions->__set('cache_dir', '/home/int48291/...')
+#2 C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-cache\src\Storage\Adapter\AdapterOptions.php(339): Zend\Stdlib\AbstractOptions->setFromArray(Array)
+#3 C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-stdlib\src\AbstractOptions.php(34): Zend\Cache\Storage\Adapter\AdapterOptions->setFromArray(Array)
+#4 C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-cache\src\Storage\Adapter\FilesystemOptions.php(115): Zend\Stdlib\AbstractOptions->__construct(Array)
+#5 C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-cache\src\Storage\Adapter\Filesystem.php(73): Zend\Cache\Storage\Adapter\FilesystemOptions->__construct(Array)
+#6 C:\xampp\htdocs\samiholck.com\samiholck\common\cache.php(10): Zend\Cache\Storage\Adapter\Filesystem->setOptions(Array)
+#7 C:\xampp\htdocs\samiholck.com\samiholck\common\all.php(8): require_once('C:\\xampp\\htdocs...')
+#8 C:\xampp\htdocs\samiholck.com\samiholck\settings.php(23): require_once('C:\\xampp\\htdocs...')
+#9 C:\xampp\htdocs\samiholck.com\index.php(8): require_once('C:\\xampp\\htdocs...')
+#10 {main}
+----------------------
+
+
+Date: Tue, 10 Apr 2018 13:43:21 +0300 Zend\Cache\Exception\InvalidArgumentException was thrown
+With message: Cache directory '/home/int48291/public_html/cache' not found or not a directory, (code 0)
+----------------------
+on line 129 of file 'C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-cache\src\Storage\Adapter\FilesystemOptions.php'
+----------------------
+Trace:
+#0 C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-stdlib\src\AbstractOptions.php(106): Zend\Cache\Storage\Adapter\FilesystemOptions->setCacheDir('/home/int48291/...')
+#1 C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-stdlib\src\AbstractOptions.php(64): Zend\Stdlib\AbstractOptions->__set('cache_dir', '/home/int48291/...')
+#2 C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-cache\src\Storage\Adapter\AdapterOptions.php(339): Zend\Stdlib\AbstractOptions->setFromArray(Array)
+#3 C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-stdlib\src\AbstractOptions.php(34): Zend\Cache\Storage\Adapter\AdapterOptions->setFromArray(Array)
+#4 C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-cache\src\Storage\Adapter\FilesystemOptions.php(115): Zend\Stdlib\AbstractOptions->__construct(Array)
+#5 C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-cache\src\Storage\Adapter\Filesystem.php(73): Zend\Cache\Storage\Adapter\FilesystemOptions->__construct(Array)
+#6 C:\xampp\htdocs\samiholck.com\samiholck\common\cache.php(10): Zend\Cache\Storage\Adapter\Filesystem->setOptions(Array)
+#7 C:\xampp\htdocs\samiholck.com\samiholck\common\all.php(8): require_once('C:\\xampp\\htdocs...')
+#8 C:\xampp\htdocs\samiholck.com\samiholck\settings.php(23): require_once('C:\\xampp\\htdocs...')
+#9 C:\xampp\htdocs\samiholck.com\index.php(8): require_once('C:\\xampp\\htdocs...')
+#10 {main}
+----------------------
+
+
+Date: Tue, 10 Apr 2018 13:45:18 +0300 Zend\Cache\Exception\InvalidArgumentException was thrown
+With message: Cache directory '/home/int48291/public_html/cache' not found or not a directory, (code 0)
+----------------------
+on line 129 of file 'C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-cache\src\Storage\Adapter\FilesystemOptions.php'
+----------------------
+Trace:
+#0 C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-stdlib\src\AbstractOptions.php(106): Zend\Cache\Storage\Adapter\FilesystemOptions->setCacheDir('/home/int48291/...')
+#1 C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-stdlib\src\AbstractOptions.php(64): Zend\Stdlib\AbstractOptions->__set('cache_dir', '/home/int48291/...')
+#2 C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-cache\src\Storage\Adapter\AdapterOptions.php(339): Zend\Stdlib\AbstractOptions->setFromArray(Array)
+#3 C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-stdlib\src\AbstractOptions.php(34): Zend\Cache\Storage\Adapter\AdapterOptions->setFromArray(Array)
+#4 C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-cache\src\Storage\Adapter\FilesystemOptions.php(115): Zend\Stdlib\AbstractOptions->__construct(Array)
+#5 C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-cache\src\Storage\Adapter\Filesystem.php(73): Zend\Cache\Storage\Adapter\FilesystemOptions->__construct(Array)
+#6 C:\xampp\htdocs\samiholck.com\samiholck\common\cache.php(11): Zend\Cache\Storage\Adapter\Filesystem->setOptions(Array)
+#7 C:\xampp\htdocs\samiholck.com\samiholck\common\all.php(8): require_once('C:\\xampp\\htdocs...')
+#8 C:\xampp\htdocs\samiholck.com\samiholck\settings.php(23): require_once('C:\\xampp\\htdocs...')
+#9 C:\xampp\htdocs\samiholck.com\index.php(8): require_once('C:\\xampp\\htdocs...')
+#10 {main}
+----------------------
+
+
+Date: Tue, 10 Apr 2018 13:45:31 +0300 Zend\Cache\Exception\InvalidArgumentException was thrown
+With message: Cache directory 'C:\xampp\htdocs\samiholck.com\samiholck\common/cache' not found or not a directory, (code 0)
+----------------------
+on line 129 of file 'C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-cache\src\Storage\Adapter\FilesystemOptions.php'
+----------------------
+Trace:
+#0 C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-stdlib\src\AbstractOptions.php(106): Zend\Cache\Storage\Adapter\FilesystemOptions->setCacheDir('C:\\xampp\\htdocs...')
+#1 C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-stdlib\src\AbstractOptions.php(64): Zend\Stdlib\AbstractOptions->__set('cache_dir', 'C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-cache\src\Storage\Adapter\AdapterOptions.php(339): Zend\Stdlib\AbstractOptions->setFromArray(Array)
+#3 C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-stdlib\src\AbstractOptions.php(34): Zend\Cache\Storage\Adapter\AdapterOptions->setFromArray(Array)
+#4 C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-cache\src\Storage\Adapter\FilesystemOptions.php(115): Zend\Stdlib\AbstractOptions->__construct(Array)
+#5 C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-cache\src\Storage\Adapter\Filesystem.php(73): Zend\Cache\Storage\Adapter\FilesystemOptions->__construct(Array)
+#6 C:\xampp\htdocs\samiholck.com\samiholck\common\cache.php(11): Zend\Cache\Storage\Adapter\Filesystem->setOptions(Array)
+#7 C:\xampp\htdocs\samiholck.com\samiholck\common\all.php(8): require_once('C:\\xampp\\htdocs...')
+#8 C:\xampp\htdocs\samiholck.com\samiholck\settings.php(23): require_once('C:\\xampp\\htdocs...')
+#9 C:\xampp\htdocs\samiholck.com\index.php(8): require_once('C:\\xampp\\htdocs...')
+#10 {main}
+----------------------
+
+
+Date: Tue, 10 Apr 2018 13:49:53 +0300 Zend\Cache\Exception\InvalidArgumentException was thrown
+With message: Cache directory '../../cache' not found or not a directory, (code 0)
+----------------------
+on line 129 of file 'C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-cache\src\Storage\Adapter\FilesystemOptions.php'
+----------------------
+Trace:
+#0 C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-stdlib\src\AbstractOptions.php(106): Zend\Cache\Storage\Adapter\FilesystemOptions->setCacheDir('../../cache')
+#1 C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-stdlib\src\AbstractOptions.php(64): Zend\Stdlib\AbstractOptions->__set('cache_dir', '../../cache')
+#2 C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-cache\src\Storage\Adapter\AdapterOptions.php(339): Zend\Stdlib\AbstractOptions->setFromArray(Array)
+#3 C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-stdlib\src\AbstractOptions.php(34): Zend\Cache\Storage\Adapter\AdapterOptions->setFromArray(Array)
+#4 C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-cache\src\Storage\Adapter\FilesystemOptions.php(115): Zend\Stdlib\AbstractOptions->__construct(Array)
+#5 C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-cache\src\Storage\Adapter\Filesystem.php(73): Zend\Cache\Storage\Adapter\FilesystemOptions->__construct(Array)
+#6 C:\xampp\htdocs\samiholck.com\samiholck\common\cache.php(11): Zend\Cache\Storage\Adapter\Filesystem->setOptions(Array)
+#7 C:\xampp\htdocs\samiholck.com\samiholck\common\all.php(8): require_once('C:\\xampp\\htdocs...')
+#8 C:\xampp\htdocs\samiholck.com\samiholck\settings.php(23): require_once('C:\\xampp\\htdocs...')
+#9 C:\xampp\htdocs\samiholck.com\index.php(8): require_once('C:\\xampp\\htdocs...')
+#10 {main}
+----------------------
+
+
+Date: Tue, 10 Apr 2018 13:49:56 +0300 Zend\Cache\Exception\InvalidArgumentException was thrown
+With message: Cache directory '../../cache' not found or not a directory, (code 0)
+----------------------
+on line 129 of file 'C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-cache\src\Storage\Adapter\FilesystemOptions.php'
+----------------------
+Trace:
+#0 C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-stdlib\src\AbstractOptions.php(106): Zend\Cache\Storage\Adapter\FilesystemOptions->setCacheDir('../../cache')
+#1 C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-stdlib\src\AbstractOptions.php(64): Zend\Stdlib\AbstractOptions->__set('cache_dir', '../../cache')
+#2 C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-cache\src\Storage\Adapter\AdapterOptions.php(339): Zend\Stdlib\AbstractOptions->setFromArray(Array)
+#3 C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-stdlib\src\AbstractOptions.php(34): Zend\Cache\Storage\Adapter\AdapterOptions->setFromArray(Array)
+#4 C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-cache\src\Storage\Adapter\FilesystemOptions.php(115): Zend\Stdlib\AbstractOptions->__construct(Array)
+#5 C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-cache\src\Storage\Adapter\Filesystem.php(73): Zend\Cache\Storage\Adapter\FilesystemOptions->__construct(Array)
+#6 C:\xampp\htdocs\samiholck.com\samiholck\common\cache.php(11): Zend\Cache\Storage\Adapter\Filesystem->setOptions(Array)
+#7 C:\xampp\htdocs\samiholck.com\samiholck\common\all.php(8): require_once('C:\\xampp\\htdocs...')
+#8 C:\xampp\htdocs\samiholck.com\samiholck\settings.php(23): require_once('C:\\xampp\\htdocs...')
+#9 C:\xampp\htdocs\samiholck.com\index.php(8): require_once('C:\\xampp\\htdocs...')
+#10 {main}
+----------------------
+
+
+Date: Tue, 10 Apr 2018 13:54:45 +0300 Zend\Cache\Exception\InvalidArgumentException was thrown
+With message: Cache directory '../../cache' not found or not a directory, (code 0)
+----------------------
+on line 129 of file 'C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-cache\src\Storage\Adapter\FilesystemOptions.php'
+----------------------
+Trace:
+#0 C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-stdlib\src\AbstractOptions.php(106): Zend\Cache\Storage\Adapter\FilesystemOptions->setCacheDir('../../cache')
+#1 C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-stdlib\src\AbstractOptions.php(64): Zend\Stdlib\AbstractOptions->__set('cache_dir', '../../cache')
+#2 C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-cache\src\Storage\Adapter\AdapterOptions.php(339): Zend\Stdlib\AbstractOptions->setFromArray(Array)
+#3 C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-stdlib\src\AbstractOptions.php(34): Zend\Cache\Storage\Adapter\AdapterOptions->setFromArray(Array)
+#4 C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-cache\src\Storage\Adapter\FilesystemOptions.php(115): Zend\Stdlib\AbstractOptions->__construct(Array)
+#5 C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-cache\src\Storage\Adapter\Filesystem.php(73): Zend\Cache\Storage\Adapter\FilesystemOptions->__construct(Array)
+#6 C:\xampp\htdocs\samiholck.com\samiholck\common\cache.php(11): Zend\Cache\Storage\Adapter\Filesystem->setOptions(Array)
+#7 C:\xampp\htdocs\samiholck.com\samiholck\common\all.php(8): require_once('C:\\xampp\\htdocs...')
+#8 C:\xampp\htdocs\samiholck.com\samiholck\settings.php(23): require_once('C:\\xampp\\htdocs...')
+#9 C:\xampp\htdocs\samiholck.com\index.php(8): require_once('C:\\xampp\\htdocs...')
+#10 {main}
+----------------------
+
+
+Date: Tue, 10 Apr 2018 13:55:44 +0300 Zend\Cache\Exception\InvalidArgumentException was thrown
+With message: Cache directory '../../cache' not found or not a directory, (code 0)
+----------------------
+on line 129 of file 'C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-cache\src\Storage\Adapter\FilesystemOptions.php'
+----------------------
+Trace:
+#0 C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-stdlib\src\AbstractOptions.php(106): Zend\Cache\Storage\Adapter\FilesystemOptions->setCacheDir('../../cache')
+#1 C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-stdlib\src\AbstractOptions.php(64): Zend\Stdlib\AbstractOptions->__set('cache_dir', '../../cache')
+#2 C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-cache\src\Storage\Adapter\AdapterOptions.php(339): Zend\Stdlib\AbstractOptions->setFromArray(Array)
+#3 C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-stdlib\src\AbstractOptions.php(34): Zend\Cache\Storage\Adapter\AdapterOptions->setFromArray(Array)
+#4 C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-cache\src\Storage\Adapter\FilesystemOptions.php(115): Zend\Stdlib\AbstractOptions->__construct(Array)
+#5 C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-cache\src\Storage\Adapter\Filesystem.php(73): Zend\Cache\Storage\Adapter\FilesystemOptions->__construct(Array)
+#6 C:\xampp\htdocs\samiholck.com\samiholck\common\cache.php(11): Zend\Cache\Storage\Adapter\Filesystem->setOptions(Array)
+#7 C:\xampp\htdocs\samiholck.com\samiholck\common\all.php(8): require_once('C:\\xampp\\htdocs...')
+#8 C:\xampp\htdocs\samiholck.com\samiholck\settings.php(23): require_once('C:\\xampp\\htdocs...')
+#9 C:\xampp\htdocs\samiholck.com\index.php(8): require_once('C:\\xampp\\htdocs...')
+#10 {main}
+----------------------
+
+
+Date: Tue, 10 Apr 2018 13:56:05 +0300 Zend\Cache\Exception\InvalidArgumentException was thrown
+With message: Cache directory '../../cache' not found or not a directory, (code 0)
+----------------------
+on line 129 of file 'C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-cache\src\Storage\Adapter\FilesystemOptions.php'
+----------------------
+Trace:
+#0 C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-stdlib\src\AbstractOptions.php(106): Zend\Cache\Storage\Adapter\FilesystemOptions->setCacheDir('../../cache')
+#1 C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-stdlib\src\AbstractOptions.php(64): Zend\Stdlib\AbstractOptions->__set('cache_dir', '../../cache')
+#2 C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-cache\src\Storage\Adapter\AdapterOptions.php(339): Zend\Stdlib\AbstractOptions->setFromArray(Array)
+#3 C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-stdlib\src\AbstractOptions.php(34): Zend\Cache\Storage\Adapter\AdapterOptions->setFromArray(Array)
+#4 C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-cache\src\Storage\Adapter\FilesystemOptions.php(115): Zend\Stdlib\AbstractOptions->__construct(Array)
+#5 C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-cache\src\Storage\Adapter\Filesystem.php(73): Zend\Cache\Storage\Adapter\FilesystemOptions->__construct(Array)
+#6 C:\xampp\htdocs\samiholck.com\samiholck\common\cache.php(11): Zend\Cache\Storage\Adapter\Filesystem->setOptions(Array)
+#7 C:\xampp\htdocs\samiholck.com\samiholck\common\all.php(8): require_once('C:\\xampp\\htdocs...')
+#8 C:\xampp\htdocs\samiholck.com\samiholck\settings.php(23): require_once('C:\\xampp\\htdocs...')
+#9 C:\xampp\htdocs\samiholck.com\index.php(8): require_once('C:\\xampp\\htdocs...')
+#10 {main}
+----------------------
+
+
+Date: Tue, 10 Apr 2018 13:56:14 +0300 Zend\Cache\Exception\InvalidArgumentException was thrown
+With message: Cache directory '../../cache' not found or not a directory, (code 0)
+----------------------
+on line 129 of file 'C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-cache\src\Storage\Adapter\FilesystemOptions.php'
+----------------------
+Trace:
+#0 C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-stdlib\src\AbstractOptions.php(106): Zend\Cache\Storage\Adapter\FilesystemOptions->setCacheDir('../../cache')
+#1 C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-stdlib\src\AbstractOptions.php(64): Zend\Stdlib\AbstractOptions->__set('cache_dir', '../../cache')
+#2 C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-cache\src\Storage\Adapter\AdapterOptions.php(339): Zend\Stdlib\AbstractOptions->setFromArray(Array)
+#3 C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-stdlib\src\AbstractOptions.php(34): Zend\Cache\Storage\Adapter\AdapterOptions->setFromArray(Array)
+#4 C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-cache\src\Storage\Adapter\FilesystemOptions.php(115): Zend\Stdlib\AbstractOptions->__construct(Array)
+#5 C:\xampp\htdocs\samiholck.com\vendor\zendframework\zend-cache\src\Storage\Adapter\Filesystem.php(73): Zend\Cache\Storage\Adapter\FilesystemOptions->__construct(Array)
+#6 C:\xampp\htdocs\samiholck.com\samiholck\common\cache.php(11): Zend\Cache\Storage\Adapter\Filesystem->setOptions(Array)
+#7 C:\xampp\htdocs\samiholck.com\samiholck\common\all.php(8): require_once('C:\\xampp\\htdocs...')
+#8 C:\xampp\htdocs\samiholck.com\samiholck\settings.php(23): require_once('C:\\xampp\\htdocs...')
+#9 C:\xampp\htdocs\samiholck.com\index.php(8): require_once('C:\\xampp\\htdocs...')
+#10 {main}
+----------------------
+
