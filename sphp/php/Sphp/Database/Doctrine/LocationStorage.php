@@ -1,8 +1,11 @@
 <?php
 
 /**
- * LocationStorage.php (UTF-8)
- * Copyright (c) 2013 Sami Holck <sami.holck@gmail.com>
+ * SPHPlayground Framework (http://playgound.samiholck.com/)
+ *
+ * @link      https://github.com/samhol/SPHP-framework for the source repository
+ * @copyright Copyright (c) 2007-2018 Sami Holck <sami.holck@gmail.com>
+ * @license   https://opensource.org/licenses/MIT The MIT License
  */
 
 namespace Sphp\Database\Doctrine;
@@ -10,7 +13,6 @@ namespace Sphp\Database\Doctrine;
 use Doctrine\ORM\EntityManagerInterface;
 use Sphp\Stdlib\Datastructures\Collection;
 use Sphp\Database\Doctrine\Objects\Location;
-use Sphp\Database\Doctrine\Objects\DbObjectInterface;
 
 /**
  * Implements a {@link Location} storage
