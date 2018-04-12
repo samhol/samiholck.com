@@ -158,7 +158,7 @@ class Link extends EmptyTag implements HeadContent, NonVisualContent {
    * @link   http://www.w3schools.com/tags/att_link_type.asp type attribute
    * @link   http://www.iana.org/assignments/media-types complete list of standard MIME types
    */
-  public function setType(string $type) {
+  public function setType(string $type = null) {
     $this->attributes()->set('type', $type);
     return $this;
   }
@@ -194,6 +194,26 @@ class Link extends EmptyTag implements HeadContent, NonVisualContent {
    */
   public function setMedia(string $media) {
     $this->attributes()->set('media', $media);
+    return $this;
+  }
+
+  /**
+   * Sets what media/device the target resource is optimized for
+   *
+   * **Notes:**
+   *
+   * * The media attribute specifies what media/device the target resource
+   *   is optimized for.
+   * * This attribute is mostly used with CSS stylesheets to specify
+   *   different styles for different media types.
+   * * The media attribute can accept several values.
+   *
+   * @param  string $media what media/device the target resource is optimized for
+   * @return $this for a fluent interface
+   * @link   http://www.w3schools.com/tags/att_link_sizes.asp sizes attribute
+   */
+  public function setSizes(string $media = null) {
+    $this->attributes()->set('sizes', $media);
     return $this;
   }
 
@@ -239,9 +259,10 @@ class Link extends EmptyTag implements HeadContent, NonVisualContent {
    * @link   http://www.w3schools.com/tags/att_link_type.asp type attribute
    * @link   http://www.iana.org/assignments/media-types complete list of standard MIME types
    */
-  public static function shortcutIcon(string $href, string $type = 'image/x-icon'): Link {
-    $link = new static($href, 'icon', 'screen');
+  public static function shortcutIcon(string $href, string $sizes = null, string $type = null): Link {
+    $link = new static($href, 'icon');
     $link->setType($type);
+    $link->setSizes($sizes);
     return $link;
   }
 

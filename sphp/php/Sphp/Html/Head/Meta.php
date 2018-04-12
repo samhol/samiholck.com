@@ -206,13 +206,13 @@ class Meta extends EmptyTag implements MetaData {
   /**
    * Creates a meta component containing information about the author
    *
-   * @param  string $content the name of the author of the document
+   * @param  string $author the name of the author of the document
    * @return Meta new meta data object
    * @link   http://www.w3schools.com/tags/att_meta_name.asp name attribute
    * @link   http://www.w3schools.com/tags/att_meta_content.asp content attribute
    */
-  public static function author(string $content): Meta {
-    return static::namedContent('author', $content);
+  public static function author(string $author): Meta {
+    return static::namedContent('author', $author);
   }
 
   /**

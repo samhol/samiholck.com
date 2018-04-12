@@ -16,6 +16,7 @@ $loadPage = function ($par, string $file = 'index') {
       $class = 'error';
       include "samiholck/pages/error.php";
     }
+    include "samiholck/templates/linkBar.php";
     $content = ob_get_contents();
   } catch (\Throwable $e) {
     $content .= (new ThrowableCallout($e))->showInitialFile()->showTrace();

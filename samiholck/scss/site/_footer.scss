@@ -162,7 +162,9 @@ $sitemap-border-highlight-color: rgba(70, 70, 70, 0.5);
           svg {
             width: rem-calc(35);
             height: rem-calc(35);
-            fill: #ccc;
+            path {
+              fill: #ccc;
+            }
           }
           display: block;
           text-align: center;

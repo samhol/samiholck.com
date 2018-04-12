@@ -1,0 +1,11 @@
+## linkbar links
+---
+- href: 'http://www.samiholck.com/'
+  icon: fas fa-home
+  text: Home
+- href: 'http://www.samiholck.com/who'
+  icon: far fa-question-circle
+  text: Who am I
+- href: 'http://www.samiholck.com/why'
+  icon: far fa-question-circle
+  text: Why all this
