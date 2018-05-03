@@ -1,8 +1,11 @@
 <?php
 
 /**
- * AbstractColumnLayoutProperties.php (UTF-8)
- * Copyright (c) 2017 Sami Holck <sami.holck@gmail.com>.
+ * SPHPlayground Framework (http://playgound.samiholck.com/)
+ *
+ * @link      https://github.com/samhol/SPHP-framework for the source repository
+ * @copyright Copyright (c) 2007-2018 Sami Holck <sami.holck@gmail.com>
+ * @license   https://opensource.org/licenses/MIT The MIT License
  */
 
 namespace Sphp\Html\Foundation\Sites\Grids;
@@ -71,16 +74,19 @@ class ColumnLayoutManager extends SelfAlingmentAdapter implements ColumnLayoutMa
    */
   public function setWidths(... $widths) {
     $widths = Arrays::flatten($widths);
+    $this->unsetWidths();
     $filtered = preg_grep('/^((small|medium|large|xlarge|xxlarge)-([1-9]|(1[0-2])|auto)|auto)+$/', $widths);
-    foreach ($filtered as $width) {
+    $this->cssClasses()->add($filtered);
+    /*foreach ($filtered as $width) {
       if ($width === 'auto') {
         $this->unsetWidths();
       } else {
+        $this->cssClasses()->remove('auto');
         $parts = explode('-', $width);
         $this->unsetWidths($parts[0]);
       }
       $this->cssClasses()->add($width);
-    }
+    }*/
     return $this;
   }
 
@@ -131,7 +137,7 @@ class ColumnLayoutManager extends SelfAlingmentAdapter implements ColumnLayoutMa
     if ($screenSize === null) {
       $screenSize = '(small|medium|large|xlarge|xxlarge)';
     }
-    $this->cssClasses()->removePattern("/^($screenSize-([1-9]|(1[0-2])|auto))+$/");
+    $this->cssClasses()->removePattern("/^($screenSize-([1-9]|(1[0-2])|auto))|auto+$/");
     return $this;
   }
 

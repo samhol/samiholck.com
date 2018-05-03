@@ -29,30 +29,7 @@ use Sphp\Html\Programming\ScriptSrc;
  */
 class Head extends AbstractComponent implements NonVisualContent {
 
-  /**
-   * @var Title 
-   */
-  private $title;
-
-  /**
-   * @var Base|null 
-   */
-  private $base;
-
-  /**
-   * @var ScriptsContainer 
-   */
-  private $scripts;
-
-  /**
-   * @var Container 
-   */
-  private $links;
-
-  /**
-   * @var MetaContainer 
-   */
-  private $meta;
+  private $content;
 
   /**
    * Constructs a new instance
@@ -60,38 +37,15 @@ class Head extends AbstractComponent implements NonVisualContent {
    * @param string $title the title of the HTML document
    * @param string $charset the character set of the HTML document
    */
-  public function __construct(string $title = null, string $charset = 'UTF-8') {
+  public function __construct(string $title = null, string $charset = null) {
     parent::__construct('head');
-    $this->setup($title, $charset);
-  }
-
-  /**
-   * Builds the initial setup
-   *
-   * @param  string $title the title of the HTML document
-   * @param  string $charset the character set of the HTML document
-   * @return $this for a fluent interface
-   */
-  private function setup($title, $charset) {
-    $this->setDocumentTitle($title);
-    $this->meta = new MetaContainer();
-    $this->scripts = new ScriptsContainer();
-    $this->links = new Container();
-    $this->addMeta(Meta::charset($charset));
-    return $this;
-  }
-
-  /**
-   * Returns and optionally sets the inner script container
-   * 
-   * @param  ScriptsContainer|null $c optional new script container to set
-   * @return ScriptsContainer the script container
-   */
-  public function scripts(ScriptsContainer $c = null): ScriptsContainer {
-    if ($c !== null) {
-      $this->scripts = new ScriptsContainer();
+    $this->content = new HeadContentContainer();
+    if ($title !== null) {
+      $this->setDocumentTitle($title);
     }
-    return $this->scripts;
+    if ($charset !== null) {
+      $this->set(Meta::charset($charset));
+    }
   }
 
   /**
@@ -104,7 +58,7 @@ class Head extends AbstractComponent implements NonVisualContent {
     if (!($title instanceof Title)) {
       $title = new Title($title);
     }
-    $this->title = $title;
+    $this->content->set($title);
     return $this;
   }
 
@@ -118,7 +72,7 @@ class Head extends AbstractComponent implements NonVisualContent {
    */
   public function setBaseAddr(string $baseAddr, string $target = '_self') {
     if ($baseAddr !== null && $target !== null) {
-      $this->base = new Base($baseAddr, $target);
+      $this->content->set(new Base($baseAddr, $target));
     } else {
       $this->unsetBaseAddress();
     }
@@ -143,7 +97,7 @@ class Head extends AbstractComponent implements NonVisualContent {
    * @link   http://zurb.com/playground/foundation-icon-fonts-3 Foundation icons
    */
   public function useFoundationIcons() {
-    $this->addCssSrc('https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.css');
+    $this->setCssSrc('https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.css');
     return $this;
   }
 
@@ -157,7 +111,9 @@ class Head extends AbstractComponent implements NonVisualContent {
    * @link   http://www.w3schools.com/tags/att_script_async.asp async attribute
    */
   public function appendScriptSrc(string $src, bool $async = false): ScriptSrc {
-    return $this->scripts()->appendSrc($src, $async);
+    $script = new ScriptSrc($src, $async);
+    $this->content->set($script);
+    return $script;
   }
 
   /**
@@ -170,8 +126,8 @@ class Head extends AbstractComponent implements NonVisualContent {
    * @link   http://www.w3schools.com/tags/att_link_href.asp href attribute
    * @link   http://www.w3schools.com/tags/att_link_media.asp media attribute
    */
-  public function addCssSrc($href, $media = 'screen') {
-    $this->links->append((new Link($href, 'stylesheet', $media))->setType('text/css'));
+  public function setCssSrc(string $href, string $media = 'screen') {
+    $this->content->set(Link::stylesheet($href, $media));
     return $this;
   }
 
@@ -185,8 +141,8 @@ class Head extends AbstractComponent implements NonVisualContent {
    * @link   http://www.w3schools.com/tags/att_link_type.asp type attribute
    * @link   http://www.iana.org/assignments/media-types complete list of standard MIME types
    */
-  public function addShortcutIcon(string $href, string $sizes = null, string $type = 'image/x-icon') {
-    $this->add(Link::shortcutIcon($href, $type));
+  public function setShortcutIcon(string $href, string $type = 'image/x-icon') {
+    $this->content->set(Link::icon($href, $type));
     return $this;
   }
 
@@ -196,45 +152,13 @@ class Head extends AbstractComponent implements NonVisualContent {
    * @param  HeadContent $component content the component to add
    * @return $this for a fluent interface
    */
-  public function add(HeadContent $component) {
-    if ($component instanceof Title) {
-      $this->setDocumentTitle($component);
-    } else if ($component instanceof Base) {
-      $this->base = $component;
-    } else if ($component instanceof Link) {
-      $this->links->append($component);
-    } else if ($component instanceof Meta) {
-      $this->addMeta($component);
-    } else if ($component instanceof Script) {
-      $this->scripts()->append($component);
-    } else {
-      $this->content()->append($component);
-    }
-    return $this;
-  }
-
-  /**
-   * Returns the &lt;meta&gt; component container
-   *
-   * @return MetaContainer the &lt;meta&gt; component container
-   */
-  public function metaTags(): MetaContainer {
-    return $this->meta;
-  }
-
-  /**
-   * Adds meta data object
-   *
-   * @param  MetaData $meta
-   * @return $this for a fluent interface
-   */
-  public function addMeta(MetaData $meta) {
-    $this->meta->addMeta($meta);
+  public function set(HeadContent $component) {
+    $this->content->set($component);
     return $this;
   }
 
   public function contentToString(): string {
-    return $this->meta . $this->title . $this->base . $this->links . $this->scripts;
+    return $this->content->getHtml();
   }
 
 }

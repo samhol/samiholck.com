@@ -63,3 +63,8 @@
 @import "vendor/vendors"; 
 @import "app/apps";
 @import "manual/manual";
+
+@include sphp-error-handling-callouts;
+@include sphp-syntax-highlighting-modules;
+@include sphp-calendar-modules;
+@include sphp-sidenav;

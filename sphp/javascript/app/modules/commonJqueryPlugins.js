@@ -235,44 +235,29 @@
   };
 
   /**
-   * Loads the data from the server pointed on the data attribute 'data-sph-load' using 
-   * jQuery's Ajax capabilities and places the returned HTML into the object.
-   * 
-   * @function external:"jQuery.fn".sphpAjaxPrepend
-   * @param   {string} content
-   * @param   {Object} options
-   * @returns {jQuery.fn} object for fluent interface
+   * Sets popups default javascript functionality
+   *
+   * Requires <a href="http://jqueryui.com/">jQuery UI (1.8.19)+ </a>
+   *
+   * @author   Sami Holck <sami.holck@gmail.com>
+   * @memberOf jQuery.fn#
+   * @method   sphpPopup
+   * @returns  {jQuery.fn} object for method chaining
    */
-  $.fn.sphpPopup = function (content, options) {
-    var opts = $.extend({}, $.fn.sphpPopup.defaults, options);
-    return this.each(function () {
-      var $this = $(this), $o, $popper;
-      $o = $.meta ? $.extend({}, opts, $this.data()) : opts;
-      $popper = $('<div class="simple-popup">');
-      console.log("initializing simple popup...");
-      $popper.html(content);
-      if ($o.classes) {
-        $popper.addClass($o.classes);
+  $.fn.sphpPopup = function () {
+    this.each(function () {
+      var $popup = $(this), $closers = $popup.find('[name="close"]');
+      $closers = $("[data-sphp-foundation-modal-close]");
+      $closers.click(function () {
+        var $popupId = $(this).attr("data-sphp-foundation-modal-close");
+        $('#' + $popupId).foundation('reveal', 'close');
+      });
+      console.log("data-sphp-modal-default-closer:" + $popup.attr("data-sphp-modal-default-closer"));
+      if ($popup.attr("data-sphp-modal-default-closer") !== undefined) {
+        $popup.append('<a class="close-reveal-modal" aria-label="Close">&#215;</a>');
       }
-      $popper.appendTo($this)
-              .css({
-                zIndex: $o.zIndex,
-              })
-              .hide()
-              .fadeIn($o.delay, "linear", function () {
-                setTimeout(function () {
-                  $popper.fadeOut($o.delay, "linear", function () {
-                    $popper.remove();
-                  });
-                }, $o.show);
-              });
     });
-  };
-  $.fn.sphpPopup.defaults = {
-    zIndex: 20000,
-    delay: 500,
-    show: 2000,
-    content: 'This is the popper!'
+    return this;
   };
 
 }(jQuery));

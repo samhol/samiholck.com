@@ -16,6 +16,8 @@ use ReflectionClass;
 /**
  * Factory for basic HTML tag component creation
  *
+ * @method \Sphp\Html\Head\MetaTag meta(array $meta = []) creates a new span tag component
+ *
  * @method \Sphp\Html\Span span(mixed $content = null) creates a new span tag component
  * @method \Sphp\Html\Div div(mixed $content = null) creates a new div tag component
  * @method \Sphp\Html\Navigation\Hyperlink a(mixed $content = null) creates a new HTML &lt;a&gt; object
@@ -54,6 +56,7 @@ use ReflectionClass;
  * 
  * @author  Sami Holck <sami.holck@gmail.com>
  * @license https://opensource.org/licenses/MIT The MIT License
+ * @link    https://github.com/samhol/SPHP-framework Github repository
  * @filesource
  */
 abstract class TagFactory {
@@ -119,11 +122,11 @@ abstract class TagFactory {
       'ins' => ContainerTag::class,
       'kbd' => ContainerTag::class,
       'keygen' => EmptyTag::class,
-      'link' => Head\Link::class,
+      'link' => Head\LinkTag::class,
       'mark' => ContainerTag::class,
       'menu' => ContainerTag::class,
       'head' => Head\Head::class,
-      'meta' => Head\Meta::class,
+      'meta' => Head\MetaTag::class,
       'title' => Head\Title::class,
       'meter' => ContainerTag::class,
       'nav' => Navigation\Nav::class,
@@ -164,7 +167,7 @@ abstract class TagFactory {
       'thead' => Tables\Thead::class,
       'colgroup' => Tables\Colgroup::class,
       'col' => Tables\Col::class,
-      'time' => TimeTag::class,
+      'time' => DateTime\TimeTag::class,
       'var' => ContainerTag::class,
       'xmp' => ContainerTag::class,
       'pre' => ContainerTag::class,

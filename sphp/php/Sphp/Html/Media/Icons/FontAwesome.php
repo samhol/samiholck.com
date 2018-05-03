@@ -1,8 +1,11 @@
 <?php
 
 /**
- * FontAwesome.php (UTF-8)
- * Copyright (c) 2018 Sami Holck <sami.holck@gmail.com>
+ * SPHPlayground Framework (http://playgound.samiholck.com/)
+ *
+ * @link      https://github.com/samhol/SPHP-framework for the source repository
+ * @copyright Copyright (c) 2007-2018 Sami Holck <sami.holck@gmail.com>
+ * @license   https://opensource.org/licenses/MIT The MIT License
  */
 
 namespace Sphp\Html\Media\Icons;
@@ -40,6 +43,7 @@ use Sphp\Exceptions\BadMethodCallException;
  * @method \Sphp\Html\Media\Icons\FaIcon phone(string $screenReaderLabel = null) creates a new icon object
  * @method \Sphp\Html\Media\Icons\FaIcon envelope(string $screenReaderLabel = null) creates a new icon object
  * @method \Sphp\Html\Media\Icons\FaIcon search(string $screenReaderLabel = null) creates a new icon object
+ * @method \Sphp\Html\Media\Icons\FaIcon tags(string $screenReaderLabel = null) creates a new icon object
  * 
  * @method \Sphp\Html\Media\Icons\FaIcon exclamation(string $screenReaderLabel = null) creates a new icon object
  * @method \Sphp\Html\Media\Icons\FaIcon ban(string $screenReaderLabel = null) creates a new icon object
@@ -89,6 +93,8 @@ class FontAwesome {
       'search' => 'fas fa-search',
       'ban' => 'fas fa-ban',
       'eraser' => 'fas fa-eraser',
+      'exclamation' => 'fas fa-exclamation-triangle',
+      'tags' => 'fas fa-tags',
       /**
        * Brands
        */

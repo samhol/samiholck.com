@@ -1,8 +1,11 @@
 <?php
 
 /**
- * ExceptionCallout.php (UTF-8)
- * Copyright (c) 2014 Sami Holck <sami.holck@gmail.com>
+ * SPHPlayground Framework (http://playgound.samiholck.com/)
+ *
+ * @link      https://github.com/samhol/SPHP-framework for the source repository
+ * @copyright Copyright (c) 2007-2018 Sami Holck <sami.holck@gmail.com>
+ * @license   https://opensource.org/licenses/MIT The MIT License
  */
 
 namespace Sphp\Html\Foundation\Sites\Containers;
@@ -10,8 +13,6 @@ namespace Sphp\Html\Foundation\Sites\Containers;
 use Throwable;
 use Sphp\Html\Div;
 use Sphp\Html\Lists\Ol;
-use Sphp\Html\Lists\Li;
-use Sphp\Html\Lists\Dl;
 
 /**
  * Implements Foundation Callout for {@link \Exception} presentation
@@ -118,17 +119,13 @@ class ThrowableCallout extends Callout {
    */
   private function buildPreviousException() {
     $prev = $this->throwable->getPrevious();
-    if ($this->showPreviousThrowable && $prev instanceof \Exception) {
-      $heading = (new Div())
-              ->addCssClass('previous')
-              ->append('Previous exception: <span class="exception">' . get_class($prev) . '</span>')
-              ->append(" on line <span class=\"number\">#{$prev->getLine()}</span>")
-              ->append(" of file <div class=\"file\">'{$this->parsePath($prev->getFile())}'</div>");
-      $this->getInnerContainer()['previous'] = $heading;
-    } else {
-      $this->getInnerContainer()['previous'] = null;
+    //$output = "$prev";
+    if ($prev instanceof \Throwable) {
+      $output .= 'Previous exception: <span class="exception">' . get_class($prev) . '</span>';
+      $output .= " on line <span class=\"number\">#{$prev->getLine()}</span>";
+      $output .= " of file <div class=\"file\">'{$this->parsePath($prev->getFile())}'</div>";
     }
-    return $this;
+    return $output;
   }
 
   /**
@@ -137,7 +134,7 @@ class ThrowableCallout extends Callout {
    * @param  string $path the path to parse
    * @return string parsed path
    */
-  private function parsePath(string $path): string {
+  protected function parsePath(string $path): string {
     return str_replace(['\\', '/', '.'], ['\\<wbr>', '/<wbr>', '.<wbr>'], $path);
   }
 
@@ -146,25 +143,23 @@ class ThrowableCallout extends Callout {
    *
    * @return string the trace information or an empty string
    */
-  private function buildTrace(): string {
+  protected function buildTrace(): string {
     $trace = $this->throwable->getTrace();
     if (count($trace) > 0) {
       $output = new Ol();
       $output->addCssClass('trace');
-      //$li1 = new Lists\Li();
       foreach ($trace as $traceRow) {
-        $err1 = new Li();
-        if (array_key_exists('line', $traceRow) && array_key_exists("file", $traceRow)) {
-          $err1->append("on line <span class=\"number\">#{$this->parsePath($traceRow["line"])}</span>")
-                  ->append(" of file <span class=\"file\">'{$this->parsePath($traceRow["file"])}'</span>");
+        $err1 = '';
+        if (array_key_exists('line', $traceRow) && array_key_exists('file', $traceRow)) {
+          $err1 .= "<span class=\"note\">File:</span> <span class=\"path\">'{$this->parsePath($traceRow['file'])}'</span>";
+          $err1 .= " <span class=\"note\">({$traceRow['line']})</span>";
+        } else {
+          $err1 .= "[internal]:";
         }
-        $err1->append("" . $this->parseFunction($traceRow));
+        $err1 .= $this->parseFunction($traceRow);
         $output->append($err1);
       }
-    $k = "<pre>".  $this->throwable->getTraceAsString() . "</pre>";
-      $t = \Sphp\Stdlib\Parser::fromString($this->throwable->getTraceAsString(), 'md');
-      return '<h3 class"trace">Trace information:</h3>'.$k;
-      
+      return '<h3 class"trace">Trace information:</h3>' . $output;
     } else {
       return '';
     }
@@ -176,27 +171,54 @@ class ThrowableCallout extends Callout {
    * @param  string[] $trRow the trace row of the viewed {@link \Exception}
    * @return string the information about the method described in a trace row or null
    */
-  private function parseFunction(array $trRow): string {
-    echo "<pre>";
-    echo $this->throwable->getTraceAsString();
-    echo "</pre>";
-    $methodStr = "while executing ";
-    if (array_key_exists("class", $trRow)) {
-      $methodStr .= $this->parsePath($trRow["class"]);
+  protected function parseFunction(array $trRow): string {
+    $methodStr = '';
+    if (array_key_exists('class', $trRow)) {
+      $methodStr .= $this->parsePath($trRow['class']);
     }
-    if (array_key_exists("type", $trRow)) {
-      $methodStr .= $trRow["type"];
+    if (array_key_exists('type', $trRow)) {
+      $methodStr .= $trRow['type'];
     }
-    if (array_key_exists("function", $trRow)) {
-      $dl = new Dl();
-      $dl->appendTerms($methodStr . "{$trRow["function"]}():");
-      if (array_key_exists("args", $trRow)) {
-        $dl->appendDescriptions($trRow["args"]);
-      }
-      return "$dl";
+    if (array_key_exists('function', $trRow)) {
+      $methodStr .= "{$trRow['function']}";
+    }
+    if (array_key_exists('args', $trRow) && is_array($trRow['args'])) {
+      $methodStr .= $this->parseParams($trRow['args']);
     } else {
-      return '';
+      $methodStr .= '()';
     }
+    if (!empty($methodStr)) {
+      $methodStr = "<br><span class=\"note\">Call:</span> <span class=\"method\">$methodStr";
+    }
+    return $methodStr;
+  }
+
+  /**
+   * 
+   * @param  array $params
+   * @return string
+   */
+  protected function parseParams(array $params): string {
+    $p = [];
+    foreach ($params as $num => $arg) {
+      if (is_string($arg)) {
+        $string = $this->parsePath($arg);
+        $p[$num] = "'$string'";
+      } else if (is_bool($arg)) {
+        $p[$num] = ($arg) ? 'true' : 'false';
+      } else if (is_numeric($arg)) {
+        $p[$num] = $arg;
+      } else if (is_null($arg)) {
+        $p[$num] = 'null';
+      } else if (is_array($arg)) {
+        $p[$num] = 'array' . $this->parseParams($arg);
+      } else if (gettype($arg) === 'object') {
+        $p[$num] = 'object(' . get_class($arg) . ')';
+      } else {
+        $p[$num] = $arg;
+      }
+    }
+    return '(' . implode(', ', $p) . ')';
   }
 
   public function contentToString(): string {
@@ -209,6 +231,9 @@ class ThrowableCallout extends Callout {
     }
     if ($this->showTrace) {
       $output .= $this->buildTrace();
+    }
+    if ($this->showPreviousThrowable) {
+      $output .= $this->buildPreviousException();
     }
     return $output;
   }

@@ -1,8 +1,11 @@
 <?php
 
 /**
- * Modal.php (UTF-8)
- * Copyright (c) 2014 Sami Holck <sami.holck@gmail.com>
+ * SPHPlayground Framework (http://playgound.samiholck.com/)
+ *
+ * @link      https://github.com/samhol/SPHP-framework for the source repository
+ * @copyright Copyright (c) 2007-2018 Sami Holck <sami.holck@gmail.com>
+ * @license   https://opensource.org/licenses/MIT The MIT License
  */
 
 namespace Sphp\Html\Foundation\Sites\Containers;
@@ -121,6 +124,15 @@ class Modal implements Content, ClosableInterface {
 
   public function setClosable($closable = true) {
     $this->getPopup()->setClosable($closable);
+    return $this;
+  }
+
+  public function useOverLay(bool $use = true) {
+    if ($use) {
+      $this->getPopup()->removeAttribute('data-overlay');
+    } else {
+      $this->getPopup()->setAttribute('data-overlay', 'false');
+    }
     return $this;
   }
 

@@ -1,9 +1,11 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * SPHPlayground Framework (http://playgound.samiholck.com/)
+ *
+ * @link      https://github.com/samhol/SPHP-framework for the source repository
+ * @copyright Copyright (c) 2007-2018 Sami Holck <sami.holck@gmail.com>
+ * @license   https://opensource.org/licenses/MIT The MIT License
  */
 
 namespace Sphp\Html\Media\Icons;
@@ -13,11 +15,15 @@ use Sphp\Stdlib\Networks\RemoteResource;
 /**
  * Description of SVGLoader
  *
- * @author samih
+ * @author  Sami Holck <sami.holck@gmail.com>
+ * @license https://opensource.org/licenses/MIT The MIT License
+ * @filesource
  */
 class Svg implements \Sphp\Html\Content, IconInterface {
 
   use \Sphp\Html\ContentTrait;
+
+  private static $src = [];
 
   public function __construct(string $svg, string $sreenreaderLabel = null) {
     $this->svg = $svg;
@@ -40,21 +46,25 @@ class Svg implements \Sphp\Html\Content, IconInterface {
   }
 
   public static function fromUrl(string $url, string $sreenreaderLabel = null): Svg {
-    if (RemoteResource::exists($url)) {
-      $opts = array('http' =>
-          array(
-              'method' => 'GET',
-              'timeout' => 5
-          )
-      );
+    if (!array_key_exists($url, self::$src)) {
+      if (RemoteResource::exists($url)) {
+        $opts = array('http' =>
+            array(
+                'method' => 'GET',
+                'timeout' => 5
+            )
+        );
 
-      $context = stream_context_create($opts);
-      $svg = file_get_contents($url, false, $context);
-      return new static($svg, $sreenreaderLabel);
+        $context = stream_context_create($opts);
+        self::$src[$url] = file_get_contents($url, false, $context);
+      } else {
+        self::$src[$url] = '<svg></svg>';
+      }
+
       //throw new \Sphp\Exceptions\InvalidArgumentException("fucked up remote file ($url)");
-    } else {
-      return new static('<svg></svg>');
     }
+
+    return new static(self::$src[$url], $sreenreaderLabel);
   }
 
 }

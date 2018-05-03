@@ -11,9 +11,10 @@ use Sphp\Samiholck\MVC\TitleGenerator;
 
 $redirect = filter_input(INPUT_SERVER, 'REDIRECT_URL', FILTER_SANITIZE_URL);
 
-use Sphp\Stdlib\Path;
 
 $html = Document::html();
+$head = Document::head();
+$body = Document::body();
 
 $titleGenerator = new TitleGenerator($titles);
 
@@ -24,39 +25,31 @@ $title = $titleGenerator->createTitleFor($redirect);
 Document::html()->setLanguage('en')->setDocumentTitle($title);
 
 use Sphp\Html\Head\Meta;
+use Sphp\Html\Head\Link;
 
 $html->enableSPHP()
         ->setViewport('width=device-width, initial-scale=1.0')
         ->useFontAwesome();
-Document::head()
-        ->addMeta(Meta::charset('UTF-8'))
-        ->addCssSrc('css/intro/styles.all.css')
-        ->addCssSrc('https://cdnjs.cloudflare.com/ajax/libs/motion-ui/1.1.1/motion-ui.min.css')
-        // ->useFontAwesome()
-        //->useFoundationIcons()
-        //->addCssSrc('css/styles.all.css')
-        //->addCssSrc('https://cdn.rawgit.com/konpa/devicon/master/devicon.min.css')
-        ->setBaseAddr(Path::get()->http(), '_self')
-        ->addShortcutIcon('http://www.samiholck.com/samiholck/pics/S-logo.png')
-        ->add(Head\Link::create('http://www.samiholck.com/samiholck/pics/apple-touch-icon.png', 'apple-touch-icon'))
-        ->addMeta(Meta::author('Sami Holck'))
-        ->addMeta(Meta::keywords([
-                    'php',
-                    'scss',
-                    'css',
-                    'html',
-                    'html5',
-                    'foundation',
-                    'JavaScript',
-                    'DOM',
-                    'Web development',
-                    'tutorials',
-                    'programming',
-                    'references',
-                    'examples',
-                    'source code',
-                    'tips']))
-        ->addMeta(Meta::description('Personal homepage of Sami Holck'));
+$head->setBaseAddr('http://www.samiholck.com/', '_self');
+
+$head->setCssSrc('http://www.samiholck.com/css/intro/styles.all.css');
+$head->setCssSrc('https://cdnjs.cloudflare.com/ajax/libs/motion-ui/1.1.1/motion-ui.min.css');
+$head->setCssSrc('https://cdn.rawgit.com/konpa/devicon/master/devicon.min.css');
+
+$head->set(Link::appleTouchIcon('/apple-touch-icon.png'));
+$head->set(Link::icon('/favicon-32x32.png', '32x32'));
+$head->set(Link::icon('/favicon-16x16.png', '16x16'));
+$head->set(Link::manifest('/site.webmanifest'));
+$head->set(Link::maskIcon('/safari-pinned-tab.svg', '#5bbad5'));
+$head->set(Meta::namedContent('msapplication-TileColor', '#f1f1f1'));
+$head->set(Meta::namedContent('theme-color', '#f1f1f1'));
+$head->set(Meta::author('Sami Holck'));
+$head->set(Meta::keywords(['sami', 'holck', 'css', 'html', 'html5', 'framework',
+            'JavaScript', 'DOM', 'Web development', 'tutorials', 'programming',
+            'references', 'examples', 'source code', 'demos', 'tips']));
+$head->set(Meta::description('Personal homepage of Sami Holck'));
+
+$html->useFontAwesome();
 /* if ($redirect === 'contactTest') {
   Document::html()->scripts()->appendSrc('https://www.google.com/recaptcha/api.js')->setAsync()->setDefer();
   } */
