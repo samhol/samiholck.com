@@ -6,7 +6,9 @@ error_reporting(E_ALL);
 ini_set("display_errors", "1");
 
 require_once('samiholck/settings.php');
+
 use Sphp\Samiholck\MVC\TitleGenerator;
+
 $redirect = filter_input(INPUT_SERVER, 'REDIRECT_URL', FILTER_SANITIZE_URL);
 
 use Sphp\Stdlib\Path;
@@ -82,7 +84,7 @@ $cacheSuffix = str_replace(['.', '/'], ['-', ''], $redirect) . "-cache";
             <h3>Burning desire</h3>
             <p>I do WEB desing related things almost every day. Web is my passion 
               and hobby and hopefully also a work soon!</p>
-            <a href="#" class="button yellow">Mattis Elit</a>
+            <a href="#" class="button yellow">Contact me</a>
           </figcaption>
         </figure>
       </li>
@@ -94,11 +96,11 @@ $cacheSuffix = str_replace(['.', '/'], ['-', ''], $redirect) . "-cache";
             <p>I am comfortable working with all the technologies required to get 
               a WEB application to a finished product. I am familiar with all the 
               layers of WEB development... and I have fair knowledge of Networking, 
-              Database, User Interface , API, Security etc.</p>
+              Databases, Security etc....</p>
             <div class="button-group">
-              <a href="#" class="button yellow">php.net</a>
+              <a href="#" class="button yellow"><i class="fab fa-php"></i> php.net</a>
               <a href="#" class="button yellow">w3c.org</a>
-              <a href="#" class="button yellow">javascript.com</a>
+              <a href="#" class="button yellow"><i class="fab fa-js-square"></i> javascript.com</a>
             </div>
           </figcaption>
         </figure> 
@@ -108,11 +110,12 @@ $cacheSuffix = str_replace(['.', '/'], ['-', ''], $redirect) . "-cache";
           <img class="orbit-image" src="intro/project.jpg" alt="Painting the barn">
           <figcaption class="orbit-caption">
             <h3>Projects</h3>
-            <p>I have been working with several WEB sites and WEB related projects.</p>
+            <p>I have been working with several WEB sites and WEB related projects, like...</p>
             <div class="button-group">
+              <a href="http:www.samiholck.com/" class="button yellow">GitHub</a>
               <a href="http:www.samiholck.com/" class="button yellow">samiholck.com</a>
               <a href="http:playground.samiholck.com/" class="button yellow">SPHPlayground</a>
-              <a href="#" class="button yellow">Raision veneseura</a>
+              <a href="http://raisionveneseura.fi/" class="button yellow">Raision veneseura</a>
             </div>
           </figcaption>
         </figure>
@@ -120,9 +123,9 @@ $cacheSuffix = str_replace(['.', '/'], ['-', ''], $redirect) . "-cache";
     </ul>
   </div>
   <nav class="orbit-bullets">
-    <button class="is-active" data-slide="1"><span class="show-for-sr">Lorem Ipsum Etiam</span></button>
-    <button data-slide="2"><span class="show-for-sr">Lorem Ipsum Etiam</span></button>
-    <button data-slide="3"><span class="show-for-sr">Lorem Ipsum Etiam</span></button>
+    <button class="is-active" data-slide="0"><span class="show-for-sr">Burning Desire</span></button>
+    <button data-slide="1"><span class="show-for-sr">Full Stack Web Developer</span></button>
+    <button data-slide="2"><span class="show-for-sr">Projects</span></button>
   </nav>
 </div>
 
