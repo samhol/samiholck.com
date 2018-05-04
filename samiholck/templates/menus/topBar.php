@@ -54,8 +54,8 @@
           <li class="menu-ruler"></li>
           <li><a href="http://www.raisionveneseura.fi">Raision veneseura</a></li>
           <li class="menu-text">Past: <i class="fas fa-ban fa-pull-right"></i></li>
-          <li><a href="http://www.samiholck.com/archive/keiju">Keijupäiväkodit</i></a></li>
-          <li><a href="http://www.samiholck.com/archive/unikoris">Unikoris</i></a></li>
+          <li><a href="http://www.samiholck.com/archive/keiju">Keijupäiväkodit</a></li>
+          <li><a href="http://www.samiholck.com/archive/unikoris">Unikoris</a></li>
           <li><a href="http://www.samiholck.com/archive/dvdlabra">DVD laboratorio</a></li>
         </ul>
       </li>

@@ -19,7 +19,7 @@ use Sphp\Html\Head\Link;
 $html->enableSPHP()
         ->setViewport('width=device-width, initial-scale=1.0')
         ->useFontAwesome();
-$head->setBaseAddr('http://www.samiholck.com/', '_self');
+//$head->setBaseAddr('http://www.samiholck.com/', '_self');
 
 $head->setCssSrc('http://www.samiholck.com/css/styles.all.css');
 $head->setCssSrc('https://cdnjs.cloudflare.com/ajax/libs/motion-ui/1.1.1/motion-ui.min.css');
