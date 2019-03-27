@@ -1,4 +1,12 @@
-
+ .sphp-tech-slick .sphp-info-button {
+      display: none;
+    }
+    .sphp-tech-slick .sphp-info-button:first-child {
+      display: block;
+    }
+    .sphp-tech-slick.slick-initialized .sphp-info-button {
+      display: block;
+    }
 .sphp-slick-container {
   padding: rem-calc(1 10);
 }
