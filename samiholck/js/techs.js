@@ -67,15 +67,15 @@ $(function () {
     ]
   });
   /*var $output = $("#explanation");
-  $(".sphp-tech-slick .sphp-info-button").on("click", function () {
-    var $this = $(this), $div,
-            $obj = $this.attr("data-tech");
-    $output.load("samiholck/templates/carousels/content/skills-parsed.php #" + $obj);
-    $this.addClass('sphp-is-active');
-    console.log('sphp-is-active : ' + $obj);
-    $this.siblings().removeClass('sphp-is-active');
-    //$div = $('#info-modal');
-    //$div.centerTo($('body main'), true);
-  });*/
+   $(".sphp-tech-slick .sphp-info-button").on("click", function () {
+   var $this = $(this), $div,
+   $obj = $this.attr("data-tech");
+   $output.load("samiholck/templates/carousels/content/skills-parsed.php #" + $obj);
+   $this.addClass('sphp-is-active');
+   console.log('sphp-is-active : ' + $obj);
+   $this.siblings().removeClass('sphp-is-active');
+   //$div = $('#info-modal');
+   //$div.centerTo($('body main'), true);
+   });*/
 
 });
